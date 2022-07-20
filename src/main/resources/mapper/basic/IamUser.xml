@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.base.basic.infra.mapper.UserMapper">
+    <resultMap id="BaseResultMap" type="com.base.basic.domain.entity.v0.IamUser">
+        <result column="id" property="id" jdbcType="DECIMAL"/>
+        <result column="login_name" property="loginName" jdbcType="VARCHAR"/>
+        <result column="email" property="email" jdbcType="VARCHAR"/>
+        <result column="organization_id" property="organizationId" jdbcType="DECIMAL"/>
+        <result column="HASH_PASSWORD" property="hashPassword" jdbcType="VARCHAR"/>
+        <result column="real_name" property="realName" jdbcType="VARCHAR"/>
+        <result column="phone" property="phone" jdbcType="VARCHAR"/>
+        <result column="INTERNATIONAL_TEL_CODE" property="internationalTelCode" jdbcType="VARCHAR"/>
+        <result column="language" property="language" jdbcType="VARCHAR"/>
+        <result column="time_zone" property="timeZone" jdbcType="VARCHAR"/>
+        <result column="object_version_number" property="objectVersionNumber" jdbcType="DECIMAL"/>
+        <result column="creation_date" property="creationDate" jdbcType="TIMESTAMP"/>
+        <result column="created_by" property="createdBy" jdbcType="DECIMAL"/>
+        <result column="last_updated_by" property="lastUpdatedBy" jdbcType="DECIMAL"/>
+        <result column="last_update_date" property="lastUpdateDate" jdbcType="TIMESTAMP"/>
+    </resultMap>
+    <select id="list" parameterType="com.base.basic.domain.entity.v0.IamUser" resultMap="BaseResultMap">
+        select iu.id,
+        iu.login_name,
+        iu.email,
+        iu.organization_id,
+        iu.HASH_PASSWORD,
+        iu.real_name,
+        iu.phone,
+        iu.INTERNATIONAL_TEL_CODE,
+        iu.language,
+        iu.time_zone,
+        iu.object_version_number,
+        iu.created_by,
+        iu.creation_date,
+        iu.last_updated_by,
+        iu.last_update_date
+        from iam_user iu
+        where 1 = 1
+        <if test="null != loginName and '' != loginName">
+            and iu.login_name like concat('%', concat(#{loginName, jdbcType = VARCHAR}, '%'))
+        </if>
+        <if test="null != realName and '' != realName">
+            and iu.real_name like concat('%', concat(#{realName, jdbcType = VARCHAR}, '%'))
+        </if>
+    </select>
+
+    <select id="detail" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select iu.id,
+        iu.login_name,
+        iu.email,
+        iu.organization_id,
+        iu.HASH_PASSWORD,
+        iu.real_name,
+        iu.phone,
+        iu.INTERNATIONAL_TEL_CODE,
+        iu.language,
+        iu.time_zone,
+        iu.object_version_number,
+        iu.created_by,
+        iu.creation_date,
+        iu.last_updated_by,
+        iu.last_update_date
+        from iam_user iu
+        where 1 = 1
+        <if test="null != userId">
+            and iu.id = #{userId, jdbcType = DECIMAL}
+        </if>
+        limit 1
+    </select>
+</mapper>
