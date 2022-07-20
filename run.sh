@@ -2,8 +2,8 @@ echo ">>> 刷新环境变量"
 source /etc/profile
 
 # 指定后端目录/jar包名为app/端口号
-dirName='basic'
-port=8086
+dirName='base'
+port=10010
 
 echo ">>> 定位服务位置"
 cd /home/spring-cloud/$dirName
@@ -30,4 +30,4 @@ echo ">>> cd target"
 cd target
 
 echo ">>> start"
-nohup java -jar -Xms512m -Xmx1024m /home/spring-cloud/$(dirName)/target/basic.jar > basic.log &
+nohup java -jar -Xms512m -Xmx1024m /home/spring-cloud/$(dirName)/target/base.jar > base.log &

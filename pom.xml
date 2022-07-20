@@ -10,10 +10,10 @@
     </parent>
 
     <groupId>com.base</groupId>
-    <artifactId>base-basic</artifactId>
+    <artifactId>base</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <packaging>jar</packaging>
-    <name>base-basic</name>
+    <name>base</name>
 
     <properties>
         <java.version>1.8</java.version>
@@ -127,7 +127,7 @@
     </dependencies>
 
     <build>
-        <finalName>basic</finalName>
+        <finalName>base</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
