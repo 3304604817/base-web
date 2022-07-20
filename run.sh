@@ -3,7 +3,7 @@ source /etc/profile
 
 # 指定后端目录/jar包名为app/端口号
 dirName='base'
-port=10010
+port=80
 
 echo ">>> 定位服务位置"
 cd /home/spring-cloud/$dirName

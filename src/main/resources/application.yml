@@ -1,5 +1,5 @@
 server:
-  port: 10010
+  port: 80
   servlet:
     # 项目虚拟路径
     context-path: /
