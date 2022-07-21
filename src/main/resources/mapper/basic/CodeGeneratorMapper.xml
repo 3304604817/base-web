@@ -17,10 +17,10 @@
         FROM information_schema.TABLES
         WHERE table_schema NOT IN ('information_schema','performance_schema','mysql','sys')
         <if test="null != tableSchema and '' != tableSchema">
-            AND table_schema LIKE CONCAT(#{tableSchema, jdbcType = VARCHAR}, '%')
+            AND table_schema LIKE CONCAT('%', CONCAT(#{tableSchema, jdbcType = VARCHAR}, '%'))
         </if>
         <if test="null != tableName and '' != tableName">
-            AND table_schema LIKE CONCAT(#{tableName, jdbcType = VARCHAR}, '%')
+            AND table_schema LIKE CONCAT('%', CONCAT(#{tableName, jdbcType = VARCHAR}, '%'))
         </if>
     </select>
 </mapper>
