@@ -6,7 +6,7 @@
         <result column="table_schema" property="tableSchema" jdbcType="VARCHAR"/>
         <result column="table_name" property="tableName" jdbcType="VARCHAR"/>
         <result column="table_comment" property="tableComment" jdbcType="VARCHAR"/>
-        <result column="create_time" property="createTime" jdbcType="DATE"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
     </resultMap>
 
     <select id="list" resultMap="BaseResultMap">
