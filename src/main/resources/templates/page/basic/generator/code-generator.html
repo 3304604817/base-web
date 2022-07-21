@@ -26,10 +26,10 @@
             </div>
         </fieldset>
 
-        <script type="text/html" id="toolbarDemo">
+        <script type="text/html" id="toolbarHead">
             <div class="layui-btn-container">
-<!--                <button class="layui-btn layui-btn-normal layui-btn-sm data-add-btn" lay-event="add"> 添加 </button>-->
-<!--                <button class="layui-btn layui-btn-sm layui-btn-danger data-delete-btn" lay-event="delete"> 删除 </button>-->
+                <button class="layui-btn layui-btn-normal layui-btn-sm data-add-btn" lay-event="mvc"> 生成MVC模型 </button>
+                <button class="layui-btn layui-btn-normal layui-btn-sm data-add-btn" lay-event="ddd"> 生成DDD模型 </button>
             </div>
         </script>
 
@@ -44,11 +44,13 @@
             form = layui.form,
             table = layui.table,
             miniPage = layui.miniPage;
+        // 存储已勾选的数据
+        let checkedList = new Array();
 
         table.render({
             elem: '#currentTableId',
             url: basicPath + '/code-generator/list',
-            toolbar: '#toolbarDemo',
+            toolbar: '#toolbarHead',
             defaultToolbar: ['filter', 'exports', 'print', {
                 title: '提示',
                 layEvent: 'LAYTABLE_TIPS',
@@ -85,6 +87,37 @@
         //监听表格复选框选择
         table.on('checkbox(currentTableFilter)', function (obj) {
             console.log(obj)
+
+            if(obj.checked && "all" == obj.type){
+                // 全选
+            }else if(!obj.checked && "all" == obj.type){
+                // 取消全选
+
+            }else if(obj.checked && "one" == obj.type){
+                // 单个勾选
+                checkedList.push(obj.data);
+            }else if(!obj.checked && "one" == obj.type){
+                // 取消单个勾选
+                for(let i = 0; i < checkedList.length; i++){
+                    if (checkedList[i] == obj.data){
+                        console.log(obj.data);
+                    }
+                }
+            }
+        });
+
+        /**
+         * toolbar事件监听，新增
+         */
+        table.on('toolbar(currentTableFilter)', function (obj) {
+            // 数据传输-传输之前先清缓存
+            window.formData = null;
+            if (obj.event === 'mvc') {   // 监听mvc操作
+                console.log(obj)
+                alert("生成MVC模型");
+            } else if (obj.event === 'ddd') {  // 监听ddd操作
+                alert("敬请期待");
+            }
         });
     });
 </script>
