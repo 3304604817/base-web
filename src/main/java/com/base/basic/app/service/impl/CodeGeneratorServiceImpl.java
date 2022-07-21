@@ -68,7 +68,7 @@ public class CodeGeneratorServiceImpl implements CodeGeneratorService {
             VelocityContext context = new VelocityContext(map);
 
             List<String> templates = new ArrayList<String>();
-            templates.add("templates/end/mvc/Entity.java.vm");
+            templates.add("/Entity.java.vm");
             for (String template : templates) {
                 // 渲染模板
                 StringWriter sw = new StringWriter();
