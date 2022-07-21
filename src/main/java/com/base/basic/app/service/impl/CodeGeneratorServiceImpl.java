@@ -4,15 +4,22 @@ import com.base.basic.app.service.CodeGeneratorService;
 import com.base.basic.domain.vo.v0.ColumnVO;
 import com.base.basic.domain.vo.v0.TableVO;
 import com.base.basic.infra.mapper.CodeGeneratorMapper;
+import com.base.common.util.convert.StringConvertUtil;
 import com.base.common.util.page.PageParmaters;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import org.apache.tomcat.util.http.fileupload.IOUtils;
+import org.apache.commons.io.IOUtils;
+import org.apache.velocity.Template;
+import org.apache.velocity.VelocityContext;
+import org.apache.velocity.app.Velocity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.ByteArrayOutputStream;
-import java.util.List;
+import java.io.IOException;
+import java.io.StringWriter;
+import java.util.*;
+import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
 @Service
@@ -32,58 +39,49 @@ public class CodeGeneratorServiceImpl implements CodeGeneratorService {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         ZipOutputStream zip = new ZipOutputStream(outputStream);
         for(TableVO tableVO:tableVOS){
-            String className = tableToClass(tableVO.getTableName());
+            String className = StringConvertUtil.pascalCase(tableVO.getTableName());
 
             // 获取字段信息
+            // 主键列
+            ColumnVO pkColumnVO = new ColumnVO();
             List<ColumnVO> columnVOS = codeGeneratorMapper.columnList(tableVO.getTableName());
             for(ColumnVO columnVO:columnVOS){
-                columnVO.setColumnName(columnToJava(columnVO.getColumnName()));
+                columnVO.setCamelColumnName(StringConvertUtil.camelCase(columnVO.getColumnName()));
+                columnVO.setPascalColumnName(StringConvertUtil.pascalCase(columnVO.getColumnName()));
+                if("PRI".equals(columnVO.getColumnKey())){
+                    pkColumnVO = columnVO;
+                }
             }
 
 
-            System.out.println(columnVOS);
+
+            Map<String, Object> map = new HashMap<>();
+            map.put("package", "org.base");
+            map.put("columns", columnVOS);
+            map.put("tableName", tableVO.getTableName());
+            map.put("className", className);
+            map.put("pk", pkColumnVO);
+            VelocityContext context = new VelocityContext(map);
+
+            List<String> templates = new ArrayList<String>();
+            templates.add("templates/end/mvc/Entity.java.vm");
+            for (String template : templates) {
+                // 渲染模板
+                StringWriter sw = new StringWriter();
+                Template tpl = Velocity.getTemplate(template, "UTF-8");
+                tpl.merge(context, sw);
+
+                try {
+                    // 添加到zip
+                    zip.putNextEntry(new ZipEntry("111"));
+                    IOUtils.write(sw.toString(), zip, "UTF-8");
+                    IOUtils.closeQuietly(sw);
+                    zip.closeEntry();
+                } catch (IOException e) {
+                }
+            }
         }
         IOUtils.closeQuietly(zip);
         return outputStream.toByteArray();
-    }
-
-    /**
-     * 表名转类名
-     * @param tableName
-     * @return
-     */
-    public String tableToClass(String tableName){
-        // 统一先转成小写
-        tableName = tableName.toLowerCase();
-        // 首字母转大写
-        tableName = new StringBuilder(tableName.substring(0, 1).toUpperCase())
-                .append(tableName.substring(1))
-                .toString();
-        // _ 转驼峰
-        while (tableName.contains("_")){
-            int index = tableName.indexOf('_');
-            tableName = new StringBuilder(tableName.substring(0, index))
-                    .append(tableName.substring(index + 1, index + 2).toUpperCase())
-                    .append(tableName.substring(index + 2)).toString();
-        }
-        return tableName;
-    }
-
-    /**
-     * 表名转类名
-     * @param columnName
-     * @return
-     */
-    public String columnToJava(String columnName){
-        // 统一先转成小写
-        columnName = columnName.toLowerCase();
-        // _ 转驼峰
-        while (columnName.contains("_")){
-            int index = columnName.indexOf('_');
-            columnName = new StringBuilder(columnName.substring(0, index))
-                    .append(columnName.substring(index + 1, index + 2).toUpperCase())
-                    .append(columnName.substring(index + 2)).toString();
-        }
-        return columnName;
     }
 }

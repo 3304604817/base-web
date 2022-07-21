@@ -32,7 +32,7 @@
         <result column="column_key" property="columnKey" jdbcType="VARCHAR"/>
         <result column="column_comment" property="columnComment" jdbcType="VARCHAR"/>
     </resultMap>
-    <select id="columnList" parameterType="com.base.basic.domain.vo.v0.TableVO" resultMap="TableResultMap">
+    <select id="columnList" resultMap="ColumnResultMap">
         SELECT table_schema,
                table_name,
                column_name,
