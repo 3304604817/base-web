@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.base.basic.infra.mapper.CodeGeneratorMapper">
+    <!-- 可根据自己的需求，是否要使用 -->
+    <resultMap id="BaseResultMap" type="com.base.basic.domain.vo.v0.TableVO">
+        <result column="table_schema" property="tableSchema" jdbcType="VARCHAR"/>
+        <result column="table_name" property="tableName" jdbcType="VARCHAR"/>
+        <result column="table_comment" property="tableComment" jdbcType="VARCHAR"/>
+        <result column="create_time" property="createTime" jdbcType="DATE"/>
+    </resultMap>
+
+    <select id="list" resultMap="BaseResultMap">
+        SELECT table_schema,
+               table_name,
+               table_comment,
+               create_time
+        FROM information_schema.TABLES
+        WHERE table_schema NOT IN ('information_schema','performance_schema','mysql','sys')
+        <if test="null != dbName and '' != dbName">
+            AND table_schema LIKE CONCAT(#{dbName, jdbcType = VARCHAR}, '%')
+        </if>>
+    </select>
+</mapper>
