@@ -18,6 +18,6 @@
         WHERE table_schema NOT IN ('information_schema','performance_schema','mysql','sys')
         <if test="null != dbName and '' != dbName">
             AND table_schema LIKE CONCAT(#{dbName, jdbcType = VARCHAR}, '%')
-        </if>>
+        </if>
     </select>
 </mapper>
