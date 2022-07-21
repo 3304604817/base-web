@@ -1,6 +1,28 @@
 <div class="layuimini-container layuimini-page-anim">
     <div class="layuimini-main">
-
+        <fieldset class="table-search-fieldset">
+            <legend>代码初始化信息</legend>
+            <div style="margin: 10px 10px 10px 10px">
+                <form class="layui-form layui-form-pane" action="">
+                    <div class="layui-form-item">
+                        <div class="layui-inline">
+                            <label class="layui-form-label">包路径</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="pkgPath" placeholder="如com.base.basic" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <div class="layui-inline">
+                            <label class="layui-form-label">作者</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="author" placeholder="邮箱" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </fieldset>
         <fieldset class="table-search-fieldset">
             <legend>搜索信息</legend>
             <div style="margin: 10px 10px 10px 10px">
@@ -86,29 +108,31 @@
 
         //监听表格复选框选择
         table.on('checkbox(currentTableFilter)', function (obj) {
-            if(obj.checked && "all" == obj.type){
-                // 全选
-            }else if(!obj.checked && "all" == obj.type){
-                // 取消全选
-            }else if(obj.checked && "one" == obj.type){
-                // 单个勾选
-                checkedList.push(obj.data);
-            }else if(!obj.checked && "one" == obj.type){
-                // 取消单个勾选
-                checkedList = new Array();
-            }
-            console.log(checkedList);
+            console.log(obj);
         });
 
         /**
          * toolbar事件监听，新增
          */
         table.on('toolbar(currentTableFilter)', function (obj) {
-            // 数据传输-传输之前先清缓存
-            window.formData = null;
+            /**
+             * 获取 checkbox 控件选中的数据
+             */
+            var checkStatus = table.checkStatus('currentTableId')
+            var data = checkStatus.data;
+
             if (obj.event === 'mvc') {   // 监听mvc操作
-                console.log(obj)
-                alert("生成MVC模型");
+                $.ajax({
+                    type: 'post',
+                    url: basicPath + '/code-generator/mvc',
+                    dataType: 'json',
+                    contentType: 'application/json',
+                    data: JSON.stringify(data),
+                    cache: false,
+                    async: false,
+                    success: function (data) {
+                    }
+                });
             } else if (obj.event === 'ddd') {  // 监听ddd操作
                 alert("敬请期待");
             }

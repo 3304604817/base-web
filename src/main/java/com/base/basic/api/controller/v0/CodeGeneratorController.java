@@ -12,6 +12,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Api(tags="代码生成")
 @RestController
 @RequestMapping("/code-generator")
@@ -30,11 +32,8 @@ public class CodeGeneratorController {
     @ApiOperation(value = "生成MVC代码模型")
     @PostMapping("/mvc")
     @Access(accessNoToken = true)
-    public ResponseEntity mvc(@RequestParam(value = "author", required = true) String author,
-                                  @RequestParam(value = "pkg", required = true) String pkg,
-                                  @RequestParam(value = "dbName", required = true) String dbName,
-                                  @RequestParam(value = "tableName", required = true) String tableName) {
-
+    public ResponseEntity mvc(@RequestBody List<TableVO> tableVOS) {
+        codeGeneratorService.mvcGenerator(tableVOS);
         return new ResponseEntity(HttpStatus.OK);
     }
 }

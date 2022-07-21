@@ -18,4 +18,10 @@ public class TableVO {
 
     // 创建时间
     private Date createTime;
+
+    // 作者
+    private String author;
+
+    // 包路径
+    private String pkgPath;
 }
