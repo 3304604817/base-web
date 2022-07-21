@@ -86,24 +86,18 @@
 
         //监听表格复选框选择
         table.on('checkbox(currentTableFilter)', function (obj) {
-            console.log(obj)
-
             if(obj.checked && "all" == obj.type){
                 // 全选
             }else if(!obj.checked && "all" == obj.type){
                 // 取消全选
-
             }else if(obj.checked && "one" == obj.type){
                 // 单个勾选
                 checkedList.push(obj.data);
             }else if(!obj.checked && "one" == obj.type){
                 // 取消单个勾选
-                for(let i = 0; i < checkedList.length; i++){
-                    if (checkedList[i] == obj.data){
-                        console.log(obj.data);
-                    }
-                }
+                checkedList = new Array();
             }
+            console.log(checkedList);
         });
 
         /**
