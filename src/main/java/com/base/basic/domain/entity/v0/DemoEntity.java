@@ -1,16 +1,14 @@
 package com.base.basic.domain.entity.v0;
 
-import com.base.basic.domain.entity.v0.base.BaseEntity;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import tk.mybatis.mapper.annotation.Version;
 
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.util.Date;
 
-@Data
-@EqualsAndHashCode
 @Table(name = "iam_user")
-public class IamUser extends BaseEntity {
+public class DemoEntity {
+
     public static final String FIELD_ID = "id";
     public static final String FIELD_LOGIN_NAME = "loginName";
     public static final String FIELD_EMAIL = "email";
@@ -24,6 +22,11 @@ public class IamUser extends BaseEntity {
     public static final String FIELD_IS_ENABLED = "isEnabled";
     public static final String FIELD_IS_LOCKED = "isLocked";
     public static final String FIELD_USER_TYPE = "userType";
+    public static final String FIELD_OBJECT_VERSION_NUMBER = "objectVersionNumber";
+    public static final String FIELD_CREATE_BY = "createdBy";
+    public static final String FIELD_CREATION_DATE = "creationDate";
+    public static final String FIELD_LAST_UPDATED_BY = "lastUpdatedBy";
+    public static final String FIELD_LAST_UPDATE_BY = "lastUpdateDate";
 
     @Id
     private Long id;
@@ -52,9 +55,14 @@ public class IamUser extends BaseEntity {
 
     private String userType;
 
-    public IamUser(){}
+    @Version
+    private Long objectVersionNumber;
 
-    public IamUser(String loginName){
-        this.loginName = loginName;
-    }
+    private Long createdBy;
+
+    private Date creationDate;
+
+    private Long lastUpdatedBy;
+
+    private Date lastUpdateDate;
 }
