@@ -18,6 +18,6 @@ public class CodeGeneratorServiceImpl implements CodeGeneratorService {
 
     @Override
     public PageInfo<TableVO> pageList(PageParmaters pageParmaters, TableVO tableVO){
-        return PageHelper.startPage(pageParmaters.getPage(), pageParmaters.getLimit()).doSelectPageInfo(() -> codeGeneratorMapper.list());
+        return PageHelper.startPage(pageParmaters.getPage(), pageParmaters.getLimit()).doSelectPageInfo(() -> codeGeneratorMapper.list(tableVO));
     }
 }

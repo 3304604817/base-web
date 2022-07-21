@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface CodeGeneratorMapper {
 
-    List<TableVO> list();
+    List<TableVO> list(TableVO tableVO);
 }

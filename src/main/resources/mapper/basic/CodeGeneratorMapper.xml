@@ -9,15 +9,18 @@
         <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
     </resultMap>
 
-    <select id="list" resultMap="BaseResultMap">
+    <select id="list" parameterType="com.base.basic.domain.vo.v0.TableVO" resultMap="BaseResultMap">
         SELECT table_schema,
                table_name,
                table_comment,
                create_time
         FROM information_schema.TABLES
         WHERE table_schema NOT IN ('information_schema','performance_schema','mysql','sys')
-        <if test="null != dbName and '' != dbName">
-            AND table_schema LIKE CONCAT(#{dbName, jdbcType = VARCHAR}, '%')
+        <if test="null != tableSchema and '' != tableSchema">
+            AND table_schema LIKE CONCAT(#{tableSchema, jdbcType = VARCHAR}, '%')
+        </if>
+        <if test="null != tableName and '' != tableName">
+            AND table_schema LIKE CONCAT(#{tableName, jdbcType = VARCHAR}, '%')
         </if>
     </select>
 </mapper>
