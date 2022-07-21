@@ -5,7 +5,8 @@ import com.alibaba.fastjson.JSON;
 public class StringConvertUtil {
 
     /**
-     * 帕斯卡命名法：字符转驼峰并首字母大写
+     * 帕斯卡命名法
+     * ObjectVersionNumber
      * @param tableName
      * @return
      */
@@ -27,7 +28,8 @@ public class StringConvertUtil {
     }
 
     /**
-     * 骆驼命名法：字符转驼峰
+     * 骆驼命名法
+     * objectVersionNumber
      * @param columnName
      * @return
      */

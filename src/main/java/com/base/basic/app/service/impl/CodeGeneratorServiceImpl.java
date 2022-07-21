@@ -12,6 +12,8 @@ import org.apache.commons.io.IOUtils;
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.Velocity;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +26,8 @@ import java.util.zip.ZipOutputStream;
 
 @Service
 public class CodeGeneratorServiceImpl implements CodeGeneratorService {
+
+    Logger logger = LoggerFactory.getLogger(CodeGeneratorServiceImpl.class);
 
     @Autowired
     @SuppressWarnings("all")
@@ -78,6 +82,7 @@ public class CodeGeneratorServiceImpl implements CodeGeneratorService {
                     IOUtils.closeQuietly(sw);
                     zip.closeEntry();
                 } catch (IOException e) {
+                    logger.error("{}", e);
                 }
             }
         }
