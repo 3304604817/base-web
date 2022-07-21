@@ -32,10 +32,14 @@ public class CodeGeneratorServiceImpl implements CodeGeneratorService {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         ZipOutputStream zip = new ZipOutputStream(outputStream);
         for(TableVO tableVO:tableVOS){
+            String className = tableToClass(tableVO.getTableName());
+
             // 获取字段信息
             List<ColumnVO> columnVOS = codeGeneratorMapper.columnList(tableVO.getTableName());
+            for(ColumnVO columnVO:columnVOS){
+                columnVO.setColumnName(columnToJava(columnVO.getColumnName()));
+            }
 
-            String className = tableToClass(tableVO.getTableName());
 
             System.out.println(columnVOS);
         }
@@ -71,6 +75,15 @@ public class CodeGeneratorServiceImpl implements CodeGeneratorService {
      * @return
      */
     public String columnToJava(String columnName){
+        // 统一先转成小写
+        columnName = columnName.toLowerCase();
+        // _ 转驼峰
+        while (columnName.contains("_")){
+            int index = columnName.indexOf('_');
+            columnName = new StringBuilder(columnName.substring(0, index))
+                    .append(columnName.substring(index + 1, index + 2).toUpperCase())
+                    .append(columnName.substring(index + 2)).toString();
+        }
         return columnName;
     }
 }
