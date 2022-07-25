@@ -5,7 +5,7 @@ import com.alibaba.fastjson.JSON;
 public class StringConvertUtil {
 
     /**
-     * 帕斯卡命名法
+     * 转帕斯卡命名法
      * ObjectVersionNumber
      * @param tableName
      * @return
@@ -28,7 +28,7 @@ public class StringConvertUtil {
     }
 
     /**
-     * 骆驼命名法
+     * 转骆驼命名法
      * objectVersionNumber
      * @param columnName
      * @return
