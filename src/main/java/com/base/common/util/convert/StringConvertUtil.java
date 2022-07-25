@@ -1,6 +1,7 @@
 package com.base.common.util.convert;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
 
 public class StringConvertUtil {
 
@@ -44,5 +45,14 @@ public class StringConvertUtil {
                     .append(columnName.substring(index + 2)).toString();
         }
         return columnName;
+    }
+
+    /**
+     * 字符数组转JSONArray
+     * @param arrayString
+     * @return
+     */
+    public static JSONArray convertJSONArray(String arrayString){
+        return JSONArray.parseArray(arrayString);
     }
 }

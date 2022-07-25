@@ -10,10 +10,20 @@ import com.alibaba.fastjson.JSONObject;
  */
 public class ObjectConvertUtil {
 
+    /**
+     * 对象转Json字符串
+     * @param o
+     * @return
+     */
     public static String convertString(Object o){
         return JSON.toJSONString(o);
     }
 
+    /**
+     * 对象转JSONObject
+     * @param o
+     * @return
+     */
     public static JSONObject convertJsonObject(Object o){
         return JSONObject.parseObject(JSON.toJSONString(o));
     }
