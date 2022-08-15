@@ -1,7 +1,7 @@
 package com.base.basic.api.controller.v0;
 
 import com.base.basic.app.service.LoginService;
-import com.base.basic.domain.entity.v0.BaseResponseEntity;
+import com.base.basic.domain.entity.v0.base.BaseResponseEntity;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Objects;
 
-import static com.base.basic.domain.entity.v0.BaseResponseEntity.*;
+import static com.base.basic.domain.entity.v0.base.BaseResponseEntity.*;
 
 @Api(tags="登录")
 @RestController

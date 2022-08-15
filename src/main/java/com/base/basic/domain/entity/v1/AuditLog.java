@@ -53,4 +53,7 @@ public class AuditLog extends BaseEntity {
 
     @ApiModelProperty(value = "用户名")
     private String loginName;
+
+    @ApiModelProperty(value = "备注")
+    private String remark;
 }

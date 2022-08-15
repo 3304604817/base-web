@@ -1,4 +1,4 @@
-package com.base.basic.domain.entity.v0;
+package com.base.basic.domain.entity.v0.base;
 
 import lombok.Data;
 

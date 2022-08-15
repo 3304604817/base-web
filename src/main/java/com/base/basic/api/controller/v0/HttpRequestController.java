@@ -7,6 +7,9 @@ import com.base.common.util.http.HttpUrlConnectionUtil;
 import com.base.common.util.jwt.annotation.Access;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -43,7 +47,7 @@ public class HttpRequestController {
          * responseType：接受返回 Body 的类，可以是具体业务实体类。这里 String.class 更加通用，方便后续可以自己转成任意对象
          * uriVariables：参数会按照顺序拼接到 {} 标签中
          */
-        ResponseEntity<String> getResult = restTemplate.getForEntity("http://localhost:8086/old-goods?name={name}", String.class, "iPhoneXS");
+        ResponseEntity<String> getResult = restTemplate.getForEntity("http://localhost/old-goods?name={name}", String.class, "iPhoneXS");
         logger.info("getResult {}", JSON.toJSONString(getResult));
 
         /**
@@ -52,7 +56,7 @@ public class HttpRequestController {
          * uriVariables：参数会按照顺序拼接到 {} 标签中
          */
         IamUser user = new IamUser(UUID.randomUUID().toString());
-        ResponseEntity<String> postResult = restTemplate.postForEntity("http://localhost:8086/user/insert", user, String.class);
+        ResponseEntity<String> postResult = restTemplate.postForEntity("http://localhost/user/insert", user, String.class);
         logger.info("postResult {}", JSON.toJSONString(postResult));
 
         return new ResponseEntity(HttpStatus.OK);
