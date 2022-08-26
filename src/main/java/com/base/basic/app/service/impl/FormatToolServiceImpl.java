@@ -10,6 +10,7 @@ import org.springframework.util.DigestUtils;
 
 import java.security.MessageDigest;
 import java.util.Base64;
+import java.util.UUID;
 
 @Service
 public class FormatToolServiceImpl implements FormatToolService {
@@ -59,6 +60,13 @@ public class FormatToolServiceImpl implements FormatToolService {
             e.printStackTrace();
             formatToolVO.setErrorMsg("加密失败");
         }
+        return formatToolVO;
+    }
+
+    @Override
+    public FormatToolVO uuidGenerate(FormatToolVO formatToolVO){
+        String uuid = UUID.randomUUID().toString();
+        formatToolVO.setOutputText(uuid);
         return formatToolVO;
     }
 }

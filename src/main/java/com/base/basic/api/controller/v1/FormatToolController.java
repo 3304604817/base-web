@@ -50,9 +50,9 @@ public class FormatToolController {
     }
 
     @ApiOperation(value = "UUID生成")
-    @PostMapping("/uuid")
+    @PostMapping("/uuid-generate")
     @Access(accessNoToken = true)
-    public FormatToolVO uuid(@RequestBody FormatToolVO formatToolVO) {
-        return formatToolService.base64Decrypt(formatToolVO);
+    public FormatToolVO uuidGenerate(@RequestBody FormatToolVO formatToolVO) {
+        return formatToolService.uuidGenerate(formatToolVO);
     }
 }
