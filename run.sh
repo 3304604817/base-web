@@ -6,7 +6,7 @@ dirName='base'
 port=80
 
 echo ">>> 定位服务位置"
-cd /home/spring-cloud/$dirName
+cd /home/app/baseapp/$dirName
 
 echo ">>> git pull"
 git pull
@@ -30,4 +30,4 @@ echo ">>> cd target"
 cd target
 
 echo ">>> start"
-nohup java -jar -Xms512m -Xmx1024m /home/spring-cloud/$(dirName)/target/base.jar > base.log &
+nohup java -jar -Xms512m -Xmx1024m /home/app/baseapp/$(dirName)/target/base.jar > base.log &
