@@ -28,21 +28,18 @@ public class OldGoodsController {
     @Autowired
     private OldGoodsService oldGoodsService;
 
-    @Access(accessNoToken = true)
     @ApiOperation(value = "商品列表")
     @GetMapping("")
     public LayJson<OldGoods> pageList(PageParmaters pageParmaters, OldGoods searchBody, @RequestParam(value = "param", required = false) String param) {
         return new LayJson<>(oldGoodsService.pageList(pageParmaters, searchBody));
     }
 
-    @Access(accessNoToken = true)
     @ApiOperation(value = "商品明细")
     @GetMapping("/detail/{id}")
     public OldGoods detail(@ApiParam(value = "id", required = true) @PathVariable("id") Long id) {
         return oldGoodsService.detail(id);
     }
 
-    @Access(accessNoToken = true)
     @ApiOperation(value = "商品创建/更新")
     @PostMapping("/save")
     public OldGoods save(@RequestBody OldGoods oldGoods) {
@@ -51,14 +48,12 @@ public class OldGoodsController {
 
     @ApiOperation(value = "商品导出")
     @GetMapping("/export")
-    @Access(accessNoToken = true)
     public String exportData(HttpServletResponse response){
         return oldGoodsService.exportData(response);
     }
 
     @ApiOperation(value = "商品导入")
     @PostMapping("/import")
-    @Access(accessNoToken = true)
     public String importData(@ApiParam(value="选择文件",required=true) @RequestPart("fileName") MultipartFile file){
         return oldGoodsService.importData(file);
     }

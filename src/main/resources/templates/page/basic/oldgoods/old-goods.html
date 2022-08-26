@@ -50,8 +50,11 @@
     </div>
 </div>
 
+<script src="lib/jquery-3.4.1/jquery-3.4.1.min.js" charset="utf-8"></script>
+<script src="lib/jq-module/jquery.cookie.js" charset="utf-8"></script>
 <script src="js/config.js"></script>
 <script>
+    var token = $.cookie("token");
     layui.use(['form', 'table','miniPage','element'], function () {
         var $ = layui.jquery,
             form = layui.form,
@@ -103,6 +106,9 @@
             table.reload('currentTableId', {
                 method: 'get',
                 url: basicPath + '/old-goods',
+                headers: {
+                    Authorization: "Bearer " + token,
+                },
                 page: {
                     // 重新从第一页开始
                     curr: 1

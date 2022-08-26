@@ -112,12 +112,12 @@
                     async: false,
                     success: function (data) {
                         if(data.code == 200){
-                            // 保存token到cookie中，并设置cookie八小时后过期
+                            // 保存token到cookie中，并设置cookie八小时后过期，在当前域名跟路径下一直生效
                             var cookietime = new Date();
                             cookietime.setTime(cookietime.getTime() + (8 * 60 * 60 * 1000)); // coockie保存一小时
-                            $.cookie('token', data.body, {expires: cookietime});
+                            $.cookie('token', data.body, {expires: cookietime, path: '/'});
 
-                            window.location = '../index.html';
+                            window.location.replace("../index.html");//  = '../index.html';
                         }else{
                             layer.msg('用户名或密码错误');
                         }
