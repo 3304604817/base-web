@@ -30,4 +30,4 @@ echo ">>> cd target"
 cd target
 
 echo ">>> start"
-nohup java -jar -Xms512m -Xmx1024m /home/app/baseapp/$(dirName)/target/base.jar > base.log &
+nohup java -jar -Xms512m -Xmx1024m /home/app/baseapp/$dirName/target/base.jar > base.log &
