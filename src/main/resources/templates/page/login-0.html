@@ -70,6 +70,7 @@
 <script src="../lib/jquery-3.4.1/jquery-3.4.1.min.js" charset="utf-8"></script>
 <script src="../lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
 <script src="../lib/jq-module/jquery.particleground.min.js" charset="utf-8"></script>
+<script src="../lib/jq-module/jquery.cookie.js" charset="utf-8"></script>
 <script src="../js/config.js"></script>
 <script>
     layui.use(['form'], function () {
@@ -111,6 +112,11 @@
                     async: false,
                     success: function (data) {
                         if(data.code == 200){
+                            // 保存token到cookie中，并设置cookie八小时后过期
+                            var cookietime = new Date();
+                            cookietime.setTime(cookietime.getTime() + (8 * 60 * 60 * 1000)); // coockie保存一小时
+                            $.cookie('token', data.body, {expires: cookietime});
+
                             window.location = '../index.html';
                         }else{
                             layer.msg('用户名或密码错误');
