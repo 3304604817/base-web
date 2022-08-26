@@ -53,6 +53,10 @@
         //Json格式化
         form.on('submit(jsonBtn)', function (data) {
             var { inputText, outputText } = data.field;
+            if(!inputText){
+                layer.msg('请输入要处理的字符');
+                return false;
+            }
             let requestBody = { inputText };
             $.ajax({
                 type: 'post',
@@ -76,6 +80,10 @@
         //Base64加密
         form.on('submit(base64EncrypBtn)', function (data) {
             var { inputText, outputText } = data.field;
+            if(!inputText){
+                layer.msg('请输入要处理的字符');
+                return false;
+            }
             let requestBody = { inputText };
             $.ajax({
                 type: 'post',
@@ -98,6 +106,10 @@
         //Base64解密
         form.on('submit(base64DecryptBtn)', function (data) {
             var { inputText, outputText } = data.field;
+            if(!inputText){
+                layer.msg('请输入要处理的字符');
+                return false;
+            }
             let requestBody = { inputText };
             $.ajax({
                 type: 'post',
@@ -120,6 +132,10 @@
         //MD5解密
         form.on('submit(md5EncrypBtn)', function (data) {
             var { inputText, outputText } = data.field;
+            if(!inputText){
+                layer.msg('请输入要处理的字符');
+                return false;
+            }
             let requestBody = { inputText };
             $.ajax({
                 type: 'post',
