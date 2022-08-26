@@ -61,8 +61,10 @@
     </div>
 </div>
 <script type="text/javascript" src="lib/jquery-3.4.1/jquery-3.4.1.min.js"></script>
+<script src="lib/jq-module/jquery.cookie.js" charset="utf-8"></script>
 <script src="js/config.js"></script>
 <script>
+    var token = $.cookie("token");
     var dictionaryData = {};
     var dictionaryDetailData = {};
     // 获取父页面传的变量
@@ -71,6 +73,9 @@
         $.ajax({
             type: 'get',
             url: basicPath + '/data-dictionary/detail/'+parentData.id,
+            headers: {
+                Authorization: "Bearer " + token,
+            },
             dataType: 'json',
             contentType: 'application/json',
             cache: false,

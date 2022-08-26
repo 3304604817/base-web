@@ -80,8 +80,11 @@
     </div>
 </div>
 
+<script src="lib/jquery-3.4.1/jquery-3.4.1.min.js" charset="utf-8"></script>
+<script src="lib/jq-module/jquery.cookie.js" charset="utf-8"></script>
 <script src="js/config.js"></script>
 <script>
+    var token = $.cookie("token");
     layui.use(['form', 'table','miniPage','element'], function () {
         var $ = layui.jquery,
             form = layui.form,
@@ -91,6 +94,9 @@
         table.render({
             elem: '#currentTableId',
             url: basicPath + '/data-dictionary',
+            headers: {
+                Authorization: "Bearer " + token,
+            },
             toolbar: '#toolbarDemo',
             defaultToolbar: ['filter', 'exports', 'print', {
                 title: '提示',
