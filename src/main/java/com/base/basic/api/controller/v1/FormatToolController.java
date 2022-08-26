@@ -21,21 +21,18 @@ public class FormatToolController {
     @Autowired
     private FormatToolService formatToolService;
 
-    @Access(accessNoToken = true)
     @ApiOperation(value = "Json格式化")
     @PostMapping("/json")
     public FormatToolVO jsonFormat(@RequestBody FormatToolVO formatToolVO) {
         return formatToolService.jsonFormat(formatToolVO);
     }
 
-    @Access(accessNoToken = true)
     @ApiOperation(value = "Base64加密")
     @PostMapping("/base64-encoder")
     public FormatToolVO base64Encryp(@RequestBody FormatToolVO formatToolVO) {
         return formatToolService.base64Encryp(formatToolVO);
     }
 
-    @Access(accessNoToken = true)
     @ApiOperation(value = "Base64解密")
     @PostMapping("/base64-decrypt")
     public FormatToolVO base64Decrypt(@RequestBody FormatToolVO formatToolVO) {

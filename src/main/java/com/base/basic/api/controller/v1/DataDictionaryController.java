@@ -26,28 +26,24 @@ public class DataDictionaryController {
     @Autowired
     private DataDictionaryService dataDictionaryService;
 
-    @Access(accessNoToken = true)
     @ApiOperation(value = "数据字典列表")
     @GetMapping("")
     public LayJson<DataDictionary> pageList(PageParmaters pageParmaters, DataDictionary dataDictionary) {
         return new LayJson<>(dataDictionaryService.pageList(pageParmaters, dataDictionary));
     }
 
-    @Access(accessNoToken = true)
     @ApiOperation(value = "数据字典保存/更新")
     @PostMapping("/save")
     public DataDictionary save(@RequestBody DataDictionary dataDictionary) {
         return dataDictionaryService.save(dataDictionary);
     }
 
-    @Access(accessNoToken = true)
     @ApiOperation(value = "数据字典明细")
     @GetMapping("/detail/{id}")
     public DataDictionary detail(@ApiParam(value = "id", required = true) @PathVariable("id") Long id) {
         return dataDictionaryService.detail(id);
     }
 
-    @Access(accessNoToken = true)
     @ApiOperation(value = "删除")
     @PostMapping("/delete")
     public ModelAndView delete(@RequestParam(value = "id") Long id) {

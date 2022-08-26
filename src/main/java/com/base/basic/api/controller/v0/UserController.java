@@ -35,7 +35,6 @@ public class UserController {
     @ApiOperation(value = "员工列表")
     @GetMapping("/list")
     @CrossOrigin
-    @Access(accessNoToken = true)
     public ResponseEntity list(@RequestParam(defaultValue = "1", required = false) int page,
                                @RequestParam(defaultValue = "10", required = false) int size,
                                @RequestParam(value = "loginName", required = false) String loginName,
@@ -50,7 +49,6 @@ public class UserController {
     @ApiOperation(value = "员工明细")
     @GetMapping("/{userId}")
     @CrossOrigin
-    @Access(accessNoToken = true)
     public ResponseEntity detail(@ApiParam(required = true, value = "员工ID") @PathVariable("userId") Long userId) {
         IamUser iamUser = userService.detail(userId);
         return new ResponseEntity(iamUser, HttpStatus.OK);
@@ -59,14 +57,12 @@ public class UserController {
     @ApiOperation(value = "创建员工")
     @PostMapping("/insert")
     @CrossOrigin
-    @Access(accessNoToken = true)
     public ResponseEntity insert(@RequestBody IamUser iamUser) {
         iamUser.setLoginName(null == iamUser.getLoginName() ? UUID.randomUUID().toString() : iamUser.getLoginName());
         iamUser = userService.insert(iamUser);
         return new ResponseEntity(iamUser, HttpStatus.OK);
     }
 
-    @Access(accessNoToken = true)
     @ApiOperation(value = "批量创建员工")
     @PostMapping("/batchInsert")
     public ResponseEntity batchInsert(@RequestBody List<IamUser> iamUsers) {
@@ -74,7 +70,6 @@ public class UserController {
         return new ResponseEntity(iamUsers, HttpStatus.OK);
     }
 
-    @Access(accessNoToken = true)
     @ApiOperation(value = "更新员工信息")
     @PutMapping("/update")
     public ResponseEntity<IamUser> update(@RequestBody IamUser iamUser) {

@@ -31,14 +31,12 @@ public class EasyExcelController {
 
     @ApiOperation(value = "导出")
     @GetMapping("/export")
-    @Access(accessNoToken = true)
     public String exportData(HttpServletResponse response){
         return easyExcelService.exportData(response);
     }
 
     @ApiOperation(value = "导入")
     @PostMapping("/import")
-    @Access(accessNoToken = true)
     public String importData(@ApiParam(value="选择文件",required=true) @RequestPart("fileName") MultipartFile file){
         return easyExcelService.importData(file);
     }
