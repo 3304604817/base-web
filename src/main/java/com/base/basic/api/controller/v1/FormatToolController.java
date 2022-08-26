@@ -41,4 +41,18 @@ public class FormatToolController {
     public FormatToolVO base64Decrypt(@RequestBody FormatToolVO formatToolVO) {
         return formatToolService.base64Decrypt(formatToolVO);
     }
+
+    @ApiOperation(value = "MD5加密")
+    @PostMapping("/md5-encoder")
+    @Access(accessNoToken = true)
+    public FormatToolVO md5Encryp(@RequestBody FormatToolVO formatToolVO) {
+        return formatToolService.md5Encryp(formatToolVO);
+    }
+
+    @ApiOperation(value = "UUID生成")
+    @PostMapping("/uuid")
+    @Access(accessNoToken = true)
+    public FormatToolVO uuid(@RequestBody FormatToolVO formatToolVO) {
+        return formatToolService.base64Decrypt(formatToolVO);
+    }
 }

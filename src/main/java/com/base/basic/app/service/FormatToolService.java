@@ -19,4 +19,9 @@ public interface FormatToolService {
      *  Base64解密
      */
     FormatToolVO base64Decrypt(FormatToolVO formatToolVO);
+
+    /**
+     *  MD5加密
+     */
+    FormatToolVO md5Encryp(FormatToolVO formatToolVO);
 }

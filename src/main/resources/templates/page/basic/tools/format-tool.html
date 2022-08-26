@@ -20,6 +20,7 @@
                     <button lay-submit class="layui-btn layui-btn-normal" lay-filter="jsonBtn">格式化Json</button>
                     <button lay-submit class="layui-btn layui-btn-normal" lay-filter="base64EncrypBtn">Base64加密</button>
                     <button lay-submit class="layui-btn layui-btn-normal" lay-filter="base64DecryptBtn">Base64解密</button>
+                    <button lay-submit class="layui-btn layui-btn-normal" lay-filter="md5EncrypBtn">MD5加密</button>
                 </div>
             </div>
         </div>
@@ -100,6 +101,28 @@
             $.ajax({
                 type: 'post',
                 url: basicPath + '/format-tool/base64-decrypt',
+                dataType: 'json',
+                contentType: 'application/json',
+                data: JSON.stringify(requestBody),
+                cache: false,
+                async: false,
+                success: function (data) {
+                    let { inputText, outputText, errorMsg } = data;
+                    form.val('formData', {
+                        "outputText": errorMsg ? errorMsg : outputText,
+                    });
+                }
+            });
+            return false;
+        });
+
+        //MD5解密
+        form.on('submit(md5EncrypBtn)', function (data) {
+            var { inputText, outputText } = data.field;
+            let requestBody = { inputText };
+            $.ajax({
+                type: 'post',
+                url: basicPath + '/format-tool/md5-encoder',
                 dataType: 'json',
                 contentType: 'application/json',
                 data: JSON.stringify(requestBody),
