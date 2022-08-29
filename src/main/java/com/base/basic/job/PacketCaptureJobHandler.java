@@ -53,7 +53,7 @@ public class PacketCaptureJobHandler {
     private AuditLogMapper auditLogMapper;
 
     @Scheduled(cron = "*/5 * * * * ?")
-    public void run() throws IOException {
+    public void run() {
         ResponseEntity<String> ttGoodResult = restTemplate.getForEntity(ttGood, String.class);
         logger.info("ttGoodResult {}", JSON.toJSONString(ttGoodResult));
         AuditLog ttGoodLog = new AuditLog();
@@ -65,33 +65,6 @@ public class PacketCaptureJobHandler {
         ttGoodLog.setResponseBody(ttGoodResult.getBody());
         ttGoodLog.setRemark("天天基金-优选基金");
         auditLogMapper.insertSelective(ttGoodLog);
-
-
-//        try {
-//            OkHttpClient client = new OkHttpClient().newBuilder()
-//                    .build();
-//            Request request = new Request.Builder()
-//                    .url(ttWeek)
-//                    .method("GET", null)
-//                    .addHeader("validmark", "/H1SusTSPWDxEOBVUrMyWbpm9ELiorIKU0fKJnFZ6vlnHFI/QgAv0QHOWHpcgG1tCG4gJzjazSXIaQF1fGpChQ==")
-//                    .build();
-//            Response response = client.newCall(request).execute();
-//            System.out.println(response.body().string());
-
-//            ResponseEntity<String> ttWeekResult = restTemplate.getForEntity(ttWeek, String.class);
-//            logger.info("ttWeekResult {}", JSON.toJSONString(ttWeekResult));
-//            AuditLog ttWeekLog = new AuditLog();
-//            ttWeekLog.setUrl(ttGood);
-//            ttWeekLog.setMethod("GET");
-//            ttWeekLog.setRemoteAddr("localhost");
-//            ttWeekLog.setRemotePort(80L);
-//            ttWeekLog.setStatus(Long.valueOf(ttWeekResult.getStatusCode().value()));
-//            ttWeekLog.setResponseBody(ttWeekResult.getBody());
-//            ttWeekLog.setRemark("天天基金-周榜");
-//            auditLogMapper.insertSelective(ttWeekLog);
-//        }catch (IOException ex){
-//            ex.printStackTrace();
-//        }
 
         ResponseEntity<String> thsWeekResult = restTemplate.getForEntity(thsWeek, String.class);
         logger.info("thsWeekResult {}", JSON.toJSONString(thsWeekResult));
