@@ -1,5 +1,11 @@
 # SpringBoot单体服务
 LayUI+SpringBoot
+默认80端口启动
+登录密码：admin/Admin@123!
+
+菜单:
+    研发工具:
+        Json格式化:格式化Json,Base64加密/解密,MD5加密,UUID生成
 
 # 启动项目
 java -jar xxx.jar --spring.profiles.active=prod  
