@@ -1,4 +1,5 @@
-# SpringCloud微服务
+# SpringBoot单体服务
+LayUI+SpringBoot
 
 # 启动项目
 java -jar xxx.jar --spring.profiles.active=prod  
