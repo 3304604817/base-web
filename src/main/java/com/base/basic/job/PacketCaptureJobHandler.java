@@ -52,7 +52,7 @@ public class PacketCaptureJobHandler {
     @SuppressWarnings("all")
     private AuditLogMapper auditLogMapper;
 
-//    @Scheduled(cron = "*/5 * * * * ?")
+    @Scheduled(cron = "*/5 * * * * ?")
     public void run() throws IOException {
         ResponseEntity<String> ttGoodResult = restTemplate.getForEntity(ttGood, String.class);
         logger.info("ttGoodResult {}", JSON.toJSONString(ttGoodResult));
