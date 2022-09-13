@@ -29,6 +29,7 @@ public class LotteryDltHistoryServiceImpl implements LotteryDltHistoryService {
     @Autowired
     private RestTemplate restTemplate;
     @Autowired
+    @SuppressWarnings("all")
     private LotteryDltHistoryMapper lotteryDltHistoryMapper;
 
     @Override
@@ -72,5 +73,37 @@ public class LotteryDltHistoryServiceImpl implements LotteryDltHistoryService {
             }
             System.out.println(list);
         }
+    }
+
+    @Override
+    public void dltDataAnalysis(){
+
+        System.out.println("------------前区-------------" + "------------后区-------------");
+        System.out.println("1区｜2区｜3区｜4区｜5区" + "1区｜2区");
+        for(int i = 1; i <= 30; i++){
+            /**
+             * 前区
+             */
+            Long countFrontArea1 = lotteryDltHistoryMapper.countFrontArea1(1);
+            Long countFrontArea2 = lotteryDltHistoryMapper.countFrontArea2(1);
+            Long countFrontArea3 = lotteryDltHistoryMapper.countFrontArea3(1);
+            Long countFrontArea4 = lotteryDltHistoryMapper.countFrontArea4(1);
+            Long countFrontArea5 = lotteryDltHistoryMapper.countFrontArea5(1);
+
+            /**
+             * 后区
+             */
+            Long countEndArea1 = null;
+            Long countEndArea2 = null;
+            if(i <= 12){
+                countEndArea1 = lotteryDltHistoryMapper.countEndArea1(1);
+                countEndArea2 = lotteryDltHistoryMapper.countEndArea2(1);
+            }
+
+
+            System.out.println(i + ": " + countFrontArea1 + "  " + countFrontArea2 + "  " + countFrontArea3 + "  " + countFrontArea4 + "  " + countFrontArea5 + "  " + countEndArea1 + "  " + countEndArea2);
+        }
+
+        System.out.println("------------打印完成");
     }
 }

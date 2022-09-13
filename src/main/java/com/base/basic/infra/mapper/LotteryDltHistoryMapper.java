@@ -3,6 +3,7 @@ package com.base.basic.infra.mapper;
 
 import com.base.basic.domain.entity.v1.LotteryDltHistory;
 import com.base.common.util.mybatis.mapper.SupperMapper;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * 大乐透中奖历史Mapper
@@ -11,4 +12,17 @@ import com.base.common.util.mybatis.mapper.SupperMapper;
  */
 public interface LotteryDltHistoryMapper extends SupperMapper<LotteryDltHistory> {
 
+    Long countFrontArea1(@Param("frontAreaNum") Integer frontAreaNum);
+
+    Long countFrontArea2(@Param("frontAreaNum") Integer frontAreaNum);
+
+    Long countFrontArea3(@Param("frontAreaNum") Integer frontAreaNum);
+
+    Long countFrontArea4(@Param("frontAreaNum") Integer frontAreaNum);
+
+    Long countFrontArea5(@Param("frontAreaNum") Integer frontAreaNum);
+
+    Long countEndArea1(@Param("frontAreaNum") Integer endAreaNum);
+
+    Long countEndArea2(@Param("frontAreaNum") Integer endAreaNum);
 }

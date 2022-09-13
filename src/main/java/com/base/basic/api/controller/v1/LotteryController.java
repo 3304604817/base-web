@@ -31,4 +31,12 @@ public class LotteryController {
         lotteryDltHistoryService.getDltHistory();
         return new ResponseEntity(HttpStatus.OK);
     }
+
+    @ApiOperation(value = "大乐透历史中奖信息抓取")
+    @PostMapping("/dlt/dataAnalysis")
+    @Access(accessNoToken = true)
+    public ResponseEntity dataAnalysis() {
+        lotteryDltHistoryService.dltDataAnalysis();
+        return new ResponseEntity(HttpStatus.OK);
+    }
 }

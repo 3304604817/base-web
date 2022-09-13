@@ -20,4 +20,32 @@
         <result column="last_updated_by" property="lastUpdatedBy" jdbcType="DECIMAL"/>
         <result column="last_update_date" property="lastUpdateDate" jdbcType="DATE"/>
     </resultMap>
+
+    <select id="countFrontArea1" parameterType="java.lang.Integer" resultType="java.lang.Long">
+        SELECT COUNT(front_area1) FROM lottery_dlt_history WHERE front_area1 = #{frontAreaNum, jdbcType = DECIMAL}
+    </select>
+
+    <select id="countFrontArea2" parameterType="java.lang.Integer" resultType="java.lang.Long">
+        SELECT COUNT(front_area2) FROM lottery_dlt_history WHERE front_area2 = #{frontAreaNum, jdbcType = DECIMAL}
+    </select>
+
+    <select id="countFrontArea3" parameterType="java.lang.Integer" resultType="java.lang.Long">
+        SELECT COUNT(front_area3) FROM lottery_dlt_history WHERE front_area3 = #{frontAreaNum, jdbcType = DECIMAL}
+    </select>
+
+    <select id="countFrontArea4" parameterType="java.lang.Integer" resultType="java.lang.Long">
+        SELECT COUNT(front_area4) FROM lottery_dlt_history WHERE front_area4 = #{frontAreaNum, jdbcType = DECIMAL}
+    </select>
+
+    <select id="countFrontArea5" parameterType="java.lang.Integer" resultType="java.lang.Long">
+        SELECT COUNT(front_area5) FROM lottery_dlt_history WHERE front_area5 = #{frontAreaNum, jdbcType = DECIMAL}
+    </select>
+
+    <select id="countEndArea1" parameterType="java.lang.Integer" resultType="java.lang.Long">
+        SELECT COUNT(end_area1) FROM lottery_dlt_history WHERE end_area1 = #{endAreaNum, jdbcType = DECIMAL}
+    </select>
+
+    <select id="countEndArea2" parameterType="java.lang.Integer" resultType="java.lang.Long">
+        SELECT COUNT(end_area2) FROM lottery_dlt_history WHERE end_area2 = #{endAreaNum, jdbcType = DECIMAL}
+    </select>
 </mapper>

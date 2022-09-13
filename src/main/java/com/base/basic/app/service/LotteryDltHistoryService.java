@@ -11,4 +11,9 @@ public interface LotteryDltHistoryService {
      * 抓取大乐透历史中奖信息
      */
     void getDltHistory();
+
+    /**
+     * 大乐透数据分析
+     */
+    void dltDataAnalysis();
 }
