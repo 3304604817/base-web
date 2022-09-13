@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.base.basic.infra.mapper.LotteryDltHistoryMapper">
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap id="BaseResultMap" type="com.base.basic.domain.entity.v1.LotteryDltHistory">
+        <result column="id" property="id" jdbcType="DECIMAL"/>
+        <result column="draw_num" property="drawNum" jdbcType="VARCHAR"/>
+        <result column="draw_time" property="drawTime" jdbcType="DATE"/>
+        <result column="front_area1" property="frontArea1" jdbcType="DECIMAL"/>
+        <result column="front_area2" property="frontArea2" jdbcType="DECIMAL"/>
+        <result column="front_area3" property="frontArea3" jdbcType="DECIMAL"/>
+        <result column="front_area4" property="frontArea4" jdbcType="DECIMAL"/>
+        <result column="front_area5" property="frontArea5" jdbcType="DECIMAL"/>
+        <result column="end_area1" property="endArea1" jdbcType="DECIMAL"/>
+        <result column="end_area2" property="endArea2" jdbcType="DECIMAL"/>
+        <result column="tenant_id" property="tenantId" jdbcType="DECIMAL"/>
+        <result column="object_version_number" property="objectVersionNumber" jdbcType="DECIMAL"/>
+        <result column="creation_date" property="creationDate" jdbcType="DATE"/>
+        <result column="created_by" property="createdBy" jdbcType="DECIMAL"/>
+        <result column="last_updated_by" property="lastUpdatedBy" jdbcType="DECIMAL"/>
+        <result column="last_update_date" property="lastUpdateDate" jdbcType="DATE"/>
+    </resultMap>
+</mapper>

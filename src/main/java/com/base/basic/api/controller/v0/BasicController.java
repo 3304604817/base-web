@@ -10,6 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import static com.microsoft.schemas.office.x2006.encryption.STCipherAlgorithm.AES;
+
 @Api(tags="基础")
 @RestController
 @RequestMapping("")
