@@ -15,5 +15,5 @@ public interface LotteryDltHistoryService {
     /**
      * 大乐透数据分析
      */
-    void dltDataAnalysis();
+    void dltDataAnalysis(String drawTimeFm, String drawTimeTo);
 }

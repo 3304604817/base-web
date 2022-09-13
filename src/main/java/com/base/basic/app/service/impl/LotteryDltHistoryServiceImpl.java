@@ -79,22 +79,29 @@ public class LotteryDltHistoryServiceImpl implements LotteryDltHistoryService {
     }
 
     @Override
-    public void dltDataAnalysis(){
+    public void dltDataAnalysis(String drawTimeFm, String drawTimeTo){
 
         List<String> list = new ArrayList<>(32);
 
-        list.add("------------前区-------------" + "------------后区-------------");
-        list.add("1区 ｜ 2区 ｜ 3区 ｜ 4区 ｜ 5区 " + "| 1区 ｜ 2区");
+        list.add("----------------前区----------------" + "--------------后区-------------");
+        list.add(String.format("%-8s", "")
+                + String.format("%-8s", "1区")
+                + String.format("%-8s", "2区")
+                + String.format("%-8s", "3区")
+                + String.format("%-8s", "4区")
+                + String.format("%-8s", "5区")
+                + String.format("%-8s", "1区")
+                + String.format("%-8s", "2区"));
 
         for(int i = 1; i <= 30; i++){
             /**
              * 前区
              */
-            Long countFrontArea1 = lotteryDltHistoryMapper.countFrontArea1(i);
-            Long countFrontArea2 = lotteryDltHistoryMapper.countFrontArea2(i);
-            Long countFrontArea3 = lotteryDltHistoryMapper.countFrontArea3(i);
-            Long countFrontArea4 = lotteryDltHistoryMapper.countFrontArea4(i);
-            Long countFrontArea5 = lotteryDltHistoryMapper.countFrontArea5(i);
+            Long countFrontArea1 = lotteryDltHistoryMapper.countFrontArea1(i, drawTimeFm, drawTimeTo);
+            Long countFrontArea2 = lotteryDltHistoryMapper.countFrontArea2(i, drawTimeFm, drawTimeTo);
+            Long countFrontArea3 = lotteryDltHistoryMapper.countFrontArea3(i, drawTimeFm, drawTimeTo);
+            Long countFrontArea4 = lotteryDltHistoryMapper.countFrontArea4(i, drawTimeFm, drawTimeTo);
+            Long countFrontArea5 = lotteryDltHistoryMapper.countFrontArea5(i, drawTimeFm, drawTimeTo);
 
             /**
              * 后区
@@ -102,8 +109,8 @@ public class LotteryDltHistoryServiceImpl implements LotteryDltHistoryService {
             Long countEndArea1 = null;
             Long countEndArea2 = null;
             if(i <= 12){
-                countEndArea1 = lotteryDltHistoryMapper.countEndArea1(i);
-                countEndArea2 = lotteryDltHistoryMapper.countEndArea2(i);
+                countEndArea1 = lotteryDltHistoryMapper.countEndArea1(i, drawTimeFm, drawTimeTo);
+                countEndArea2 = lotteryDltHistoryMapper.countEndArea2(i, drawTimeFm, drawTimeTo);
             }
 
             list.add(String.format("%-8s", i)

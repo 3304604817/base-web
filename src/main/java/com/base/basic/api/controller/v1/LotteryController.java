@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -35,8 +36,9 @@ public class LotteryController {
     @ApiOperation(value = "大乐透历史中奖信息抓取")
     @PostMapping("/dlt/dataAnalysis")
     @Access(accessNoToken = true)
-    public ResponseEntity dataAnalysis() {
-        lotteryDltHistoryService.dltDataAnalysis();
+    public ResponseEntity dataAnalysis(@RequestParam(value = "drawTimeFm", required = false) String drawTimeFm,
+                                       @RequestParam(value = "drawTimeTo", required = false) String drawTimeTo) {
+        lotteryDltHistoryService.dltDataAnalysis(drawTimeFm, drawTimeTo);
         return new ResponseEntity(HttpStatus.OK);
     }
 }

@@ -12,17 +12,17 @@ import org.apache.ibatis.annotations.Param;
  */
 public interface LotteryDltHistoryMapper extends SupperMapper<LotteryDltHistory> {
 
-    Long countFrontArea1(@Param("frontAreaNum") Integer frontAreaNum);
+    Long countFrontArea1(@Param("frontAreaNum") Integer frontAreaNum, @Param("drawTimeFm") String drawTimeFm, @Param("drawTimeTo") String drawTimeTo);
 
-    Long countFrontArea2(@Param("frontAreaNum") Integer frontAreaNum);
+    Long countFrontArea2(@Param("frontAreaNum") Integer frontAreaNum, @Param("drawTimeFm") String drawTimeFm, @Param("drawTimeTo") String drawTimeTo);
 
-    Long countFrontArea3(@Param("frontAreaNum") Integer frontAreaNum);
+    Long countFrontArea3(@Param("frontAreaNum") Integer frontAreaNum, @Param("drawTimeFm") String drawTimeFm, @Param("drawTimeTo") String drawTimeTo);
 
-    Long countFrontArea4(@Param("frontAreaNum") Integer frontAreaNum);
+    Long countFrontArea4(@Param("frontAreaNum") Integer frontAreaNum, @Param("drawTimeFm") String drawTimeFm, @Param("drawTimeTo") String drawTimeTo);
 
-    Long countFrontArea5(@Param("frontAreaNum") Integer frontAreaNum);
+    Long countFrontArea5(@Param("frontAreaNum") Integer frontAreaNum, @Param("drawTimeFm") String drawTimeFm, @Param("drawTimeTo") String drawTimeTo);
 
-    Long countEndArea1(@Param("endAreaNum") Integer endAreaNum);
+    Long countEndArea1(@Param("endAreaNum") Integer endAreaNum, @Param("drawTimeFm") String drawTimeFm, @Param("drawTimeTo") String drawTimeTo);
 
-    Long countEndArea2(@Param("endAreaNum") Integer endAreaNum);
+    Long countEndArea2(@Param("endAreaNum") Integer endAreaNum, @Param("drawTimeFm") String drawTimeFm, @Param("drawTimeTo") String drawTimeTo);
 }
