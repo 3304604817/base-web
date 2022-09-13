@@ -93,7 +93,7 @@ public class LotteryDltHistoryServiceImpl implements LotteryDltHistoryService {
                 + String.format("%-8s", "1区")
                 + String.format("%-8s", "2区"));
 
-        for(int i = 1; i <= 30; i++){
+        for(int i = 1; i <= 35; i++){
             /**
              * 前区
              */
