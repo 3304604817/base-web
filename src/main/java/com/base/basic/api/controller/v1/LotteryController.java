@@ -33,7 +33,7 @@ public class LotteryController {
         return new ResponseEntity(HttpStatus.OK);
     }
 
-    @ApiOperation(value = "大乐透历史中奖信息抓取")
+    @ApiOperation(value = "大乐透历史数据分析")
     @PostMapping("/dlt/dataAnalysis")
     @Access(accessNoToken = true)
     public ResponseEntity dataAnalysis(@RequestParam(value = "drawTimeFm", required = false) String drawTimeFm,
