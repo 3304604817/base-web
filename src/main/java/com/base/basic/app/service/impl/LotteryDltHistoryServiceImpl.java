@@ -17,6 +17,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author yang.gao
  * @description
@@ -78,17 +81,20 @@ public class LotteryDltHistoryServiceImpl implements LotteryDltHistoryService {
     @Override
     public void dltDataAnalysis(){
 
-        System.out.println("------------前区-------------" + "------------后区-------------");
-        System.out.println("1区｜2区｜3区｜4区｜5区" + "1区｜2区");
+        List<String> list = new ArrayList<>(32);
+
+        list.add("------------前区-------------" + "------------后区-------------");
+        list.add("1区 ｜ 2区 ｜ 3区 ｜ 4区 ｜ 5区 " + "| 1区 ｜ 2区");
+
         for(int i = 1; i <= 30; i++){
             /**
              * 前区
              */
-            Long countFrontArea1 = lotteryDltHistoryMapper.countFrontArea1(1);
-            Long countFrontArea2 = lotteryDltHistoryMapper.countFrontArea2(1);
-            Long countFrontArea3 = lotteryDltHistoryMapper.countFrontArea3(1);
-            Long countFrontArea4 = lotteryDltHistoryMapper.countFrontArea4(1);
-            Long countFrontArea5 = lotteryDltHistoryMapper.countFrontArea5(1);
+            Long countFrontArea1 = lotteryDltHistoryMapper.countFrontArea1(i);
+            Long countFrontArea2 = lotteryDltHistoryMapper.countFrontArea2(i);
+            Long countFrontArea3 = lotteryDltHistoryMapper.countFrontArea3(i);
+            Long countFrontArea4 = lotteryDltHistoryMapper.countFrontArea4(i);
+            Long countFrontArea5 = lotteryDltHistoryMapper.countFrontArea5(i);
 
             /**
              * 后区
@@ -96,14 +102,23 @@ public class LotteryDltHistoryServiceImpl implements LotteryDltHistoryService {
             Long countEndArea1 = null;
             Long countEndArea2 = null;
             if(i <= 12){
-                countEndArea1 = lotteryDltHistoryMapper.countEndArea1(1);
-                countEndArea2 = lotteryDltHistoryMapper.countEndArea2(1);
+                countEndArea1 = lotteryDltHistoryMapper.countEndArea1(i);
+                countEndArea2 = lotteryDltHistoryMapper.countEndArea2(i);
             }
 
-
-            System.out.println(i + ": " + countFrontArea1 + "  " + countFrontArea2 + "  " + countFrontArea3 + "  " + countFrontArea4 + "  " + countFrontArea5 + "  " + countEndArea1 + "  " + countEndArea2);
+            list.add(String.format("%-8s", i)
+                    + String.format("%-8s", countFrontArea1)
+                    + String.format("%-8s", countFrontArea2)
+                    + String.format("%-8s", countFrontArea3)
+                    + String.format("%-8s", countFrontArea4)
+                    + String.format("%-8s", countFrontArea5)
+                    + String.format("%-8s", countEndArea1)
+                    + String.format("%-8s", countEndArea2));
         }
 
+        list.stream().forEach(p -> {
+            System.out.println(p);
+        });
         System.out.println("------------打印完成");
     }
 }

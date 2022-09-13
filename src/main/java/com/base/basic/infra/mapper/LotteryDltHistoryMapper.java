@@ -22,7 +22,7 @@ public interface LotteryDltHistoryMapper extends SupperMapper<LotteryDltHistory>
 
     Long countFrontArea5(@Param("frontAreaNum") Integer frontAreaNum);
 
-    Long countEndArea1(@Param("frontAreaNum") Integer endAreaNum);
+    Long countEndArea1(@Param("endAreaNum") Integer endAreaNum);
 
-    Long countEndArea2(@Param("frontAreaNum") Integer endAreaNum);
+    Long countEndArea2(@Param("endAreaNum") Integer endAreaNum);
 }
