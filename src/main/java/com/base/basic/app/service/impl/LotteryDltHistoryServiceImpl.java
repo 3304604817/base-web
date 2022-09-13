@@ -6,7 +6,9 @@ import com.alibaba.fastjson.JSONObject;
 import com.base.basic.api.controller.v0.HttpRequestController;
 import com.base.basic.app.service.LotteryDltHistoryService;
 import com.base.basic.domain.entity.v1.LotteryDltHistory;
+import com.base.basic.infra.mapper.LotteryDltHistoryMapper;
 import com.base.common.util.convert.ObjectConvertUtil;
+import org.checkerframework.checker.units.qual.A;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +28,8 @@ public class LotteryDltHistoryServiceImpl implements LotteryDltHistoryService {
 
     @Autowired
     private RestTemplate restTemplate;
+    @Autowired
+    private LotteryDltHistoryMapper lotteryDltHistoryMapper;
 
     @Override
     @Transactional(rollbackFor = Exception.class)
@@ -51,7 +55,20 @@ public class LotteryDltHistoryServiceImpl implements LotteryDltHistoryService {
                 JSONObject data = ObjectConvertUtil.convertJsonObject(obj);
 
                 LotteryDltHistory lotteryDltHistory = new LotteryDltHistory();
-//                lotteryDltHistory.setDrawNum();
+                lotteryDltHistory.setDrawNum(data.getString("lotteryDrawNum"));
+                lotteryDltHistory.setDrawTime(data.getDate("lotteryDrawTime"));
+
+                String lotteryDrawResult = data.getString("lotteryDrawResult");
+                String [] result = lotteryDrawResult.split("\\s+");
+                lotteryDltHistory.setFrontArea1(Long.valueOf(result[0]));
+                lotteryDltHistory.setFrontArea2(Long.valueOf(result[1]));
+                lotteryDltHistory.setFrontArea3(Long.valueOf(result[2]));
+                lotteryDltHistory.setFrontArea4(Long.valueOf(result[3]));
+                lotteryDltHistory.setFrontArea5(Long.valueOf(result[4]));
+                lotteryDltHistory.setEndArea1(Long.valueOf(result[5]));
+                lotteryDltHistory.setEndArea2(Long.valueOf(result[6]));
+
+                lotteryDltHistoryMapper.insertSelective(lotteryDltHistory);
             }
             System.out.println(list);
         }
