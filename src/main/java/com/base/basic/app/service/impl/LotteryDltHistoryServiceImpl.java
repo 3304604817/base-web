@@ -119,8 +119,8 @@ public class LotteryDltHistoryServiceImpl implements LotteryDltHistoryService {
                     + String.format("%-8s", countFrontArea3)
                     + String.format("%-8s", countFrontArea4)
                     + String.format("%-8s", countFrontArea5)
-                    + String.format("%-8s", countEndArea1)
-                    + String.format("%-8s", countEndArea2));
+                    + (i <= 12 ? String.format("%-8s", countEndArea1) : "")
+                    + (i <= 12 ? String.format("%-8s", countEndArea2) : ""));
         }
 
         list.stream().forEach(p -> {
