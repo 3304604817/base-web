@@ -13,7 +13,12 @@ public interface LotteryDltHistoryService {
     void getDltHistory();
 
     /**
-     * 大乐透数据分析
+     * 大乐透数据分析-查各区数字分布情况
      */
     void dltDataAnalysis(String drawTimeFm, String drawTimeTo);
+
+    /**
+     * 大乐透数据分析-查前后区所有数字分布
+     */
+    void dltDataAnalysis1(String drawTimeFm, String drawTimeTo);
 }

@@ -128,4 +128,41 @@ public class LotteryDltHistoryServiceImpl implements LotteryDltHistoryService {
         });
         System.out.println("------------打印完成");
     }
+
+    @Override
+    public void dltDataAnalysis1(String drawTimeFm, String drawTimeTo){
+        List<String> list = new ArrayList<>(32);
+
+        list.add("----前区----" + "----后区----");
+
+        for(int i = 1; i <= 35; i++){
+            /**
+             * 前区
+             */
+            Long countFrontArea1 = lotteryDltHistoryMapper.countFrontArea1(i, drawTimeFm, drawTimeTo);
+            Long countFrontArea2 = lotteryDltHistoryMapper.countFrontArea2(i, drawTimeFm, drawTimeTo);
+            Long countFrontArea3 = lotteryDltHistoryMapper.countFrontArea3(i, drawTimeFm, drawTimeTo);
+            Long countFrontArea4 = lotteryDltHistoryMapper.countFrontArea4(i, drawTimeFm, drawTimeTo);
+            Long countFrontArea5 = lotteryDltHistoryMapper.countFrontArea5(i, drawTimeFm, drawTimeTo);
+
+            /**
+             * 后区
+             */
+            Long countEndArea1 = null;
+            Long countEndArea2 = null;
+            if(i <= 12){
+                countEndArea1 = lotteryDltHistoryMapper.countEndArea1(i, drawTimeFm, drawTimeTo);
+                countEndArea2 = lotteryDltHistoryMapper.countEndArea2(i, drawTimeFm, drawTimeTo);
+            }
+
+            list.add(String.format("%-8s", i)
+                    + String.format("%-8s", countFrontArea1 + countFrontArea2 + countFrontArea3 + countFrontArea4 + countFrontArea5)
+                    + (i <= 12 ? String.format("%-8s", countEndArea1 + countEndArea2) : ""));
+        }
+
+        list.stream().forEach(p -> {
+            System.out.println(p);
+        });
+        System.out.println("------------打印完成");
+    }
 }
