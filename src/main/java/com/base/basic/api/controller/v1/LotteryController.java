@@ -34,11 +34,11 @@ public class LotteryController {
     }
 
     @ApiOperation(value = "大乐透历史数据分析-查各区数字分布情况")
-    @PostMapping("/dlt/dataAnalysis")
+    @PostMapping("/dlt/dataAnalysis0")
     @Access(accessNoToken = true)
-    public ResponseEntity dataAnalysis(@RequestParam(value = "drawTimeFm", required = false) String drawTimeFm,
+    public ResponseEntity dataAnalysis0(@RequestParam(value = "drawTimeFm", required = false) String drawTimeFm,
                                        @RequestParam(value = "drawTimeTo", required = false) String drawTimeTo) {
-        lotteryDltHistoryService.dltDataAnalysis(drawTimeFm, drawTimeTo);
+        lotteryDltHistoryService.dltDataAnalysis0(drawTimeFm, drawTimeTo);
         return new ResponseEntity(HttpStatus.OK);
     }
 
@@ -57,6 +57,24 @@ public class LotteryController {
     public ResponseEntity dltDataAnalysis2(@RequestParam(value = "drawTimeFm", required = false) String drawTimeFm,
                                            @RequestParam(value = "drawTimeTo", required = false) String drawTimeTo) {
         lotteryDltHistoryService.dltDataAnalysis2(drawTimeFm, drawTimeTo);
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
+    @ApiOperation(value = "大乐透历史数据分析-所有中奖号码汇总")
+    @PostMapping("/dlt/dataAnalysi3")
+    @Access(accessNoToken = true)
+    public ResponseEntity dltDataAnalysis3(@RequestParam(value = "drawTimeFm", required = false) String drawTimeFm,
+                                           @RequestParam(value = "drawTimeTo", required = false) String drawTimeTo) {
+        lotteryDltHistoryService.dltDataAnalysis3(drawTimeFm, drawTimeTo);
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
+    @ApiOperation(value = "大乐透历史数据分析-重复中奖号")
+    @PostMapping("/dlt/dataAnalysi4")
+    @Access(accessNoToken = true)
+    public ResponseEntity dltDataAnalysis4(@RequestParam(value = "drawTimeFm", required = false) String drawTimeFm,
+                                           @RequestParam(value = "drawTimeTo", required = false) String drawTimeTo) {
+        lotteryDltHistoryService.dltDataAnalysis4(drawTimeFm, drawTimeTo);
         return new ResponseEntity(HttpStatus.OK);
     }
 }

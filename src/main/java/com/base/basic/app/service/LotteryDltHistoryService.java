@@ -15,7 +15,7 @@ public interface LotteryDltHistoryService {
     /**
      * 大乐透数据分析-查各区数字分布情况
      */
-    void dltDataAnalysis(String drawTimeFm, String drawTimeTo);
+    void dltDataAnalysis0(String drawTimeFm, String drawTimeTo);
 
     /**
      * 大乐透数据分析-查前后区所有数字分布
@@ -26,4 +26,14 @@ public interface LotteryDltHistoryService {
      * 大乐透数据分析-查前后区数字和
      */
     void dltDataAnalysis2(String drawTimeFm, String drawTimeTo);
+
+    /**
+     * 大乐透数据分析-所有中奖号码汇总
+     */
+    void dltDataAnalysis3(String drawTimeFm, String drawTimeTo);
+
+    /**
+     * 大乐透数据分析-重复中奖号
+     */
+    void dltDataAnalysis4(String drawTimeFm, String drawTimeTo);
 }

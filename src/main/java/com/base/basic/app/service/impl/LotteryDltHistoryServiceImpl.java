@@ -19,7 +19,11 @@ import org.springframework.web.client.RestTemplate;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 /**
  * @author yang.gao
@@ -80,7 +84,7 @@ public class LotteryDltHistoryServiceImpl implements LotteryDltHistoryService {
     }
 
     @Override
-    public void dltDataAnalysis(String drawTimeFm, String drawTimeTo){
+    public void dltDataAnalysis0(String drawTimeFm, String drawTimeTo){
 
         List<String> list = new ArrayList<>(32);
 
@@ -209,5 +213,192 @@ public class LotteryDltHistoryServiceImpl implements LotteryDltHistoryService {
             System.out.println(p);
         });
         System.out.println("------------打印完成");
+    }
+
+    @Override
+    public void dltDataAnalysis3(String drawTimeFm, String drawTimeTo){
+
+        LotteryDltHistory lotteryDltHistory = new LotteryDltHistory();
+        lotteryDltHistory.setDrawTimeFm(drawTimeFm);
+        lotteryDltHistory.setDrawTimeTo(drawTimeTo);
+        List<LotteryDltHistory> lotteryDltHistorys = lotteryDltHistoryMapper.list(lotteryDltHistory);
+
+        /**
+         * 最终打印List
+         */
+        List<String> list = new ArrayList<>(3072);
+        list.add(new StringBuilder(String.format("%-6s", "1"))
+                .append(String.format("%-6s", "2"))
+                .append(String.format("%-6s", "3"))
+                .append(String.format("%-6s", "4"))
+                .append(String.format("%-6s", "5"))
+                .append(String.format("%-6s", "6"))
+                .append(String.format("%-6s", "7"))
+                .append(String.format("%-6s", "8"))
+                .append(String.format("%-6s", "9"))
+                .append(String.format("%-6s", "10"))
+                .append(String.format("%-6s", "11"))
+                .append(String.format("%-6s", "12"))
+                .append(String.format("%-6s", "13"))
+                .append(String.format("%-6s", "14"))
+                .append(String.format("%-6s", "15"))
+                .append(String.format("%-6s", "16"))
+                .append(String.format("%-6s", "17"))
+                .append(String.format("%-6s", "18"))
+                .append(String.format("%-6s", "19"))
+                .append(String.format("%-6s", "20"))
+                .append(String.format("%-6s", "21"))
+                .append(String.format("%-6s", "22"))
+                .append(String.format("%-6s", "23"))
+                .append(String.format("%-6s", "24"))
+                .append(String.format("%-6s", "25"))
+                .append(String.format("%-6s", "26"))
+                .append(String.format("%-6s", "27"))
+                .append(String.format("%-6s", "28"))
+                .append(String.format("%-6s", "29"))
+                .append(String.format("%-6s", "30"))
+                .append(String.format("%-6s", "31"))
+                .append(String.format("%-6s", "32"))
+                .append(String.format("%-6s", "33"))
+                .append(String.format("%-6s", "34"))
+                .append(String.format("%-6s", "35"))
+                .append(String.format("%-6s", "1"))
+                .append(String.format("%-6s", "2"))
+                .append(String.format("%-6s", "3"))
+                .append(String.format("%-6s", "4"))
+                .append(String.format("%-6s", "5"))
+                .append(String.format("%-6s", "6"))
+                .append(String.format("%-6s", "7"))
+                .append(String.format("%-6s", "8"))
+                .append(String.format("%-6s", "9"))
+                .append(String.format("%-6s", "10"))
+                .append(String.format("%-6s", "11"))
+                .append(String.format("%-6s", "12"))
+                .toString()
+        );
+
+        for(LotteryDltHistory history:lotteryDltHistorys){
+            List<Long> frontAreaList = new ArrayList<>(5);
+            frontAreaList.add(history.getFrontArea1());
+            frontAreaList.add(history.getFrontArea2());
+            frontAreaList.add(history.getFrontArea3());
+            frontAreaList.add(history.getFrontArea4());
+            frontAreaList.add(history.getFrontArea5());
+            frontAreaList = frontAreaList.stream().sorted().collect(Collectors.toList());
+
+            List<Long> endAreaList = new ArrayList<>(2);
+            endAreaList.add(history.getEndArea1());
+            endAreaList.add(history.getEndArea2());
+            endAreaList = endAreaList.stream().sorted().collect(Collectors.toList());
+
+            list.add(new StringBuilder(String.format("%-6s", frontAreaList.contains(1L) ? 1 : ""))
+                    .append(String.format("%-6s", frontAreaList.contains(2L) ? 1 : ""))
+                    .append(String.format("%-6s", frontAreaList.contains(3L) ? 1 : ""))
+                    .append(String.format("%-6s", frontAreaList.contains(4L) ? 1 : ""))
+                    .append(String.format("%-6s", frontAreaList.contains(5L) ? 1 : ""))
+                    .append(String.format("%-6s", frontAreaList.contains(6L) ? 1 : ""))
+                    .append(String.format("%-6s", frontAreaList.contains(7L) ? 1 : ""))
+                    .append(String.format("%-6s", frontAreaList.contains(8L) ? 1 : ""))
+                    .append(String.format("%-6s", frontAreaList.contains(9L) ? 1 : ""))
+                    .append(String.format("%-6s", frontAreaList.contains(10L) ? 1 : ""))
+                    .append(String.format("%-6s", frontAreaList.contains(11L) ? 1 : ""))
+                    .append(String.format("%-6s", frontAreaList.contains(12L) ? 1 : ""))
+                    .append(String.format("%-6s", frontAreaList.contains(13L) ? 1 : ""))
+                    .append(String.format("%-6s", frontAreaList.contains(14L) ? 1 : ""))
+                    .append(String.format("%-6s", frontAreaList.contains(15L) ? 1 : ""))
+                    .append(String.format("%-6s", frontAreaList.contains(16L) ? 1 : ""))
+                    .append(String.format("%-6s", frontAreaList.contains(17L) ? 1 : ""))
+                    .append(String.format("%-6s", frontAreaList.contains(18L) ? 1 : ""))
+                    .append(String.format("%-6s", frontAreaList.contains(19L) ? 1 : ""))
+                    .append(String.format("%-6s", frontAreaList.contains(20L) ? 1 : ""))
+                    .append(String.format("%-6s", frontAreaList.contains(21L) ? 1 : ""))
+                    .append(String.format("%-6s", frontAreaList.contains(22L) ? 1 : ""))
+                    .append(String.format("%-6s", frontAreaList.contains(23L) ? 1 : ""))
+                    .append(String.format("%-6s", frontAreaList.contains(24L) ? 1 : ""))
+                    .append(String.format("%-6s", frontAreaList.contains(25L) ? 1 : ""))
+                    .append(String.format("%-6s", frontAreaList.contains(26L) ? 1 : ""))
+                    .append(String.format("%-6s", frontAreaList.contains(27L) ? 1 : ""))
+                    .append(String.format("%-6s", frontAreaList.contains(28L) ? 1 : ""))
+                    .append(String.format("%-6s", frontAreaList.contains(29L) ? 1 : ""))
+                    .append(String.format("%-6s", frontAreaList.contains(30L) ? 1 : ""))
+                    .append(String.format("%-6s", frontAreaList.contains(31L) ? 1 : ""))
+                    .append(String.format("%-6s", frontAreaList.contains(32L) ? 1 : ""))
+                    .append(String.format("%-6s", frontAreaList.contains(33L) ? 1 : ""))
+                    .append(String.format("%-6s", frontAreaList.contains(34L) ? 1 : ""))
+                    .append(String.format("%-6s", frontAreaList.contains(35L) ? 1 : ""))
+                    .append(String.format("%-6s", endAreaList.contains(1L) ? 1 : ""))
+                    .append(String.format("%-6s", endAreaList.contains(2L) ? 1 : ""))
+                    .append(String.format("%-6s", endAreaList.contains(3L) ? 1 : ""))
+                    .append(String.format("%-6s", endAreaList.contains(4L) ? 1 : ""))
+                    .append(String.format("%-6s", endAreaList.contains(5L) ? 1 : ""))
+                    .append(String.format("%-6s", endAreaList.contains(6L) ? 1 : ""))
+                    .append(String.format("%-6s", endAreaList.contains(7L) ? 1 : ""))
+                    .append(String.format("%-6s", endAreaList.contains(8L) ? 1 : ""))
+                    .append(String.format("%-6s", endAreaList.contains(9L) ? 1 : ""))
+                    .append(String.format("%-6s", endAreaList.contains(10L) ? 1 : ""))
+                    .append(String.format("%-6s", endAreaList.contains(11L) ? 1 : ""))
+                    .append(String.format("%-6s", endAreaList.contains(12L) ? 1 : ""))
+                    .toString()
+            );
+        }
+
+
+        list.stream().forEach(p->{
+            System.out.println(p);
+        });
+    }
+
+    @Override
+    public void dltDataAnalysis4(String drawTimeFm, String drawTimeTo){
+        LotteryDltHistory lotteryDltHistory = new LotteryDltHistory();
+        lotteryDltHistory.setDrawTimeFm(drawTimeFm);
+        lotteryDltHistory.setDrawTimeTo(drawTimeTo);
+        List<LotteryDltHistory> lotteryDltHistorys = lotteryDltHistoryMapper.list(lotteryDltHistory);
+
+        List<String> frontList = new ArrayList<>(3072);
+        List<String> endList = new ArrayList<>(3072);
+        List<String> allList = new ArrayList<>(3072);
+        for(LotteryDltHistory history:lotteryDltHistorys){
+            List<Long> frontAreaList = new ArrayList<>(5);
+            frontAreaList.add(history.getFrontArea1());
+            frontAreaList.add(history.getFrontArea2());
+            frontAreaList.add(history.getFrontArea3());
+            frontAreaList.add(history.getFrontArea4());
+            frontAreaList.add(history.getFrontArea5());
+            frontAreaList = frontAreaList.stream().sorted().collect(Collectors.toList());
+
+            List<Long> endAreaList = new ArrayList<>(2);
+            endAreaList.add(history.getEndArea1());
+            endAreaList.add(history.getEndArea2());
+            endAreaList = endAreaList.stream().sorted().collect(Collectors.toList());
+
+            frontList.add(Arrays.toString(frontAreaList.toArray()));
+            endList.add(Arrays.toString(endAreaList.toArray()));
+            allList.add(Arrays.toString(frontAreaList.toArray()) + "-" + Arrays.toString(endAreaList.toArray()));
+        }
+
+        System.out.println("------------------------------前区");
+        Map<String, Long> frontCollect = frontList.stream().collect(Collectors.groupingBy(e -> e, Collectors.counting()));
+        for (Map.Entry<String, Long> entry : frontCollect.entrySet()) {
+            if(entry.getValue() > 1){
+                System.out.println(entry.getValue() + "-----" + entry.getKey());
+            }
+        }
+
+        System.out.println("------------------------------后区");
+        Map<String, Long> endCollect = endList.stream().collect(Collectors.groupingBy(e->e, Collectors.counting()));
+        for (Map.Entry<String, Long> entry : endCollect.entrySet()) {
+            if(entry.getValue() > 1){
+                System.out.println(entry.getValue() + "-----" + entry.getKey());
+            }
+        }
+
+        System.out.println("------------------------------全区");
+        Map<String, Long> allCollect = allList.stream().collect(Collectors.groupingBy(e->e, Collectors.counting()));
+        for (Map.Entry<String, Long> entry : allCollect.entrySet()) {
+            if(entry.getValue() > 1){
+                System.out.println(entry.getValue() + "-----" + entry.getKey());
+            }
+        }
     }
 }
