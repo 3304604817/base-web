@@ -21,6 +21,27 @@
         <result column="last_update_date" property="lastUpdateDate" jdbcType="DATE"/>
     </resultMap>
 
+    <select id="list" resultMap="BaseResultMap">
+        SELECT id,
+        draw_num,
+        draw_time,
+        front_area1,
+        front_area2,
+        front_area3,
+        front_area4,
+        front_area5,
+        end_area1,
+        end_area2
+        FROM lottery_dlt_history
+        WHERE 1 = 1
+        <if test="null != drawTimeFm">
+            AND draw_time <![CDATA[ >= ]]> #{drawTimeFm, jdbcType = VARCHAR}
+        </if>
+        <if test="null != drawTimeTo">
+            AND draw_time <![CDATA[ <= ]]> #{drawTimeTo, jdbcType = VARCHAR}
+        </if>
+    </select>
+
     <select id="countFrontArea1" parameterType="java.lang.Integer" resultType="java.lang.Long">
         SELECT COUNT(front_area1)
         FROM lottery_dlt_history

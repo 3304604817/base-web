@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -133,7 +134,7 @@ public class LotteryDltHistoryServiceImpl implements LotteryDltHistoryService {
     public void dltDataAnalysis1(String drawTimeFm, String drawTimeTo){
         List<String> list = new ArrayList<>(32);
 
-        list.add("----前区----" + "----后区----");
+        list.add("--------前区" + "----后区----");
 
         for(int i = 1; i <= 35; i++){
             /**
@@ -159,6 +160,50 @@ public class LotteryDltHistoryServiceImpl implements LotteryDltHistoryService {
                     + String.format("%-8s", countFrontArea1 + countFrontArea2 + countFrontArea3 + countFrontArea4 + countFrontArea5)
                     + (i <= 12 ? String.format("%-8s", countEndArea1 + countEndArea2) : ""));
         }
+
+        list.stream().forEach(p -> {
+            System.out.println(p);
+        });
+        System.out.println("------------打印完成");
+    }
+
+    @Override
+    public void dltDataAnalysis2(String drawTimeFm, String drawTimeTo){
+
+        LotteryDltHistory lotteryDltHistory = new LotteryDltHistory();
+        lotteryDltHistory.setDrawTimeFm(drawTimeFm);
+        lotteryDltHistory.setDrawTimeTo(drawTimeTo);
+        List<LotteryDltHistory> lotteryDltHistorys = lotteryDltHistoryMapper.list(lotteryDltHistory);
+
+        List<String> list = new ArrayList<>(32);
+        list.add("------------------------" + "--------------后区-------------" + "--------------合计-------------");
+
+        Long frontAreaSum = 0L;
+        Long endAreaSum = 0L;
+        Long allSum = 0L;
+        for(LotteryDltHistory history:lotteryDltHistorys){
+            history.setFrontAreaSum(history.getFrontArea1() + history.getFrontArea2() + history.getFrontArea3() + history.getFrontArea4() + history.getFrontArea5());
+            history.setEndAreaSum(history.getEndArea1() + history.getEndArea2());
+            history.setAllSum(history.getFrontAreaSum() + history.getEndAreaSum());
+
+            frontAreaSum = frontAreaSum + history.getFrontAreaSum();
+            endAreaSum = endAreaSum + history.getEndAreaSum();
+            allSum = allSum + history.getAllSum();
+        }
+        list.add("-----------" + "每个前区平均数------" + "每个后区平均数----");
+        list.add(String.format("%-20s", "平均数")
+                + String.format("%-20s", new BigDecimal(frontAreaSum).divide(new BigDecimal(35), BigDecimal.ROUND_HALF_UP, 6).divide(new BigDecimal(lotteryDltHistorys.size()), BigDecimal.ROUND_HALF_UP, 6))
+                + String.format("%-20s", new BigDecimal(endAreaSum).divide(new BigDecimal(12), BigDecimal.ROUND_HALF_UP, 6).divide(new BigDecimal(lotteryDltHistorys.size()), BigDecimal.ROUND_HALF_UP, 6))
+                + String.format("%-20s", new BigDecimal(allSum).divide(new BigDecimal(lotteryDltHistorys.size()), BigDecimal.ROUND_HALF_UP, 6)));
+        list.add("-----------" + "前区和平均数------" + "后区和平均数----" + "合计平均数-------------");
+        list.add(String.format("%-20s", "平均数")
+                + String.format("%-20s", new BigDecimal(frontAreaSum).divide(new BigDecimal(lotteryDltHistorys.size()), BigDecimal.ROUND_HALF_UP, 6))
+                + String.format("%-20s", new BigDecimal(endAreaSum).divide(new BigDecimal(lotteryDltHistorys.size()), BigDecimal.ROUND_HALF_UP, 6))
+                + String.format("%-20s", new BigDecimal(allSum).divide(new BigDecimal(lotteryDltHistorys.size()), BigDecimal.ROUND_HALF_UP, 6)));
+        list.add(String.format("%-20s", "合计")
+                + String.format("%-20s", frontAreaSum)
+                + String.format("%-20s", endAreaSum)
+                + String.format("%-20s", allSum));
 
         list.stream().forEach(p -> {
             System.out.println(p);

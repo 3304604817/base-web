@@ -21,4 +21,9 @@ public interface LotteryDltHistoryService {
      * 大乐透数据分析-查前后区所有数字分布
      */
     void dltDataAnalysis1(String drawTimeFm, String drawTimeTo);
+
+    /**
+     * 大乐透数据分析-查前后区数字和
+     */
+    void dltDataAnalysis2(String drawTimeFm, String drawTimeTo);
 }

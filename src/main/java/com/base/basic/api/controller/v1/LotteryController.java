@@ -50,4 +50,13 @@ public class LotteryController {
         lotteryDltHistoryService.dltDataAnalysis1(drawTimeFm, drawTimeTo);
         return new ResponseEntity(HttpStatus.OK);
     }
+
+    @ApiOperation(value = "大乐透历史数据分析-查前后区数字和")
+    @PostMapping("/dlt/dataAnalysi2")
+    @Access(accessNoToken = true)
+    public ResponseEntity dltDataAnalysis2(@RequestParam(value = "drawTimeFm", required = false) String drawTimeFm,
+                                           @RequestParam(value = "drawTimeTo", required = false) String drawTimeTo) {
+        lotteryDltHistoryService.dltDataAnalysis2(drawTimeFm, drawTimeTo);
+        return new ResponseEntity(HttpStatus.OK);
+    }
 }

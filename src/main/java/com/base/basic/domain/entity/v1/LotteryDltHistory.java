@@ -3,6 +3,7 @@ package com.base.basic.domain.entity.v1;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import com.base.basic.domain.entity.v0.base.BaseEntity;
 import io.swagger.annotations.ApiModel;
@@ -10,6 +11,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * 大乐透中奖历史
@@ -65,4 +67,24 @@ public class LotteryDltHistory extends BaseEntity {
 
 	@ApiModelProperty(value = "租户id")
     private Long tenantId;
+
+    @ApiModelProperty(value = "开奖时间从")
+    @Transient
+    private String drawTimeFm;
+
+    @ApiModelProperty(value = "开奖时间至")
+    @Transient
+    private String drawTimeTo;
+
+    @ApiModelProperty(value = "前区合计：前区所有号求和")
+    @Transient
+    private Long frontAreaSum;
+
+    @ApiModelProperty(value = "后区合计：后区所有号求和")
+    @Transient
+    private Long endAreaSum;
+
+    @ApiModelProperty(value = "总合计=前区合计+后区合计")
+    @Transient
+    private Long allSum;
 }
