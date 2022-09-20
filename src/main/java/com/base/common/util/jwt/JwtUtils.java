@@ -27,7 +27,7 @@ public class JwtUtils {
     /**
      * 生成用户token,设置token超时时间
      */
-    public static String createToken(String username) {
+    public static String createToken(String username, String realName, String phone, String email) {
         Map<String, Object> map = new HashMap<>();
         map.put("alg", "HS256");
         map.put("typ", "JWT");
@@ -36,6 +36,9 @@ public class JwtUtils {
                 .withHeader(map)
                 // 可以将基本信息放到claims中
                 .withClaim("username", username)
+                .withClaim("realName", realName)
+                .withClaim("phone", phone)
+                .withClaim("email", email)
                 // token 过期时间
                 .withExpiresAt(new Date(System.currentTimeMillis() + EXPIRATION * 1000))
                 // 签发时间

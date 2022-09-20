@@ -67,4 +67,26 @@
         </if>
         limit 1
     </select>
+
+    <select id="currentUser" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select iu.id,
+        iu.login_name,
+        iu.email,
+        iu.organization_id,
+        iu.HASH_PASSWORD,
+        iu.real_name,
+        iu.phone,
+        iu.INTERNATIONAL_TEL_CODE,
+        iu.language,
+        iu.time_zone,
+        iu.object_version_number,
+        iu.created_by,
+        iu.creation_date,
+        iu.last_updated_by,
+        iu.last_update_date
+        from iam_user iu
+        where 1 = 1
+        and iu.login_name = #{loginName, jdbcType = VARCHAR}
+        limit 1
+    </select>
 </mapper>

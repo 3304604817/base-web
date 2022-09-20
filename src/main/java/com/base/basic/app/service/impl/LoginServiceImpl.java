@@ -2,6 +2,8 @@ package com.base.basic.app.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
 import com.base.basic.app.service.LoginService;
+import com.base.basic.domain.entity.v0.IamUser;
+import com.base.basic.infra.mapper.UserMapper;
 import com.base.common.util.jwt.JwtUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -14,6 +16,9 @@ import org.springframework.stereotype.Service;
 public class LoginServiceImpl implements LoginService {
 
     @Autowired
+    @SuppressWarnings("all")
+    private UserMapper userMapper;
+    @Autowired
     private AuthenticationManager authenticationManager;
 
     @Override
@@ -23,7 +28,7 @@ public class LoginServiceImpl implements LoginService {
             // 调用密码验证逻辑
             Authentication authentication = authenticationManager.authenticate(authenticationToken);
             JSONObject principal = (JSONObject)JSONObject.toJSON(authentication.getPrincipal());
-            return JwtUtils.createToken(principal.getString("username"));
+            return JwtUtils.createToken(principal.getString("username"), principal.getString("realName"), principal.getString("phone"), principal.getString("email"));
         }catch (Exception e){
             e.printStackTrace();
             return null;

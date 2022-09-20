@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class SecurityUserDetailsServiceImpl implements UserDetailsService {
     @Autowired
+    @SuppressWarnings("all")
     private UserMapper userMapper;
 
     /**
@@ -26,7 +27,7 @@ public class SecurityUserDetailsServiceImpl implements UserDetailsService {
         if(null == currentUser){
             return null;
         }
-        CurrentUserVO currentUserVO = new CurrentUserVO(currentUser.getLoginName(), currentUser.getHashPassword());
+        CurrentUserVO currentUserVO = new CurrentUserVO(currentUser.getLoginName(), currentUser.getRealName(), currentUser.getHashPassword(), currentUser.getPhone(), currentUser.getEmail());
         return currentUserVO;
     }
 }

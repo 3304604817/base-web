@@ -51,11 +51,13 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             filterChain.doFilter(httpServletRequest, httpServletResponse);
             return;
         }
-        Claim claim = claimMap.get("username");
-        String username = claim.asString();
+        Claim username = claimMap.get("username");
+        Claim realName = claimMap.get("realName");
+        Claim phone = claimMap.get("phone");
+        Claim email = claimMap.get("email");
 
         // 将Token可以解析出来的当前用户设置为 可访问
-        CurrentUserVO currentUser = new CurrentUserVO(username, null);
+        CurrentUserVO currentUser = new CurrentUserVO(username.asString(), realName.asString(), null, phone.asString(), email.asString());
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(currentUser, null, null);
         SecurityContextHolder.getContext().setAuthentication(authenticationToken);
 

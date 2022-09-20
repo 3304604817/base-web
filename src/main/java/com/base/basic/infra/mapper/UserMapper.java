@@ -10,4 +10,6 @@ public interface UserMapper extends SupperMapper<IamUser> {
     List<IamUser> list(IamUser dto);
 
     IamUser detail(@Param("userId") Long userId);
+
+    IamUser currentUser(@Param("loginName") String loginName);
 }
