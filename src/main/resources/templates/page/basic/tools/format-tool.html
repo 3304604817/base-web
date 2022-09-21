@@ -22,6 +22,8 @@
                     <button lay-submit class="layui-btn layui-btn-normal" lay-filter="base64DecryptBtn">Base64解密</button>
                     <button lay-submit class="layui-btn layui-btn-normal" lay-filter="md5EncrypBtn">MD5加密</button>
                     <button lay-submit class="layui-btn layui-btn-normal" lay-filter="uuidGenerate">生成UUID</button>
+                    <button lay-submit class="layui-btn layui-btn-normal" lay-filter="urlEncoder">URL编码</button>
+                    <button lay-submit class="layui-btn layui-btn-normal" lay-filter="urlDecoder">URL解码</button>
                 </div>
             </div>
         </div>
@@ -162,6 +164,50 @@
             $.ajax({
                 type: 'post',
                 url: basicPath + '/format-tool/uuid-generate',
+                dataType: 'json',
+                contentType: 'application/json',
+                data: JSON.stringify(requestBody),
+                cache: false,
+                async: false,
+                success: function (data) {
+                    let { inputText, outputText, errorMsg } = data;
+                    form.val('formData', {
+                        "outputText": errorMsg ? errorMsg : outputText,
+                    });
+                }
+            });
+            return false;
+        });
+
+        // URL编码
+        form.on('submit(urlEncoder)', function (data) {
+            var { inputText, outputText } = data.field;
+            let requestBody = { inputText };
+            $.ajax({
+                type: 'post',
+                url: basicPath + '/format-tool/url-encoder',
+                dataType: 'json',
+                contentType: 'application/json',
+                data: JSON.stringify(requestBody),
+                cache: false,
+                async: false,
+                success: function (data) {
+                    let { inputText, outputText, errorMsg } = data;
+                    form.val('formData', {
+                        "outputText": errorMsg ? errorMsg : outputText,
+                    });
+                }
+            });
+            return false;
+        });
+
+        // URL解码
+        form.on('submit(urlDecoder)', function (data) {
+            var { inputText, outputText } = data.field;
+            let requestBody = { inputText };
+            $.ajax({
+                type: 'post',
+                url: basicPath + '/format-tool/url-decoder',
                 dataType: 'json',
                 contentType: 'application/json',
                 data: JSON.stringify(requestBody),

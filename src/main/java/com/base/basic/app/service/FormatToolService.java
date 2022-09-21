@@ -33,12 +33,12 @@ public interface FormatToolService {
     FormatToolVO uuidGenerate(FormatToolVO formatToolVO);
 
     /**
-     *
+     * URL编码
      */
     FormatToolVO urlEncoder(FormatToolVO formatToolVO) throws UnsupportedEncodingException;
 
     /**
-     *
+     * URL解码
      */
     FormatToolVO urlDecoder(FormatToolVO formatToolVO) throws UnsupportedEncodingException;
 }
