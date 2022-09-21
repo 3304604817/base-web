@@ -29,7 +29,7 @@ import java.util.Objects;
  * 登录认证配置
  */
 @EnableWebSecurity
-public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private RequestMappingHandlerMapping handlerMapping;
