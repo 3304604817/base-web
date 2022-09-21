@@ -90,17 +90,16 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         // 表单认证
         http.formLogin()
-                // 当发现login时认为是登录需要执行我们自定义的登录逻辑 > 里面的url是登录页面表单的提交地址
-                .loginProcessingUrl("/security-login")
-                // 登录成功后请求地址 请求方法必须是post的
-                .defaultSuccessUrl("/aaa.html")
-                .failureUrl("/bbb/login-0.html")
                 /**
                  * 设置登录页面
                  * 1、当请求未登录时会自动请求这个url
                  * 2、输入网站地址也会自动请求这个url
                  */
-                .loginPage("/login/redirect-login");
+                .loginPage("/page/login-0.html")
+                // 登录页面表单的提交地址
+                .loginProcessingUrl("/security-login")
+                // 登录成功后请求地址 请求方法必须是post的
+                .successForwardUrl("/login/index");
         // url拦截认证  > 所有请求都必须被认证 必须登录后才可以访问
         http.authorizeRequests()
                 // 设置不需要拦截的页面-这里需要注意的是把登录的页面和一些静态资源设置为不需要拦截

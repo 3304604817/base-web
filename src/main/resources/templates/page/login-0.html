@@ -117,7 +117,7 @@
                             cookietime.setTime(cookietime.getTime() + (8 * 60 * 60 * 1000)); // coockie保存一小时
                             $.cookie('token', data.body, {expires: cookietime, path: '/'});
 
-                            window.location.replace("../index.html");//  = '../index.html';
+                            window.location.replace("../index.html");
                         }else{
                             layer.msg('用户名或密码错误');
                         }

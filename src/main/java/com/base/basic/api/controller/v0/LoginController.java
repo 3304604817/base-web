@@ -28,6 +28,13 @@ public class LoginController {
     @Autowired
     private LoginService loginService;
 
+    @ApiOperation(value = "重定向首页")
+    @PostMapping("/index")
+    public void index(HttpServletRequest request,
+                      HttpServletResponse response) throws IOException {
+        response.sendRedirect("/index.html");
+    }
+
     @ApiOperation(value = "重定向登录页面")
     @RequestMapping("/redirect-login")
     public void login(HttpServletRequest request,
