@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+
 @Api(tags="格式化工具")
 @RestController
 @RequestMapping("/format-tool")
@@ -54,5 +57,19 @@ public class FormatToolController {
     @Access(accessNoToken = true)
     public FormatToolVO uuidGenerate(@RequestBody FormatToolVO formatToolVO) {
         return formatToolService.uuidGenerate(formatToolVO);
+    }
+
+    @ApiOperation(value = "URL转码")
+    @PostMapping("/url-encoder")
+    @Access(accessNoToken = true)
+    public FormatToolVO urlEncoder(@RequestBody FormatToolVO formatToolVO) throws UnsupportedEncodingException {
+        return formatToolService.urlEncoder(formatToolVO);
+    }
+
+    @ApiOperation(value = "URL解码")
+    @PostMapping("/url-decoder")
+    @Access(accessNoToken = true)
+    public FormatToolVO urlDecoder(@RequestBody FormatToolVO formatToolVO) throws UnsupportedEncodingException {
+        return formatToolService.urlDecoder(formatToolVO);
     }
 }

@@ -3,6 +3,8 @@ package com.base.basic.app.service;
 import com.alibaba.fastjson.JSONObject;
 import com.base.basic.domain.vo.v0.FormatToolVO;
 
+import java.io.UnsupportedEncodingException;
+
 public interface FormatToolService {
 
     /**
@@ -29,4 +31,14 @@ public interface FormatToolService {
      *  UUID生成
      */
     FormatToolVO uuidGenerate(FormatToolVO formatToolVO);
+
+    /**
+     *
+     */
+    FormatToolVO urlEncoder(FormatToolVO formatToolVO) throws UnsupportedEncodingException;
+
+    /**
+     *
+     */
+    FormatToolVO urlDecoder(FormatToolVO formatToolVO) throws UnsupportedEncodingException;
 }

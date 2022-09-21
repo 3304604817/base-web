@@ -8,6 +8,9 @@ import org.apache.commons.compress.utils.ByteUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.security.MessageDigest;
 import java.util.Base64;
 import java.util.UUID;
@@ -67,6 +70,22 @@ public class FormatToolServiceImpl implements FormatToolService {
     public FormatToolVO uuidGenerate(FormatToolVO formatToolVO){
         String uuid = UUID.randomUUID().toString();
         formatToolVO.setOutputText(uuid);
+        return formatToolVO;
+    }
+
+    @Override
+    public FormatToolVO urlEncoder(FormatToolVO formatToolVO) throws UnsupportedEncodingException {
+        formatToolVO.setOutputText(
+                URLEncoder.encode(formatToolVO.getInputText(), "UTF-8")
+        );
+        return formatToolVO;
+    }
+
+    @Override
+    public FormatToolVO urlDecoder(FormatToolVO formatToolVO) throws UnsupportedEncodingException {
+        formatToolVO.setOutputText(
+                URLDecoder.decode(formatToolVO.getInputText(), "UTF-8")
+        );
         return formatToolVO;
     }
 }
