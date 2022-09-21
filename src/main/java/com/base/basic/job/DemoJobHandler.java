@@ -1,28 +1,14 @@
 package com.base.basic.job;
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
-import com.base.basic.api.controller.v0.HttpRequestController;
 import com.base.basic.domain.entity.v1.AuditLog;
 import com.base.basic.infra.mapper.AuditLogMapper;
-import com.base.common.util.http.HttpUrlConnectionUtil;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
-
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * @author yang.gao
@@ -30,8 +16,8 @@ import java.util.Map;
  * @date 2022/7/28 17:48
  */
 @Component
-public class PacketCaptureJobHandler {
-    private Logger logger = LoggerFactory.getLogger(PacketCaptureJobHandler.class);
+public class DemoJobHandler {
+    private Logger logger = LoggerFactory.getLogger(DemoJobHandler.class);
 
     /**
      * 天天基金-优选基金
