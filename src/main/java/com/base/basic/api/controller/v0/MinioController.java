@@ -93,7 +93,6 @@ public class MinioController {
         }
     }
 
-    @Access(accessNoToken = true)
     @ApiOperation(value = "文件转Base64字符串")
     @PostMapping("file-to-base64")
     public ResponseEntity<String> fileToBase64(@ApiParam(value="选择文件",required=true) @RequestPart("fileName") MultipartFile file) {

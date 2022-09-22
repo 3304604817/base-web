@@ -40,7 +40,6 @@ public class HttpRequestController {
      */
     @ApiOperation(value = "")
     @PostMapping("/rest-template/get")
-    @Access(accessNoToken = true)
     public ResponseEntity restTemplate() {
         /**
          * GET 请求
@@ -67,7 +66,6 @@ public class HttpRequestController {
      */
     @ApiOperation(value = "")
     @PostMapping("/jdk/http")
-    @Access(accessNoToken = true)
     public ResponseEntity httpUrlConnection() {
 
         Map<String, Object> uriVariables = new HashMap<>(2);

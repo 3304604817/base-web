@@ -24,14 +24,12 @@ public class CodeGeneratorController {
 
     @ApiOperation(value = "生成MVC代码模型")
     @GetMapping("/list")
-    @Access(accessNoToken = true)
     public LayJson<TableVO> list(PageParmaters pageParmaters, TableVO tableVO) {
         return new LayJson<>(codeGeneratorService.pageList(pageParmaters, tableVO));
     }
 
     @ApiOperation(value = "生成MVC代码模型")
     @PostMapping("/mvc")
-    @Access(accessNoToken = true)
     public ResponseEntity mvc(@RequestBody List<TableVO> tableVOS) {
         codeGeneratorService.mvcGenerator(tableVOS);
         return new ResponseEntity(HttpStatus.OK);

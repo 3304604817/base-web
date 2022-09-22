@@ -18,7 +18,6 @@ public class RocketmqController {
     @Autowired
     private RocketmqService rocketmqService;
 
-    @Access(accessNoToken = true)
     @ApiOperation(value = "启动Consumer")
     @PostMapping("/consumer-start")
     public ResponseEntity consumerStart() throws MQClientException, InterruptedException {
@@ -26,7 +25,6 @@ public class RocketmqController {
         return new ResponseEntity(HttpStatus.OK);
     }
 
-    @Access(accessNoToken = true)
     @ApiOperation(value = "发送MQ消息同步")
     @PostMapping("/send")
     public ResponseEntity send() throws MQClientException, InterruptedException {
@@ -34,7 +32,6 @@ public class RocketmqController {
         return new ResponseEntity(HttpStatus.OK);
     }
 
-    @Access(accessNoToken = true)
     @ApiOperation(value = "发送MQ消息无返回")
     @PostMapping("/send-oneway")
     public ResponseEntity sendOneway() throws MQClientException, InterruptedException {
@@ -42,7 +39,6 @@ public class RocketmqController {
         return new ResponseEntity(HttpStatus.OK);
     }
 
-    @Access(accessNoToken = true)
     @ApiOperation(value = "发送MQ消息异步")
     @PostMapping("/send-async")
     public ResponseEntity sendAsync() throws MQClientException, InterruptedException {
