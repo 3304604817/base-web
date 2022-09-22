@@ -35,7 +35,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, FilterChain filterChain) throws ServletException, IOException {
-        // 从请求头中取出 token  这里需要和前端约定好把jwt放到请求头一个叫token的地方
+        // 从Cookie中取出 token 这里需要和前端约定好把jwt放到请求头一个叫token的地方
         String token = null;
         Cookie[] cookies = null;
         if(null != (cookies = httpServletRequest.getCookies())){
