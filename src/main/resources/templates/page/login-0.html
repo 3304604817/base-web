@@ -51,7 +51,7 @@
                     <label class="layui-icon layui-icon-vercode" for="captcha"></label>
                     <input type="text" name="captcha" lay-verify="captcha" placeholder="图形验证码" autocomplete="off" class="layui-input verification captcha" value="xszg">
                     <div class="captcha-img">
-                        <img id="captchaPic" src="../images/captcha.jpg">
+                        <img alt="验证码" onclick="this.src='/login/kaptcha?d='+new Date()*1" src="/login/kaptcha"/>
                     </div>
                 </div>
                 <div class="layui-form-item">

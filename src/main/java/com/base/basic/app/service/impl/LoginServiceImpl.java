@@ -1,6 +1,7 @@
 package com.base.basic.app.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
+import com.baomidou.kaptcha.Kaptcha;
 import com.base.basic.app.service.LoginService;
 import com.base.basic.domain.entity.v0.IamUser;
 import com.base.basic.infra.mapper.UserMapper;
@@ -20,10 +21,28 @@ public class LoginServiceImpl implements LoginService {
     private UserMapper userMapper;
     @Autowired
     private AuthenticationManager authenticationManager;
+    @Autowired
+    private Kaptcha kaptcha;
+    @Autowired
+    private LoginService loginService;
+
+    @Override
+    public void kaptcha(){
+        String sessionCode = kaptcha.render();
+    }
+
+    @Override
+    public boolean validateCaptcha(String sessionCode){
+        // 设置验证码有效期为120秒
+        return kaptcha.validate(sessionCode, 120);
+    }
 
     @Override
     public String login(String username, String password, String captcha){
         try {
+            if(!loginService.validateCaptcha(captcha)){
+                throw new Exception("验证码错误");
+            }
             UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(username, password);
             // 调用密码验证逻辑
             Authentication authentication = authenticationManager.authenticate(authenticationToken);

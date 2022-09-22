@@ -29,17 +29,24 @@ public class LoginController {
     private LoginService loginService;
 
     @ApiOperation(value = "重定向首页")
-    @PostMapping("/index")
+    @GetMapping("/index")
     public void index(HttpServletRequest request,
                       HttpServletResponse response) throws IOException {
         response.sendRedirect("/index.html");
     }
 
     @ApiOperation(value = "重定向登录页面")
-    @RequestMapping("/redirect-login")
+    @GetMapping("/redirect-login")
     public void login(HttpServletRequest request,
                                 HttpServletResponse response) throws IOException {
         response.sendRedirect("/page/login-0.html");
+    }
+
+    @ApiOperation(value = "生成验证码")
+    @GetMapping("/kaptcha")
+    public ResponseEntity kaptcha() {
+        loginService.kaptcha();
+        return new ResponseEntity(HttpStatus.OK);
     }
 
     @ApiOperation(value = "用户登录")
@@ -53,7 +60,7 @@ public class LoginController {
     }
 
     @ApiOperation(value = "退出登录")
-    @RequestMapping("/login-out")
+    @PostMapping("/login-out")
     public ResponseEntity loginOut() {
         loginService.loginOut();
         return new ResponseEntity(HttpStatus.OK);
