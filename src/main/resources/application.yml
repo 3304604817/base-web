@@ -52,6 +52,8 @@ mybatis:
 # 启用SQL日志打印
 logging:
   level:
+    # 打印所有日志,便于定位问题
+#    root: debug
     # dao层文件路径
     com.base.basic.infra.mapper: debug
     com.base.srm.infra.mapper: debug
