@@ -96,7 +96,6 @@
 <script src="lib/jq-module/jquery.cookie.js" charset="utf-8"></script>
 <script src="js/config.js"></script>
 <script>
-    var token = $.cookie("token");
     var dictionaryData = {};
     var dictionaryDetailData = {};
     // 获取父页面传的变量
@@ -105,9 +104,6 @@
         $.ajax({
             type: 'get',
             url: basicPath + '/data-dictionary/detail/'+parentData.id,
-            headers: {
-                Authorization: "Bearer " + token,
-            },
             dataType: 'json',
             contentType: 'application/json',
             cache: false,
@@ -151,9 +147,6 @@
                 $.ajax({
                     type: 'post',
                     url: basicPath + '/data-dictionary/save',
-                    headers: {
-                        Authorization: "Bearer " + token,
-                    },
                     dataType: 'json',
                     contentType: 'application/json',
                     data: JSON.stringify(dataDictionary),

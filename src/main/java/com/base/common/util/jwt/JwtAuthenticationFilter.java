@@ -14,6 +14,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -35,9 +36,15 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, FilterChain filterChain) throws ServletException, IOException {
         // 从请求头中取出 token  这里需要和前端约定好把jwt放到请求头一个叫token的地方
-        String authorization = httpServletRequest.getHeader("Authorization");
-        String token = StringUtils.isNotEmpty(authorization) && authorization.startsWith("Bearer") ?
-                authorization.replace("Bearer ","") : null;
+        String token = null;
+        Cookie[] cookies = null;
+        if(null != (cookies = httpServletRequest.getCookies())){
+            for(Cookie cookie:cookies){
+                if(StringUtils.equals("token", cookie.getName())){
+                    token = cookie.getValue();
+                }
+            }
+        }
 
         if (Objects.isNull(token)) {
             filterChain.doFilter(httpServletRequest, httpServletResponse);
