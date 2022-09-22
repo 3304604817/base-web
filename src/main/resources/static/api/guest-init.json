@@ -26,12 +26,6 @@
               "href": "page/welcome-0.html",
               "icon": "fa fa-phone",
               "target": "_self"
-            },
-            {
-              "title": "控制面板",
-              "href": "page/basic/panel/control-panel.html",
-              "icon": "fa fa-bar-chart",
-              "target": "_self"
             }
           ]
         },
@@ -45,20 +39,6 @@
               "title": "Json格式化",
               "href": "page/basic/tools/format-tool.html",
               "icon": "fa fa-refresh",
-              "target": "_self"
-            }
-          ]
-        },
-        {
-          "title": "交易平台",
-          "href": "",
-          "icon": "fa fa-shopping-cart",
-          "target": "",
-          "child": [
-            {
-              "title": "二手交易",
-              "href": "page/basic/oldgoods/old-goods.html",
-              "icon": "fa fa-cart-plus",
               "target": "_self"
             }
           ]
