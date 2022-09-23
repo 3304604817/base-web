@@ -23,11 +23,10 @@ public class SecurityUserDetailsServiceImpl implements UserDetailsService {
      */
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        IamUser currentUser = userMapper.selectOne(new IamUser(username));
-        if(null == currentUser){
+        IamUser currentUser = null;
+        if(null == (currentUser = userMapper.selectOne(new IamUser(username)))){
             return null;
         }
-        CurrentUserVO currentUserVO = new CurrentUserVO(currentUser.getLoginName(), currentUser.getRealName(), currentUser.getHashPassword(), currentUser.getPhone(), currentUser.getEmail());
-        return currentUserVO;
+        return new CurrentUserVO(currentUser.getLoginName(), currentUser.getRealName(), currentUser.getHashPassword(), currentUser.getPhone(), currentUser.getEmail());
     }
 }
