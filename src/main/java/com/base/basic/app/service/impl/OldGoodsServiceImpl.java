@@ -35,8 +35,10 @@ import java.util.UUID;
 public class OldGoodsServiceImpl implements OldGoodsService {
 
     @Autowired
+    @SuppressWarnings("all")
     private OldGoodsMapper oldGoodsMapper;
     @Autowired
+    @SuppressWarnings("all")
     private OldGoodsDetailMapper oldGoodsDetailMapper;
     @Autowired
     private OldGoodsRepository oldGoodsRepository;
