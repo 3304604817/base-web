@@ -104,7 +104,7 @@
                 async: false,
                 success: function (data) {
                     let { code, status, errMsg } = data;
-                    if(status !== '200'){
+                    if(code !== '200'){
                         alert(errMsg);
                     }else {
                         alert("注册成功");
