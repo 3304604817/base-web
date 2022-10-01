@@ -5,3 +5,9 @@
 var basicPath = '';
 // var basicPath = '/basic';
 // var basePath = '/base';
+
+/**
+ * 正则校验
+ */
+var emailFormat = /^(\w-*\.*)+@(\w-?)+(\.\w{2,})+$/;
+var phoneFormat = /^1\d{10}$/;

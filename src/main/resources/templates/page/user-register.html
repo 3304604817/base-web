@@ -15,6 +15,8 @@
                 <label class="layui-form-label required">密码</label>
                 <div class="layui-input-inline">
                     <input type="password" id="pwd" name="pwd" lay-verify="required" placeholder="请输入密码" lay-reqtext="密码不能为空" autocomplete="new-password" value="" class="layui-input">
+                </div>
+                <div class="layui-input-inline">
                     <i class="fa fa-eye-slash" onclick="showPwd()"></i>
                 </div>
             </div>
@@ -22,6 +24,8 @@
                 <label class="layui-form-label required">确认密码</label>
                 <div class="layui-input-inline">
                     <input type="password" name="confirmPwd" lay-verify="required" placeholder="确认密码" lay-reqtext="密码不能为空" autocomplete="new-password" value="" class="layui-input">
+                </div>
+                <div class="layui-input-inline">
                     <i class="fa fa-eye-slash" onclick="showConfirmPwd()"></i>
                 </div>
             </div>
@@ -34,12 +38,14 @@
         </div>
     </div>
 </div>
+<script type="text/javascript" src="lib/jquery-3.4.1/jquery-3.4.1.min.js"></script>
+<script src="js/config.js"></script>
 <script>
     var pwd = document.getElementById("pwd");
     var confirmPwd = document.getElementById("confirmPwd");
 
+    // 显示密码
     function showPwd() {
-        console.log(pwd);
         if(pwd.type === "password"){
             pwd.type = "text";
             pwd.class = "fa fa-eye";
@@ -48,12 +54,13 @@
             pwd.class = "fa fa-eye-slash";
         }
     }
-
     function showConfirmPwd() {
         if(confirmPwd.type === "password"){
             confirmPwd.type = "text";
+            pwd.class = "fa fa-eye";
         }else {
             confirmPwd.type = "password";
+            pwd.class = "fa fa-eye-slash";
         }
     }
 
@@ -69,14 +76,30 @@
 
         //监听提交
         form.on('submit(saveBtn)', function (data) {
-            var index = layer.alert(JSON.stringify(data.field), {
-                title: '最终的提交信息'
-            }, function () {
-                layer.close(index);
-                miniPage.hashHome();
+            let registerUrl = basicPath;
+            if(phoneFormat.test(data.field.loginName)){
+                // 手机注册
+                registerUrl = registerUrl + '/register/by-phone'
+            }else if(emailFormat.test(data.field.loginName)){
+                // 邮箱注册
+                registerUrl = registerUrl + '/register/by-email'
+            }else{
+                console.log("错误");
+                return false;
+            }
+
+            $.ajax({
+                type: 'post',
+                url: registerUrl,
+                dataType: 'json',
+                contentType: 'application/json',
+                data: JSON.stringify(data.field),
+                cache: false,
+                async: false,
+                success: function (data) {
+                }
             });
             return false;
         });
-
     });
 </script>
