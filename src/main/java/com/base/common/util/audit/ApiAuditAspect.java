@@ -16,9 +16,11 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * 接口审计
@@ -75,11 +77,23 @@ public class ApiAuditAspect {
         int remotePort = request.getRemotePort();
         logger.info("远程请求端口：{}", remotePort);
 
-        String authorization = request.getHeader("Authorization");
-        String token = StringUtils.isNotEmpty(authorization) && authorization.startsWith("Bearer") ? authorization.replace("Bearer ","") : null;
+        // 从Cookie中取出 token 这里需要和前端约定好把jwt放到请求头一个叫token的地方
+        String token = null;
+        Cookie[] cookies = null;
+        if(null != (cookies = request.getCookies())){
+            for(Cookie cookie:cookies){
+                if(StringUtils.equals("token", cookie.getName())){
+                    token = cookie.getValue();
+                    break;
+                }
+            }
+        }
         String username = "Public";
-        Map<String, Claim> claimMap = null;
-        if(null != token && null != (claimMap = JwtUtils.verifyToken(token))){
+        if (Objects.nonNull(token)) {
+            // 解析token
+            Map<String, Claim> claimMap = JwtUtils.verifyToken(token);
+            if(Objects.nonNull(claimMap)){
+            }
             username = claimMap.get("username").asString();
         }
         logger.info("用户名：{}", username);
