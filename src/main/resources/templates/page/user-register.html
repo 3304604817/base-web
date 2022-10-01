@@ -103,9 +103,9 @@
                 cache: false,
                 async: false,
                 success: function (data) {
-                    let { code, status, message } = data;
+                    let { code, status, errMsg } = data;
                     if(status !== '200'){
-                        alert(message);
+                        alert(errMsg);
                     }else {
                         alert("注册成功");
                     }
