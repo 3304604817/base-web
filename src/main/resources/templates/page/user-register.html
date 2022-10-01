@@ -14,13 +14,15 @@
             <div class="layui-form-item">
                 <label class="layui-form-label required">密码</label>
                 <div class="layui-input-inline">
-                    <input type="password" name="pwd" lay-verify="required" placeholder="请输入密码" lay-reqtext="密码不能为空" autocomplete="off" value="new-password" class="layui-input">
+                    <input type="password" id="pwd" name="pwd" lay-verify="required" placeholder="请输入密码" lay-reqtext="密码不能为空" autocomplete="new-password" value="" class="layui-input">
+                    <i class="fa fa-eye-slash" onclick="showPwd()"></i>
                 </div>
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label required">确认密码</label>
                 <div class="layui-input-inline">
-                    <input type="password" name="confirmPwd" lay-verify="required" placeholder="确认密码" lay-reqtext="密码不能为空" autocomplete="off" value="new-password" class="layui-input">
+                    <input type="password" name="confirmPwd" lay-verify="required" placeholder="确认密码" lay-reqtext="密码不能为空" autocomplete="new-password" value="" class="layui-input">
+                    <i class="fa fa-eye-slash" onclick="showConfirmPwd()"></i>
                 </div>
             </div>
 
@@ -33,6 +35,28 @@
     </div>
 </div>
 <script>
+    var pwd = document.getElementById("pwd");
+    var confirmPwd = document.getElementById("confirmPwd");
+
+    function showPwd() {
+        console.log(pwd);
+        if(pwd.type === "password"){
+            pwd.type = "text";
+            pwd.class = "fa fa-eye";
+        }else {
+            pwd.type = "password";
+            pwd.class = "fa fa-eye-slash";
+        }
+    }
+
+    function showConfirmPwd() {
+        if(confirmPwd.type === "password"){
+            confirmPwd.type = "text";
+        }else {
+            confirmPwd.type = "password";
+        }
+    }
+
     layui.use(['form','miniPage'], function () {
         var form = layui.form,
             layer = layui.layer,
