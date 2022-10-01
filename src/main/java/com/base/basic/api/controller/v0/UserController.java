@@ -25,6 +25,7 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @Access(accessNoToken = true)
     @ApiOperation(value = "获取当前登陆用户信息")
     @GetMapping("/current-user")
     @CrossOrigin

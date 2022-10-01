@@ -2,6 +2,7 @@ package com.base.basic.api.controller.v0;
 
 import com.base.basic.app.service.LoginService;
 import com.base.basic.domain.entity.v0.base.BaseResponseEntity;
+import com.base.common.util.jwt.annotation.Access;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
@@ -28,6 +29,7 @@ public class LoginController {
     @Autowired
     private LoginService loginService;
 
+    @Access(accessNoToken = true)
     @ApiOperation(value = "重定向首页")
     @GetMapping("/index")
     public void index(HttpServletRequest request,
@@ -35,6 +37,7 @@ public class LoginController {
         response.sendRedirect("/index.html");
     }
 
+    @Access(accessNoToken = true)
     @ApiOperation(value = "重定向登录页面")
     @GetMapping("/redirect-login")
     public void login(HttpServletRequest request,
@@ -42,6 +45,7 @@ public class LoginController {
         response.sendRedirect("/page/login-0.html");
     }
 
+    @Access(accessNoToken = true)
     @ApiOperation(value = "生成验证码")
     @GetMapping("/kaptcha")
     public ResponseEntity kaptcha() {
@@ -49,6 +53,7 @@ public class LoginController {
         return new ResponseEntity(HttpStatus.OK);
     }
 
+    @Access(accessNoToken = true)
     @ApiOperation(value = "用户登录")
     @PostMapping("/security-login")
     public BaseResponseEntity login(@RequestParam(value = "username", required = true) String username,

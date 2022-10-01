@@ -121,6 +121,25 @@
 <script src="js/lay-config.js?v=2.0.0" charset="utf-8"></script>
 <script src="js/config.js"></script>
 <script>
+    var currentUser = null;
+    if(null === currentUser){
+        console.log(currentUser);
+        console.log(null === currentUser)
+        $.ajax({
+            type: 'get',
+            url: basicPath + '/user/current-user',
+            dataType: 'json',
+            contentType: 'application/json',
+            cache: false,
+            async: false,
+            success: function (data) {
+                currentUser = data;
+                console.log(data);
+                console.log(currentUser);
+            },
+        });
+    }
+
     layui.use(['jquery', 'layer', 'miniAdmin', 'miniTongji'], function () {
         var $ = layui.jquery,
             layer = layui.layer,
