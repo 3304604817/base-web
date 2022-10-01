@@ -90,7 +90,7 @@
                 // 邮箱注册
                 registerUrl = registerUrl + '/register/by-email'
             }else{
-                alert("手机或邮箱格式错误");
+                layer.msg("手机或邮箱格式错误");
                 return false;
             }
 
@@ -105,10 +105,13 @@
                 success: function (data) {
                     let { code, status, errMsg } = data;
                     if(code !== '200'){
-                        alert(errMsg);
+                        layer.msg(errMsg);
                     }else {
-                        alert("注册成功");
-                        window.location.replace("./login-0.html");
+                        var index = layer.alert(("注册成功,请重新登录"), {
+                            title: '提示'
+                        }, function () {
+                            window.location.replace("../page/login-0.html");
+                        });
                     }
                 }
             });
