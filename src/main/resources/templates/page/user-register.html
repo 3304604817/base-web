@@ -35,6 +35,15 @@
                     <i class="fa fa-eye-slash" onclick="showConfirmPwd()"></i>
                 </div>
             </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label required">验证码</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="captcha" lay-verify="required" placeholder="验证码" lay-reqtext="验证码不能为空" autocomplete="off" value="" class="layui-input">
+                </div>
+                <div class="layui-input-inline">
+                    <button type="button" class="layui-btn">获取验证码</button>
+                </div>
+            </div>
 
             <div class="layui-form-item">
                 <div class="layui-input-block">

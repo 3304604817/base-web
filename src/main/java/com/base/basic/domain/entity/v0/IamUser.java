@@ -65,6 +65,10 @@ public class IamUser extends BaseEntity {
     @Transient
     private String confirmPwd;
 
+    // 注册密码验证码
+    @Transient
+    private String captcha;
+
     public IamUser(){}
 
     public IamUser(String loginName){
