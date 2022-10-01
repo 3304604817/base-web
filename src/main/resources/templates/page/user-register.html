@@ -41,7 +41,7 @@
                     <input type="text" name="captcha" lay-verify="required" placeholder="验证码" lay-reqtext="验证码不能为空" autocomplete="off" value="" class="layui-input">
                 </div>
                 <div class="layui-input-inline">
-                    <button type="button" class="layui-btn">获取验证码</button>
+                    <button type="button" class="layui-btn" onclick="sendCaptcha(this)">获取验证码</button>
                 </div>
             </div>
 
@@ -76,6 +76,28 @@
         }else {
             confirmPwd.type = "password";
             pwd.class = "fa fa-eye-slash";
+        }
+    }
+
+    // 发送验证码
+    function sendCaptcha(o) {
+        foo(o);
+    }
+
+    // 按钮倒计时
+    var wait = 60;
+    function foo(o) {
+        if (wait == 0) {
+            o.removeAttribute("disabled");
+            o.innerHTML = "获取验证码";
+            wait = 60;
+        } else {
+            o.setAttribute("disabled", true);
+            o.innerHTML = wait + "秒后重试";
+            wait--;
+            setTimeout(function() {
+                foo(o)
+            }, 1000)
         }
     }
 
