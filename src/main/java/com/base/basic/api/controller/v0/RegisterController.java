@@ -37,7 +37,7 @@ public class RegisterController {
             iamUser.setEmail(iamUser.getLoginName());
             return new BaseResponseEntity(CODE_200, STATUS_SUCCESS, registerService.byEmail(iamUser));
         }catch (Exception e){
-            return new BaseResponseEntity(CODE_302, STATUS_FAIL, e);
+            return new BaseResponseEntity(CODE_302, STATUS_FAIL, e.getMessage());
         }
     }
 
@@ -49,7 +49,7 @@ public class RegisterController {
             iamUser.setPhone(iamUser.getLoginName());
             return new BaseResponseEntity(CODE_200, STATUS_SUCCESS, registerService.byPhone(iamUser));
         }catch (Exception e){
-            return new BaseResponseEntity(CODE_302, STATUS_FAIL, e);
+            return new BaseResponseEntity(CODE_302, STATUS_FAIL, e.getMessage());
         }
     }
 }
