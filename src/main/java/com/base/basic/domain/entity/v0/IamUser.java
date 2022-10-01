@@ -1,11 +1,15 @@
 package com.base.basic.domain.entity.v0;
 
 import com.base.basic.domain.entity.v0.base.BaseEntity;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+import java.math.BigDecimal;
 
 @Data
 @EqualsAndHashCode
@@ -26,6 +30,7 @@ public class IamUser extends BaseEntity {
     public static final String FIELD_USER_TYPE = "userType";
 
     @Id
+    @GeneratedValue(generator = "JDBC")
     private Long id;
 
     private String loginName;
@@ -51,6 +56,14 @@ public class IamUser extends BaseEntity {
     private Boolean isLocked;
 
     private String userType;
+
+    // 注册密码
+    @Transient
+    private String pwd;
+
+    // 注册密码确认
+    @Transient
+    private String confirmPwd;
 
     public IamUser(){}
 

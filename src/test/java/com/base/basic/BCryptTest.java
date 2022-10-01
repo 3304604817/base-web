@@ -25,7 +25,7 @@ public class BCryptTest {
         /**
          * 密码校验
          */
-        boolean check1 = BCrypt.checkpw("Admin@123!", "$2a$10$9rVSKY9sXp6XuO.q6K1j1euYtshQuKTCZMj38MOE1e2FuZ0qxc/OC");
+        boolean check1 = BCrypt.checkpw("Admin@123!", pwd1);
         boolean check2 = BCrypt.checkpw("Admin@123!", pwd2);
         return;
     }
