@@ -4,7 +4,7 @@
 <div class="layuimini-container layuimini-page-anim">
     <div class="layuimini-main">
 
-        <div class="layui-form layuimini-form">
+        <div class="layui-form layuimini-form" lay-filter="currentUser">
             <div class="layui-form-item">
                 <label class="layui-form-label required">管理账号</label>
                 <div class="layui-input-block">
@@ -15,19 +15,13 @@
             <div class="layui-form-item">
                 <label class="layui-form-label required">手机</label>
                 <div class="layui-input-block">
-                    <input type="number" name="phone" lay-verify="required" lay-reqtext="手机不能为空" placeholder="请输入手机"  value="" class="layui-input">
+                    <input type="number" name="phone" placeholder="请输入手机"  value="" class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label">邮箱</label>
                 <div class="layui-input-block">
                     <input type="email" name="email"  placeholder="请输入邮箱"  value="" class="layui-input">
-                </div>
-            </div>
-            <div class="layui-form-item layui-form-text">
-                <label class="layui-form-label">备注信息</label>
-                <div class="layui-input-block">
-                    <textarea name="remark" class="layui-textarea" placeholder="请输入备注信息"></textarea>
                 </div>
             </div>
 
@@ -40,6 +34,22 @@
     </div>
 </div>
 <script>
+    var currentUser = null;
+    if(true){
+        $.ajax({
+            type: 'get',
+            url: basicPath + '/user/current-user',
+            cache: false,
+            async: false,
+            success: function (data) {
+                currentUser = data;
+            },
+            error: function (data) {
+                window.location.replace("../page/login-0.html");
+            },
+        });
+    }
+
     layui.use(['form','miniPage'], function () {
         var form = layui.form,
             layer = layui.layer,
@@ -61,5 +71,11 @@
             return false;
         });
 
+        //表单初始赋值
+        form.val('currentUser', {
+            "username": currentUser.username,
+            "phone": currentUser.phone,
+            "email": currentUser.email,
+        })
     });
 </script>
