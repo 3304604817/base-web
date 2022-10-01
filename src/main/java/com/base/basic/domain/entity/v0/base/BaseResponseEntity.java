@@ -12,6 +12,7 @@ public class BaseResponseEntity {
 
     private String code;
     private String status;
+    private String message;
     private Object body;
 
     private BaseResponseEntity(){}
@@ -19,6 +20,12 @@ public class BaseResponseEntity {
     public BaseResponseEntity(String code, String status){
         this.code = code;
         this.status = status;
+    }
+
+    public BaseResponseEntity(String code, String status, String message){
+        this.code = code;
+        this.status = status;
+        this.message = message;
     }
 
     public BaseResponseEntity(String code, String status, Object body){

@@ -90,7 +90,7 @@
                 // 邮箱注册
                 registerUrl = registerUrl + '/register/by-email'
             }else{
-                console.log("错误");
+                alert("手机或邮箱格式错误");
                 return false;
             }
 
@@ -103,7 +103,12 @@
                 cache: false,
                 async: false,
                 success: function (data) {
-                    console.log(data);
+                    let { code, status, message } = data;
+                    if(status !== '200'){
+                        alert(message);
+                    }else {
+                        alert("注册成功");
+                    }
                 }
             });
             return false;
