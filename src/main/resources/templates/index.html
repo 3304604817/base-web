@@ -122,20 +122,17 @@
 <script src="js/config.js"></script>
 <script>
     var currentUser = null;
-    if(null === currentUser){
-        console.log(currentUser);
-        console.log(null === currentUser)
+    if(true){
         $.ajax({
             type: 'get',
             url: basicPath + '/user/current-user',
-            dataType: 'json',
-            contentType: 'application/json',
             cache: false,
             async: false,
             success: function (data) {
                 currentUser = data;
-                console.log(data);
-                console.log(currentUser);
+            },
+            error: function (data) {
+                window.location.replace("../page/login-0.html");
             },
         });
     }

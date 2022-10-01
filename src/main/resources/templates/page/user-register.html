@@ -103,9 +103,9 @@
                 cache: false,
                 async: false,
                 success: function (data) {
-                    let { code, status, errMsg } = data;
+                    let { code, status } = data;
                     if(code !== '200'){
-                        layer.msg(errMsg);
+                        layer.msg(data.body);
                     }else {
                         var index = layer.alert(("注册成功,请重新登录"), {
                             title: '提示'
