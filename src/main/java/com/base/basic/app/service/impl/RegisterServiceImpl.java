@@ -39,7 +39,6 @@ public class RegisterServiceImpl implements RegisterService {
             throw new Exception("邮箱已注册");
         }
 
-        iamUser.setLoginName(iamUser.getEmail());
         iamUser.setHashPassword(BCrypt.hashpw(iamUser.getPwd(), BCrypt.gensalt()));
         userMapper.insertSelective(iamUser);
 
@@ -63,7 +62,6 @@ public class RegisterServiceImpl implements RegisterService {
             throw new Exception("该手机号已注册");
         }
 
-        iamUser.setLoginName(iamUser.getPhone());
         iamUser.setHashPassword(BCrypt.hashpw(iamUser.getPwd(), BCrypt.gensalt()));
         userMapper.insertSelective(iamUser);
 

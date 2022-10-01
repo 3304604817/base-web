@@ -65,7 +65,12 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         Claim email = claimMap.get("email");
 
         // 将Token可以解析出来的当前用户设置为 可访问
-        CurrentUserVO currentUser = new CurrentUserVO(username.asString(), realName.asString(), null, phone.asString(), email.asString());
+        CurrentUserVO currentUser = new CurrentUserVO(
+                username.asString(),
+                realName.asString(),
+                null,
+                Objects.nonNull(phone) ? phone.asString() : null,
+                Objects.nonNull(email) ? email.asString() : null);
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(currentUser, null, null);
         SecurityContextHolder.getContext().setAuthentication(authenticationToken);
 

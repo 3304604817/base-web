@@ -32,14 +32,24 @@ public class RegisterController {
     @Access(accessNoToken = true)
     @ApiOperation(value = "邮箱注册")
     @PostMapping("/by-email")
-    public ResponseEntity byEmail(@RequestBody IamUser iamUser) throws Exception {
-        return new ResponseEntity(registerService.byEmail(iamUser), HttpStatus.OK);
+    public ResponseEntity byEmail(@RequestBody IamUser iamUser) {
+        try {
+            iamUser.setEmail(iamUser.getLoginName());
+            return new ResponseEntity(registerService.byEmail(iamUser), HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity(e, HttpStatus.OK);
+        }
     }
 
     @Access(accessNoToken = true)
     @ApiOperation(value = "手机注册")
     @PostMapping("/by-phone")
-    public ResponseEntity byPhone(@RequestBody IamUser iamUser) throws Exception {
-        return new ResponseEntity(registerService.byPhone(iamUser), HttpStatus.OK);
+    public ResponseEntity byPhone(@RequestBody IamUser iamUser) {
+        try {
+            iamUser.setPhone(iamUser.getLoginName());
+            return new ResponseEntity(registerService.byPhone(iamUser), HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity(e, HttpStatus.OK);
+        }
     }
 }
