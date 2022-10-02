@@ -125,6 +125,11 @@
                 return false;
             }
 
+            if(true){
+                layer.msg("注册功能尚未开放");
+                return false;
+            }
+
             $.ajax({
                 type: 'post',
                 url: registerUrl,
