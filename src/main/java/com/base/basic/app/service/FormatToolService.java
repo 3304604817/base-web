@@ -28,6 +28,11 @@ public interface FormatToolService {
     FormatToolVO md5Encryp(FormatToolVO formatToolVO);
 
     /**
+     *  MD5解密
+     */
+    FormatToolVO md5Decrypt(FormatToolVO formatToolVO);
+
+    /**
      *  UUID生成
      */
     FormatToolVO uuidGenerate(FormatToolVO formatToolVO);

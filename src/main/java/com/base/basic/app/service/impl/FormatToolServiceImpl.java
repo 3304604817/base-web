@@ -67,6 +67,26 @@ public class FormatToolServiceImpl implements FormatToolService {
     }
 
     @Override
+    public FormatToolVO md5Decrypt(FormatToolVO formatToolVO){
+        try {
+            for(int i = 0; i < 200; i++){
+                System.out.println(String.format("%-5s", i) + "---" + (char)i);
+            }
+
+//            while (true){
+//                if(DigestUtils.md5DigestAsHex(formatToolVO.getInputText().getBytes("utf-8")).equals(formatToolVO.getInputText())){
+//                    formatToolVO.setOutputText(formatToolVO.getInputText());
+//                    break;
+//                }
+//            }
+        }catch (Exception e){
+            e.printStackTrace();
+            formatToolVO.setErrorMsg("解密异常");
+        }
+        return formatToolVO;
+    }
+
+    @Override
     public FormatToolVO uuidGenerate(FormatToolVO formatToolVO){
         String uuid = UUID.randomUUID().toString();
         formatToolVO.setOutputText(uuid);

@@ -52,6 +52,13 @@ public class FormatToolController {
         return formatToolService.md5Encryp(formatToolVO);
     }
 
+    @ApiOperation(value = "MD5解密")
+    @PostMapping("/md5-decrypt")
+    @Access(accessNoToken = true)
+    public FormatToolVO md5Decrypt(@RequestBody FormatToolVO formatToolVO) {
+        return formatToolService.md5Decrypt(formatToolVO);
+    }
+
     @ApiOperation(value = "UUID生成")
     @PostMapping("/uuid-generate")
     @Access(accessNoToken = true)
