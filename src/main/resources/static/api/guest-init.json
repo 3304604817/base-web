@@ -42,6 +42,20 @@
               "target": "_self"
             }
           ]
+        },
+        {
+          "title": "摸鱼",
+          "href": "",
+          "icon": "fa fa-sliders",
+          "target": "",
+          "child": [
+            {
+              "title": "FC游戏",
+              "href": "page/basic/tools/format-tool.html",
+              "icon": "fa fa-refresh",
+              "target": "_self"
+            }
+          ]
         }
       ]
     }

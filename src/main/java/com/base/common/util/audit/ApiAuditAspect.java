@@ -93,8 +93,8 @@ public class ApiAuditAspect {
             // 解析token
             Map<String, Claim> claimMap = JwtUtils.verifyToken(token);
             if(Objects.nonNull(claimMap)){
+                username = claimMap.get("username").asString();
             }
-            username = claimMap.get("username").asString();
         }
         logger.info("用户名：{}", username);
 

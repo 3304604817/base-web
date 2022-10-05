@@ -1,0 +1,68 @@
+<style>
+    .layui-form-item .layui-input-company {width: auto;padding-right: 10px;line-height: 38px;}
+</style>
+<script type="text/javascript" src="https://unpkg.com/jsnes/dist/jsnes.min.js"></script>
+<script type="text/javascript" src="lib/jsnes/nes-embed.js"></script>
+<script type="text/javascript" src="lib/jsnes/nes.js"></script>
+<script>window.onload = function(){nes_load_url("nes-canvas", "roms/魂斗罗.nes");}</script>
+<div class="layuimini-main">
+    <div class="layui-form layuimini-form" lay-filter="formData">
+        <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+            <legend>输入</legend>
+        </fieldset>
+        <div class="layui-form-item">
+            <div class="layui-form-item layui-form-text">
+                <div style="margin: auto; width: 75%;">
+                    <canvas id="nes-canvas" width="256" height="240" style="width: 100%"/>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--<script type="text/javascript" src="lib/jquery-3.4.1/jquery-3.4.1.min.js"></script>-->
+<!--<script src="js/config.js"></script>-->
+<script>
+    layui.use(['form'], function () {
+        var form = layui.form,
+            layer = layui.layer;
+
+        /**
+         * 初始化表单，要加上，不然刷新部分组件可能会不加载
+         */
+        form.render();
+    });
+
+    /*
+    // 初始化和设置输出
+    var nes = new jsnes.NES({
+        onFrame: function(frameBuffer) {
+            // ... 将 frameBuffer 写入屏幕
+        },
+        onAudioSample: function(left, right) {
+            // ... 播放音频样本
+        }
+    });
+
+    // 从磁盘读取 ROM 数据（在本示例中使用 Node.js API）
+    const fs = require('fs');
+    var romData = fs.readFileSync('roms/魂斗罗.nes', {encoding: 'binary'});
+
+    // 将 ROM 数据加载为字符串或字节数组
+    nes.loadROM(romData);
+
+    // 以 60 fps 或尽可能快的速度运行帧。
+    // 您有责任在您的平台上尽最大努力确保可靠的时间安排。
+    nes.frame();
+    nes.frame();
+    // ...
+
+    // 将您拥有的任何输入设备连接到控制器。
+    nes.buttonDown(1, jsnes.Controller.BUTTON_A);
+    nes.frame();
+    nes.buttonUp(1, jsnes.Controller.BUTTON_A);
+    nes.frame();
+    // ...
+    */
+
+    window.onload = function(){nes_load_url("nes-canvas", "roms/魂斗罗.nes");}
+</script>
