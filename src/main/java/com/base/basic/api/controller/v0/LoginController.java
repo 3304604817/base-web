@@ -31,7 +31,7 @@ public class LoginController {
 
     @Access(accessNoToken = true)
     @ApiOperation(value = "重定向首页")
-    @GetMapping("/index")
+    @PostMapping("/index")
     public void index(HttpServletRequest request,
                       HttpServletResponse response) throws IOException {
         response.sendRedirect("/index.html");
