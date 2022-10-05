@@ -22,6 +22,5 @@ public class DemoJobHandler {
 
     @Scheduled(cron = "*/30 * * * * ?")
     public void run() {
-        System.out.println("Job run ...");
     }
 }
