@@ -44,15 +44,15 @@
           ]
         },
         {
-          "title": "摸鱼",
+          "title": "游戏",
           "href": "",
-          "icon": "fa fa-sliders",
+          "icon": "fa fa-gamepad",
           "target": "",
           "child": [
             {
-              "title": "FC游戏",
-              "href": "page/basic/tools/format-tool.html",
-              "icon": "fa fa-refresh",
+              "title": "NES",
+              "href": "page/basic/game/nes-games.html",
+              "icon": "fa fa-gamepad",
               "target": "_self"
             }
           ]
