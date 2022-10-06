@@ -1142,7 +1142,7 @@ JSNES.Mappers[5].prototype.write = function(address, value) {
 };
 
 JSNES.Mappers[5].prototype.write = function(address, value) {
-    // Writes to addresses other than MMC registers are handled by NoMapper.
+    // 对 MMC 寄存器以外的地址的写入由 NoMapper 处理。
     if (address < 0x5000) {
         JSNES.Mappers[0].prototype.write.apply(this, arguments);
         return;

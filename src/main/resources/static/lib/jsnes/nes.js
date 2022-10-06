@@ -177,8 +177,8 @@ JSNES.prototype = {
         }
     },
     
-    // Loads a ROM file into the CPU and PPU.
-    // The ROM file is validated first.
+    // 将 ROM 文件加载到 CPU 和 PPU 中。
+    // 首先验证 ROM 文件。
     loadRom: function(data) {
         if (this.isRunning) {
             this.stop();
@@ -189,7 +189,6 @@ JSNES.prototype = {
         // Load ROM file:
         this.rom = new JSNES.ROM(this);
         this.rom.load(data);
-        
         if (this.rom.valid) {
             this.reset();
             this.mmap = this.rom.createMapper();
