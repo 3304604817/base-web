@@ -2,6 +2,8 @@ package com.base.basic.app.service.impl;
 
 import com.base.basic.app.service.RegisterService;
 import com.base.basic.domain.entity.v0.IamUser;
+import com.base.basic.domain.entity.v0.Message;
+import com.base.basic.infra.mapper.MessageMapper;
 import com.base.basic.infra.mapper.UserMapper;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -38,24 +40,51 @@ public class RegisterServiceImpl implements RegisterService {
 
     @Autowired
     private JavaMailSenderImpl mailSender;
+    @Autowired
+    @SuppressWarnings("all")
+    private MessageMapper messageMapper;
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public void sendVerifyCode(String mail) throws MessagingException {
         if(StringUtils.isEmpty(mail)){
             throw new MessagingException("接收方邮箱不能为空");
         }
+
+        /**
+         * 生成6位验证码
+         */
+        int verifyCode = (int) ((Math.random() * 9 + 1) * 100000);
+
+        /**
+         * 初始化邮件信息
+         */
         //邮件设置1：一个简单的邮件
         MimeMessage mimeMessage = mailSender.createMimeMessage();
         MimeMessageHelper mimeMessageHelper= new MimeMessageHelper(mimeMessage,true);
         // MimeMessageHelper 可以设置发送附件
-        mimeMessageHelper.setSubject("注册验证码");
+        String subject = "注册验证码";
+        mimeMessageHelper.setSubject(subject);
         // 这里设置true可以读取html语言，为文本设置样式，也可不填
-        mimeMessageHelper.setText("你好 " + mail + "</b> 您的注册验证码是：" + (int) ((Math.random() * 9 + 1) * 100000),true);
+        String text = new StringBuilder("你好 ").append(mail).append("</b> 您的注册验证码是：").append(verifyCode).toString();
+        mimeMessageHelper.setText(text,true);
 
         // 发送方邮箱
         mimeMessageHelper.setFrom(serverMail);
         // 接收方邮箱
         mimeMessageHelper.setTo(mail);
+
+        /**
+         * 保存消息
+         */
+        Message message = new Message();
+        message.setSender(serverMail);
+        message.setReceiver(mail);
+        message.setTypeCode("M");
+        message.setSubject(subject);
+        message.setContent(text);
+        message.setVerifyCode(String.valueOf(verifyCode));
+        messageMapper.insertSelective(message);
 
         mailSender.send(mimeMessage);
     }
@@ -77,6 +106,15 @@ public class RegisterServiceImpl implements RegisterService {
             throw new Exception("邮箱已注册");
         }
 
+        /**
+         * 验证验证码是否过期
+         */
+        iamUser.getCaptcha();
+
+
+        /**
+         * 生成账号
+         */
         iamUser.setHashPassword(BCrypt.hashpw(iamUser.getPwd(), BCrypt.gensalt()));
         userMapper.insertSelective(iamUser);
 
