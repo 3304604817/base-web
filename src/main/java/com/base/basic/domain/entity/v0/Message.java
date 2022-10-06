@@ -2,10 +2,16 @@ package com.base.basic.domain.entity.v0;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.Table;import com.base.basic.domain.entity.v0.base.BaseEntity;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import com.base.basic.domain.entity.v0.base.BaseEntity;
+import com.base.basic.domain.entity.v1.DataDictionaryDetail;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+
+import java.util.Date;
 
 /**
  * 消息发送
@@ -51,4 +57,8 @@ public class Message extends BaseEntity {
 
 	@ApiModelProperty(value = "租户id")
     private Long tenantId;
+
+    @ApiModelProperty(value = "过期时间")
+    @Transient
+    private Date expireDate;
 }

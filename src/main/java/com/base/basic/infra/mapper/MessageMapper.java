@@ -3,6 +3,8 @@ package com.base.basic.infra.mapper;
 import com.base.basic.domain.entity.v0.Message;
 import com.base.common.util.mybatis.mapper.SupperMapper;
 
+import java.util.List;
+
 /**
  * 消息发送Mapper
  *
@@ -10,4 +12,5 @@ import com.base.common.util.mybatis.mapper.SupperMapper;
  */
 public interface MessageMapper extends SupperMapper<Message> {
 
+    List<Message> list(Message message);
 }

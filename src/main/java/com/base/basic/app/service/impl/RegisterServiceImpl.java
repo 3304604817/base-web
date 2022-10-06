@@ -19,6 +19,7 @@ import tk.mybatis.mapper.entity.Example;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
+import java.util.Date;
 import java.util.UUID;
 
 /**
@@ -109,7 +110,15 @@ public class RegisterServiceImpl implements RegisterService {
         /**
          * 验证验证码是否过期
          */
-        iamUser.getCaptcha();
+        Message message = new Message();
+        message.setTypeCode("M");
+        message.setReceiver(iamUser.getEmail());
+        message.setVerifyCode(iamUser.getCaptcha());
+        // 验证码十分钟内有效
+        message.setExpireDate(new Date(System.currentTimeMillis() - 10*60*1000));
+        if(messageMapper.list(message).size() < 1){
+            throw new Exception("验证码错误或已过期");
+        }
 
 
         /**

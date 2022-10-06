@@ -18,15 +18,28 @@
         <result column="last_update_date" property="lastUpdateDate" jdbcType="DATE"/>
     </resultMap>
 
-    <select id="">
-        SELECT id,
-               sender,
-               receiver,
-               type_code,
-               subject,
-               content,
-               verify_code,
-               creation_date
-        FROM
+    <select id="list" parameterType="com.base.basic.domain.entity.v0.Message" resultMap="BaseResultMap">
+        SELECT dm.id,
+               dm.sender,
+               dm.receiver,
+               dm.type_code,
+               dm.subject,
+               dm.content,
+               dm.verify_code,
+               dm.creation_date
+        FROM db_message dm
+        WHERE 1 = 1
+        <if test="null != receiver and '' != receiver">
+            AND dm.receiver = #{receiver, jdbcType = VARCHAR}
+        </if>
+        <if test="null != typeCode and '' != typeCode">
+            AND dm.type_code = #{typeCode, jdbcType = VARCHAR}
+        </if>
+        <if test="null != verifyCode and '' != verifyCode">
+            AND dm.verify_code = #{verifyCode, jdbcType = VARCHAR}
+        </if>
+        <if test="null != expireDate">
+            AND dm.creation_date <![CDATA[ >= ]]> #{expireDate, jdbcType = TIMESTAMP}
+        </if>
     </select>
 </mapper>
