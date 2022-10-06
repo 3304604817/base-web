@@ -45,6 +45,15 @@ spring:
     cache: false
     prefix: classpath:/templates/
     suffix: .html
+  mail:
+    username: 3304604817@qq.com
+    password: zyzxisbfoyrbdajg
+    host: smtp.qq.com
+    properties:
+      mail:
+        smtp:
+          ssl:
+            enable: true
 mybatis:
   # 指定写xml文件位置
   mapper-locations:
