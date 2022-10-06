@@ -6,9 +6,9 @@
 
         <div class="layui-form layuimini-form">
             <div class="layui-form-item">
-                <label class="layui-form-label required">手机或邮箱</label>
+                <label class="layui-form-label required">邮箱</label>
                 <div class="layui-input-inline">
-                    <input type="text" name="loginName" lay-verify="required" placeholder="手机或邮箱" lay-reqtext="账号不能为空" autocomplete="off" value="" class="layui-input">
+                    <input id="loginName" type="text" name="loginName" lay-verify="required" placeholder="邮箱" lay-reqtext="账号不能为空" autocomplete="off" value="" class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">
@@ -81,7 +81,29 @@
 
     // 发送验证码
     function sendCaptcha(o) {
-        foo(o);
+        var layer = layui.layer;
+        var loginName = document.getElementById("loginName").value;
+
+        if(!loginName){
+            layer.msg("邮箱不能为空");
+        }else if(!emailFormat.test(loginName)){
+            layer.msg("邮箱格式错误");
+        }else {
+            // 倒计时
+            foo(o);
+            $.ajax({
+                type: 'post',
+                url: basicPath + '/register/send/verify-code',
+                dataType: 'json',
+                contentType: 'application/json',
+                data: JSON.stringify(loginName),
+                cache: false,
+                async: false,
+                success: function (data) {
+                    layer.msg("邮件已发送,请注意查收");
+                }
+            });
+        }
     }
 
     // 按钮倒计时
