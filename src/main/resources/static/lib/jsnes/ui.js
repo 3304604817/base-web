@@ -38,6 +38,7 @@ if (typeof jQuery !== 'undefined') {
                 self.status = $('<p class="nes-status">Booting up...</p>').appendTo(self.root);
                 self.root = $('<div></div>');
                 self.screen = $('<canvas class="nes-screen" width="256" height="240"></canvas>').appendTo(self.root);
+                // self.screen = $('<canvas class="nes-screen" width="384" height="360"></canvas>').appendTo(self.root);
 
                 if (!self.screen[0].getContext) {
                     parent.html("Your browser doesn't support the <code>&lt;canvas&gt;</code> tag. Try Google Chrome, Safari, Opera or Firefox!");
@@ -130,10 +131,6 @@ if (typeof jQuery !== 'undefined') {
                         self.buttons.zoom.attr("value", "放大");
                         self.zoomed = true;
                     } else {
-                        //                        self.screen.animate({
-                        //                            width: '256px',
-                        //                            height: '240px'
-                        //                        });
                         self.buttons.zoom.attr("value", "缩小");
                         $('body').removeClass('big');
                         $('.nes-screen').css({
@@ -699,7 +696,7 @@ if (typeof jQuery !== 'undefined') {
 
                 resetCanvas: function() {
                     this.canvasContext.fillStyle = 'black';
-                    // set alpha to opaque
+                    // 将 alpha 设置为不透明
                     this.canvasContext.fillRect(0, 0, 256, 240);
 
                     // Set alpha
