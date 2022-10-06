@@ -40,7 +40,6 @@
                     <button role="BUTTON_LEFT" class="left joydirection" id="joystick_btn_left">left</button>
                 </div>
             </div>
-            <div class="joy">I</div>
         </div>
         <div class="function-area">
             <div class="screen">
@@ -80,8 +79,16 @@
     $(function() {
         nes = new JSNES({
             'ui': $('#emulator').JSNESUI({
-                "魂斗罗": [
+                "闯关": [
+                    ['超级马里奥', 'roms/SuperMarioBros(J).nes'],
                     ['冒险岛3', 'roms/maoxiandao3chinese.nes'],
+                    ['双截龙2(中文)', 'roms/sjl2cn.nes'],
+                    ['双截龙3(中文)', 'roms/sjl3cn.nes'],
+                    ['三目童子(中文)', 'roms/MitsumeGaTooru(cn).nes'],
+                ],
+                "益智": [
+                    ['中国象棋', 'roms/zhongguoxianqi.nes'],
+                    ['东风麻将', 'roms/dongfenmajiang.nes'],
                 ],
             })
         });
