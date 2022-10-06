@@ -105,7 +105,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 // 设置不需要拦截的页面-这里需要注意的是把登录的页面和一些静态资源设置为不需要拦截
                 .antMatchers(
                         "/**/login/**",
-                        "/**/api/**", "/**/css/**", "/**/images/**", "/**/js/**", "/**/lib/**", "/**/page/**", "/**/**.html",
+                        "/**/roms/**", "/**/api/**", "/**/css/**", "/**/images/**", "/**/js/**", "/**/lib/**", "/**/page/**", "/**/**.html",
                         "/**/error",
                         "/**/swagger-resources/**", "/**/swagger-ui/**", "/**/api-docs/**"
                 ).permitAll()
