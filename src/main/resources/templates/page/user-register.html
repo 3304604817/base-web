@@ -98,7 +98,7 @@
                 contentType: 'application/json',
                 data: JSON.stringify(loginName),
                 cache: false,
-                async: false,
+                async: true,
                 success: function (data) {
                     layer.msg("邮件已发送,请注意查收");
                 }

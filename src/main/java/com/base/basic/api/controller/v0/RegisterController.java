@@ -37,14 +37,14 @@ public class RegisterController {
     @Access(accessNoToken = true)
     @ApiOperation(value = "发送注册验证码")
     @PostMapping("/send/verify-code")
-    public ResponseEntity sendVerifyCode(@RequestBody IamUser iamUser){
+    public BaseResponseEntity sendVerifyCode(@RequestBody IamUser iamUser){
         try {
             iamUser.setEmail(iamUser.getLoginName());
             registerService.sendVerifyCode(iamUser.getEmail());
-            return new ResponseEntity(HttpStatus.OK);
+            return new BaseResponseEntity(CODE_200, STATUS_SUCCESS);
         } catch (MessagingException e) {
             logger.error("e:{}", e);
-            return new ResponseEntity(HttpStatus.NOT_FOUND);
+            return new BaseResponseEntity(CODE_302, STATUS_FAIL, e.getMessage());
         }
     }
 
