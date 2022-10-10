@@ -20,7 +20,6 @@ import tk.mybatis.mapper.entity.Example;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import java.util.Date;
-import java.util.UUID;
 
 /**
  * @author yang.gao
@@ -34,7 +33,7 @@ public class RegisterServiceImpl implements RegisterService {
     @SuppressWarnings("all")
     private UserMapper userMapper;
 
-    Logger logger = LoggerFactory.getLogger(RedisServiceImpl.class);
+    Logger logger = LoggerFactory.getLogger(RegisterServiceImpl.class);
 
     @Value("${spring.mail.username}")
     private String serverMail;
