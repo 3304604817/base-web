@@ -54,28 +54,28 @@ public class ApiAuditAspect {
         HttpServletResponse response = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getResponse();
 
         String className = point.getTarget().getClass().getName();
-        logger.info("获取类名：{}", className);
+//        logger.info("获取类名：{}", className);
 
         String methodName = point.getSignature().getName();
-        logger.info("获取执行的方法名称：{}", methodName);
+//        logger.info("获取执行的方法名称：{}", methodName);
 
         String url = request.getRequestURL().toString();
-        logger.info("请求地址：{}", url);
+//        logger.info("请求地址：{}", url);
 
         String method = request.getMethod();
-        logger.info("请求类型：{}", method);
+//        logger.info("请求类型：{}", method);
 
         String queryString = request.getQueryString();
-        logger.info("请求参数:{}", queryString);
+//        logger.info("请求参数:{}", queryString);
 
         String body = new RequestWrapper(request).getBody();
-        logger.info("请求体：{}", body);
+//        logger.info("请求体：{}", body);
 
         String remoteAddr = request.getRemoteAddr();
-        logger.info("远程请求地址：{}", remoteAddr);
+//        logger.info("远程请求地址：{}", remoteAddr);
 
         int remotePort = request.getRemotePort();
-        logger.info("远程请求端口：{}", remotePort);
+//        logger.info("远程请求端口：{}", remotePort);
 
         // 从Cookie中取出 token 这里需要和前端约定好把jwt放到请求头一个叫token的地方
         String token = null;
@@ -96,7 +96,7 @@ public class ApiAuditAspect {
                 username = claimMap.get("username").asString();
             }
         }
-        logger.info("用户名：{}", username);
+//        logger.info("用户名：{}", username);
 
         /**
          * 执行方法

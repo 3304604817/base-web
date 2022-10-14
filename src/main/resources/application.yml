@@ -61,6 +61,7 @@ mybatis:
 # 启用SQL日志打印
 logging:
   level:
+    com.base.basic.infra.mapper.AuditLogMapper: error
     com.base.basic.infra.mapper: debug
 rocketmq:
   name-server: rocketmq.base.org:9876
