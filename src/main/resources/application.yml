@@ -7,7 +7,7 @@ spring:
   application:
     name: base
   datasource:
-    url: ${SPRING_DATASOURCE_URL:jdbc:mysql://39.101.202.67:3306/db_basic?useUnicode=true&characterEncoding=utf-8&useSSL=false}
+    url: ${SPRING_DATASOURCE_URL:jdbc:mysql://db.base.org:3306/db_basic?useUnicode=true&characterEncoding=utf-8&useSSL=false}
     username: ${SPRING_DATASOURCE_USERNAME:root}
     password: ${SPRING_DATASOURCE_PASSWORD:738e7101490b}
     hikari:
@@ -23,7 +23,7 @@ spring:
       password: Admin@123
   redis:
     database: 0
-    host: 39.101.202.67
+    host: redis.base.org
     port: 6379
     password: ^#@^$(@&&@awdsccdawpq028372
     timeout: 20000        # 连接超时时间（毫秒）
@@ -61,12 +61,9 @@ mybatis:
 # 启用SQL日志打印
 logging:
   level:
-    # dao层文件路径
     com.base.basic.infra.mapper: debug
-    com.base.srm.infra.mapper: debug
-    com.base.basic.feign: debug
 rocketmq:
-  name-server: 39.101.202.67:9876
+  name-server: rocketmq.base.org:9876
   producer:
     group: basic-group
   consumer:
@@ -78,7 +75,7 @@ ribbon:
     # 饿加载服务
     clients: basic
 minio:
-  url: http://39.101.202.67:9100
+  url: http://minio.base.org:9100
   access-key: gaoyang
   secret-key: gaoyang@123
   bucket-name: private
