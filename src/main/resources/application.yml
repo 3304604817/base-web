@@ -46,7 +46,7 @@ spring:
     prefix: classpath:/templates/
     suffix: .html
   mail:
-    username: 3304604817@qq.com
+    username: mail.base.org
     password: zyzxisbfoyrbdajg
     host: smtp.qq.com
     properties:
