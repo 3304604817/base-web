@@ -66,9 +66,10 @@ logging:
 rocketmq:
   name-server: rocketmq.base.org:9876
   producer:
-    group: basic-group
+    group: base-group
+    send-message-timeout: 3000
   consumer:
-    group: basic-group
+    group: base-group
 ribbon:
   eager-load:
     # 开启饿加载
