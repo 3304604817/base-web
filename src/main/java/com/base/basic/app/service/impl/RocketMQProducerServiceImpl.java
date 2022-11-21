@@ -43,16 +43,17 @@ public class RocketMQProducerServiceImpl implements RocketMQProducerService {
     public void syncSendOrderly(){
         IamUser user = userMapper.selectByPrimaryKey(1L);
         String realName = user.getRealName();
-        for(int i = 0; i < 100; i++){
+        for(int i = 0; i < 10; i++){
             user.setLoginName("user-" + i);
             user.setRealName(realName + "-" + i);
+            // hashKey 指定消息发送到哪个队列
             SendResult sendResult = rocketMQTemplate.syncSendOrderly("user_topic", MessageBuilder.withPayload(user).build(), "1");
             logger.info("生产消息 {}", JSON.toJSONString(sendResult));
         }
 
         user = userMapper.selectByPrimaryKey(-1L);
         realName = user.getRealName();
-        for(int i = 0; i < 100; i++){
+        for(int i = 0; i < 10; i++){
             user.setLoginName("user-" + i);
             user.setRealName(realName + "-" + i);
             // hashKey 指定消息发送到哪个队列
