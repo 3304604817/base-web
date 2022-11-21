@@ -31,6 +31,14 @@ public class RocketMQTemplateController {
         return new ResponseEntity(HttpStatus.OK);
     }
 
+    @ApiOperation(value = "发送MQ异步消息")
+    @PostMapping("/asyncSend")
+    @Access(accessNoToken = true)
+    public ResponseEntity asyncSend() {
+        rocketMQTemplateService.asyncSend();
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
     @ApiOperation(value = "发送MQ顺序消息")
     @PostMapping("/syncSendOrderly")
     @Access(accessNoToken = true)

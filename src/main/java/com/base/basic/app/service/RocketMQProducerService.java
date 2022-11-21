@@ -13,6 +13,11 @@ public interface RocketMQProducerService {
     void syncSend();
 
     /**
+     * 发送异步消息
+     */
+    void asyncSend();
+
+    /**
      * 发送顺序消息
      */
     void syncSendOrderly();
