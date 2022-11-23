@@ -91,6 +91,10 @@ public class RocketMQProducerServiceImpl implements RocketMQProducerService {
         for(int i = 0; i < 100; i++){
             user.setLoginName("user-" + i);
             user.setRealName(realName + "-" + i);
+            /**
+             * 延迟消息级别设置
+             * delayLevel=1s 5s 10s 30s 1m 2m 3m 4m 5m 6m 7m 8m 9m 10m 20m 30m 1h 2h
+             */
             rocketMQTemplate.asyncSend("user_topic", MessageBuilder.withPayload(user).build(), new SendCallback() {
                 @Override
                 public void onSuccess(SendResult sendResult) {
@@ -101,7 +105,7 @@ public class RocketMQProducerServiceImpl implements RocketMQProducerService {
                 public void onException(Throwable e) {
                     logger.info("消息发送失败 {}", e);
                 }
-            }, 10, 1);
+            }, 3000, 4);
         }
     }
 }
