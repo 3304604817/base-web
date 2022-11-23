@@ -6,10 +6,14 @@ import com.base.basic.domain.entity.v0.IamUser;
 import com.base.basic.infra.mapper.UserMapper;
 import org.apache.rocketmq.client.producer.SendCallback;
 import org.apache.rocketmq.client.producer.SendResult;
+import org.apache.rocketmq.spring.annotation.RocketMQTransactionListener;
+import org.apache.rocketmq.spring.core.RocketMQLocalTransactionListener;
+import org.apache.rocketmq.spring.core.RocketMQLocalTransactionState;
 import org.apache.rocketmq.spring.core.RocketMQTemplate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.Message;
 import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.stereotype.Service;
 
@@ -106,6 +110,41 @@ public class RocketMQProducerServiceImpl implements RocketMQProducerService {
                     logger.info("消息发送失败 {}", e);
                 }
             }, 3000, 4);
+        }
+    }
+
+    @Override
+    public void transactionMessage(){
+        IamUser user = userMapper.selectByPrimaryKey(1L);
+        String realName = user.getRealName();
+        for(int i = 0; i < 100; i++){
+            user.setLoginName("user-" + i);
+            user.setRealName(realName + "-" + i);
+            /**
+             * 发送事务消息
+             */
+            rocketMQTemplate.sendMessageInTransaction("user_topic", MessageBuilder.withPayload(user).build(), null);
+        }
+    }
+
+    @RocketMQTransactionListener
+    class LocalTransactionListener implements RocketMQLocalTransactionListener {
+
+        @Override
+        public RocketMQLocalTransactionState executeLocalTransaction(Message msg, Object arg) {
+            /**
+             * RocketMQLocalTransactionState.UNKNOWN 等待，执行 checkLocalTransaction 方法，最多15次，多于15次会丢弃
+             * RocketMQLocalTransactionState.ROLLBACK 丢弃消息
+             * RocketMQLocalTransactionState.COMMIT 提交
+             */
+            logger.info("发送事务消息成功 {}", JSON.toJSONString(msg));
+            return RocketMQLocalTransactionState.UNKNOWN;
+        }
+
+        @Override
+        public RocketMQLocalTransactionState checkLocalTransaction(Message msg) {
+            logger.info("回查事务消息成功 {}", JSON.toJSONString(msg));
+            return RocketMQLocalTransactionState.COMMIT;
         }
     }
 }

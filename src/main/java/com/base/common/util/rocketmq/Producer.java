@@ -142,6 +142,11 @@ public class Producer {
                 /**
                  * 执行本地事务逻辑
                  */
+                /**
+                 * LocalTransactionState.UNKNOW 等待，执行 checkLocalTransaction 方法，最多15次，多于15次会丢弃
+                 * LocalTransactionState.ROLLBACK_MESSAGE 丢弃消息
+                 * LocalTransactionState.COMMIT_MESSAGE 提交
+                 */
                 return LocalTransactionState.UNKNOW;
             }
 

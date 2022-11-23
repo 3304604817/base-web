@@ -54,4 +54,12 @@ public class RocketMQTemplateController {
         rocketMQTemplateService.delayAsyncSend();
         return new ResponseEntity(HttpStatus.OK);
     }
+
+    @ApiOperation(value = "发送事务消息")
+    @PostMapping("/transactionMessage")
+    @Access(accessNoToken = true)
+    public ResponseEntity transactionMessage() {
+        rocketMQTemplateService.transactionMessage();
+        return new ResponseEntity(HttpStatus.OK);
+    }
 }

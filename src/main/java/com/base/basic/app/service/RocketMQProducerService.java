@@ -18,7 +18,7 @@ public interface RocketMQProducerService {
     void asyncSend();
 
     /**
-     * 发送顺序消息
+     * 发送顺序同步消息
      */
     void syncSendOrderly();
 
@@ -26,4 +26,9 @@ public interface RocketMQProducerService {
      * 发送延迟异步消息
      */
     void delayAsyncSend();
+
+    /**
+     * 发送事务消息
+     */
+    void transactionMessage();
 }
