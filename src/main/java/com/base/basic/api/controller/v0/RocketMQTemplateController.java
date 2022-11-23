@@ -46,4 +46,12 @@ public class RocketMQTemplateController {
         rocketMQTemplateService.syncSendOrderly();
         return new ResponseEntity(HttpStatus.OK);
     }
+
+    @ApiOperation(value = "发送MQ延迟异步消息")
+    @PostMapping("/delayAsyncSend")
+    @Access(accessNoToken = true)
+    public ResponseEntity delayAsyncSend() {
+        rocketMQTemplateService.delayAsyncSend();
+        return new ResponseEntity(HttpStatus.OK);
+    }
 }

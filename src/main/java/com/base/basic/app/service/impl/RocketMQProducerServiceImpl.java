@@ -83,4 +83,25 @@ public class RocketMQProducerServiceImpl implements RocketMQProducerService {
             logger.info("生产消息 {}", JSON.toJSONString(sendResult));
         }
     }
+
+    @Override
+    public void delayAsyncSend(){
+        IamUser user = userMapper.selectByPrimaryKey(1L);
+        String realName = user.getRealName();
+        for(int i = 0; i < 100; i++){
+            user.setLoginName("user-" + i);
+            user.setRealName(realName + "-" + i);
+            rocketMQTemplate.asyncSend("user_topic", MessageBuilder.withPayload(user).build(), new SendCallback() {
+                @Override
+                public void onSuccess(SendResult sendResult) {
+                    logger.info("生产延迟异步消息 {}", JSON.toJSONString(sendResult));
+                }
+
+                @Override
+                public void onException(Throwable e) {
+                    logger.info("消息发送失败 {}", e);
+                }
+            }, 10, 1);
+        }
+    }
 }
