@@ -25,7 +25,6 @@ spring:
     database: 0
     host: redis.base.org
     port: 6379
-    password: ^#@^$(@&&@awdsccdawpq028372
     timeout: 20000        # 连接超时时间（毫秒）
     jedis:
       pool:
