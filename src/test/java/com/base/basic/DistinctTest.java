@@ -18,6 +18,9 @@ import java.util.Random;
 @RunWith(SpringRunner.class)
 public class DistinctTest {
 
+    // 可以生成10个G TXT 文本
+    int maxCount = 999999999;
+
     /**
      * 随机生成一个包含数字的文件
      */
@@ -27,9 +30,8 @@ public class DistinctTest {
 
         try (BufferedWriter bw = new BufferedWriter(new FileWriter("/Users/gaoyang/Downloads/numbers.txt"))) {
             int i = 0;
-            int maxCount = 999999999;
-            for (; i < 6; i++) {
-                bw.write(String.valueOf(rand.nextInt(10)));
+            for (; i < 999999999; i++) {
+                bw.write(String.valueOf(rand.nextInt(999999999)));
                 bw.newLine();
             }
             bw.flush();
