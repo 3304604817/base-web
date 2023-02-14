@@ -23,7 +23,7 @@ spring:
       password: Admin@123
   redis:
     database: 0
-    host: redis.base.org
+    host: ${SPRING_REDIS_HOST:redis.base.org}
     port: 6379
     timeout: 20000        # 连接超时时间（毫秒）
     jedis:
@@ -63,7 +63,7 @@ logging:
     com.base.basic.infra.mapper.AuditLogMapper: error
     com.base.basic.infra.mapper: debug
 rocketmq:
-  name-server: rocketmq.base.org:9876
+  name-server: ${SPRING_ROCKETMQ_URL:rocketmq.base.org:9876}
   producer:
     group: base-group
     send-message-timeout: 3000
@@ -76,7 +76,7 @@ ribbon:
     # 饿加载服务
     clients: basic
 minio:
-  url: http://minio.base.org:9100
+  url: ${SPRING_MINIO_URL:http://minio.base.org:9100}
   access-key: gaoyang
   secret-key: gaoyang@123
   bucket-name: private
