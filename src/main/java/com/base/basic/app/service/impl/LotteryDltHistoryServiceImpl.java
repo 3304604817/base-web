@@ -77,7 +77,11 @@ public class LotteryDltHistoryServiceImpl implements LotteryDltHistoryService {
                 lotteryDltHistory.setEndArea1(Long.valueOf(result[5]));
                 lotteryDltHistory.setEndArea2(Long.valueOf(result[6]));
 
-                lotteryDltHistoryMapper.insertSelective(lotteryDltHistory);
+                try {
+                    lotteryDltHistoryMapper.insertSelective(lotteryDltHistory);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
             }
             System.out.println(list);
         }

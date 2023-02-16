@@ -27,6 +27,7 @@ public class LotteryController {
 
     @ApiOperation(value = "大乐透历史中奖信息抓取")
     @PostMapping("/dlt/getHistory")
+    @Access(accessNoToken = true)
     public ResponseEntity getDltHistory() {
         lotteryDltHistoryService.getDltHistory();
         return new ResponseEntity(HttpStatus.OK);
@@ -34,6 +35,7 @@ public class LotteryController {
 
     @ApiOperation(value = "大乐透历史数据分析-查各区数字分布情况")
     @PostMapping("/dlt/dataAnalysis0")
+    @Access(accessNoToken = true)
     public ResponseEntity dataAnalysis0(@RequestParam(value = "drawTimeFm", required = false) String drawTimeFm,
                                        @RequestParam(value = "drawTimeTo", required = false) String drawTimeTo) {
         lotteryDltHistoryService.dltDataAnalysis0(drawTimeFm, drawTimeTo);
@@ -42,6 +44,7 @@ public class LotteryController {
 
     @ApiOperation(value = "大乐透历史数据分析-查前后区所有数字分布")
     @PostMapping("/dlt/dataAnalysi1")
+    @Access(accessNoToken = true)
     public ResponseEntity dltDataAnalysis1(@RequestParam(value = "drawTimeFm", required = false) String drawTimeFm,
                                        @RequestParam(value = "drawTimeTo", required = false) String drawTimeTo) {
         lotteryDltHistoryService.dltDataAnalysis1(drawTimeFm, drawTimeTo);
@@ -50,6 +53,7 @@ public class LotteryController {
 
     @ApiOperation(value = "大乐透历史数据分析-查前后区数字和")
     @PostMapping("/dlt/dataAnalysi2")
+    @Access(accessNoToken = true)
     public ResponseEntity dltDataAnalysis2(@RequestParam(value = "drawTimeFm", required = false) String drawTimeFm,
                                            @RequestParam(value = "drawTimeTo", required = false) String drawTimeTo) {
         lotteryDltHistoryService.dltDataAnalysis2(drawTimeFm, drawTimeTo);
@@ -58,6 +62,7 @@ public class LotteryController {
 
     @ApiOperation(value = "大乐透历史数据分析-所有中奖号码汇总")
     @PostMapping("/dlt/dataAnalysi3")
+    @Access(accessNoToken = true)
     public ResponseEntity dltDataAnalysis3(@RequestParam(value = "drawTimeFm", required = false) String drawTimeFm,
                                            @RequestParam(value = "drawTimeTo", required = false) String drawTimeTo) {
         lotteryDltHistoryService.dltDataAnalysis3(drawTimeFm, drawTimeTo);
@@ -66,6 +71,7 @@ public class LotteryController {
 
     @ApiOperation(value = "大乐透历史数据分析-重复中奖号")
     @PostMapping("/dlt/dataAnalysi4")
+    @Access(accessNoToken = true)
     public ResponseEntity dltDataAnalysis4(@RequestParam(value = "drawTimeFm", required = false) String drawTimeFm,
                                            @RequestParam(value = "drawTimeTo", required = false) String drawTimeTo) {
         lotteryDltHistoryService.dltDataAnalysis4(drawTimeFm, drawTimeTo);
