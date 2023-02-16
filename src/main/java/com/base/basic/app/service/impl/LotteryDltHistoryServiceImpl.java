@@ -41,7 +41,6 @@ public class LotteryDltHistoryServiceImpl implements LotteryDltHistoryService {
     private LotteryDltHistoryMapper lotteryDltHistoryMapper;
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
     public void getDltHistory(){
         int pageSize = 30;
         for(int pageNo = 1;; pageNo++){
