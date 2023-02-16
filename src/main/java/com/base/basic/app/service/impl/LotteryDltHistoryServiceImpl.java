@@ -93,14 +93,14 @@ public class LotteryDltHistoryServiceImpl implements LotteryDltHistoryService {
         List<String> list = new ArrayList<>(32);
 
         list.add("----------------前区----------------" + "--------------后区-------------");
-        list.add(String.format("%-8s", "")
-                + String.format("%-8s", "1区")
-                + String.format("%-8s", "2区")
-                + String.format("%-8s", "3区")
-                + String.format("%-8s", "4区")
-                + String.format("%-8s", "5区")
-                + String.format("%-8s", "1区")
-                + String.format("%-8s", "2区"));
+        list.add(String.format("%-12s", "")
+                + String.format("%-12s", "1区")
+                + String.format("%-12s", "2区")
+                + String.format("%-12s", "3区")
+                + String.format("%-12s", "4区")
+                + String.format("%-12s", "5区")
+                + String.format("%-12s", "1区")
+                + String.format("%-12s", "2区"));
 
         for(int i = 1; i <= 35; i++){
             /**
@@ -122,14 +122,14 @@ public class LotteryDltHistoryServiceImpl implements LotteryDltHistoryService {
                 countEndArea2 = lotteryDltHistoryMapper.countEndArea2(i, drawTimeFm, drawTimeTo);
             }
 
-            list.add(String.format("%-8s", i)
-                    + String.format("%-8s", countFrontArea1)
-                    + String.format("%-8s", countFrontArea2)
-                    + String.format("%-8s", countFrontArea3)
-                    + String.format("%-8s", countFrontArea4)
-                    + String.format("%-8s", countFrontArea5)
-                    + (i <= 12 ? String.format("%-8s", countEndArea1) : "")
-                    + (i <= 12 ? String.format("%-8s", countEndArea2) : ""));
+            list.add(String.format("%-12s", i+"号出现次数")
+                    + String.format("%-12s", countFrontArea1)
+                    + String.format("%-12s", countFrontArea2)
+                    + String.format("%-12s", countFrontArea3)
+                    + String.format("%-12s", countFrontArea4)
+                    + String.format("%-12s", countFrontArea5)
+                    + (i <= 12 ? String.format("%-12s", countEndArea1) : "")
+                    + (i <= 12 ? String.format("%-12s", countEndArea2) : ""));
         }
 
         list.stream().forEach(p -> {
