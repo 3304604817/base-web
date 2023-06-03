@@ -148,7 +148,7 @@
     </dependencies>
 
     <build>
-        <finalName>base</finalName>
+        <finalName>base-web</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
