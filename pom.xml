@@ -156,4 +156,15 @@
             </plugin>
         </plugins>
     </build>
+
+    <distributionManagement>
+        <repository>
+            <id>base-releases-repo</id>
+            <url>http://39.101.202.67:18081/repository/maven-releases/</url>
+        </repository>
+        <snapshotRepository>
+            <id>base-snapshots-repo</id>
+            <url>http://39.101.202.67:18081/repository/maven-snapshots/</url>
+        </snapshotRepository>
+    </distributionManagement>
 </project>
