@@ -3,7 +3,6 @@ package com.base.basic.api.controller.v1;
 import com.base.basic.app.service.DataDictionaryService;
 import com.base.basic.domain.entity.v1.DataDictionary;
 import com.base.basic.domain.repository.DataDictionaryRepository;
-import com.base.common.util.jwt.annotation.Access;
 import com.base.common.util.layui.LayJson;
 import com.base.common.util.page.PageParmaters;
 import io.swagger.annotations.Api;

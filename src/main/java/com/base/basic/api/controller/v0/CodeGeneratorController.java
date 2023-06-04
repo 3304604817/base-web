@@ -2,7 +2,6 @@ package com.base.basic.api.controller.v0;
 
 import com.base.basic.app.service.CodeGeneratorService;
 import com.base.basic.domain.vo.v0.TableVO;
-import com.base.common.util.jwt.annotation.Access;
 import com.base.common.util.layui.LayJson;
 import com.base.common.util.page.PageParmaters;
 import io.swagger.annotations.Api;

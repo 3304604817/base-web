@@ -1,4 +1,4 @@
-package com.base.common.util.jwt.annotation;
+package com.base.common.annotation;
 
 import java.lang.annotation.*;
 

@@ -1,7 +1,6 @@
 package com.base.basic.api.controller.v0;
 
 import com.base.basic.app.service.MinioService;
-import com.base.common.util.jwt.annotation.Access;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;

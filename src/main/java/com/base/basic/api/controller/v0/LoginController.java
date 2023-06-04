@@ -2,7 +2,7 @@ package com.base.basic.api.controller.v0;
 
 import com.base.basic.app.service.LoginService;
 import com.base.basic.domain.entity.v0.base.BaseResponseEntity;
-import com.base.common.util.jwt.annotation.Access;
+import com.base.common.annotation.Access;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;

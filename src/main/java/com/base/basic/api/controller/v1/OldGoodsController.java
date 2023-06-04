@@ -3,15 +3,12 @@ package com.base.basic.api.controller.v1;
 import com.base.basic.app.service.OldGoodsService;
 import com.base.basic.domain.entity.v1.OldGoods;
 import com.base.basic.domain.repository.OldGoodsRepository;
-import com.base.common.util.jwt.annotation.Access;
 import com.base.common.util.layui.LayJson;
 import com.base.common.util.page.PageParmaters;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 

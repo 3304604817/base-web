@@ -1,21 +1,17 @@
 package com.base.basic.api.controller.v0;
 
-import com.base.basic.app.service.MailService;
 import com.base.basic.app.service.RegisterService;
 import com.base.basic.domain.entity.v0.IamUser;
 import com.base.basic.domain.entity.v0.base.BaseResponseEntity;
-import com.base.common.util.jwt.annotation.Access;
+import com.base.common.annotation.Access;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.mail.MessagingException;
-import java.util.Objects;
 
 import static com.base.basic.domain.entity.v0.base.BaseResponseEntity.*;
 import static com.base.basic.domain.entity.v0.base.BaseResponseEntity.STATUS_FAIL;

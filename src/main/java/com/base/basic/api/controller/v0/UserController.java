@@ -3,7 +3,7 @@ package com.base.basic.api.controller.v0;
 import com.github.pagehelper.PageInfo;
 import com.base.basic.domain.entity.v0.IamUser;
 import com.base.basic.app.service.UserService;
-import com.base.common.util.jwt.annotation.Access;
+import com.base.common.annotation.Access;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;

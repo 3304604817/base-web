@@ -1,7 +1,7 @@
 package com.base.common.config;
 
+import com.base.common.annotation.Access;
 import com.base.common.util.jwt.JwtAuthenticationFilter;
-import com.base.common.util.jwt.annotation.Access;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;

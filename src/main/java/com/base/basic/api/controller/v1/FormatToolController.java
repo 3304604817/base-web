@@ -1,10 +1,8 @@
 package com.base.basic.api.controller.v1;
 
-import com.alibaba.fastjson.JSONObject;
 import com.base.basic.app.service.FormatToolService;
-import com.base.basic.domain.entity.v1.OldGoods;
 import com.base.basic.domain.vo.v0.FormatToolVO;
-import com.base.common.util.jwt.annotation.Access;
+import com.base.common.annotation.Access;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 
 @Api(tags="格式化工具")
 @RestController

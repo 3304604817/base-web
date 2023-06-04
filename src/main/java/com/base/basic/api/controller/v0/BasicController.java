@@ -1,7 +1,6 @@
 package com.base.basic.api.controller.v0;
 
-import com.base.basic.app.service.impl.JaxRsWebServiceImpl;
-import com.base.common.util.jwt.annotation.Access;
+import com.base.common.annotation.Access;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
@@ -9,8 +8,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import static com.microsoft.schemas.office.x2006.encryption.STCipherAlgorithm.AES;
 
 @Api(tags="基础")
 @RestController
