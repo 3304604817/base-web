@@ -15,7 +15,6 @@ public class SoapUtil {
      */
 
     /**
-     *
      * @param soapUrl 接口地址
      * @param Username 账号
      * @param Password 密码
