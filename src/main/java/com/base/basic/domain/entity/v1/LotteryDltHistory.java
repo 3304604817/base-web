@@ -16,7 +16,6 @@ import java.util.List;
 /**
  * 大乐透中奖历史
  */
-@Data
 @ApiModel("大乐透中奖历史")
 @Table(name = "lottery_dlt_history")
 public class LotteryDltHistory extends BaseEntity {
@@ -87,4 +86,132 @@ public class LotteryDltHistory extends BaseEntity {
     @ApiModelProperty(value = "总合计=前区合计+后区合计")
     @Transient
     private Long allSum;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getDrawNum() {
+        return drawNum;
+    }
+
+    public void setDrawNum(String drawNum) {
+        this.drawNum = drawNum;
+    }
+
+    public Date getDrawTime() {
+        return drawTime;
+    }
+
+    public void setDrawTime(Date drawTime) {
+        this.drawTime = drawTime;
+    }
+
+    public Long getFrontArea1() {
+        return frontArea1;
+    }
+
+    public void setFrontArea1(Long frontArea1) {
+        this.frontArea1 = frontArea1;
+    }
+
+    public Long getFrontArea2() {
+        return frontArea2;
+    }
+
+    public void setFrontArea2(Long frontArea2) {
+        this.frontArea2 = frontArea2;
+    }
+
+    public Long getFrontArea3() {
+        return frontArea3;
+    }
+
+    public void setFrontArea3(Long frontArea3) {
+        this.frontArea3 = frontArea3;
+    }
+
+    public Long getFrontArea4() {
+        return frontArea4;
+    }
+
+    public void setFrontArea4(Long frontArea4) {
+        this.frontArea4 = frontArea4;
+    }
+
+    public Long getFrontArea5() {
+        return frontArea5;
+    }
+
+    public void setFrontArea5(Long frontArea5) {
+        this.frontArea5 = frontArea5;
+    }
+
+    public Long getEndArea1() {
+        return endArea1;
+    }
+
+    public void setEndArea1(Long endArea1) {
+        this.endArea1 = endArea1;
+    }
+
+    public Long getEndArea2() {
+        return endArea2;
+    }
+
+    public void setEndArea2(Long endArea2) {
+        this.endArea2 = endArea2;
+    }
+
+    public Long getTenantId() {
+        return tenantId;
+    }
+
+    public void setTenantId(Long tenantId) {
+        this.tenantId = tenantId;
+    }
+
+    public String getDrawTimeFm() {
+        return drawTimeFm;
+    }
+
+    public void setDrawTimeFm(String drawTimeFm) {
+        this.drawTimeFm = drawTimeFm;
+    }
+
+    public String getDrawTimeTo() {
+        return drawTimeTo;
+    }
+
+    public void setDrawTimeTo(String drawTimeTo) {
+        this.drawTimeTo = drawTimeTo;
+    }
+
+    public Long getFrontAreaSum() {
+        return frontAreaSum;
+    }
+
+    public void setFrontAreaSum(Long frontAreaSum) {
+        this.frontAreaSum = frontAreaSum;
+    }
+
+    public Long getEndAreaSum() {
+        return endAreaSum;
+    }
+
+    public void setEndAreaSum(Long endAreaSum) {
+        this.endAreaSum = endAreaSum;
+    }
+
+    public Long getAllSum() {
+        return allSum;
+    }
+
+    public void setAllSum(Long allSum) {
+        this.allSum = allSum;
+    }
 }

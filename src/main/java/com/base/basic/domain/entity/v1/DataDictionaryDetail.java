@@ -12,7 +12,6 @@ import lombok.Data;
 /**
  * 数据字典明细
  */
-@Data
 @ApiModel("数据字典明细")
 @Table(name = "data_dictionary_detail")
 public class DataDictionaryDetail extends BaseEntity {
@@ -35,4 +34,36 @@ public class DataDictionaryDetail extends BaseEntity {
 
 	@ApiModelProperty(value = "数据字典内容")
     private String content;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getDicId() {
+        return dicId;
+    }
+
+    public void setDicId(Long dicId) {
+        this.dicId = dicId;
+    }
+
+    public String getNotes() {
+        return notes;
+    }
+
+    public void setNotes(String notes) {
+        this.notes = notes;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
 }

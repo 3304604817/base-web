@@ -13,7 +13,6 @@ import lombok.Data;
 /**
  * 二手商品详情
  */
-@Data
 @ApiModel("二手商品详情")
 @Table(name = "old_goods_detail")
 public class OldGoodsDetail extends BaseEntity {
@@ -48,4 +47,60 @@ public class OldGoodsDetail extends BaseEntity {
 
    	@ApiModelProperty(value = "是否启用。1启用，0未启用",required = true)
     private Integer enabledFlag;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getGoodsId() {
+        return goodsId;
+    }
+
+    public void setGoodsId(Long goodsId) {
+        this.goodsId = goodsId;
+    }
+
+    public String getSellerPhone() {
+        return sellerPhone;
+    }
+
+    public void setSellerPhone(String sellerPhone) {
+        this.sellerPhone = sellerPhone;
+    }
+
+    public String getSellerEmail() {
+        return sellerEmail;
+    }
+
+    public void setSellerEmail(String sellerEmail) {
+        this.sellerEmail = sellerEmail;
+    }
+
+    public String getSellerDescription() {
+        return sellerDescription;
+    }
+
+    public void setSellerDescription(String sellerDescription) {
+        this.sellerDescription = sellerDescription;
+    }
+
+    public String getBuyerMessage() {
+        return buyerMessage;
+    }
+
+    public void setBuyerMessage(String buyerMessage) {
+        this.buyerMessage = buyerMessage;
+    }
+
+    public Integer getEnabledFlag() {
+        return enabledFlag;
+    }
+
+    public void setEnabledFlag(Integer enabledFlag) {
+        this.enabledFlag = enabledFlag;
+    }
 }

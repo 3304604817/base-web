@@ -14,7 +14,6 @@ import lombok.Data;
 /**
  * 二手商品表
  */
-@Data
 @ApiModel("二手商品表")
 @Table(name = "old_goods")
 public class OldGoods extends BaseEntity {
@@ -65,4 +64,92 @@ public class OldGoods extends BaseEntity {
     @ApiModelProperty(value = "价格到")
     @Transient
     private BigDecimal priceTo;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getSku() {
+        return sku;
+    }
+
+    public void setSku(String sku) {
+        this.sku = sku;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Long getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(Long categoryId) {
+        this.categoryId = categoryId;
+    }
+
+    public BigDecimal getPrice() {
+        return price;
+    }
+
+    public void setPrice(BigDecimal price) {
+        this.price = price;
+    }
+
+    public String getPictureUrl() {
+        return pictureUrl;
+    }
+
+    public void setPictureUrl(String pictureUrl) {
+        this.pictureUrl = pictureUrl;
+    }
+
+    public Integer getFreeShipFlag() {
+        return freeShipFlag;
+    }
+
+    public void setFreeShipFlag(Integer freeShipFlag) {
+        this.freeShipFlag = freeShipFlag;
+    }
+
+    public Integer getEnabledFlag() {
+        return enabledFlag;
+    }
+
+    public void setEnabledFlag(Integer enabledFlag) {
+        this.enabledFlag = enabledFlag;
+    }
+
+    public OldGoodsDetail getOldGoodsDetail() {
+        return oldGoodsDetail;
+    }
+
+    public void setOldGoodsDetail(OldGoodsDetail oldGoodsDetail) {
+        this.oldGoodsDetail = oldGoodsDetail;
+    }
+
+    public BigDecimal getPriceFm() {
+        return priceFm;
+    }
+
+    public void setPriceFm(BigDecimal priceFm) {
+        this.priceFm = priceFm;
+    }
+
+    public BigDecimal getPriceTo() {
+        return priceTo;
+    }
+
+    public void setPriceTo(BigDecimal priceTo) {
+        this.priceTo = priceTo;
+    }
 }

@@ -5,7 +5,6 @@ import tk.mybatis.mapper.annotation.Version;
 
 import java.util.Date;
 
-@Data
 public class BaseEntity {
     public static final String FIELD_OBJECT_VERSION_NUMBER = "objectVersionNumber";
     public static final String FIELD_CREATE_BY = "createdBy";
@@ -23,4 +22,44 @@ public class BaseEntity {
     private Long lastUpdatedBy;
 
     private Date lastUpdateDate;
+
+    public Long getObjectVersionNumber() {
+        return objectVersionNumber;
+    }
+
+    public void setObjectVersionNumber(Long objectVersionNumber) {
+        this.objectVersionNumber = objectVersionNumber;
+    }
+
+    public Long getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(Long createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public Date getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(Date creationDate) {
+        this.creationDate = creationDate;
+    }
+
+    public Long getLastUpdatedBy() {
+        return lastUpdatedBy;
+    }
+
+    public void setLastUpdatedBy(Long lastUpdatedBy) {
+        this.lastUpdatedBy = lastUpdatedBy;
+    }
+
+    public Date getLastUpdateDate() {
+        return lastUpdateDate;
+    }
+
+    public void setLastUpdateDate(Date lastUpdateDate) {
+        this.lastUpdateDate = lastUpdateDate;
+    }
 }

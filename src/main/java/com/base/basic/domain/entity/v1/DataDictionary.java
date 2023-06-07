@@ -15,7 +15,6 @@ import java.util.List;
 /**
  * 数据字典
  */
-@Data
 @ApiModel("数据字典")
 @Table(name = "data_dictionary")
 public class DataDictionary extends BaseEntity {
@@ -54,4 +53,68 @@ public class DataDictionary extends BaseEntity {
     @ApiModelProperty(value = "标签多值")
     @Transient
     private List<String> tags;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getTag() {
+        return tag;
+    }
+
+    public void setTag(String tag) {
+        this.tag = tag;
+    }
+
+    public String getDataKey() {
+        return dataKey;
+    }
+
+    public void setDataKey(String dataKey) {
+        this.dataKey = dataKey;
+    }
+
+    public String getDataValue() {
+        return dataValue;
+    }
+
+    public void setDataValue(String dataValue) {
+        this.dataValue = dataValue;
+    }
+
+    public String getMeaning() {
+        return meaning;
+    }
+
+    public void setMeaning(String meaning) {
+        this.meaning = meaning;
+    }
+
+    public Integer getEnabledFlag() {
+        return enabledFlag;
+    }
+
+    public void setEnabledFlag(Integer enabledFlag) {
+        this.enabledFlag = enabledFlag;
+    }
+
+    public DataDictionaryDetail getDataDictionaryDetail() {
+        return dataDictionaryDetail;
+    }
+
+    public void setDataDictionaryDetail(DataDictionaryDetail dataDictionaryDetail) {
+        this.dataDictionaryDetail = dataDictionaryDetail;
+    }
+
+    public List<String> getTags() {
+        return tags;
+    }
+
+    public void setTags(List<String> tags) {
+        this.tags = tags;
+    }
 }
