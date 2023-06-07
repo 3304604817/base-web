@@ -1,8 +1,6 @@
 package com.base.basic.domain.vo.v0;
 
-import lombok.Data;
 
-@Data
 public class ColumnVO {
     /**
      * 库名
@@ -53,4 +51,84 @@ public class ColumnVO {
      * 数据库列名驼峰并首字母大学
      */
     private String pascalColumnName;
+
+    public String getTableSchema() {
+        return tableSchema;
+    }
+
+    public void setTableSchema(String tableSchema) {
+        this.tableSchema = tableSchema;
+    }
+
+    public String getTableName() {
+        return tableName;
+    }
+
+    public void setTableName(String tableName) {
+        this.tableName = tableName;
+    }
+
+    public String getColumnName() {
+        return columnName;
+    }
+
+    public void setColumnName(String columnName) {
+        this.columnName = columnName;
+    }
+
+    public String getIsNullable() {
+        return isNullable;
+    }
+
+    public void setIsNullable(String isNullable) {
+        this.isNullable = isNullable;
+    }
+
+    public String getDataType() {
+        return dataType;
+    }
+
+    public void setDataType(String dataType) {
+        this.dataType = dataType;
+    }
+
+    public String getColumnKey() {
+        return columnKey;
+    }
+
+    public void setColumnKey(String columnKey) {
+        this.columnKey = columnKey;
+    }
+
+    public String getColumnComment() {
+        return columnComment;
+    }
+
+    public void setColumnComment(String columnComment) {
+        this.columnComment = columnComment;
+    }
+
+    public String getUpperColumnName() {
+        return upperColumnName;
+    }
+
+    public void setUpperColumnName(String upperColumnName) {
+        this.upperColumnName = upperColumnName;
+    }
+
+    public String getCamelColumnName() {
+        return camelColumnName;
+    }
+
+    public void setCamelColumnName(String camelColumnName) {
+        this.camelColumnName = camelColumnName;
+    }
+
+    public String getPascalColumnName() {
+        return pascalColumnName;
+    }
+
+    public void setPascalColumnName(String pascalColumnName) {
+        this.pascalColumnName = pascalColumnName;
+    }
 }

@@ -1,10 +1,8 @@
 package com.base.basic.domain.vo.v0;
 
-import lombok.Data;
 
 import java.util.Date;
 
-@Data
 public class TableVO {
 
     // 库名
@@ -24,4 +22,52 @@ public class TableVO {
 
     // 包路径
     private String pkgPath;
+
+    public String getTableSchema() {
+        return tableSchema;
+    }
+
+    public void setTableSchema(String tableSchema) {
+        this.tableSchema = tableSchema;
+    }
+
+    public String getTableName() {
+        return tableName;
+    }
+
+    public void setTableName(String tableName) {
+        this.tableName = tableName;
+    }
+
+    public String getTableComment() {
+        return tableComment;
+    }
+
+    public void setTableComment(String tableComment) {
+        this.tableComment = tableComment;
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    public String getPkgPath() {
+        return pkgPath;
+    }
+
+    public void setPkgPath(String pkgPath) {
+        this.pkgPath = pkgPath;
+    }
 }
