@@ -13,7 +13,7 @@ import lombok.Data;
  * 数据字典明细
  */
 @ApiModel("数据字典明细")
-@Table(name = "data_dictionary_detail")
+@Table(name = "db_data_dictionary_detail")
 public class DataDictionaryDetail extends BaseEntity {
 
     public static final String FIELD_ID = "id";

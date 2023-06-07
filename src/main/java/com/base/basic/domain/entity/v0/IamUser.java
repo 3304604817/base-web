@@ -12,7 +12,7 @@ import javax.persistence.Transient;
 import java.math.BigDecimal;
 
 @EqualsAndHashCode
-@Table(name = "iam_user")
+@Table(name = "db_user")
 public class IamUser extends BaseEntity {
     public static final String FIELD_ID = "id";
     public static final String FIELD_LOGIN_NAME = "loginName";

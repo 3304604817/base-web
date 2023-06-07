@@ -17,7 +17,7 @@ import java.util.List;
  * 大乐透中奖历史
  */
 @ApiModel("大乐透中奖历史")
-@Table(name = "lottery_dlt_history")
+@Table(name = "db_lottery_dlt_history")
 public class LotteryDltHistory extends BaseEntity {
 
     public static final String FIELD_ID = "id";

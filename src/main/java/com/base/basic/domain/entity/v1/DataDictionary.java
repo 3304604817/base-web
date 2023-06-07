@@ -16,7 +16,7 @@ import java.util.List;
  * 数据字典
  */
 @ApiModel("数据字典")
-@Table(name = "data_dictionary")
+@Table(name = "db_data_dictionary")
 public class DataDictionary extends BaseEntity {
 
     public static final String FIELD_ID = "id";

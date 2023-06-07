@@ -15,7 +15,7 @@ import lombok.Data;
  * 二手商品表
  */
 @ApiModel("二手商品表")
-@Table(name = "old_goods")
+@Table(name = "db_old_goods")
 public class OldGoods extends BaseEntity {
 
     public static final String FIELD_ID = "id";
