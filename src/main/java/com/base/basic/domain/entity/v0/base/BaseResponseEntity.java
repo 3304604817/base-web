@@ -1,6 +1,5 @@
 package com.base.basic.domain.entity.v0.base;
 
-import lombok.Data;
 
 public class BaseResponseEntity {
     public static String CODE_200 = "200";

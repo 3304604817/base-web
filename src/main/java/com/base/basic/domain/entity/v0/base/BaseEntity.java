@@ -1,6 +1,5 @@
 package com.base.basic.domain.entity.v0.base;
 
-import lombok.Data;
 import tk.mybatis.mapper.annotation.Version;
 
 import java.util.Date;

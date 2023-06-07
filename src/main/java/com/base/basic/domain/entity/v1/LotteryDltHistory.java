@@ -8,10 +8,7 @@ import javax.persistence.Transient;
 import com.base.basic.domain.entity.v0.base.BaseEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Data;
-
 import java.util.Date;
-import java.util.List;
 
 /**
  * 大乐透中奖历史

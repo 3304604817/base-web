@@ -9,7 +9,6 @@ import com.base.basic.domain.entity.v0.base.BaseEntity;
 import java.math.BigDecimal;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Data;
 
 /**
  * 二手商品表

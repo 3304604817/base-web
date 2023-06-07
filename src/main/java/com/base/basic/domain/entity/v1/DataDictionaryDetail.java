@@ -7,7 +7,6 @@ import javax.persistence.Table;
 import com.base.basic.domain.entity.v0.base.BaseEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Data;
 
 /**
  * 数据字典明细

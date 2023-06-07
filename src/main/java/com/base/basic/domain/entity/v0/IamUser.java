@@ -1,17 +1,13 @@
 package com.base.basic.domain.entity.v0;
 
 import com.base.basic.domain.entity.v0.base.BaseEntity;
-import io.swagger.annotations.ApiModelProperty;
-import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Transient;
-import java.math.BigDecimal;
 
-@EqualsAndHashCode
 @Table(name = "db_user")
 public class IamUser extends BaseEntity {
     public static final String FIELD_ID = "id";

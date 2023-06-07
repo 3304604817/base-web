@@ -6,10 +6,7 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import com.base.basic.domain.entity.v0.base.BaseEntity;
-import com.base.basic.domain.entity.v1.DataDictionaryDetail;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 import java.util.Date;
 
@@ -18,7 +15,6 @@ import java.util.Date;
  *
  * @author 3304604817@qq.com 2022-10-06 22:47:18
  */
-@EqualsAndHashCode
 @Table(name = "db_message")
 public class Message extends BaseEntity {
 

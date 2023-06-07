@@ -6,7 +6,6 @@ import javax.persistence.Table;
 import com.base.basic.domain.entity.v0.base.BaseEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Data;
 
 /**
  * 接口请求日志
@@ -27,6 +26,7 @@ public class AuditLog extends BaseEntity {
 
 	@ApiModelProperty("表ID，主键")
 	@Id
+    @GeneratedValue(generator = "JDBC")
     private Long id;
 
 	@ApiModelProperty(value = "请求地址")

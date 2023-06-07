@@ -8,7 +8,6 @@ import com.base.basic.domain.entity.v0.base.BaseEntity;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Data;
 
 /**
  * 二手商品详情
