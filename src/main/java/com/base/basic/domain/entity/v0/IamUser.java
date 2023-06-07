@@ -1,7 +1,6 @@
 package com.base.basic.domain.entity.v0;
 
 import com.base.basic.domain.entity.v0.base.BaseEntity;
-import lombok.EqualsAndHashCode;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
