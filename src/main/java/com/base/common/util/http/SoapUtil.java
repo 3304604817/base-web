@@ -20,7 +20,7 @@ public class SoapUtil {
      * @param Password 密码
      * @param content 消息体
      */
-    public static String send(String soapUrl, String Username, String Password, String content) {
+    public static Response send(String soapUrl, String Username, String Password, String content) {
         try {
             OkHttpClient client = new OkHttpClient().newBuilder()
                     .build();
@@ -36,10 +36,10 @@ public class SoapUtil {
                     .addHeader("Authorization", "Basic " + authorization)
                     .build();
             Response response = client.newCall(request).execute();
-            return response.body().string();
+            return response;
         }catch (IOException ioe){
             ioe.printStackTrace();
-            return "";
+            return null;
         }
     }
 }
