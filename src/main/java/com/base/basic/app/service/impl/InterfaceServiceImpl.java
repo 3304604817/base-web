@@ -52,7 +52,7 @@ public class InterfaceServiceImpl implements InterfaceService {
             response = SoapUtil.send(interfaceDTO.getUrl(), interfaceParamsMap.get("Username").get(0).getParamValue(), interfaceParamsMap.get("Password").get(0).getParamValue(), content);
             responseBody = response.body().string();
         }catch (Exception e){
-            logger.error("{}", e);
+            logger.error("接口调用异常 {}", e);
         }finally {
             InterfaceLog interfaceLog = new InterfaceLog(
                     interfaceDTO.getInterfaceCode(),

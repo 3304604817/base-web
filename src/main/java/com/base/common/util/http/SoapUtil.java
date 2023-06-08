@@ -20,26 +20,21 @@ public class SoapUtil {
      * @param Password 密码
      * @param content 消息体
      */
-    public static Response send(String soapUrl, String Username, String Password, String content) {
-        try {
-            OkHttpClient client = new OkHttpClient().newBuilder()
-                    .build();
-            MediaType mediaType = MediaType.parse("text/xml");
-            RequestBody body = RequestBody.create(mediaType, content);
-            String authorization =  Base64.getEncoder().encodeToString(
-                    new StringBuilder(Username).append(":").append(Password).toString().getBytes()
-            );
-            Request request = new Request.Builder()
-                    .url(soapUrl)
-                    .method("POST", body)
-                    .addHeader("Content-Type", "text/xml")
-                    .addHeader("Authorization", "Basic " + authorization)
-                    .build();
-            Response response = client.newCall(request).execute();
-            return response;
-        }catch (IOException ioe){
-            ioe.printStackTrace();
-            return null;
-        }
+    public static Response send(String soapUrl, String Username, String Password, String content) throws IOException {
+        OkHttpClient client = new OkHttpClient().newBuilder()
+                .build();
+        MediaType mediaType = MediaType.parse("text/xml");
+        RequestBody body = RequestBody.create(mediaType, content);
+        String authorization =  Base64.getEncoder().encodeToString(
+                new StringBuilder(Username).append(":").append(Password).toString().getBytes()
+        );
+        Request request = new Request.Builder()
+                .url(soapUrl)
+                .method("POST", body)
+                .addHeader("Content-Type", "text/xml")
+                .addHeader("Authorization", "Basic " + authorization)
+                .build();
+        Response response = client.newCall(request).execute();
+        return response;
     }
 }
