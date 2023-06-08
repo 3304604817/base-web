@@ -1,5 +1,6 @@
 package com.base.basic;
 
+import com.base.common.util.convert.DateConvertUtil;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -10,8 +11,6 @@ public class BasicTest {
 
     @Test
     public void test(){
-        System.out.println(1);
-        System.out.println(1);
-        System.out.println(1);
+        System.out.println(DateConvertUtil.nowTimeString());
     }
 }
