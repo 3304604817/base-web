@@ -11,6 +11,5 @@ public class BasicTest {
 
     @Test
     public void test(){
-        System.out.println(DateConvertUtil.nowTimeString());
     }
 }
