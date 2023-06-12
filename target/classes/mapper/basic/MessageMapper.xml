@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.base.basic.infra.mapper.MessageMapper">
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap id="BaseResultMap" type="com.base.basic.domain.entity.v0.Message">
+        <result column="id" property="id" jdbcType="DECIMAL"/>
+        <result column="sender" property="sender" jdbcType="VARCHAR"/>
+        <result column="receiver" property="receiver" jdbcType="VARCHAR"/>
+        <result column="type_code" property="typeCode" jdbcType="VARCHAR"/>
+        <result column="subject" property="subject" jdbcType="VARCHAR"/>
+        <result column="content" property="content" jdbcType="VARCHAR"/>
+        <result column="verify_code" property="verifyCode" jdbcType="VARCHAR"/>
+        <result column="tenant_id" property="tenantId" jdbcType="DECIMAL"/>
+        <result column="object_version_number" property="objectVersionNumber" jdbcType="DECIMAL"/>
+        <result column="creation_date" property="creationDate" jdbcType="DATE"/>
+        <result column="created_by" property="createdBy" jdbcType="DECIMAL"/>
+        <result column="last_updated_by" property="lastUpdatedBy" jdbcType="DECIMAL"/>
+        <result column="last_update_date" property="lastUpdateDate" jdbcType="DATE"/>
+    </resultMap>
+
+    <select id="list" parameterType="com.base.basic.domain.entity.v0.Message" resultMap="BaseResultMap">
+        SELECT dm.id,
+               dm.sender,
+               dm.receiver,
+               dm.type_code,
+               dm.subject,
+               dm.content,
+               dm.verify_code,
+               dm.creation_date
+        FROM db_message dm
+        WHERE 1 = 1
+        <if test="null != receiver and '' != receiver">
+            AND dm.receiver = #{receiver, jdbcType = VARCHAR}
+        </if>
+        <if test="null != typeCode and '' != typeCode">
+            AND dm.type_code = #{typeCode, jdbcType = VARCHAR}
+        </if>
+        <if test="null != verifyCode and '' != verifyCode">
+            AND dm.verify_code = #{verifyCode, jdbcType = VARCHAR}
+        </if>
+        <if test="null != expireDate">
+            AND dm.creation_date <![CDATA[ >= ]]> #{expireDate, jdbcType = TIMESTAMP}
+        </if>
+    </select>
+</mapper>

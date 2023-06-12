@@ -1,0 +1,141 @@
+<div class="layuimini-container layuimini-page-anim">
+    <div class="layuimini-main">
+        <fieldset class="table-search-fieldset">
+            <legend>代码初始化信息</legend>
+            <div style="margin: 10px 10px 10px 10px">
+                <form class="layui-form layui-form-pane" action="">
+                    <div class="layui-form-item">
+                        <div class="layui-inline">
+                            <label class="layui-form-label">包路径</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="pkgPath" placeholder="如com.base.basic" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <div class="layui-inline">
+                            <label class="layui-form-label">作者</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="author" placeholder="邮箱" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </fieldset>
+        <fieldset class="table-search-fieldset">
+            <legend>搜索信息</legend>
+            <div style="margin: 10px 10px 10px 10px">
+                <form class="layui-form layui-form-pane" action="">
+                    <div class="layui-form-item">
+                        <div class="layui-inline">
+                            <label class="layui-form-label">库名</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="tableSchema" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">表名</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="tableName" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-inline">
+                            <button type="submit" class="layui-btn layui-btn-primary"  lay-submit lay-filter="data-search-btn"><i class="layui-icon"></i>搜 索</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </fieldset>
+
+        <script type="text/html" id="toolbarHead">
+            <div class="layui-btn-container">
+                <button class="layui-btn layui-btn-normal layui-btn-sm data-add-btn" lay-event="mvc"> 生成MVC模型 </button>
+                <button class="layui-btn layui-btn-normal layui-btn-sm data-add-btn" lay-event="ddd"> 生成DDD模型 </button>
+            </div>
+        </script>
+
+        <table class="layui-hide" id="currentTableId" lay-filter="currentTableFilter"></table>
+    </div>
+</div>
+
+<script src="js/config.js"></script>
+<script>
+    layui.use(['form', 'table','miniPage','element'], function () {
+        var $ = layui.jquery,
+            form = layui.form,
+            table = layui.table,
+            miniPage = layui.miniPage;
+        // 存储已勾选的数据
+        let checkedList = new Array();
+
+        table.render({
+            elem: '#currentTableId',
+            url: basicPath + '/code-generator/list',
+            toolbar: '#toolbarHead',
+            defaultToolbar: ['filter', 'exports', 'print', {
+                title: '提示',
+                layEvent: 'LAYTABLE_TIPS',
+                icon: 'layui-icon-tips'
+            }],
+            cols: [[
+                {type: "checkbox", width: 50},
+                {field: 'tableSchema', width: 200, title: '库名', sort: true},
+                {field: 'tableName', width: 300, title: '表名'},
+                {field: 'tableComment', width: 500, title: '表注释'},
+                {field: 'createTime', width: 350, title: '创建时间', sort: true},
+            ]],
+            limits: [10, 20, 50, 100],
+            limit: 10,
+            page: true,
+            skin: 'line'
+        });
+
+        // 监听搜索操作
+        form.on('submit(data-search-btn)', function (data) {
+            var result = data.field;
+
+            //执行搜索重载
+            table.reload('currentTableId', {
+                page: {
+                    curr: 1
+                },
+                where: result
+            }, 'data');
+
+            return false;
+        });
+
+        //监听表格复选框选择
+        table.on('checkbox(currentTableFilter)', function (obj) {
+            console.log(obj);
+        });
+
+        /**
+         * toolbar事件监听，新增
+         */
+        table.on('toolbar(currentTableFilter)', function (obj) {
+            /**
+             * 获取 checkbox 控件选中的数据
+             */
+            var checkStatus = table.checkStatus('currentTableId')
+            var data = checkStatus.data;
+
+            if (obj.event === 'mvc') {   // 监听mvc操作
+                $.ajax({
+                    type: 'post',
+                    url: basicPath + '/code-generator/mvc',
+                    dataType: 'json',
+                    contentType: 'application/json',
+                    data: JSON.stringify(data),
+                    cache: false,
+                    async: false,
+                    success: function (data) {
+                    }
+                });
+            } else if (obj.event === 'ddd') {  // 监听ddd操作
+                alert("敬请期待");
+            }
+        });
+    });
+</script>

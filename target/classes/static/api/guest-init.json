@@ -1,0 +1,63 @@
+{
+  "homeInfo": {
+    "title": "首页",
+    "href": "page/welcome-0.html?t=1"
+  },
+  "logoInfo": {
+    "title": "Gshen",
+    "image": "images/logo.png",
+    "href": ""
+  },
+  "menuInfo": [
+    {
+      "title": "常规管理",
+      "icon": "fa fa-address-book",
+      "href": "",
+      "target": "_self",
+      "child": [
+        {
+          "title": "主页",
+          "href": "",
+          "icon": "fa fa-home",
+          "target": "_self",
+          "child": [
+            {
+              "title": "联系我们",
+              "href": "page/welcome-0.html",
+              "icon": "fa fa-phone",
+              "target": "_self"
+            }
+          ]
+        },
+        {
+          "title": "研发工具",
+          "href": "",
+          "icon": "fa fa-sliders",
+          "target": "",
+          "child": [
+            {
+              "title": "Json格式化",
+              "href": "page/basic/tools/format-tool.html",
+              "icon": "fa fa-refresh",
+              "target": "_self"
+            }
+          ]
+        },
+        {
+          "title": "游戏",
+          "href": "",
+          "icon": "fa fa-gamepad",
+          "target": "",
+          "child": [
+            {
+              "title": "NES",
+              "href": "page/basic/game/nes-games.html",
+              "icon": "fa fa-gamepad",
+              "target": "_self"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
