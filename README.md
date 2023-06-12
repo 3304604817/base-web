@@ -8,7 +8,7 @@ LayUI+SpringBoot
         Json格式化:格式化Json,Base64加密/解密,MD5加密,UUID生成
 
 # 启动项目
-java -jar xxx.jar --spring.profiles.active=prod  
+nohup java -jar xxx.jar --spring.profiles.active=prod  
 --spring.profiles.active=prod  指定读取指定前缀的配置文件
 
 # sharding-jdbc 读写分离
