@@ -4,6 +4,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
 
 import com.base.basic.domain.entity.v0.base.BaseEntity;
 import java.math.BigDecimal;
@@ -35,6 +37,7 @@ public class OldGoods extends BaseEntity {
     private String sku;
 
     @ApiModelProperty(value = "商品名称")
+    @NotEmpty(message = "商品名称不能为空")
     private String name;
 
     @ApiModelProperty(value = "所属品类ID")

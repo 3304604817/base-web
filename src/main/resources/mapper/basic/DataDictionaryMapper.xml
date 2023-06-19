@@ -27,7 +27,7 @@
         dd.last_updated_by,
         dd.last_update_date,
         dd.object_version_number
-        FROM data_dictionary dd
+        FROM db_data_dictionary dd
         WHERE 1 = 1
         <if test="null != tags and tags.size > 0">
             <foreach item="item" index="index" collection="tags" open="(" separator="," close=")">

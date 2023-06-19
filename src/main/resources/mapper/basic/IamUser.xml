@@ -34,7 +34,7 @@
         iu.creation_date,
         iu.last_updated_by,
         iu.last_update_date
-        from iam_user iu
+        from db_user iu
         where 1 = 1
         <if test="null != loginName and '' != loginName">
             and iu.login_name like concat('%', concat(#{loginName, jdbcType = VARCHAR}, '%'))
@@ -60,7 +60,7 @@
         iu.creation_date,
         iu.last_updated_by,
         iu.last_update_date
-        from iam_user iu
+        from db_user iu
         where 1 = 1
         <if test="null != userId">
             and iu.id = #{userId, jdbcType = DECIMAL}
@@ -84,7 +84,7 @@
         iu.creation_date,
         iu.last_updated_by,
         iu.last_update_date
-        from iam_user iu
+        from db_user iu
         where 1 = 1
         and iu.login_name = #{loginName, jdbcType = VARCHAR}
         limit 1

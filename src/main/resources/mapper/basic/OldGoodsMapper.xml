@@ -31,7 +31,7 @@
                og.last_updated_by,
                og.last_update_date,
                og.object_version_number
-        FROM old_goods og
+        FROM db_old_goods og
         WHERE 1 = 1
         <if test="null != name and '' != name">
             AND og.name like concat('%', concat(#{name, jdbcType = VARCHAR}, '%'))

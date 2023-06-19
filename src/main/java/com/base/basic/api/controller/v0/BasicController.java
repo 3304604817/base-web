@@ -1,6 +1,7 @@
 package com.base.basic.api.controller.v0;
 
 import com.base.common.annotation.Access;
+import com.base.common.exception.BaseException;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
@@ -20,15 +21,10 @@ public class BasicController {
     @PostMapping("/test")
     @Access(accessNoToken = true)
     public ResponseEntity loginOut() {
-        try {
-            String str = null;
-            String str1 = "";
-            if(str.equals(str1)){
-                System.out.println(1);
-            }
-        }catch (Exception e){
-            logger.error("e:{}", e);
+        if(1 == 1){
+            throw new BaseException("测试报错");
         }
+
         return new ResponseEntity(HttpStatus.OK);
     }
 }

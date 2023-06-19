@@ -9,6 +9,9 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -29,20 +32,20 @@ public class OldGoodsController {
 
     @ApiOperation(value = "商品列表")
     @GetMapping("")
-    public LayJson<OldGoods> pageList(PageParmaters pageParmaters, OldGoods searchBody, @RequestParam(value = "param", required = false) String param) {
-        return new LayJson<>(oldGoodsService.pageList(pageParmaters, searchBody));
+    public ResponseEntity<LayJson<OldGoods>> pageList(PageParmaters pageParmaters, OldGoods searchBody, @RequestParam(value = "param", required = false) String param) {
+        return new ResponseEntity(new LayJson<>(oldGoodsService.pageList(pageParmaters, searchBody)), HttpStatus.OK);
     }
 
     @ApiOperation(value = "商品明细")
     @GetMapping("/detail/{id}")
-    public OldGoods detail(@ApiParam(value = "id", required = true) @PathVariable("id") Long id) {
-        return oldGoodsService.detail(id);
+    public ResponseEntity<OldGoods> detail(@ApiParam(value = "id", required = true) @PathVariable("id") Long id) {
+        return new ResponseEntity(oldGoodsService.detail(id), HttpStatus.OK);
     }
 
     @ApiOperation(value = "商品创建/更新")
     @PostMapping("/save")
-    public OldGoods save(@RequestBody OldGoods oldGoods) {
-        return oldGoodsService.save(oldGoods);
+    public ResponseEntity<OldGoods> save(@Validated @RequestBody OldGoods oldGoods) {
+        return new ResponseEntity(oldGoodsService.save(oldGoods), HttpStatus.OK);
     }
 
     @ApiOperation(value = "商品导出")

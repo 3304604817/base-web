@@ -32,7 +32,7 @@
         front_area5,
         end_area1,
         end_area2
-        FROM lottery_dlt_history
+        FROM db_lottery_dlt_history
         WHERE 1 = 1
         <if test="null != drawTimeFm">
             AND draw_time <![CDATA[ >= ]]> #{drawTimeFm, jdbcType = VARCHAR}
@@ -44,7 +44,7 @@
 
     <select id="countFrontArea1" parameterType="java.lang.Integer" resultType="java.lang.Long">
         SELECT COUNT(front_area1)
-        FROM lottery_dlt_history
+        FROM db_lottery_dlt_history
         WHERE front_area1 = #{frontAreaNum, jdbcType = DECIMAL}
         <if test="null != drawTimeFm">
             AND draw_time <![CDATA[ >= ]]> #{drawTimeFm, jdbcType = VARCHAR}
@@ -56,7 +56,7 @@
 
     <select id="countFrontArea2" parameterType="java.lang.Integer" resultType="java.lang.Long">
         SELECT COUNT(front_area2)
-        FROM lottery_dlt_history
+        FROM db_lottery_dlt_history
         WHERE front_area2 = #{frontAreaNum, jdbcType = DECIMAL}
         <if test="null != drawTimeFm">
             AND draw_time <![CDATA[ >= ]]> #{drawTimeFm, jdbcType = VARCHAR}
@@ -68,7 +68,7 @@
 
     <select id="countFrontArea3" parameterType="java.lang.Integer" resultType="java.lang.Long">
         SELECT COUNT(front_area3)
-        FROM lottery_dlt_history
+        FROM db_lottery_dlt_history
         WHERE front_area3 = #{frontAreaNum, jdbcType = DECIMAL}
         <if test="null != drawTimeFm">
             AND draw_time <![CDATA[ >= ]]> #{drawTimeFm, jdbcType = VARCHAR}
@@ -80,7 +80,7 @@
 
     <select id="countFrontArea4" parameterType="java.lang.Integer" resultType="java.lang.Long">
         SELECT COUNT(front_area4)
-        FROM lottery_dlt_history
+        FROM db_lottery_dlt_history
         WHERE front_area4 = #{frontAreaNum, jdbcType = DECIMAL}
         <if test="null != drawTimeFm">
             AND draw_time <![CDATA[ >= ]]> #{drawTimeFm, jdbcType = VARCHAR}
@@ -92,7 +92,7 @@
 
     <select id="countFrontArea5" parameterType="java.lang.Integer" resultType="java.lang.Long">
         SELECT COUNT(front_area5)
-        FROM lottery_dlt_history
+        FROM db_lottery_dlt_history
         WHERE front_area5 = #{frontAreaNum, jdbcType = DECIMAL}
         <if test="null != drawTimeFm">
             AND draw_time <![CDATA[ >= ]]> #{drawTimeFm, jdbcType = VARCHAR}
@@ -104,7 +104,7 @@
 
     <select id="countEndArea1" parameterType="java.lang.Integer" resultType="java.lang.Long">
         SELECT COUNT(end_area1)
-        FROM lottery_dlt_history
+        FROM db_lottery_dlt_history
         WHERE end_area1 = #{endAreaNum, jdbcType = DECIMAL}
         <if test="null != drawTimeFm">
             AND draw_time <![CDATA[ >= ]]> #{drawTimeFm, jdbcType = VARCHAR}
@@ -116,7 +116,7 @@
 
     <select id="countEndArea2" parameterType="java.lang.Integer" resultType="java.lang.Long">
         SELECT COUNT(end_area2)
-        FROM lottery_dlt_history
+        FROM db_lottery_dlt_history
         WHERE end_area2 = #{endAreaNum, jdbcType = DECIMAL}
         <if test="null != drawTimeFm">
             AND draw_time <![CDATA[ >= ]]> #{drawTimeFm, jdbcType = VARCHAR}
