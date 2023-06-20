@@ -8,7 +8,7 @@ import java.util.Map;
 /**
  * @author gaoyang
  */
-public class HttpUrlConnectionUtil {
+public class RestfulUtil {
 
     public static final String GET_METHOD = "GET";
     public static final String POST_METHOD = "POST";
@@ -37,7 +37,7 @@ public class HttpUrlConnectionUtil {
      */
     public static StringBuffer httpGet(String path, Map<String, ?> uriVariables, Map<String, String> headerVariables, String charsetName) {
         // 传入参数的校验
-        HttpUrlConnectionUtil.check(path, GET_METHOD);
+        RestfulUtil.check(path, GET_METHOD);
 
         HttpURLConnection conn = null;
         InputStream in = null;
@@ -45,7 +45,7 @@ public class HttpUrlConnectionUtil {
         StringBuffer response = new StringBuffer();
         try {
             URL url = new URL(
-                    HttpUrlConnectionUtil.appendUriVariables(new StringBuffer(path), uriVariables).toString()
+                    RestfulUtil.appendUriVariables(new StringBuffer(path), uriVariables).toString()
             );
             conn = (HttpURLConnection) url.openConnection();
             conn.setConnectTimeout(CONNECT_TIME_OUT);
@@ -54,7 +54,7 @@ public class HttpUrlConnectionUtil {
             conn.setRequestMethod(GET_METHOD);
             conn.setRequestProperty("Content-Type", "application/json");
             conn.setRequestProperty("Connection", "keep-alive");
-            HttpUrlConnectionUtil.appendHeaderVariables(conn, headerVariables);
+            RestfulUtil.appendHeaderVariables(conn, headerVariables);
             // 发起请求并返回请求状态
             int code = conn.getResponseCode();
             in = conn.getInputStream();
@@ -98,7 +98,7 @@ public class HttpUrlConnectionUtil {
      */
     public static StringBuffer httpPost(String path, Map<String, ?> uriVariables, Map<String, String> headerVariables, String body, String charsetName) {
         // 传入参数的校验
-        HttpUrlConnectionUtil.check(path, POST_METHOD);
+        RestfulUtil.check(path, POST_METHOD);
 
         HttpURLConnection conn = null;
         InputStream in = null;
@@ -107,7 +107,7 @@ public class HttpUrlConnectionUtil {
         StringBuffer response = new StringBuffer();
         try {
             URL url = new URL(
-                    HttpUrlConnectionUtil.appendUriVariables(new StringBuffer(path), uriVariables).toString()
+                    RestfulUtil.appendUriVariables(new StringBuffer(path), uriVariables).toString()
             );
             conn = (HttpURLConnection) url.openConnection();
             conn.setConnectTimeout(CONNECT_TIME_OUT);
@@ -116,7 +116,7 @@ public class HttpUrlConnectionUtil {
             conn.setRequestMethod(POST_METHOD);
             conn.setRequestProperty("Content-Type", "application/json");
             conn.setRequestProperty("Connection", "keep-alive");
-            HttpUrlConnectionUtil.appendHeaderVariables(conn, headerVariables);
+            RestfulUtil.appendHeaderVariables(conn, headerVariables);
             if(null != body){
                 // 允许向服务器提交数据
                 conn.setDoOutput(true);
@@ -182,7 +182,7 @@ public class HttpUrlConnectionUtil {
      */
     public static StringBuffer httpPut(String path, Map<String, ?> uriVariables, Map<String, String> headerVariables, String body, String charsetName) {
         // 传入参数的校验
-        HttpUrlConnectionUtil.check(path, PUT_METHOD);
+        RestfulUtil.check(path, PUT_METHOD);
 
         HttpURLConnection conn = null;
         InputStream in = null;
@@ -191,7 +191,7 @@ public class HttpUrlConnectionUtil {
         StringBuffer response = new StringBuffer();
         try {
             URL url = new URL(
-                    HttpUrlConnectionUtil.appendUriVariables(new StringBuffer(path), uriVariables).toString()
+                    RestfulUtil.appendUriVariables(new StringBuffer(path), uriVariables).toString()
             );
             conn = (HttpURLConnection) url.openConnection();
             conn.setConnectTimeout(CONNECT_TIME_OUT);
@@ -200,7 +200,7 @@ public class HttpUrlConnectionUtil {
             conn.setRequestMethod(PUT_METHOD);
             conn.setRequestProperty("Content-Type", "application/json");
             conn.setRequestProperty("Connection", "keep-alive");
-            HttpUrlConnectionUtil.appendHeaderVariables(conn, headerVariables);
+            RestfulUtil.appendHeaderVariables(conn, headerVariables);
             if(null != body){
                 // 允许向服务器提交数据
                 conn.setDoOutput(true);

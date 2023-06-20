@@ -1,9 +1,10 @@
 package com.base.basic.api.controller.v0;
 
 import com.alibaba.fastjson.JSON;
+import com.base.basic.app.service.InterfaceService;
 import com.base.basic.domain.entity.v0.IamUser;
 import com.base.common.util.convert.ObjectConvertUtil;
-import com.base.common.util.http.HttpUrlConnectionUtil;
+import com.base.common.util.http.RestfulUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
@@ -28,6 +29,8 @@ public class HttpRequestController {
 
     @Autowired
     RestTemplate restTemplate;
+    @Autowired
+    private InterfaceService interfaceService;
 
     /**
      * 使用 RestTemplate 发送 http 请求示例
@@ -65,11 +68,11 @@ public class HttpRequestController {
 
         Map<String, Object> uriVariables = new HashMap<>(2);
         uriVariables.put("name", "iPhoneXS");
-        StringBuffer getResult = HttpUrlConnectionUtil.httpGet("http://localhost:8086/old-goods", uriVariables, null, HttpUrlConnectionUtil.UTF8_CHARSET);
+        StringBuffer getResult = RestfulUtil.httpGet("http://localhost:8086/old-goods", uriVariables, null, RestfulUtil.UTF8_CHARSET);
 
         IamUser user = new IamUser(UUID.randomUUID().toString());
         String str = ObjectConvertUtil.convertString(user);
-        StringBuffer postResult = HttpUrlConnectionUtil.httpPost("http://localhost:8086/user/insert", null, null, str, HttpUrlConnectionUtil.UTF8_CHARSET);
+        StringBuffer postResult = RestfulUtil.httpPost("http://localhost:8086/user/insert", null, null, str, RestfulUtil.UTF8_CHARSET);
         return new ResponseEntity(HttpStatus.OK);
     }
 }
