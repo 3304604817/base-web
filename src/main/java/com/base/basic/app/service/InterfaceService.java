@@ -15,6 +15,17 @@ public interface InterfaceService {
     String sendSoap(String interfaceCode, String content);
 
     /**
+     * 以账号密码的形式推送Soap接口并指定超时时间，单位秒
+     * @param interfaceCode
+     * @param content
+     * @param readTimeout
+     * @param writeTimeout
+     * @param connectTimeout
+     * @return
+     */
+    String sendSoap(String interfaceCode, String content, Long readTimeout, Long writeTimeout, Long connectTimeout);
+
+    /**
      * 推送Restful接口
      * @param interfaceCode 接口编码-必传
      * @param method 请求方式 GET/POST/PUT-必传

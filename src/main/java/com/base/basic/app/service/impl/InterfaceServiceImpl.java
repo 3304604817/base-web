@@ -39,37 +39,12 @@ public class InterfaceServiceImpl implements InterfaceService {
 
     @Override
     public String sendSoap(String interfaceCode, String content){
-        /**
-         * 查接口信息
-         */
-        Interface interfaceDTO = new Interface();
-        interfaceDTO.setInterfaceCode(interfaceCode);
-        interfaceDTO = interfaceMapper.selectOne(interfaceDTO);
-        InterfaceParams interfaceParamsDTO = new InterfaceParams();
-        interfaceParamsDTO.setInterfaceId(interfaceDTO.getId());
-        List<InterfaceParams> interfaceParamsList = interfaceParamsMapper.select(interfaceParamsDTO);
-        Map<String, List<InterfaceParams>> interfaceParamsMap = interfaceParamsList.stream().collect(Collectors.groupingBy(InterfaceParams::getParamKey));
+        return this.processSoap(interfaceCode, content, null, null, null);
+    }
 
-        Response response = null;
-        String responseBody = "";
-        try {
-            response = SoapUtil.send(interfaceDTO.getUrl(), interfaceParamsMap.get("Username").get(0).getParamValue(), interfaceParamsMap.get("Password").get(0).getParamValue(), content);
-            responseBody = response.body().string();
-        }catch (Exception e){
-            logger.error("接口调用异常 {}", e);
-        }finally {
-            InterfaceLog interfaceLog = new InterfaceLog(
-                    interfaceDTO.getInterfaceCode(),
-                    InterfaceConstants.LOCAL_HOST,
-                    InterfaceConstants.method.POST,
-                    content,
-                    interfaceDTO.getUrl(),
-                    Long.valueOf(Objects.isNull(response) || Objects.isNull(response.code()) ? -1 : response.code()),
-                    responseBody
-            );
-            interfaceLogMapper.insertSelective(interfaceLog);
-        }
-        return responseBody;
+    @Override
+    public String sendSoap(String interfaceCode, String content, Long readTimeout, Long writeTimeout, Long connectTimeout){
+        return this.processSoap(interfaceCode, content, readTimeout, writeTimeout, connectTimeout);
     }
 
     @Override
@@ -112,5 +87,43 @@ public class InterfaceServiceImpl implements InterfaceService {
             interfaceLogMapper.insertSelective(interfaceLog);
         }
         return response;
+    }
+
+    private String processSoap(String interfaceCode, String content, Long readTimeout, Long writeTimeout, Long connectTimeout){
+        /**
+         * 查接口信息
+         */
+        Interface interfaceDTO = new Interface();
+        interfaceDTO.setInterfaceCode(interfaceCode);
+        interfaceDTO = interfaceMapper.selectOne(interfaceDTO);
+        InterfaceParams interfaceParamsDTO = new InterfaceParams();
+        interfaceParamsDTO.setInterfaceId(interfaceDTO.getId());
+        List<InterfaceParams> interfaceParamsList = interfaceParamsMapper.select(interfaceParamsDTO);
+        Map<String, List<InterfaceParams>> interfaceParamsMap = interfaceParamsList.stream().collect(Collectors.groupingBy(InterfaceParams::getParamKey));
+
+        Response response = null;
+        String responseBody = "";
+        try {
+            if(Objects.isNull(readTimeout) || Objects.isNull(writeTimeout) || Objects.isNull(connectTimeout)){
+                response = SoapUtil.send(interfaceDTO.getUrl(), interfaceParamsMap.get("Username").get(0).getParamValue(), interfaceParamsMap.get("Password").get(0).getParamValue(), content);
+            }else {
+                response = SoapUtil.send(interfaceDTO.getUrl(), interfaceParamsMap.get("Username").get(0).getParamValue(), interfaceParamsMap.get("Password").get(0).getParamValue(), content, readTimeout, writeTimeout, connectTimeout);
+            }
+            responseBody = response.body().string();
+        }catch (Exception e){
+            logger.error("接口调用异常 {}", e);
+        }finally {
+            InterfaceLog interfaceLog = new InterfaceLog(
+                    interfaceDTO.getInterfaceCode(),
+                    InterfaceConstants.LOCAL_HOST,
+                    InterfaceConstants.method.POST,
+                    content,
+                    interfaceDTO.getUrl(),
+                    Long.valueOf(Objects.isNull(response) || Objects.isNull(response.code()) ? -1 : response.code()),
+                    responseBody
+            );
+            interfaceLogMapper.insertSelective(interfaceLog);
+        }
+        return responseBody;
     }
 }
