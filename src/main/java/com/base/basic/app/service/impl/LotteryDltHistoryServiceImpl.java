@@ -3,18 +3,15 @@ package com.base.basic.app.service.impl;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.base.basic.api.controller.v0.HttpRequestController;
 import com.base.basic.app.service.LotteryDltHistoryService;
 import com.base.basic.domain.entity.v1.LotteryDltHistory;
 import com.base.basic.infra.mapper.LotteryDltHistoryMapper;
 import com.base.common.util.convert.ObjectConvertUtil;
-import org.checkerframework.checker.units.qual.A;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 
 import java.math.BigDecimal;
@@ -22,7 +19,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 
 /**

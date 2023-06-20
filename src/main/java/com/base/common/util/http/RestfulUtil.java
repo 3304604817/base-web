@@ -35,13 +35,14 @@ public class RestfulUtil {
      * @param charsetName InputStreamReader转换流字符集名字
      * @return
      */
-    public static StringBuffer httpGet(String path, Map<String, ?> uriVariables, Map<String, String> headerVariables, String charsetName) {
+    public static RestfulResponse httpGet(String path, Map<String, ?> uriVariables, Map<String, String> headerVariables, String charsetName) {
         // 传入参数的校验
         RestfulUtil.check(path, GET_METHOD);
 
         HttpURLConnection conn = null;
         InputStream in = null;
         BufferedReader br = null;
+        int code = -1;
         StringBuffer response = new StringBuffer();
         try {
             URL url = new URL(
@@ -56,7 +57,7 @@ public class RestfulUtil {
             conn.setRequestProperty("Connection", "keep-alive");
             RestfulUtil.appendHeaderVariables(conn, headerVariables);
             // 发起请求并返回请求状态
-            int code = conn.getResponseCode();
+            code = conn.getResponseCode();
             in = conn.getInputStream();
             if(null != in){
                 br = new BufferedReader(new InputStreamReader(in, charsetName));
@@ -84,7 +85,7 @@ public class RestfulUtil {
                 }
             }
         }
-        return response;
+        return new RestfulResponse(code, response.toString());
     }
 
     /**
@@ -96,7 +97,7 @@ public class RestfulUtil {
      * @param charsetName InputStreamReader转换流字符集名字
      * @return
      */
-    public static StringBuffer httpPost(String path, Map<String, ?> uriVariables, Map<String, String> headerVariables, String body, String charsetName) {
+    public static RestfulResponse httpPost(String path, Map<String, ?> uriVariables, Map<String, String> headerVariables, String body, String charsetName) {
         // 传入参数的校验
         RestfulUtil.check(path, POST_METHOD);
 
@@ -104,6 +105,7 @@ public class RestfulUtil {
         InputStream in = null;
         BufferedReader br = null;
         OutputStream out = null;
+        int code = -1;
         StringBuffer response = new StringBuffer();
         try {
             URL url = new URL(
@@ -133,7 +135,7 @@ public class RestfulUtil {
                 }
             }
             // 发起请求并返回请求状态
-            int code = conn.getResponseCode();
+            code = conn.getResponseCode();
             in = conn.getInputStream();
             if(null != in){
                 br = new BufferedReader(new InputStreamReader(in, charsetName));
@@ -168,7 +170,7 @@ public class RestfulUtil {
                 }
             }
         }
-        return response;
+        return new RestfulResponse(code, response.toString());
     }
 
     /**
@@ -180,7 +182,7 @@ public class RestfulUtil {
      * @param charsetName InputStreamReader转换流字符集名字
      * @return
      */
-    public static StringBuffer httpPut(String path, Map<String, ?> uriVariables, Map<String, String> headerVariables, String body, String charsetName) {
+    public static RestfulResponse httpPut(String path, Map<String, ?> uriVariables, Map<String, String> headerVariables, String body, String charsetName) {
         // 传入参数的校验
         RestfulUtil.check(path, PUT_METHOD);
 
@@ -188,6 +190,7 @@ public class RestfulUtil {
         InputStream in = null;
         BufferedReader br = null;
         OutputStream out = null;
+        int code = -1;
         StringBuffer response = new StringBuffer();
         try {
             URL url = new URL(
@@ -217,7 +220,7 @@ public class RestfulUtil {
                 }
             }
             // 发起请求并返回请求状态
-            int code = conn.getResponseCode();
+            code = conn.getResponseCode();
             in = conn.getInputStream();
             if(null != in){
                 br = new BufferedReader(new InputStreamReader(in, charsetName));
@@ -253,7 +256,7 @@ public class RestfulUtil {
                 }
             }
         }
-        return response;
+        return new RestfulResponse(code, response.toString());
     }
 
     /**

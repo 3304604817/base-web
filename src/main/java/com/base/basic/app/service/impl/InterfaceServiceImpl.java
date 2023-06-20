@@ -8,6 +8,7 @@ import com.base.basic.infra.constant.InterfaceConstants;
 import com.base.basic.infra.mapper.InterfaceLogMapper;
 import com.base.basic.infra.mapper.InterfaceMapper;
 import com.base.basic.infra.mapper.InterfaceParamsMapper;
+import com.base.common.util.http.RestfulResponse;
 import com.base.common.util.http.RestfulUtil;
 import com.base.common.util.http.SoapUtil;
 import okhttp3.Response;
@@ -72,7 +73,7 @@ public class InterfaceServiceImpl implements InterfaceService {
     }
 
     @Override
-    public String sendRestful(String interfaceCode,
+    public RestfulResponse sendRestful(String interfaceCode,
                               String method,
                               Map<String, ?> uriVariables,
                               Map<String, String> headerVariables,
@@ -81,17 +82,17 @@ public class InterfaceServiceImpl implements InterfaceService {
         interfaceDTO.setInterfaceCode(interfaceCode);
         interfaceDTO = interfaceMapper.selectOne(interfaceDTO);
 
-        String response = "";
+        RestfulResponse response = new RestfulResponse();
         try {
             switch (method) {
                 case RestfulUtil.GET_METHOD:
-                    response = RestfulUtil.httpGet(interfaceDTO.getUrl(), uriVariables, headerVariables, RestfulUtil.UTF8_CHARSET).toString();
+                    response = RestfulUtil.httpGet(interfaceDTO.getUrl(), uriVariables, headerVariables, RestfulUtil.UTF8_CHARSET);
                     break;
                 case RestfulUtil.POST_METHOD:
-                    response = RestfulUtil.httpPost(interfaceDTO.getUrl(), uriVariables, headerVariables, content, RestfulUtil.UTF8_CHARSET).toString();
+                    response = RestfulUtil.httpPost(interfaceDTO.getUrl(), uriVariables, headerVariables, content, RestfulUtil.UTF8_CHARSET);
                     break;
                 case RestfulUtil.PUT_METHOD:
-                    response = RestfulUtil.httpPut(interfaceDTO.getUrl(), uriVariables, headerVariables, content, RestfulUtil.UTF8_CHARSET).toString();
+                    response = RestfulUtil.httpPut(interfaceDTO.getUrl(), uriVariables, headerVariables, content, RestfulUtil.UTF8_CHARSET);
                     break;
                 default:
                     logger.error("请求方式异常");
@@ -102,11 +103,11 @@ public class InterfaceServiceImpl implements InterfaceService {
             InterfaceLog interfaceLog = new InterfaceLog(
                     interfaceDTO.getInterfaceCode(),
                     InterfaceConstants.LOCAL_HOST,
-                    InterfaceConstants.method.POST,
+                    method,
                     content,
                     interfaceDTO.getUrl(),
-                    -1L,
-                    response
+                    Long.valueOf(Objects.isNull(response.getCode()) ? -1 : response.getCode()),
+                    response.getResponseBody()
             );
             interfaceLogMapper.insertSelective(interfaceLog);
         }

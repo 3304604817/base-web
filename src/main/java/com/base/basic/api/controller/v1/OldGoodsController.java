@@ -3,6 +3,7 @@ package com.base.basic.api.controller.v1;
 import com.base.basic.app.service.OldGoodsService;
 import com.base.basic.domain.entity.v1.OldGoods;
 import com.base.basic.domain.repository.OldGoodsRepository;
+import com.base.common.annotation.Access;
 import com.base.common.util.layui.LayJson;
 import com.base.common.util.page.PageParmaters;
 import io.swagger.annotations.Api;
@@ -32,6 +33,7 @@ public class OldGoodsController {
 
     @ApiOperation(value = "商品列表")
     @GetMapping("")
+    @Access(accessNoToken = true)
     public ResponseEntity<LayJson<OldGoods>> pageList(PageParmaters pageParmaters, OldGoods searchBody, @RequestParam(value = "param", required = false) String param) {
         return new ResponseEntity(new LayJson<>(oldGoodsService.pageList(pageParmaters, searchBody)), HttpStatus.OK);
     }

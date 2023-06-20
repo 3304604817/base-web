@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.base.basic.app.service.InterfaceService;
 import com.base.basic.domain.entity.v0.IamUser;
 import com.base.common.util.convert.ObjectConvertUtil;
+import com.base.common.util.http.RestfulResponse;
 import com.base.common.util.http.RestfulUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -24,8 +25,8 @@ import java.util.UUID;
 @Api(tags="Http请求测试")
 @RestController
 @RequestMapping("/request")
-public class HttpRequestController {
-    Logger logger = LoggerFactory.getLogger(HttpRequestController.class);
+public class HttpController {
+    Logger logger = LoggerFactory.getLogger(HttpController.class);
 
     @Autowired
     RestTemplate restTemplate;
@@ -68,11 +69,11 @@ public class HttpRequestController {
 
         Map<String, Object> uriVariables = new HashMap<>(2);
         uriVariables.put("name", "iPhoneXS");
-        StringBuffer getResult = RestfulUtil.httpGet("http://localhost:8086/old-goods", uriVariables, null, RestfulUtil.UTF8_CHARSET);
+        RestfulResponse getResult = interfaceService.sendRestful("GOODS_DETAIL", RestfulUtil.GET_METHOD, uriVariables, null, null);
 
         IamUser user = new IamUser(UUID.randomUUID().toString());
         String str = ObjectConvertUtil.convertString(user);
-        StringBuffer postResult = RestfulUtil.httpPost("http://localhost:8086/user/insert", null, null, str, RestfulUtil.UTF8_CHARSET);
+        RestfulResponse postResult = RestfulUtil.httpPost("http://localhost:8086/user/insert", null, null, str, RestfulUtil.UTF8_CHARSET);
         return new ResponseEntity(HttpStatus.OK);
     }
 }

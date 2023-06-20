@@ -1,5 +1,7 @@
 package com.base.basic.app.service;
 
+import com.base.common.util.http.RestfulResponse;
+
 import java.util.Map;
 
 public interface InterfaceService {
@@ -14,16 +16,16 @@ public interface InterfaceService {
 
     /**
      * 推送Restful接口
-     * @param interfaceCode
-     * @param method
-     * @param uriVariables
-     * @param headerVariables
-     * @param content
+     * @param interfaceCode 接口编码-必传
+     * @param method 请求方式 GET/POST/PUT-必传
+     * @param uriVariables URL参数-非必传
+     * @param headerVariables header参数-非必传
+     * @param content 请求体-非必传
      * @return
      */
-    String sendRestful(String interfaceCode,
-                       String method,
-                       Map<String, ?> uriVariables,
-                       Map<String, String> headerVariables,
-                       String content);
+    RestfulResponse sendRestful(String interfaceCode,
+                                String method,
+                                Map<String, ?> uriVariables,
+                                Map<String, String> headerVariables,
+                                String content);
 }
