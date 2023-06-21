@@ -23,8 +23,8 @@ public class CodeGeneratorController {
 
     @ApiOperation(value = "生成MVC代码模型")
     @GetMapping("/list")
-    public LayJson<TableVO> list(PageParmaters pageParmaters, TableVO tableVO) {
-        return new LayJson<>(codeGeneratorService.pageList(pageParmaters, tableVO));
+    public ResponseEntity<LayJson<TableVO>> list(PageParmaters pageParmaters, TableVO tableVO) {
+        return new ResponseEntity(new LayJson<>(codeGeneratorService.pageList(pageParmaters, tableVO)), HttpStatus.OK);
     }
 
     @ApiOperation(value = "生成MVC代码模型")
