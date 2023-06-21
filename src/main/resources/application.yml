@@ -54,9 +54,9 @@ spring:
           ssl:
             enable: true
 mybatis:
-  # 指定写xml文件位置
+  # 指定写xml文件位置,classpath* 是扫描所有包括jar中的class
   mapper-locations:
-    classpath:mapper/**/*.xml
+    classpath*:/mapper/**/*.xml
 # 启用SQL日志打印
 logging:
   level:
