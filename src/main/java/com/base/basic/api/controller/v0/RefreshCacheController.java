@@ -18,10 +18,24 @@ public class RefreshCacheController {
     @Autowired
     private DbCacheService dbCacheService;
 
+    @ApiOperation(value = "刷新所有缓存")
+    @PostMapping("/all")
+    public ResponseEntity all() {
+        dbCacheService.all();
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
     @ApiOperation(value = "刷新数据库缓存")
     @PostMapping("/db-prefix")
     public ResponseEntity dbPrefix() {
         dbCacheService.dbPrefix();
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
+    @ApiOperation(value = "刷新配置缓存")
+    @PostMapping("/config")
+    public ResponseEntity config() {
+        dbCacheService.config();
         return new ResponseEntity(HttpStatus.OK);
     }
 }

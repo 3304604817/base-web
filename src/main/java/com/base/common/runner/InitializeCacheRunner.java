@@ -19,7 +19,10 @@ public class InitializeCacheRunner implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
-        dbCacheService.dbPrefix();
+        /**
+         * 刷新数据库表前缀缓存
+         */
+        dbCacheService.all();
         logger.info("初始化缓存完成");
     }
 }

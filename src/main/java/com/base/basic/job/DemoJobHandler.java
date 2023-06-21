@@ -20,12 +20,5 @@ public class DemoJobHandler {
     @Scheduled(cron = "*/30 * * * * ?")
     public void run() {
         logger.info("执行调度任务");
-//
-//        Map<String, String> prepare = DbPreCache.getPrepare();
-//
-//
-//        prepare.put("1", "2");
-//
-//        DbPreCache.setPrepare(prepare);
     }
 }
