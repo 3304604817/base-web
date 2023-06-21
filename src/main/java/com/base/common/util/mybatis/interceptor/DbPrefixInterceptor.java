@@ -14,6 +14,7 @@ import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Field;
 import java.sql.Connection;
+import java.util.Map;
 
 @Component
 @Intercepts({
@@ -48,7 +49,7 @@ public class DbPrefixInterceptor implements Interceptor {
      * @return
      */
     private String replaceDbPr(String origSql){
-        DbPreCache.getPrepare();
+        Map<String, String> prepare = DbPreCache.getPrepare();
         return origSql;
     }
 }
