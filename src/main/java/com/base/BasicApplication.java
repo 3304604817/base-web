@@ -11,7 +11,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @EnableOpenApi  // 开启 swagger3
 @EnableScheduling
 @SpringBootApplication
-@MapperScan(value = {"com.base.basic.infra.mapper", "com.base.srm.infra.mapper"}) // Mybatis Mapper接口文件位置，不用写@Mapper注解
+@MapperScan(value = {"com.base.basic.infra.mapper"}) // Mybatis Mapper接口文件位置，不用写@Mapper注解
 public class BasicApplication {
 	private static Logger logger = LoggerFactory.getLogger(BasicApplication.class);
 
