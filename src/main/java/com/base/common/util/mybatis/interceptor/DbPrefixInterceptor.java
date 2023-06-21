@@ -15,6 +15,8 @@ import org.springframework.stereotype.Component;
 import java.lang.reflect.Field;
 import java.sql.Connection;
 import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Component
 @Intercepts({
@@ -32,7 +34,7 @@ public class DbPrefixInterceptor implements Interceptor {
         /**
          * 拼接数据库库前缀
          */
-        String newSql = this.replaceDbPr(origSql);
+        String newSql = this.replaceDbPre(origSql);
 
         /**
          * 通过反射获取属性并设置新属性
@@ -48,8 +50,18 @@ public class DbPrefixInterceptor implements Interceptor {
      * @param origSql
      * @return
      */
-    private String replaceDbPr(String origSql){
+    private String replaceDbPre(String origSql){
+        String finalOrigSql = origSql;
         Map<String, String> prepare = DbPreCache.getPrepare();
+        Set<String> cacheKeySet = prepare.keySet();
+        // 过滤出 SQL 中和缓存中都有的表名
+        Set<String> tables = cacheKeySet.stream().filter(key-> finalOrigSql.contains(key)).collect(Collectors.toSet());
+        /**
+         * 表名全部替换成缓存中的前缀
+         */
+        for(String table:tables){
+            origSql = origSql.replaceAll(table, new StringBuilder(prepare.get(table)).append(".").append(table).toString());
+        }
         return origSql;
     }
 }
