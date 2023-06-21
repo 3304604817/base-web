@@ -6,7 +6,6 @@ import tk.mybatis.spring.annotation.MapperScan;
 
 @Configuration
 @ComponentScan({"com.base"})
-@MapperScan(value = {"com.base.basic.infra.mapper"})
 public class BaseWebAutoConfiguration {
     public BaseWebAutoConfiguration() {
     }
