@@ -154,6 +154,8 @@
 <!--            </resource>-->
 <!--        </resources>-->
 <!--    </build>-->
+
+    <!-- 指定打两个包，可执行jar (base-web-run.jar)和可依赖jar (base-web.jar) -->
     <build>
         <finalName>base-web</finalName>
         <plugins>
