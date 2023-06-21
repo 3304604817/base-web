@@ -35,6 +35,14 @@ public class DbCache extends BaseEntity {
     @ApiModelProperty(value = "标签")
     private String remark;
 
+    public DbCache() {}
+    public DbCache(String cacheType, String cacheKey, String cacheValue, String remark) {
+        this.cacheType = cacheType;
+        this.cacheKey = cacheKey;
+        this.cacheValue = cacheValue;
+        this.remark = remark;
+    }
+
     public Long getId() {
         return id;
     }

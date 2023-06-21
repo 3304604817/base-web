@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.auth0.jwt.interfaces.Claim;
 import com.base.basic.domain.entity.v1.AuditLog;
 import com.base.basic.infra.mapper.AuditLogMapper;
+import com.base.common.cache.ConfigCache;
 import com.base.common.util.jwt.JwtUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -47,6 +48,10 @@ public class ApiAuditAspect {
             "@annotation(org.springframework.web.bind.annotation.DeleteMapping) ||" +
             "@annotation(org.springframework.web.bind.annotation.RequestMapping)")
     public Object doAround(ProceedingJoinPoint point) throws Throwable {
+        if(StringUtils.equals(ConfigCache.getConfig().get("apiAudit"), "0")){
+            return point.proceed();
+        }
+
         /**
          * 方法执行前逻辑
          */
