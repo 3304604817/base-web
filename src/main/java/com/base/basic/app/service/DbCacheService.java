@@ -4,6 +4,8 @@ import com.base.basic.domain.entity.v1.DbCache;
 import com.base.common.util.page.PageParmaters;
 import com.github.pagehelper.PageInfo;
 
+import java.util.Map;
+
 public interface DbCacheService {
 
     PageInfo<DbCache> pageList(PageParmaters pageParmaters, DbCache searchBody);
@@ -20,15 +22,15 @@ public interface DbCacheService {
     /**
      * 刷新数据库前缀缓存
      */
-    void dbPrefix();
+    Map<String, String> dbPrefix();
 
     /**
      * 刷新配置缓存
      */
-    void config();
+    Map<String, String> config();
 
     /**
      * 刷新定时任务缓存
      */
-    void cron();
+    Map<String, String> cron();
 }

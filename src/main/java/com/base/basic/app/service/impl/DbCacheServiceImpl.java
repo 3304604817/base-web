@@ -51,7 +51,7 @@ public class DbCacheServiceImpl implements DbCacheService {
     }
 
     @Override
-    public void dbPrefix(){
+    public Map<String, String> dbPrefix(){
         DbCache dbCache = new DbCache();
         dbCache.setCacheType(CacheConstants.cacheType.DB_PREFIX);
         List<DbCache> dbCaches = dbCacheMapper.select(dbCache);
@@ -61,10 +61,11 @@ public class DbCacheServiceImpl implements DbCacheService {
             prepare.put(cache.getCacheKey(), cache.getCacheValue());
         }
         DbPreCache.setPrepare(prepare);
+        return DbPreCache.getPrepare();
     }
 
     @Override
-    public void config(){
+    public Map<String, String> config(){
         DbCache dbCache = new DbCache();
         dbCache.setCacheType(CacheConstants.cacheType.CONFIG);
         List<DbCache> dbCaches = dbCacheMapper.select(dbCache);
@@ -90,10 +91,11 @@ public class DbCacheServiceImpl implements DbCacheService {
             config.put(cache.getCacheKey(), cache.getCacheValue());
         }
         ConfigCache.setConfig(config);
+        return ConfigCache.getConfig();
     }
 
     @Override
-    public void cron(){
+    public Map<String, String> cron(){
         DbCache dbCache = new DbCache();
         dbCache.setCacheType(CacheConstants.cacheType.CRON);
         List<DbCache> dbCaches = dbCacheMapper.select(dbCache);
@@ -122,5 +124,6 @@ public class DbCacheServiceImpl implements DbCacheService {
             cron.put(cache.getCacheKey(), cache.getCacheValue());
         }
         CronCache.setCron(cron);
+        return CronCache.getCron();
     }
 }

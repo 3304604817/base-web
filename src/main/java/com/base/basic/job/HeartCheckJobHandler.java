@@ -1,10 +1,13 @@
 package com.base.basic.job;
 
+import com.base.basic.app.service.DbCacheService;
 import com.base.common.cache.ConfigCache;
+import com.base.common.cache.CronCache;
 import com.base.common.cache.ServerClusterCache;
 import com.base.common.util.http.RestfulUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.Trigger;
 import org.springframework.scheduling.TriggerContext;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -20,6 +23,9 @@ import java.util.Set;
 @Component
 public class HeartCheckJobHandler implements SchedulingConfigurer {
     private Logger logger = LoggerFactory.getLogger(HeartCheckJobHandler.class);
+
+    @Autowired
+    private DbCacheService dbCacheService;
 
     @Override
     public void configureTasks(ScheduledTaskRegistrar scheduledTaskRegistrar) {
@@ -43,7 +49,7 @@ public class HeartCheckJobHandler implements SchedulingConfigurer {
             @Override
             public Date nextExecutionTime(TriggerContext triggerContext) {
                 // 任务触发，动态获取任务的执行周期
-                String heartCheckCron = ConfigCache.getConfig().get("heartCheckCron");
+                String heartCheckCron = null == CronCache.getCron().get("heartCheckCron") ? dbCacheService.cron().get("heartCheckCron") : CronCache.getCron().get("heartCheckCron");
                 CronTrigger trigger = new CronTrigger(heartCheckCron);
                 Date nextExec = trigger.nextExecutionTime(triggerContext);
                 return nextExec;
