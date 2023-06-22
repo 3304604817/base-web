@@ -76,6 +76,9 @@ public class DbCacheServiceImpl implements DbCacheService {
         if(null == exitDefaultCaches.get("apiAudit")){
             defaultCaches.add(new DbCache(CacheConstants.cacheType.CONFIG, "apiAudit", "1", "是否开启API请求日志：1开启，0关闭"));
         }
+        if(null == exitDefaultCaches.get("heartCheckCron")){
+            defaultCaches.add(new DbCache(CacheConstants.cacheType.CONFIG, "heartCheckCron", "*/600 * * * * ?", "服务集群心跳检查间隔时间Cron"));
+        }
         defaultCaches.stream().forEach(defaultCache->{
             dbCacheMapper.insertSelective(defaultCache);
         });
