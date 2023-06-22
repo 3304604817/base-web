@@ -6,6 +6,9 @@ import com.base.basic.infra.constant.CacheConstants;
 import com.base.basic.infra.mapper.DbCacheMapper;
 import com.base.common.cache.ConfigCache;
 import com.base.common.cache.DbPreCache;
+import com.base.common.util.page.PageParmaters;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,6 +25,11 @@ public class DbCacheServiceImpl implements DbCacheService {
     @Autowired
     @SuppressWarnings("all")
     private DbCacheMapper dbCacheMapper;
+
+    @Override
+    public PageInfo<DbCache> pageList(PageParmaters pageParmaters, DbCache searchBody){
+        return PageHelper.startPage(pageParmaters.getPage(), pageParmaters.getLimit()).doSelectPageInfo(() -> dbCacheMapper.select(searchBody));
+    }
 
     @Override
     public void all(){

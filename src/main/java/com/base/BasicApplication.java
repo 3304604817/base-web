@@ -19,7 +19,6 @@ public class BasicApplication {
 		try{
 			SpringApplication app = new SpringApplication(BasicApplication.class);
 			app.run(args);
-			logger.info("swagger3 {}", "http://localhost/swagger-ui/index.html#/");
 		}catch (Exception e){
 			e.printStackTrace();
 		}

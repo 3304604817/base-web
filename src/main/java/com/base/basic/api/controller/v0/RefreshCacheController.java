@@ -1,14 +1,17 @@
 package com.base.basic.api.controller.v0;
 
 import com.base.basic.app.service.DbCacheService;
+import com.base.basic.domain.entity.v1.DbCache;
+import com.base.basic.domain.entity.v1.OldGoods;
+import com.base.common.annotation.Access;
+import com.base.common.util.layui.LayJson;
+import com.base.common.util.page.PageParmaters;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @Api(tags="刷新缓存")
 @RestController
@@ -17,6 +20,12 @@ public class RefreshCacheController {
 
     @Autowired
     private DbCacheService dbCacheService;
+
+    @ApiOperation(value = "查所有缓存")
+    @GetMapping("/page")
+    public ResponseEntity<LayJson<DbCache>> pageList(PageParmaters pageParmaters, DbCache searchBody) {
+        return new ResponseEntity(new LayJson<>(dbCacheService.pageList(pageParmaters, searchBody)), HttpStatus.OK);
+    }
 
     @ApiOperation(value = "刷新所有缓存")
     @PostMapping("/all")

@@ -180,6 +180,12 @@
               "href": "page/basic/generator/code-generator.html",
               "icon": "fa fa-code",
               "target": "_self"
+            },
+            {
+              "title": "缓存配置",
+              "href": "page/basic/cache/db-cache.html",
+              "icon": "fa fa-code",
+              "target": "_self"
             }
           ]
         },

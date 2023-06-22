@@ -1,6 +1,12 @@
 package com.base.basic.app.service;
 
+import com.base.basic.domain.entity.v1.DbCache;
+import com.base.common.util.page.PageParmaters;
+import com.github.pagehelper.PageInfo;
+
 public interface DbCacheService {
+
+    PageInfo<DbCache> pageList(PageParmaters pageParmaters, DbCache searchBody);
 
     /**
      * 刷新所有缓存
