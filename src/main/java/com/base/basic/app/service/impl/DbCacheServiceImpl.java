@@ -28,7 +28,7 @@ public class DbCacheServiceImpl implements DbCacheService {
 
     @Override
     public PageInfo<DbCache> pageList(PageParmaters pageParmaters, DbCache searchBody){
-        return PageHelper.startPage(pageParmaters.getPage(), pageParmaters.getLimit()).doSelectPageInfo(() -> dbCacheMapper.select(searchBody));
+        return PageHelper.startPage(pageParmaters.getPage(), pageParmaters.getLimit()).doSelectPageInfo(() -> dbCacheMapper.list(searchBody));
     }
 
     @Override
