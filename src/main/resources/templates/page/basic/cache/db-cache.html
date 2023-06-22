@@ -32,9 +32,10 @@
             </div>
         </fieldset>
 
-        <script type="text/html" id="toolbarDemo">
+        <script type="text/html" id="headerToolbar">
             <div class="layui-btn-container">
                 <button class="layui-btn layui-btn-normal layui-btn-sm data-add-btn" lay-event="add"> 添加 </button>
+                <button class="layui-btn layui-btn-normal layui-btn-sm data-add-btn" lay-event="refresh"> 刷新权限 </button>
                 <button class="layui-btn layui-btn-sm layui-btn-danger data-delete-btn" lay-event="delete"> 删除 </button>
             </div>
         </script>
@@ -61,7 +62,7 @@
         table.render({
             elem: '#currentTableId',
             url: basicPath + '/refresh-cache/page',
-            toolbar: '#toolbarDemo',
+            toolbar: '#headerToolbar',
             defaultToolbar: ['filter', 'exports', 'print', {
                 title: '提示',
                 layEvent: 'LAYTABLE_TIPS',
@@ -119,6 +120,9 @@
                 $(window).on("resize", function () {
                     layer.full(index);
                 });
+            } else if (obj.event === 'refresh') {  // 刷新权限
+                AjaxPost(basicPath + '/refresh-cache/all', null);
+                layer.msg("操作成功");
             } else if (obj.event === 'delete') {  // 监听删除操作
                 var checkStatus = table.checkStatus('currentTableId')
                     , data = checkStatus.data;
