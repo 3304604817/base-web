@@ -35,7 +35,7 @@ public class HeartCheckJobHandler implements SchedulingConfigurer {
                 logger.info("心跳检测");
                 Set<String> addressSet = ServerClusterCache.getServerCluster().keySet();
                 for(String address:addressSet){
-                    int code = RestfulUtil.httpGet("", null, null, RestfulUtil.UTF8_CHARSET).getCode();
+                    int code = RestfulUtil.httpGet("http://" + address + "/cluster/heart-check", null, null, RestfulUtil.UTF8_CHARSET).getCode();
                     if(200 == code){
                         ServerClusterCache.serverUp(address);
                     }else {

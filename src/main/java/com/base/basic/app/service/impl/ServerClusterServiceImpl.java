@@ -29,7 +29,7 @@ public class ServerClusterServiceImpl implements ServerClusterService {
         List<ServerCluster> clusters = serverClusterMapper.selectAll();
         Map<String, String> serverCluster = new ConcurrentHashMap<>();
         for(ServerCluster cluster:clusters){
-            serverCluster.put(new StringBuilder(cluster.getIp()).append(":").append(cluster.getIp()).toString(), cluster.getStatus());
+            serverCluster.put(new StringBuilder(cluster.getIp()).append(":").append(cluster.getPort()).toString(), cluster.getStatus());
         }
         ServerClusterCache.setServerCluster(serverCluster);
         return Boolean.TRUE;
@@ -38,6 +38,9 @@ public class ServerClusterServiceImpl implements ServerClusterService {
     @Override
     public PageInfo<ServerCluster> clusterStatus(PageParmaters pageParmaters){
         PageInfo<ServerCluster> page = PageHelper.startPage(pageParmaters.getPage(), pageParmaters.getLimit()).doSelectPageInfo(() -> serverClusterMapper.selectAll());
+        for(ServerCluster serverCluster:page.getList()){
+            serverCluster.setStatus(ServerClusterCache.getServerCluster().get(serverCluster.getIp() + ":" + serverCluster.getPort()));
+        }
         return page;
     }
 }
