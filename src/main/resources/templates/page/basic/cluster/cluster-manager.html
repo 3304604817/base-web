@@ -7,21 +7,9 @@
                 <form class="layui-form layui-form-pane" action="">
                     <div class="layui-form-item">
                         <div class="layui-inline">
-                            <label class="layui-form-label">type</label>
+                            <label class="layui-form-label">是否在线</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="cacheType" autocomplete="off" class="layui-input">
-                            </div>
-                        </div>
-                        <div class="layui-inline">
-                            <label class="layui-form-label">key</label>
-                            <div class="layui-input-inline">
-                                <input type="text" name="cacheKey" autocomplete="off" class="layui-input">
-                            </div>
-                        </div>
-                        <div class="layui-inline">
-                            <label class="layui-form-label">value</label>
-                            <div class="layui-input-inline">
-                                <input type="text" name="cacheValue" autocomplete="off" class="layui-input">
+                                <input type="text" name="status" autocomplete="off" class="layui-input">
                             </div>
                         </div>
                         <div class="layui-inline">
@@ -61,7 +49,7 @@
 
         table.render({
             elem: '#currentTableId',
-            url: basicPath + '/refresh-cache/page',
+            url: basicPath + '/cluster/status',
             toolbar: '#headerToolbar',
             defaultToolbar: ['filter', 'exports', 'print', {
                 title: '提示',
@@ -70,10 +58,9 @@
             }],
             cols: [[
                 {type: "checkbox", width: 50},
-                {field: 'cacheType', width: 150, title: '缓存类型', sort: true, edit:"text"},
-                {field: 'cacheKey', width: 200, title: 'key', edit:"text"},
-                {field: 'cacheValue', width: 200, title: 'value', edit:"text"},
-                {field: 'remark', width: 300, title: '备注', edit:"text"},
+                {field: 'ip', width: 150, title: '服务IP', sort: true, edit:"text"},
+                {field: 'port', width: 200, title: '端口号', edit:"text"},
+                {field: 'status', width: 200, title: '是否在线'},
                 {title: '操作', minWidth: 150, toolbar: '#currentTableBar', align: "center"}
             ]],
             limits: [10, 20, 50, 100],

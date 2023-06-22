@@ -4,6 +4,9 @@ import com.base.basic.app.service.ServerClusterService;
 import com.base.basic.domain.entity.v1.ServerCluster;
 import com.base.basic.infra.mapper.ServerClusterMapper;
 import com.base.common.cache.ServerClusterCache;
+import com.base.common.util.page.PageParmaters;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,5 +33,11 @@ public class ServerClusterServiceImpl implements ServerClusterService {
         }
         ServerClusterCache.setServerCluster(serverCluster);
         return Boolean.TRUE;
+    }
+
+    @Override
+    public PageInfo<ServerCluster> clusterStatus(PageParmaters pageParmaters){
+        PageInfo<ServerCluster> page = PageHelper.startPage(pageParmaters.getPage(), pageParmaters.getLimit()).doSelectPageInfo(() -> serverClusterMapper.selectAll());
+        return page;
     }
 }

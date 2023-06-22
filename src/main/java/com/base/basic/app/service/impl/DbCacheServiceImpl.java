@@ -5,6 +5,7 @@ import com.base.basic.domain.entity.v1.DbCache;
 import com.base.basic.infra.constant.CacheConstants;
 import com.base.basic.infra.mapper.DbCacheMapper;
 import com.base.common.cache.ConfigCache;
+import com.base.common.cache.CronCache;
 import com.base.common.cache.DbPreCache;
 import com.base.common.util.page.PageParmaters;
 import com.github.pagehelper.PageHelper;
@@ -46,6 +47,7 @@ public class DbCacheServiceImpl implements DbCacheService {
     public void all(){
         this.dbPrefix();
         this.config();
+        this.cron();
     }
 
     @Override
@@ -76,9 +78,6 @@ public class DbCacheServiceImpl implements DbCacheService {
         if(null == exitDefaultCaches.get("apiAudit")){
             defaultCaches.add(new DbCache(CacheConstants.cacheType.CONFIG, "apiAudit", "1", "是否开启API请求日志：1开启，0关闭"));
         }
-        if(null == exitDefaultCaches.get("heartCheckCron")){
-            defaultCaches.add(new DbCache(CacheConstants.cacheType.CONFIG, "heartCheckCron", "*/600 * * * * ?", "服务集群心跳检查间隔时间Cron"));
-        }
         defaultCaches.stream().forEach(defaultCache->{
             dbCacheMapper.insertSelective(defaultCache);
         });
@@ -91,5 +90,37 @@ public class DbCacheServiceImpl implements DbCacheService {
             config.put(cache.getCacheKey(), cache.getCacheValue());
         }
         ConfigCache.setConfig(config);
+    }
+
+    @Override
+    public void cron(){
+        DbCache dbCache = new DbCache();
+        dbCache.setCacheType(CacheConstants.cacheType.CRON);
+        List<DbCache> dbCaches = dbCacheMapper.select(dbCache);
+
+        /**
+         * 查是否有初始化默认配置
+         * 有不做操作，无则新建
+         */
+        List<DbCache> defaultCaches = new ArrayList<>(8);
+        Map<String, String> exitDefaultCaches = dbCaches.stream().collect(Collectors.toMap(DbCache::getCacheKey, DbCache::getCacheValue));
+        if(null == exitDefaultCaches.get("defaultCron")){
+            defaultCaches.add(new DbCache(CacheConstants.cacheType.CRON, "defaultCron", "*/60 * * * * ?", "默认Cron"));
+        }
+        if(null == exitDefaultCaches.get("heartCheckCron")){
+            defaultCaches.add(new DbCache(CacheConstants.cacheType.CRON, "heartCheckCron", "*/600 * * * * ?", "服务集群心跳检查间隔时间Cron"));
+        }
+        defaultCaches.stream().forEach(defaultCache->{
+            dbCacheMapper.insertSelective(defaultCache);
+        });
+
+        if(defaultCaches.size() > 0){
+            dbCaches.addAll(defaultCaches);
+        }
+        Map<String, String> cron = new ConcurrentHashMap<>();
+        for(DbCache cache:dbCaches){
+            cron.put(cache.getCacheKey(), cache.getCacheValue());
+        }
+        CronCache.setCron(cron);
     }
 }

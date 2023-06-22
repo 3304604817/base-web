@@ -10,5 +10,7 @@ public interface CacheConstants {
         String DB_PREFIX = "dbPrefix";
         // 常规配置缓存
         String CONFIG = "config";
+        // 定时任务缓存
+        String CRON = "cron";
     }
 }

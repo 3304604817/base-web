@@ -26,4 +26,9 @@ public interface DbCacheService {
      * 刷新配置缓存
      */
     void config();
+
+    /**
+     * 刷新定时任务缓存
+     */
+    void cron();
 }
