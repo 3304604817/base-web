@@ -98,7 +98,7 @@
                 icon: 'layui-icon-tips'
             }],
             cols: [[
-                {type: "checkbox", width: 50, edit:"text"},
+                {type: "checkbox", width: 50},
                 {field: 'cacheType', width: 150, title: '缓存类型', sort: true, edit:"text"},
                 {field: 'cacheKey', width: 200, title: 'key', edit:"text"},
                 {field: 'cacheValue', width: 200, title: 'value', edit:"text"},
@@ -172,8 +172,9 @@
                 return false;
             } else if (obj.event === 'delete') {
                 layer.confirm('确认删除行', function (index) {
+                    AjaxDelete(basicPath + '/refresh-cache/delete', data);
+                    layer.msg("操作成功");
                     obj.del();
-                    layer.close(index);
                 });
             }
         });
