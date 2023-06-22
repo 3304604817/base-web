@@ -63,10 +63,10 @@
                 {
                     field: 'status', width: 100, align: 'center', templet: function (d) {
                         if (d.status == "UP") {
-                            return '<button type="button" style="width: 100%" class="layui-btn layui-btn-xs">UP</button>';
+                            return '<button type="button" style="width: 100%" class="layui-btn layui-btn-radius layui-btn-xs">UP</button>';
                         }
                         if (d.status == "DOWN") {
-                            return '<button type="button" style="width: 100%" class="layui-btn layui-btn-danger layui-btn-xs"">DOWN</button>';
+                            return '<button type="button" style="width: 100%" class="layui-btn layui-btn-radius layui-btn-danger layui-btn-xs"">DOWN</button>';
                         }
                     }, title: '是否在线'
                 },
