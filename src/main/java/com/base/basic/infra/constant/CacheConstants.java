@@ -8,7 +8,7 @@ public interface CacheConstants {
     interface cacheType {
         // 数据库前缀缓存
         String DB_PREFIX = "dbPrefix";
-        // 配置缓存
+        // 常规配置缓存
         String CONFIG = "config";
     }
 }

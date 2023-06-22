@@ -186,6 +186,12 @@
               "href": "page/basic/cache/db-cache.html",
               "icon": "fa fa-code",
               "target": "_self"
+            },
+            {
+              "title": "集群管理",
+              "href": "page/basic/cluster/cluster-manager.html",
+              "icon": "fa fa-code",
+              "target": "_self"
             }
           ]
         },
