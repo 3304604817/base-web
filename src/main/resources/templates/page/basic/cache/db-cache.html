@@ -7,51 +7,21 @@
                 <form class="layui-form layui-form-pane" action="">
                     <div class="layui-form-item">
                         <div class="layui-inline">
-                            <label class="layui-form-label">标签</label>
+                            <label class="layui-form-label">type</label>
                             <div class="layui-input-inline">
-                                <select name="tag" lay-search="">
-                                    <option value="">直接选择或搜索选择</option>
-                                    <option value="待定">待定</option>
-                                    <optgroup label="操作系统">
-                                        <option value="Linux">Linux</option>
-                                        <option value="Mac">Mac</option>
-                                        <option value="Windows">Windows</option>
-                                    </optgroup>
-                                    <optgroup label="JAVA">
-                                        <option value="Java">Java</option>
-                                        <option value="Jvm">Jvm</option>
-                                        <option value="Mybatis">Mybatis</option>
-                                    </optgroup>
-                                    <optgroup label="Spring">
-                                        <option value="Spring">Spring</option>
-                                        <option value="SpringMvc">SpringMvc</option>
-                                        <option value="SpringBoot">SpringBoot</option>
-                                    </optgroup>
-                                    <optgroup label="前端">
-                                        <option value="React">React</option>
-                                        <option value="Vue">Vue</option>
-                                        <option value="Html">Html</option>
-                                        <option value="Ajax">Ajax</option>
-                                    </optgroup>
-                                </select>
+                                <input type="text" name="cacheType" autocomplete="off" class="layui-input">
                             </div>
                         </div>
                         <div class="layui-inline">
-                            <label class="layui-form-label">关键字</label>
+                            <label class="layui-form-label">key</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="dataKey" autocomplete="off" class="layui-input">
+                                <input type="text" name="cacheKey" autocomplete="off" class="layui-input">
                             </div>
                         </div>
                         <div class="layui-inline">
-                            <label class="layui-form-label">值英文</label>
+                            <label class="layui-form-label">value</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="dataValue" autocomplete="off" class="layui-input">
-                            </div>
-                        </div>
-                        <div class="layui-inline">
-                            <label class="layui-form-label">中文注释</label>
-                            <div class="layui-input-inline">
-                                <input type="text" name="meaning" autocomplete="off" class="layui-input">
+                                <input type="text" name="cacheValue" autocomplete="off" class="layui-input">
                             </div>
                         </div>
                         <div class="layui-inline">
