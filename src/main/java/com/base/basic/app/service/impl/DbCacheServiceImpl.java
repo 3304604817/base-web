@@ -32,6 +32,17 @@ public class DbCacheServiceImpl implements DbCacheService {
     }
 
     @Override
+    public DbCache update(DbCache dbCache){
+        dbCacheMapper.updateByIdOpl(dbCache);
+        return dbCache;
+    }
+
+    @Override
+    public void delete(DbCache dbCache){
+        dbCacheMapper.deleteByPrimaryKey(dbCache.getId());
+    }
+
+    @Override
     public void all(){
         this.dbPrefix();
         this.config();

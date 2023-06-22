@@ -32,7 +32,7 @@ public class DbCache extends BaseEntity {
     @ApiModelProperty(value = "value")
     private String cacheValue;
 
-    @ApiModelProperty(value = "标签")
+    @ApiModelProperty(value = "备注")
     private String remark;
 
     public DbCache() {}

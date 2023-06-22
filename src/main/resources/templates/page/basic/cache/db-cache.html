@@ -72,16 +72,15 @@
         <table class="layui-hide" id="currentTableId" lay-filter="currentTableFilter"></table>
 
         <script type="text/html" id="currentTableBar">
-            <a class="layui-btn layui-btn-warm layui-btn-xs data-count-view" lay-event="view">详情</a>
-            <a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="edit">编辑</a>
+            <a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="update">更新</a>
             <a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="delete">删除</a>
         </script>
 
     </div>
 </div>
 
-<script src="lib/jquery-3.4.1/jquery-3.4.1.min.js" charset="utf-8"></script>
 <script src="js/config.js"></script>
+<script src="js/network.js"></script>
 <script>
     layui.use(['form', 'table','miniPage','element'], function () {
         var $ = layui.jquery,
@@ -91,7 +90,7 @@
 
         table.render({
             elem: '#currentTableId',
-            url: basicPath + '/data-dictionary',
+            url: basicPath + '/refresh-cache/page',
             toolbar: '#toolbarDemo',
             defaultToolbar: ['filter', 'exports', 'print', {
                 title: '提示',
@@ -100,11 +99,10 @@
             }],
             cols: [[
                 {type: "checkbox", width: 50, edit:"text"},
-                {field: 'id', width: 80, title: 'ID', sort: true, edit:"text"},
-                {field: 'tag', width: 150, title: '标签'},
-                {field: 'dataKey', width: 150, title: '关键字'},
-                {field: 'dataValue', width: 200, title: '值'},
-                {field: 'meaning', width: 200, title: '注释'},
+                {field: 'cacheType', width: 150, title: '缓存类型', sort: true, edit:"text"},
+                {field: 'cacheKey', width: 200, title: 'key', edit:"text"},
+                {field: 'cacheValue', width: 200, title: 'value', edit:"text"},
+                {field: 'remark', width: 300, title: '备注', edit:"text"},
                 {title: '操作', minWidth: 150, toolbar: '#currentTableBar', align: "center"}
             ]],
             limits: [10, 20, 50, 100],
@@ -168,45 +166,12 @@
          */
         table.on('tool(currentTableFilter)', function (obj) {
             var data = obj.data;
-            // 数据传输-传输之前先清缓存
-            window.formData = null;
-            window.formData = data;
-            if(obj.event === 'view'){
-                var content = miniPage.getHrefContent('page/basic/dictionary/dictionary-view.html?id='+data.id);
-                var openWH = miniPage.getOpenWidthHeight();
-                var index = layer.open({
-                    title: '详情',
-                    type: 1,
-                    shade: 0.2,
-                    maxmin:true,
-                    shadeClose: true,
-                    area: [openWH[0] + 'px', openWH[1] + 'px'],
-                    offset: [openWH[2] + 'px', openWH[3] + 'px'],
-                    content: content,
-                });
-                $(window).on("resize", function () {
-                    layer.full(index);
-                });
-                return false;
-            } else if (obj.event === 'edit') {
-                var content = miniPage.getHrefContent('page/basic/dictionary/dictionary-add.html?id='+data.id);
-                var openWH = miniPage.getOpenWidthHeight();
-                var index = layer.open({
-                    title: '编辑',
-                    type: 1,
-                    shade: 0.2,
-                    maxmin:true,
-                    shadeClose: true,
-                    area: [openWH[0] + 'px', openWH[1] + 'px'],
-                    offset: [openWH[2] + 'px', openWH[3] + 'px'],
-                    content: content,
-                });
-                $(window).on("resize", function () {
-                    layer.full(index);
-                });
+            if (obj.event === 'update') {
+                AjaxPut(basicPath + '/refresh-cache/update', data);
+                layer.msg("操作成功");
                 return false;
             } else if (obj.event === 'delete') {
-                layer.confirm('真的删除行么', function (index) {
+                layer.confirm('确认删除行', function (index) {
                     obj.del();
                     layer.close(index);
                 });

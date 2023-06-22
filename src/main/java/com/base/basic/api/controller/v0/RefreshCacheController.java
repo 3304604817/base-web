@@ -2,8 +2,6 @@ package com.base.basic.api.controller.v0;
 
 import com.base.basic.app.service.DbCacheService;
 import com.base.basic.domain.entity.v1.DbCache;
-import com.base.basic.domain.entity.v1.OldGoods;
-import com.base.common.annotation.Access;
 import com.base.common.util.layui.LayJson;
 import com.base.common.util.page.PageParmaters;
 import io.swagger.annotations.Api;
@@ -25,6 +23,19 @@ public class RefreshCacheController {
     @GetMapping("/page")
     public ResponseEntity<LayJson<DbCache>> pageList(PageParmaters pageParmaters, DbCache searchBody) {
         return new ResponseEntity(new LayJson<>(dbCacheService.pageList(pageParmaters, searchBody)), HttpStatus.OK);
+    }
+
+    @ApiOperation(value = "更新缓存")
+    @PutMapping("/update")
+    public ResponseEntity<DbCache> pageList(@RequestBody DbCache dbCache) {
+        return new ResponseEntity(dbCacheService.update(dbCache), HttpStatus.OK);
+    }
+
+    @ApiOperation(value = "删除缓存")
+    @DeleteMapping("/delete")
+    public ResponseEntity delete(@RequestBody DbCache dbCache) {
+        dbCacheService.delete(dbCache);
+        return new ResponseEntity(HttpStatus.OK);
     }
 
     @ApiOperation(value = "刷新所有缓存")

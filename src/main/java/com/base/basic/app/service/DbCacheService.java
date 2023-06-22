@@ -8,6 +8,10 @@ public interface DbCacheService {
 
     PageInfo<DbCache> pageList(PageParmaters pageParmaters, DbCache searchBody);
 
+    DbCache update(DbCache dbCache);
+
+    void delete(DbCache dbCache);
+
     /**
      * 刷新所有缓存
      */
