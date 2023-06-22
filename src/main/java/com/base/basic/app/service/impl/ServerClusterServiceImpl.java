@@ -20,6 +20,9 @@ public class ServerClusterServiceImpl implements ServerClusterService {
 
     @Override
     public Boolean refresh() {
+        /**
+         * 把数据库配置集群信息刷新到内存中
+         */
         List<ServerCluster> clusters = serverClusterMapper.selectAll();
         Map<String, String> serverCluster = new ConcurrentHashMap<>();
         for(ServerCluster cluster:clusters){

@@ -1,6 +1,7 @@
 package com.base.common.runner;
 
 import com.base.basic.app.service.DbCacheService;
+import com.base.basic.app.service.ServerClusterService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,13 +17,16 @@ public class InitializeCacheRunner implements ApplicationRunner {
 
     @Autowired
     private DbCacheService dbCacheService;
+    @Autowired
+    private ServerClusterService serverClusterService;
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
         /**
-         * 刷新数据库表前缀缓存
+         * 刷新缓存
          */
         dbCacheService.all();
+        serverClusterService.refresh();
         logger.info("初始化缓存完成");
     }
 }
