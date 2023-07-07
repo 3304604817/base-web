@@ -1,6 +1,7 @@
 package com.base.basic.job;
 
 import com.base.common.cache.DbPreCache;
+import com.base.common.scheduled.runner.ScheduledRunner;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -13,12 +14,12 @@ import java.util.Map;
  * @description
  * @date 2022/7/28 17:48
  */
-@Component
-public class DemoJobHandler {
+@Component("DemoJobHandler")
+public class DemoJobHandler implements ScheduledRunner {
     private Logger logger = LoggerFactory.getLogger(DemoJobHandler.class);
 
-    @Scheduled(cron = "*/30 * * * * ?")
-    public void run() {
-        logger.info("执行调度任务");
+    @Override
+    public void run(String args) {
+        logger.info("定时任务Demo");
     }
 }
