@@ -22,6 +22,11 @@ public class CronTaskRegistrar implements DisposableBean {
         return this.taskScheduler;
     }
 
+    /**
+     * 添加新的定时任务
+     * @param task
+     * @param cron
+     */
     public void addCronTask(Runnable task, String cron) {
         addCronTask(new CronTask(task, cron));
     }
@@ -37,6 +42,10 @@ public class CronTaskRegistrar implements DisposableBean {
         }
     }
 
+    /**
+     * 移除某个正在执行的定时任务
+     * @param task
+     */
     public void removeCronTask(Runnable task) {
         ScheduledTask scheduledTask = this.scheduledTasks.remove(task);
         if (scheduledTask != null)
