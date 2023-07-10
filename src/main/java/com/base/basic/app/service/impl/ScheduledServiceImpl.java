@@ -19,12 +19,13 @@ public class ScheduledServiceImpl implements ScheduledService {
     private CronTaskRegistrar cronTaskRegistrar;
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public void add(Scheduled scheduled){
         scheduledMapper.insertSelective(scheduled);
-        if(scheduled.getStatus().equals(Boolean.TRUE)){
-            SchedulingRunnable task = new SchedulingRunnable(scheduled.getBeanName(), scheduled.getParam());
-            cronTaskRegistrar.addCronTask(task, scheduled.getCron());
-        }
+
+        // 新建定时任务默认启动
+        SchedulingRunnable task = new SchedulingRunnable(scheduled.getBeanName(), scheduled.getParam());
+        cronTaskRegistrar.addCronTask(task, scheduled.getCron());
     }
 
     @Override
