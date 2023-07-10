@@ -50,4 +50,26 @@ public class ScheduledServiceImpl implements ScheduledService {
         SchedulingRunnable exitTask = new SchedulingRunnable(exit.getBeanName(), exit.getParam());
         cronTaskRegistrar.removeCronTask(exitTask);
     }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void pause(Scheduled scheduled){
+        scheduled.setStatus(Boolean.FALSE);
+        scheduledMapper.updateOptional(scheduled, Scheduled.FIELD_STATUS);
+
+        Scheduled exit = scheduledMapper.selectByPrimaryKey(scheduled.getId());
+        SchedulingRunnable exitTask = new SchedulingRunnable(exit.getBeanName(), exit.getParam());
+        cronTaskRegistrar.removeCronTask(exitTask);
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void enable(Scheduled scheduled){
+        scheduled.setStatus(Boolean.TRUE);
+        scheduledMapper.updateOptional(scheduled, Scheduled.FIELD_STATUS);
+
+        Scheduled exit = scheduledMapper.selectByPrimaryKey(scheduled.getId());
+        SchedulingRunnable exitTask = new SchedulingRunnable(exit.getBeanName(), exit.getParam());
+        cronTaskRegistrar.addCronTask(exitTask, exit.getCron());
+    }
 }

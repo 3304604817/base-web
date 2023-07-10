@@ -21,4 +21,16 @@ public interface ScheduledService {
      * @param scheduled
      */
     void delete(Scheduled scheduled);
+
+    /**
+     * 暂停定时任务
+     * @param scheduled
+     */
+    void pause(Scheduled scheduled);
+
+    /**
+     * 启用定时任务
+     * @param scheduled
+     */
+    void enable(Scheduled scheduled);
 }
