@@ -16,6 +16,7 @@ function AjaxGet(url) {
 }
 
 function AjaxPost(url, body) {
+    let result = null;
     $.ajax({
         type: 'post',
         url: url,
@@ -25,7 +26,7 @@ function AjaxPost(url, body) {
         cache: false,
         async: false,
         success: function (data) {
-            return data;
+            result = data;
         },
         error: function (errorData) {
             const { errorMsg = null } = errorData.responseJSON;
@@ -34,6 +35,7 @@ function AjaxPost(url, body) {
             }
         }
     });
+    return result;
 }
 
 function AjaxPut(url, body) {
