@@ -56,7 +56,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public Boolean lock(Long userId){
+    public Boolean enable(Long userId){
         IamUser user = new IamUser();
         user.setId(userId);
         user.setLocked(Boolean.TRUE);
@@ -66,7 +66,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public Boolean unlock(Long userId){
+    public Boolean disabled(Long userId){
         IamUser user = new IamUser();
         user.setId(userId);
         user.setLocked(Boolean.FALSE);

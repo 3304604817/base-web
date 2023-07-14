@@ -9,6 +9,7 @@
         <result column="HASH_PASSWORD" property="hashPassword" jdbcType="VARCHAR"/>
         <result column="real_name" property="realName" jdbcType="VARCHAR"/>
         <result column="phone" property="phone" jdbcType="VARCHAR"/>
+        <result column="is_enabled" property="isEnabled" jdbcType="DECIMAL"/>
         <result column="INTERNATIONAL_TEL_CODE" property="internationalTelCode" jdbcType="VARCHAR"/>
         <result column="language" property="language" jdbcType="VARCHAR"/>
         <result column="time_zone" property="timeZone" jdbcType="VARCHAR"/>
@@ -26,6 +27,7 @@
         iu.HASH_PASSWORD,
         iu.real_name,
         iu.phone,
+        iu.is_enabled,
         iu.INTERNATIONAL_TEL_CODE,
         iu.language,
         iu.time_zone,

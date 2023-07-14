@@ -46,6 +46,7 @@ public class IamUser extends BaseEntity {
 
     private String timeZone;
 
+    @ApiModelProperty(value = "是否启用")
     private Boolean isEnabled;
 
     @ApiModelProperty(value = "是否锁定")

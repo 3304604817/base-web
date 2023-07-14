@@ -72,11 +72,11 @@
                 {field: 'realName', width: 200, title: '姓名', edit:"text"},
                 {field: 'email', width: 200, title: '邮箱', edit:"text"},
                 {field: 'phone', width: 200, title: '手机', edit:"text"},
-                {field: 'status', width: 200, title: '是否冻结', align: "center",
+                {field: 'isEnabled', width: 200, title: '是否启用', align: "center",
                     templet: function (data) {
-                        if(null != data.id && data.status){
+                        if(null != data.id && data.isEnabled){
                             return '<input type="checkbox" scheduledId="' + data.id + '" checked lay-skin="switch" lay-filter="switchCheckbox" lay-text="ON|OFF">';
-                        }else if(null != data.id  && !data.status){
+                        }else if(null != data.id  && !data.isEnabled){
                             return '<input type="checkbox" scheduledId="' + data.id + '" lay-skin="switch" lay-filter="switchCheckbox" lay-text="ON|OFF">';
                         }else {
                             return '<input type="checkbox" disabled lay-skin="switch" checked lay-filter="switchCheckbox" lay-text="ON|OFF">';
@@ -112,14 +112,14 @@
             const body = { id: data.elem.attributes['scheduledId'].nodeValue };
             if(data.elem.checked){
                 /**
-                 * 冻结
+                 * 启用
                  */
-                AjaxPost(basicPath + '/user/lock', body);
+                AjaxPost(basicPath + '/user/enable', body);
             }else {
                 /**
-                 * 解冻
+                 * 禁用
                  */
-                AjaxPost(basicPath + '/user/unlock', body);
+                AjaxPost(basicPath + '/user/disabled', body);
             }
         });
 

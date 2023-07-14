@@ -65,16 +65,16 @@ public class UserController {
         return new ResponseEntity(iamUsers, HttpStatus.OK);
     }
 
-    @ApiOperation(value = "冻结员工")
-    @PostMapping("/lock")
-    public ResponseEntity lock(@RequestBody IamUser user) {
-        return new ResponseEntity(userService.lock(user.getId()), HttpStatus.OK);
+    @ApiOperation(value = "启用员工")
+    @PostMapping("/enable")
+    public ResponseEntity enable(@RequestBody IamUser user) {
+        return new ResponseEntity(userService.enable(user.getId()), HttpStatus.OK);
     }
 
     @ApiOperation(value = "解冻员工")
-    @PostMapping("/unlock")
-    public ResponseEntity unlock(@RequestBody IamUser user) {
-        return new ResponseEntity(userService.unlock(user.getId()), HttpStatus.OK);
+    @PostMapping("/disabled")
+    public ResponseEntity disabled(@RequestBody IamUser user) {
+        return new ResponseEntity(userService.disabled(user.getId()), HttpStatus.OK);
     }
 
     @ApiOperation(value = "更新员工信息")

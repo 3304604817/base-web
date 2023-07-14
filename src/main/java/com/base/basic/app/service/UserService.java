@@ -32,13 +32,13 @@ public interface UserService {
      * 冻结
      * @return
      */
-    Boolean lock(Long userId);
+    Boolean enable(Long userId);
 
     /**
      * 解冻
      * @return
      */
-    Boolean unlock(Long userId);
+    Boolean disabled(Long userId);
 
     /**
      * 更新用户信息
