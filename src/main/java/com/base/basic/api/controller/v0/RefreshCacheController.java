@@ -2,6 +2,7 @@ package com.base.basic.api.controller.v0;
 
 import com.base.basic.app.service.DbCacheService;
 import com.base.basic.domain.entity.v1.DbCache;
+import com.base.basic.domain.entity.v1.Scheduled;
 import com.base.common.util.layui.LayJson;
 import com.base.common.util.page.PageParmaters;
 import io.swagger.annotations.Api;
@@ -9,6 +10,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @Api(tags="刷新缓存")
@@ -23,6 +25,13 @@ public class RefreshCacheController {
     @GetMapping("/page")
     public ResponseEntity<LayJson<DbCache>> pageList(PageParmaters pageParmaters, DbCache searchBody) {
         return new ResponseEntity(new LayJson<>(dbCacheService.pageList(pageParmaters, searchBody)), HttpStatus.OK);
+    }
+
+    @ApiOperation(value = "新增缓存")
+    @PostMapping("/add")
+    public ResponseEntity add(@Validated @RequestBody DbCache dbCache) {
+        dbCacheService.add(dbCache);
+        return new ResponseEntity(HttpStatus.OK);
     }
 
     @ApiOperation(value = "更新缓存")

@@ -31,6 +31,12 @@ public class DbCacheServiceImpl implements DbCacheService {
     }
 
     @Override
+    public DbCache add(DbCache dbCache){
+        dbCacheMapper.insertSelective(dbCache);
+        return dbCache;
+    }
+
+    @Override
     public DbCache update(DbCache dbCache){
         dbCacheMapper.updateByIdOpl(dbCache);
         return dbCache;

@@ -10,6 +10,8 @@ public interface DbCacheService {
 
     PageInfo<DbCache> pageList(PageParmaters pageParmaters, DbCache searchBody);
 
+    DbCache add(DbCache dbCache);
+
     DbCache update(DbCache dbCache);
 
     void delete(DbCache dbCache);

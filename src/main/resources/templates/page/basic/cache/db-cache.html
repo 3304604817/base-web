@@ -36,17 +36,23 @@
             <div class="layui-btn-container">
                 <button class="layui-btn layui-btn-normal layui-btn-sm data-add-btn" lay-event="add"> 添加 </button>
                 <button class="layui-btn layui-btn-normal layui-btn-sm data-add-btn" lay-event="refresh"> 刷新权限 </button>
-                <button class="layui-btn layui-btn-sm layui-btn-danger data-delete-btn" lay-event="delete"> 删除 </button>
             </div>
         </script>
 
         <table class="layui-hide" id="currentTableId" lay-filter="currentTableFilter"></table>
 
         <script type="text/html" id="currentTableBar">
+            <!-- 已存在的行按钮 -->
+            {{# if(null != d.id){ }}
             <a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="update">更新</a>
             <a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="delete">删除</a>
-        </script>
 
+            <!-- 新建的行按钮 -->
+            {{# } if(null == d.id){ }}
+            <a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="save">保存</a>
+            <a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="cancel">取消</a>
+            {{# } }}
+        </script>
     </div>
 </div>
 
@@ -88,6 +94,7 @@
 
             //执行搜索重载
             table.reload('currentTableId', {
+                url: basicPath + '/refresh-cache/page',
                 page: {
                     curr: 1
                 },
@@ -104,22 +111,22 @@
             // 数据传输-传输之前先清缓存
             window.formData = null;
             if (obj.event === 'add') {   // 监听添加操作
-                var content = miniPage.getHrefContent('page/basic/dictionary/dictionary-add.html');
-                var openWH = miniPage.getOpenWidthHeight();
-
-                var index = layer.open({
-                    title: '新增',
-                    type: 1,
-                    shade: 0.2,
-                    maxmin:true,
-                    shadeClose: true,
-                    area: [openWH[0] + 'px', openWH[1] + 'px'],
-                    offset: [openWH[2] + 'px', openWH[3] + 'px'],
-                    content: content,
+                //定义一个空数组,用来存储之前编辑过的数据已经存放新数据
+                var dataBak = [];
+                // 获取当前table, currentTableId 是当前Table的ID
+                var tableBak = table.cache.currentTableId;
+                for (var i = 0; i < tableBak.length; i++) {
+                    dataBak.push(tableBak[i]);
+                }
+                // 在尾部新增一行空数据，实现增行效果
+                dataBak.push({
+                    "cacheType": "",
+                    "cacheKey": "",
+                    "cacheValue": "",
+                    "remark": null
                 });
-                $(window).on("resize", function () {
-                    layer.full(index);
-                });
+                // 将新数据重新载入表格
+                table.reload("currentTableId",{url: '', data:dataBak});
             } else if (obj.event === 'refresh') {  // 刷新权限
                 AjaxPost(basicPath + '/refresh-cache/all', null);
                 layer.msg("操作成功");
@@ -150,6 +157,12 @@
                     layer.msg("操作成功");
                     obj.del();
                 });
+            } else if(obj.event === 'save'){
+                AjaxPost(basicPath + '/refresh-cache/add', obj.data);
+                layer.msg("操作成功");
+                table.reload('currentTableId', {url: basicPath + '/refresh-cache/page'});
+            } else if(obj.event === 'cancel'){
+                obj.del();
             }
         });
     });
