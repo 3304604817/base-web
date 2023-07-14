@@ -132,12 +132,7 @@
                 // 获取当前table, currentTableId 是当前Table的ID
                 var tableBak = table.cache.currentTableId;
 
-
-                for (var i = 0; i < tableBak.length; i++) {
-                    // 将之前的数组备份
-                    dataBak.push(tableBak[i]);
-                }
-                // 在尾部新增一行空数据，实现增行效果
+                // 在头部新增一行空数据，实现增行效果
                 dataBak.push({
                     "scheduledName": "",
                     "beanName": "",
@@ -145,6 +140,10 @@
                     "cron": null,
                     "status": true
                 });
+                for (var i = 0; i < tableBak.length; i++) {
+                    // 将之前的数组备份
+                    dataBak.push(tableBak[i]);
+                }
                 // 将新数据重新载入表格
                 table.reload("currentTableId",{url: '', data:dataBak});
             }

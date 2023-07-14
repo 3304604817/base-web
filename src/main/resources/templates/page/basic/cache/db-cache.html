@@ -115,16 +115,17 @@
                 var dataBak = [];
                 // 获取当前table, currentTableId 是当前Table的ID
                 var tableBak = table.cache.currentTableId;
-                for (var i = 0; i < tableBak.length; i++) {
-                    dataBak.push(tableBak[i]);
-                }
-                // 在尾部新增一行空数据，实现增行效果
+
+                // 在头部新增一行空数据，实现增行效果
                 dataBak.push({
                     "cacheType": "",
                     "cacheKey": "",
                     "cacheValue": "",
                     "remark": null
                 });
+                for (var i = 0; i < tableBak.length; i++) {
+                    dataBak.push(tableBak[i]);
+                }
                 // 将新数据重新载入表格
                 table.reload("currentTableId",{url: '', data:dataBak});
             } else if (obj.event === 'refresh') {  // 刷新权限
