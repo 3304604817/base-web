@@ -42,38 +42,44 @@ public class ScheduledServiceImpl implements ScheduledService {
     public void edit(Scheduled scheduled){
         Scheduled exit = scheduledMapper.selectByPrimaryKey(scheduled.getId());
         SchedulingRunnable exitTask = new SchedulingRunnable(exit.getBeanName(), exit.getParam());
-        cronTaskRegistrar.removeCronTask(exitTask);
-
-        scheduledMapper.updateByIdSelective(scheduled);
-
-        if(exit.getStatus()){
-            /**
-             * 如果编辑的定时任务已经是启动状态则继续添加启动
-             */
-            SchedulingRunnable task = new SchedulingRunnable(scheduled.getBeanName(), scheduled.getParam());
-            cronTaskRegistrar.addCronTask(task, scheduled.getCron());
+        /**
+         * 关闭成功则更新
+         */
+        if(cronTaskRegistrar.removeCronTask(exitTask)){
+            scheduledMapper.updateByIdSelective(scheduled);
+            if(exit.getStatus()){
+                /**
+                 * 如果编辑的定时任务已经是启动状态则继续添加启动
+                 */
+                SchedulingRunnable task = new SchedulingRunnable(scheduled.getBeanName(), scheduled.getParam());
+                cronTaskRegistrar.addCronTask(task, scheduled.getCron());
+            }
         }
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void delete(Scheduled scheduled){
-        scheduledMapper.deleteByPrimaryKey(scheduled.getId());
-
+        /**
+         * 先关闭定时任务再删除数据
+         */
         Scheduled exit = scheduledMapper.selectByPrimaryKey(scheduled.getId());
         SchedulingRunnable exitTask = new SchedulingRunnable(exit.getBeanName(), exit.getParam());
-        cronTaskRegistrar.removeCronTask(exitTask);
+        if(cronTaskRegistrar.removeCronTask(exitTask)){
+            // 关闭成功则删除定时任务记录
+            scheduledMapper.deleteByPrimaryKey(scheduled.getId());
+        }
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void pause(Scheduled scheduled){
-        scheduled.setStatus(Boolean.FALSE);
-        scheduledMapper.updateOptional(scheduled, Scheduled.FIELD_STATUS);
-
         Scheduled exit = scheduledMapper.selectByPrimaryKey(scheduled.getId());
         SchedulingRunnable exitTask = new SchedulingRunnable(exit.getBeanName(), exit.getParam());
-        cronTaskRegistrar.removeCronTask(exitTask);
+        if(cronTaskRegistrar.removeCronTask(exitTask)){
+            scheduled.setStatus(Boolean.FALSE);
+            scheduledMapper.updateOptional(scheduled, Scheduled.FIELD_STATUS);
+        }
     }
 
     @Override

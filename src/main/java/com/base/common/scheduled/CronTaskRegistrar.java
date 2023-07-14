@@ -46,10 +46,13 @@ public class CronTaskRegistrar implements DisposableBean {
      * 移除某个正在执行的定时任务
      * @param task
      */
-    public void removeCronTask(Runnable task) {
+    public boolean removeCronTask(Runnable task) {
+        if(null == this.scheduledTasks.get(task)){
+            // 没有正在执行的任务就返回成功
+            return true;
+        }
         ScheduledTask scheduledTask = this.scheduledTasks.remove(task);
-        if (scheduledTask != null)
-            scheduledTask.cancel();
+        return scheduledTask.cancel();
     }
 
     public ScheduledTask scheduleCronTask(CronTask cronTask) {

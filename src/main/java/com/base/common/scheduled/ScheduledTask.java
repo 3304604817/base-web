@@ -9,10 +9,11 @@ public final class ScheduledTask {
     /**
      * 取消定时任务
      */
-    public void cancel() {
+    public boolean cancel() {
         ScheduledFuture<?> future = this.future;
         if (future != null) {
             future.cancel(true);
         }
+        return true;
     }
 }
