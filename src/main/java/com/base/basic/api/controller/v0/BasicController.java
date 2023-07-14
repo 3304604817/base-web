@@ -19,7 +19,6 @@ public class BasicController {
 
     @ApiOperation(value = "测试")
     @PostMapping("/test")
-    @Access(accessNoToken = true)
     public ResponseEntity loginOut() {
         if(1 == 1){
             throw new BaseException("测试报错");

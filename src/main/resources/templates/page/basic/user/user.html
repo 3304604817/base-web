@@ -38,6 +38,7 @@
             <!-- 已存在的行按钮 -->
             {{# if(null != d.id){ }}
             <a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="update">更新</a>
+            <a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="reset">重置密码</a>
 
             <!-- 新建的行按钮 -->
             {{# } if(null == d.id){ }}
@@ -68,7 +69,7 @@
             }],
             cols: [[
                 {type: "checkbox", width: 50},
-                {field: 'loginName', width: 150, title: '账号', sort: true, edit:"text"},
+                {field: 'loginName', width: 150, title: '账号', sort: true},
                 {field: 'realName', width: 200, title: '姓名', edit:"text"},
                 {field: 'email', width: 200, title: '邮箱', edit:"text"},
                 {field: 'phone', width: 200, title: '手机', edit:"text"},
@@ -168,7 +169,23 @@
                 AjaxPut(basicPath + '/user/update', data);
                 layer.msg("操作成功");
                 return false;
-            } else if(obj.event === 'save'){
+            } else if(obj.event === 'reset'){
+                layer.open({
+                    title: '密码重置',
+                    type: 1,
+                    shade: 0.2,
+                    maxmin:true,
+                    shadeClose: true,
+                    content: '<div style="padding: 20px 100px;">' +
+                        '<input type="password" name="password" lay-verify="password" placeholder="新密码" autocomplete="off" class="layui-input" value="">' +
+                        '</div>',
+                    btn: '重置',
+                    btnAlign: 'c', //按钮居中
+                    yes: function () {
+                        AjaxPost(basicPath + '/user/insert', data);
+                    }
+                });
+            }else if(obj.event === 'save'){
                 AjaxPost(basicPath + '/user/insert', obj.data);
                 layer.msg("操作成功");
                 table.reload('currentTableId', {url: basicPath + '/user/page'});
