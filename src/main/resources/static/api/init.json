@@ -16,6 +16,78 @@
       "target": "_self",
       "child": [
         {
+          "title": "研发工具",
+          "href": "",
+          "icon": "fa fa-sliders",
+          "target": "",
+          "child": [
+            {
+              "title": "数据字典",
+              "href": "page/basic/dictionary/dictionary.html",
+              "icon": "fa fa-book",
+              "target": "_self"
+            },
+            {
+              "title": "Json格式化",
+              "href": "page/basic/tools/format-tool.html",
+              "icon": "fa fa-refresh",
+              "target": "_self"
+            },
+            {
+              "title": "代码生成器",
+              "href": "page/basic/generator/code-generator.html",
+              "icon": "fa fa-code",
+              "target": "_self"
+            },
+            {
+              "title": "缓存配置",
+              "href": "page/basic/cache/db-cache.html",
+              "icon": "fa fa-code",
+              "target": "_self"
+            },
+            {
+              "title": "集群管理",
+              "href": "page/basic/cluster/cluster-manager.html",
+              "icon": "fa fa-code",
+              "target": "_self"
+            },
+            {
+              "title": "定时任务",
+              "href": "page/basic/scheduled/scheduled.html",
+              "icon": "fa fa-code",
+              "target": "_self"
+            }
+          ]
+        },
+        {
+          "title": "效率工具",
+          "href": "",
+          "icon": "fa fa-rocket",
+          "target": "",
+          "child": [
+            {
+              "title": "快速邮件",
+              "href": "page/basic/email/quick-email.html",
+              "icon": "fa fa-comment",
+              "target": "_self"
+            }
+          ]
+        },
+        {
+          "title": "交易平台",
+          "href": "",
+          "icon": "fa fa-shopping-cart",
+          "target": "",
+          "child": [
+            {
+              "title": "二手交易",
+              "href": "page/basic/oldgoods/old-goods.html",
+              "icon": "fa fa-cart-plus",
+              "target": "_self"
+            }
+          ]
+        },
+        {
           "title": "主页模板",
           "href": "",
           "icon": "fa fa-home",
@@ -153,78 +225,6 @@
               "title": "弹出层",
               "href": "page/layer.html",
               "icon": "fa fa-shield",
-              "target": "_self"
-            }
-          ]
-        },
-        {
-          "title": "研发工具",
-          "href": "",
-          "icon": "fa fa-sliders",
-          "target": "",
-          "child": [
-            {
-              "title": "数据字典",
-              "href": "page/basic/dictionary/dictionary.html",
-              "icon": "fa fa-book",
-              "target": "_self"
-            },
-            {
-              "title": "Json格式化",
-              "href": "page/basic/tools/format-tool.html",
-              "icon": "fa fa-refresh",
-              "target": "_self"
-            },
-            {
-              "title": "代码生成器",
-              "href": "page/basic/generator/code-generator.html",
-              "icon": "fa fa-code",
-              "target": "_self"
-            },
-            {
-              "title": "缓存配置",
-              "href": "page/basic/cache/db-cache.html",
-              "icon": "fa fa-code",
-              "target": "_self"
-            },
-            {
-              "title": "集群管理",
-              "href": "page/basic/cluster/cluster-manager.html",
-              "icon": "fa fa-code",
-              "target": "_self"
-            },
-            {
-              "title": "定时任务",
-              "href": "page/basic/scheduled/scheduled.html",
-              "icon": "fa fa-code",
-              "target": "_self"
-            }
-          ]
-        },
-        {
-          "title": "效率工具",
-          "href": "",
-          "icon": "fa fa-rocket",
-          "target": "",
-          "child": [
-            {
-              "title": "快速邮件",
-              "href": "page/basic/email/quick-email.html",
-              "icon": "fa fa-comment",
-              "target": "_self"
-            }
-          ]
-        },
-        {
-          "title": "交易平台",
-          "href": "",
-          "icon": "fa fa-shopping-cart",
-          "target": "",
-          "child": [
-            {
-              "title": "二手交易",
-              "href": "page/basic/oldgoods/old-goods.html",
-              "icon": "fa fa-cart-plus",
               "target": "_self"
             }
           ]
