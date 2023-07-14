@@ -28,9 +28,4 @@ public interface DbCacheService {
      * 刷新配置缓存
      */
     Map<String, String> config();
-
-    /**
-     * 刷新定时任务缓存
-     */
-    Map<String, String> cron();
 }

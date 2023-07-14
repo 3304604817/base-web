@@ -22,9 +22,6 @@ public class InitializeCacheRunner implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
-        /**
-         * 刷新缓存
-         */
         dbCacheService.all();
         serverClusterService.refresh();
         logger.info("初始化缓存完成");
