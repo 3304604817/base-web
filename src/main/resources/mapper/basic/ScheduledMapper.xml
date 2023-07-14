@@ -4,6 +4,7 @@
     <!-- 可根据自己的需求，是否要使用 -->
     <resultMap id="BaseResultMap" type="com.base.basic.domain.entity.v1.Scheduled">
         <result column="id" property="id" jdbcType="DECIMAL"/>
+        <result column="scheduled_name" property="scheduledName" jdbcType="VARCHAR"/>
         <result column="bean_name" property="beanName" jdbcType="VARCHAR"/>
         <result column="param" property="param" jdbcType="VARCHAR"/>
         <result column="cron" property="cron" jdbcType="VARCHAR"/>
@@ -14,4 +15,20 @@
         <result column="last_updated_by" property="lastUpdatedBy" jdbcType="DECIMAL"/>
         <result column="last_update_date" property="lastUpdateDate" jdbcType="DATE"/>
     </resultMap>
+
+    <select id="list" parameterType="com.base.basic.domain.entity.v1.Scheduled" resultMap="BaseResultMap">
+        SELECT ds.id,
+        ds.scheduled_name,
+        ds.bean_name,
+        ds.param,
+        ds.cron,
+        ds.status,
+        ds.object_version_number
+        FROM db_scheduled ds
+        <where>
+            <if test="null != scheduledName and '' != scheduledName">
+                AND ds.scheduled_name LIKE concat(concat('%', #{scheduledName, jdbcType}), '%')
+            </if>
+        </where>
+    </select>
 </mapper>

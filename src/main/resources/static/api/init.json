@@ -192,6 +192,12 @@
               "href": "page/basic/cluster/cluster-manager.html",
               "icon": "fa fa-code",
               "target": "_self"
+            },
+            {
+              "title": "定时任务",
+              "href": "page/basic/scheduled/scheduled.html",
+              "icon": "fa fa-code",
+              "target": "_self"
             }
           ]
         },

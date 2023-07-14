@@ -1,7 +1,10 @@
 package com.base.basic.api.controller.v0;
 
 import com.base.basic.app.service.ScheduledService;
+import com.base.basic.domain.entity.v1.DbCache;
 import com.base.basic.domain.entity.v1.Scheduled;
+import com.base.common.util.layui.LayJson;
+import com.base.common.util.page.PageParmaters;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +19,12 @@ public class ScheduledController {
 
     @Autowired
     private ScheduledService scheduledService;
+
+    @ApiOperation(value = "查所有定时任务")
+    @GetMapping("/page")
+    public ResponseEntity<LayJson<Scheduled>> pageList(PageParmaters pageParmaters, Scheduled searchBody) {
+        return new ResponseEntity(new LayJson<>(scheduledService.pageList(pageParmaters, searchBody)), HttpStatus.OK);
+    }
 
     @ApiOperation(value = "新增定时任务")
     @PostMapping("/add")
