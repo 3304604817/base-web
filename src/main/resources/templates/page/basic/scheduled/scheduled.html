@@ -29,8 +29,16 @@
         <table class="layui-hide" id="currentTableId" lay-filter="currentTableFilter"></table>
 
         <script type="text/html" id="currentTableBar">
+            <!-- 已存在的行按钮 -->
+            {{# if(null != d.id){ }}
             <a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="update">更新</a>
             <a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="delete">删除</a>
+
+            <!-- 新建的行按钮 -->
+            {{# } if(null == d.id){ }}
+            <a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="save">保存</a>
+            <a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="cancel">取消</a>
+            {{# } }}
         </script>
     </div>
 </div>
@@ -82,6 +90,7 @@
 
             //执行搜索重载
             table.reload('currentTableId', {
+                url: basicPath + '/scheduled/page',
                 page: {
                     curr: 1
                 },
@@ -111,25 +120,36 @@
          * toolbar事件监听，新增
          */
         table.on('toolbar(currentTableFilter)', function (obj) {
-            // 数据传输-传输之前先清缓存
-            window.formData = null;
-            if (obj.event === 'add') {   // 监听添加操作
-                var content = miniPage.getHrefContent('page/basic/dictionary/dictionary-add.html');
-                var openWH = miniPage.getOpenWidthHeight();
+            if (obj.event === 'add') {
+                /**
+                 * 监听添加操作
+                 * 实现的思路是：当点击新增一行时，把之前的数据保存下来，并在数据尾部增加一行空数据然后将新数据重新载入表格
+                 */
+                //定义一个空数组,用来存储之前编辑过的数据已经存放新数据
+                var dataBak = [];
+                // 获取当前table, currentTableId 是当前Table的ID
+                var tableBak = table.cache.currentTableId;
 
-                var index = layer.open({
-                    title: '新增',
-                    type: 1,
-                    shade: 0.2,
-                    maxmin:true,
-                    shadeClose: true,
-                    area: [openWH[0] + 'px', openWH[1] + 'px'],
-                    offset: [openWH[2] + 'px', openWH[3] + 'px'],
-                    content: content,
+
+                for (var i = 0; i < tableBak.length; i++) {
+                    // 将之前的数组备份
+                    dataBak.push(tableBak[i]);
+                }
+                // 在尾部新增一行空数据，实现增行效果
+                dataBak.push({
+                    "scheduledName": "",
+                    "beanName": "",
+                    "param": null,
+                    "cron": null,
+                    "status": true
                 });
-                $(window).on("resize", function () {
-                    layer.full(index);
-                });
+                // 将新数据重新载入表格
+                table.reload("currentTableId",{url: '', data:dataBak});
+            } else if(obj.event === 'save'){
+                // AjaxPost(basicPath + '/scheduled/add', body);
+                console.log(obj);
+            } else if(obj.event === 'cancel'){
+                console.log(obj);
             }
         });
 
