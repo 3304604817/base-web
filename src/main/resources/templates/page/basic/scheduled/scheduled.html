@@ -170,8 +170,9 @@
                 });
             } else if(obj.event === 'save'){
                 AjaxPost(basicPath + '/scheduled/add', obj.data);
+                layer.msg("操作成功");
             } else if(obj.event === 'cancel'){
-                console.log(obj);
+                obj.del();
             }
         });
     });

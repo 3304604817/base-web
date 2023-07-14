@@ -32,12 +32,14 @@ public class Scheduled extends BaseEntity {
     private String scheduledName;
 
     @ApiModelProperty(value = "定时任务Bean名称")
+    @NotBlank(message = "Bean不能为空")
     private String beanName;
 
     @ApiModelProperty(value = "参数")
     private String param;
 
     @ApiModelProperty(value = "cron")
+    @NotBlank(message = "cron不能为空")
     private String cron;
 
     @ApiModelProperty(value = "是否启用")
