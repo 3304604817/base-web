@@ -24,7 +24,7 @@ public class ScheduledServiceImpl implements ScheduledService {
 
     @Override
     public PageInfo<DbCache> pageList(PageParmaters pageParmaters, Scheduled searchBody){
-        return PageHelper.startPage(pageParmaters.getPage(), pageParmaters.getLimit()).doSelectPageInfo(() -> scheduledMapper.select(searchBody));
+        return PageHelper.startPage(pageParmaters.getPage(), pageParmaters.getLimit()).doSelectPageInfo(() -> scheduledMapper.list(searchBody));
     }
 
     @Override
@@ -46,8 +46,13 @@ public class ScheduledServiceImpl implements ScheduledService {
 
         scheduledMapper.updateByIdSelective(scheduled);
 
-        SchedulingRunnable task = new SchedulingRunnable(scheduled.getBeanName(), scheduled.getParam());
-        cronTaskRegistrar.addCronTask(task, scheduled.getCron());
+        if(exit.getStatus()){
+            /**
+             * 如果编辑的定时任务已经是启动状态则继续添加启动
+             */
+            SchedulingRunnable task = new SchedulingRunnable(scheduled.getBeanName(), scheduled.getParam());
+            cronTaskRegistrar.addCronTask(task, scheduled.getCron());
+        }
     }
 
     @Override

@@ -62,6 +62,7 @@ logging:
   level:
     com.base.basic.infra.mapper.AuditLogMapper: error
     com.base.basic.infra.mapper.DbCacheMapper: error
+    com.base.basic.infra.mapper.ScheduledMapper: error
     com.base.basic.infra.mapper: debug
 ribbon:
   eager-load:

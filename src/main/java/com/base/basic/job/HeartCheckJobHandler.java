@@ -14,7 +14,6 @@ public class HeartCheckJobHandler implements ScheduledRunner {
 
     @Override
     public void run(String args) {
-        logger.info("心跳检测");
         Set<String> addressSet = ServerClusterCache.getServerCluster().keySet();
         for(String address:addressSet){
             int code = RestfulUtil.httpGet("http://" + address + "/cluster/heart-check", null, null, RestfulUtil.UTF8_CHARSET).getCode();
