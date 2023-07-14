@@ -228,20 +228,6 @@
               "target": "_self"
             }
           ]
-        },
-        {
-          "title": "游戏",
-          "href": "",
-          "icon": "fa fa-gamepad",
-          "target": "",
-          "child": [
-            {
-              "title": "NES",
-              "href": "page/basic/game/nes-games.html",
-              "icon": "fa fa-gamepad",
-              "target": "_self"
-            }
-          ]
         }
       ]
     },
