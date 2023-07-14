@@ -1,5 +1,7 @@
 package com.base.basic.api.controller.v0;
 
+import com.base.common.util.layui.LayJson;
+import com.base.common.util.page.PageParmaters;
 import com.github.pagehelper.PageInfo;
 import com.base.basic.domain.entity.v0.IamUser;
 import com.base.basic.app.service.UserService;
@@ -25,7 +27,6 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @Access(accessNoToken = true)
     @ApiOperation(value = "获取当前登陆用户信息")
     @GetMapping("/current-user")
     @CrossOrigin
@@ -34,17 +35,10 @@ public class UserController {
     }
 
     @ApiOperation(value = "员工列表")
-    @GetMapping("/list")
+    @GetMapping("/page")
     @CrossOrigin
-    public ResponseEntity list(@RequestParam(defaultValue = "1", required = false) int page,
-                               @RequestParam(defaultValue = "10", required = false) int size,
-                               @RequestParam(value = "loginName", required = false) String loginName,
-                               @RequestParam(value = "realName", required = false) String realName) {
-        IamUser iamUser = new IamUser();
-        iamUser.setLoginName(loginName);
-        iamUser.setRealName(realName);
-        PageInfo<IamUser> pageInfo = userService.list(iamUser, page, size);
-        return new ResponseEntity(pageInfo, HttpStatus.OK);
+    public ResponseEntity<LayJson<IamUser>> pageList(PageParmaters pageParmaters, IamUser searchBody) {
+        return new ResponseEntity(new LayJson<>(userService.pageList(pageParmaters, searchBody)), HttpStatus.OK);
     }
 
     @ApiOperation(value = "员工明细")
@@ -69,6 +63,18 @@ public class UserController {
     public ResponseEntity batchInsert(@RequestBody List<IamUser> iamUsers) {
         iamUsers = userService.batchInsert(iamUsers);
         return new ResponseEntity(iamUsers, HttpStatus.OK);
+    }
+
+    @ApiOperation(value = "冻结员工")
+    @PostMapping("/lock")
+    public ResponseEntity lock(@RequestBody IamUser user) {
+        return new ResponseEntity(userService.lock(user.getId()), HttpStatus.OK);
+    }
+
+    @ApiOperation(value = "解冻员工")
+    @PostMapping("/unlock")
+    public ResponseEntity unlock(@RequestBody IamUser user) {
+        return new ResponseEntity(userService.unlock(user.getId()), HttpStatus.OK);
     }
 
     @ApiOperation(value = "更新员工信息")

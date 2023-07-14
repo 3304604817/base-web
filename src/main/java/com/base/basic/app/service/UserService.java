@@ -1,6 +1,7 @@
 package com.base.basic.app.service;
 
 import com.base.basic.domain.vo.v0.CurrentUserVO;
+import com.base.common.util.page.PageParmaters;
 import com.github.pagehelper.PageInfo;
 import com.base.basic.domain.entity.v0.IamUser;
 
@@ -9,7 +10,7 @@ import java.util.List;
 public interface UserService {
     CurrentUserVO currentUser();
 
-    PageInfo<IamUser> list(IamUser dto, int page, int size);
+    PageInfo<IamUser> pageList(PageParmaters pageParmaters, IamUser dto);
 
     IamUser detail(Long userId);
 
@@ -26,6 +27,18 @@ public interface UserService {
      * @return
      */
     List<IamUser> batchInsert(List<IamUser> iamUsers);
+
+    /**
+     * 冻结
+     * @return
+     */
+    Boolean lock(Long userId);
+
+    /**
+     * 解冻
+     * @return
+     */
+    Boolean unlock(Long userId);
 
     /**
      * 更新用户信息

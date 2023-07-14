@@ -2,6 +2,7 @@ package com.base.basic.app.service.impl;
 
 import com.base.basic.domain.vo.v0.CurrentUserVO;
 import com.base.basic.infra.mapper.UserMapper;
+import com.base.common.util.page.PageParmaters;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.base.basic.app.service.UserService;
@@ -31,8 +32,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public PageInfo<IamUser> list(IamUser dto, int pageNum, int pageSize){
-        return PageHelper.startPage(pageNum, pageSize).doSelectPageInfo(() -> userRepository.list(dto));
+    public PageInfo<IamUser> pageList(PageParmaters pageParmaters, IamUser dto){
+        return PageHelper.startPage(pageParmaters.getPage(), pageParmaters.getLimit()).doSelectPageInfo(() -> userRepository.list(dto));
     }
 
     @Override
@@ -51,6 +52,26 @@ public class UserServiceImpl implements UserService {
     @Transactional(rollbackFor = Exception.class)
     public List<IamUser> batchInsert(List<IamUser> iamUsers){
         return userRepository.batchInsert(iamUsers);
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public Boolean lock(Long userId){
+        IamUser user = new IamUser();
+        user.setId(userId);
+        user.setLocked(Boolean.TRUE);
+        userMapper.updateOptional(user,IamUser.FIELD_IS_LOCKED);
+        return Boolean.TRUE;
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public Boolean unlock(Long userId){
+        IamUser user = new IamUser();
+        user.setId(userId);
+        user.setLocked(Boolean.FALSE);
+        userMapper.updateOptional(user,IamUser.FIELD_IS_LOCKED);
+        return Boolean.TRUE;
     }
 
     @Override

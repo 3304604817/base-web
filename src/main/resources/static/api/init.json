@@ -23,7 +23,7 @@
           "child": [
             {
               "title": "用户管理",
-              "href": "page/basic/dictionary/dictionary.html",
+              "href": "page/basic/user/user.html",
               "icon": "fa fa-user",
               "target": "_self"
             }

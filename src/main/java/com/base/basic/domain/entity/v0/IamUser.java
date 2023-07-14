@@ -1,6 +1,7 @@
 package com.base.basic.domain.entity.v0;
 
 import com.base.basic.domain.entity.v0.base.BaseEntity;
+import io.swagger.annotations.ApiModelProperty;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -47,6 +48,7 @@ public class IamUser extends BaseEntity {
 
     private Boolean isEnabled;
 
+    @ApiModelProperty(value = "是否锁定")
     private Boolean isLocked;
 
     private String userType;
