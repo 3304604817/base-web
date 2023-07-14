@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.servlet.mvc.support.DefaultHandlerExceptionResolver;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -13,7 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(value = BaseException.class)
-    public ResponseEntity exceptionHandler(HttpServletRequest req, BaseException e){
+    public ResponseEntity baseExceptionHandler(HttpServletRequest req, BaseException e){
         return new ResponseEntity(e.getErrorMsg(), HttpStatus.OK);
     }
 }

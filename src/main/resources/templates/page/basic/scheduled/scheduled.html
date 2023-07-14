@@ -145,11 +145,6 @@
                 });
                 // 将新数据重新载入表格
                 table.reload("currentTableId",{url: '', data:dataBak});
-            } else if(obj.event === 'save'){
-                // AjaxPost(basicPath + '/scheduled/add', body);
-                console.log(obj);
-            } else if(obj.event === 'cancel'){
-                console.log(obj);
             }
         });
 
@@ -173,6 +168,10 @@
                     layer.msg("操作成功");
                     obj.del();
                 });
+            } else if(obj.event === 'save'){
+                AjaxPost(basicPath + '/scheduled/add', obj.data);
+            } else if(obj.event === 'cancel'){
+                console.log(obj);
             }
         });
     });

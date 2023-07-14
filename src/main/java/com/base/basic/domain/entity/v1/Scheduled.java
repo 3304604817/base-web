@@ -7,6 +7,7 @@ import io.swagger.annotations.ApiModelProperty;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import java.math.BigDecimal;
 
@@ -27,6 +28,7 @@ public class Scheduled extends BaseEntity {
     private Long id;
 
     @ApiModelProperty(value = "定时任务名称")
+    @NotBlank(message = "任务名称不能为空")
     private String scheduledName;
 
     @ApiModelProperty(value = "定时任务Bean名称")
