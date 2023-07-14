@@ -26,6 +26,12 @@ function AjaxPost(url, body) {
         async: false,
         success: function (data) {
             return data;
+        },
+        error: function (errorData) {
+            const { errorMsg = null } = errorData.responseJSON;
+            if(null != errorMsg){
+                layer.msg(errorMsg);
+            }
         }
     });
 }

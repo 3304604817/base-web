@@ -72,6 +72,12 @@ public class IamUser extends BaseEntity {
         this.loginName = loginName;
     }
 
+    public IamUser(String loginName, Boolean isEnabled, Boolean isLocked){
+        this.loginName = loginName;
+        this.isEnabled = isEnabled;
+        this.isLocked = isLocked;
+    }
+
     public Long getId() {
         return id;
     }
@@ -152,14 +158,6 @@ public class IamUser extends BaseEntity {
         this.timeZone = timeZone;
     }
 
-    public Boolean getEnabled() {
-        return isEnabled;
-    }
-
-    public void setEnabled(Boolean enabled) {
-        isEnabled = enabled;
-    }
-
     public Boolean getLocked() {
         return isLocked;
     }
@@ -198,5 +196,13 @@ public class IamUser extends BaseEntity {
 
     public void setCaptcha(String captcha) {
         this.captcha = captcha;
+    }
+
+    public Boolean getIsEnabled() {
+        return isEnabled;
+    }
+
+    public void setIsEnabled(Boolean isEnabled) {
+        this.isEnabled = isEnabled;
     }
 }

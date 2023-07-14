@@ -72,7 +72,7 @@
                 {field: 'realName', width: 200, title: '姓名', edit:"text"},
                 {field: 'email', width: 200, title: '邮箱', edit:"text"},
                 {field: 'phone', width: 200, title: '手机', edit:"text"},
-                {field: 'isEnabled', width: 200, title: '是否启用', align: "center",
+                {field: 'enabled', width: 200, title: '是否启用', align: "center",
                     templet: function (data) {
                         if(null != data.id && data.isEnabled){
                             return '<input type="checkbox" scheduledId="' + data.id + '" checked lay-skin="switch" lay-filter="switchCheckbox" lay-text="ON|OFF">';

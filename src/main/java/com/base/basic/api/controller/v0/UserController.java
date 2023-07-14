@@ -71,7 +71,7 @@ public class UserController {
         return new ResponseEntity(userService.enable(user.getId()), HttpStatus.OK);
     }
 
-    @ApiOperation(value = "解冻员工")
+    @ApiOperation(value = "禁用员工")
     @PostMapping("/disabled")
     public ResponseEntity disabled(@RequestBody IamUser user) {
         return new ResponseEntity(userService.disabled(user.getId()), HttpStatus.OK);

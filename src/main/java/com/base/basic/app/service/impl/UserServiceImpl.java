@@ -59,8 +59,8 @@ public class UserServiceImpl implements UserService {
     public Boolean enable(Long userId){
         IamUser user = new IamUser();
         user.setId(userId);
-        user.setLocked(Boolean.TRUE);
-        userMapper.updateOptional(user,IamUser.FIELD_IS_LOCKED);
+        user.setIsEnabled(Boolean.TRUE);
+        userMapper.updateOptional(user,IamUser.FIELD_IS_ENABLED);
         return Boolean.TRUE;
     }
 
@@ -69,8 +69,8 @@ public class UserServiceImpl implements UserService {
     public Boolean disabled(Long userId){
         IamUser user = new IamUser();
         user.setId(userId);
-        user.setLocked(Boolean.FALSE);
-        userMapper.updateOptional(user,IamUser.FIELD_IS_LOCKED);
+        user.setIsEnabled(Boolean.FALSE);
+        userMapper.updateOptional(user,IamUser.FIELD_IS_ENABLED);
         return Boolean.TRUE;
     }
 

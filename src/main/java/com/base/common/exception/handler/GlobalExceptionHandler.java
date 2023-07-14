@@ -15,6 +15,6 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(value = BaseException.class)
     public ResponseEntity baseExceptionHandler(HttpServletRequest req, BaseException e){
-        return new ResponseEntity(e.getErrorMsg(), HttpStatus.OK);
+        return new ResponseEntity(e, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }
