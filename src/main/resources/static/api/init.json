@@ -16,6 +16,20 @@
       "target": "_self",
       "child": [
         {
+          "title": "组织信息",
+          "href": "",
+          "icon": "fa fa-sitemap",
+          "target": "",
+          "child": [
+            {
+              "title": "用户管理",
+              "href": "page/basic/dictionary/dictionary.html",
+              "icon": "fa fa-user",
+              "target": "_self"
+            }
+          ]
+        },
+        {
           "title": "研发工具",
           "href": "",
           "icon": "fa fa-sliders",
