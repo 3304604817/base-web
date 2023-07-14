@@ -69,10 +69,12 @@
                 {field: 'cron', width: 200, title: 'cron', edit:"text"},
                 {field: 'status', width: 200, title: '是否启用', align: "center",
                     templet: function (data) {
-                        if(data.status){
+                        if(null != data.id && data.status){
                             return '<input type="checkbox" scheduledId="' + data.id + '" checked lay-skin="switch" lay-filter="switchCheckbox" lay-text="ON|OFF">';
-                        }else {
+                        }else if(null != data.id  && !data.status){
                             return '<input type="checkbox" scheduledId="' + data.id + '" lay-skin="switch" lay-filter="switchCheckbox" lay-text="ON|OFF">';
+                        }else {
+                            return '<input type="checkbox" disabled lay-skin="switch" checked lay-filter="switchCheckbox" lay-text="ON|OFF">';
                         }
                     }
                 },
@@ -171,6 +173,7 @@
             } else if(obj.event === 'save'){
                 AjaxPost(basicPath + '/scheduled/add', obj.data);
                 layer.msg("操作成功");
+                table.reload('currentTableId', {url: basicPath + '/scheduled/page'});
             } else if(obj.event === 'cancel'){
                 obj.del();
             }
