@@ -11,6 +11,8 @@ import com.base.basic.domain.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -52,6 +54,18 @@ public class UserServiceImpl implements UserService {
     @Transactional(rollbackFor = Exception.class)
     public List<IamUser> batchInsert(List<IamUser> iamUsers){
         return userRepository.batchInsert(iamUsers);
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public Boolean resetPassword(Long userId, String password){
+        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        String hashpw = passwordEncoder.encode(password);
+        IamUser user = new IamUser();
+        user.setId(userId);
+        user.setHashPassword(hashpw);
+        userMapper.updateOptional(user, IamUser.FIELD_HASH_PASSWORD);
+        return Boolean.TRUE;
     }
 
     @Override

@@ -29,6 +29,14 @@ public interface UserService {
     List<IamUser> batchInsert(List<IamUser> iamUsers);
 
     /**
+     * 重置密码
+     * @param userId
+     * @param password
+     * @return
+     */
+    Boolean resetPassword(Long userId, String password);
+
+    /**
      * 冻结
      * @return
      */

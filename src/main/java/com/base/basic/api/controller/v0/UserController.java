@@ -77,6 +77,12 @@ public class UserController {
         return new ResponseEntity(userService.disabled(user.getId()), HttpStatus.OK);
     }
 
+    @ApiOperation(value = "重置密码")
+    @PostMapping("/reset/password")
+    public ResponseEntity<Boolean> resetPassword(@RequestBody IamUser iamUser) {
+        return new ResponseEntity(userService.resetPassword(iamUser.getId(), iamUser.getPwd()), HttpStatus.OK);
+    }
+
     @ApiOperation(value = "更新员工信息")
     @PutMapping("/update")
     public ResponseEntity<IamUser> update(@RequestBody IamUser iamUser) {
