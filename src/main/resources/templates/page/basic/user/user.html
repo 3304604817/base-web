@@ -177,12 +177,17 @@
                     maxmin:true,
                     shadeClose: true,
                     content: '<div style="padding: 20px 100px;">' +
-                        '<input type="password" name="password" lay-verify="password" placeholder="新密码" autocomplete="off" class="layui-input" value="">' +
+                        '<input id="password" type="password" name="password" lay-verify="password" placeholder="新密码" autocomplete="off" class="layui-input" value="">' +
                         '</div>',
                     btn: '重置',
                     btnAlign: 'c', //按钮居中
                     yes: function () {
-                        AjaxPost(basicPath + '/user/insert', data);
+                        const user = {
+                            id: data.id,
+                            pwd: document.getElementById("password").value,
+                        }
+                        AjaxPost(basicPath + '/user/reset/password', user);
+                        layer.msg("操作成功");
                     }
                 });
             }else if(obj.event === 'save'){
