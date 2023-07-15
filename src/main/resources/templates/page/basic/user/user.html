@@ -187,6 +187,7 @@
                             pwd: document.getElementById("password").value,
                         }
                         AjaxPost(basicPath + '/user/reset/password', user);
+                        layer.closeAll();
                         layer.msg("操作成功");
                     }
                 });
