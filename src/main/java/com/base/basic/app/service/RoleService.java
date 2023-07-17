@@ -9,4 +9,8 @@ import com.github.pagehelper.PageInfo;
 public interface RoleService {
 
     PageInfo<Role> pageList(PageParmaters pageParmaters, Role searchBody);
+
+    Role add(Role role);
+
+    Role edit(Role role);
 }

@@ -10,9 +10,8 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 
 @Api(tags="角色管理")
 @RestController
@@ -26,5 +25,17 @@ public class RoleController {
     @GetMapping("/page")
     public ResponseEntity<LayJson<Role>> pageList(PageParmaters pageParmaters, Role searchBody) {
         return new ResponseEntity(new LayJson<>(roleService.pageList(pageParmaters, searchBody)), HttpStatus.OK);
+    }
+
+    @ApiOperation(value = "新增角色")
+    @PostMapping("/add")
+    public ResponseEntity add(@Validated @RequestBody Role role) {
+        return new ResponseEntity(roleService.add(role), HttpStatus.OK);
+    }
+
+    @ApiOperation(value = "修改角色")
+    @PutMapping("/edit")
+    public ResponseEntity edit(@RequestBody Role role) {
+        return new ResponseEntity(roleService.edit(role), HttpStatus.OK);
     }
 }

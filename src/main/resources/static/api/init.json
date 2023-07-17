@@ -26,6 +26,12 @@
               "href": "page/basic/user/user.html",
               "icon": "fa fa-user",
               "target": "_self"
+            },
+            {
+              "title": "角色管理",
+              "href": "page/basic/role/role.html",
+              "icon": "fa fa-user-md",
+              "target": "_self"
             }
           ]
         },

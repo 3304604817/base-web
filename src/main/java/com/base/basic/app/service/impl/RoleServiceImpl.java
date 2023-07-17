@@ -11,6 +11,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class RoleServiceImpl implements RoleService {
@@ -22,5 +23,19 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public PageInfo<Role> pageList(PageParmaters pageParmaters, Role searchBody){
         return PageHelper.startPage(pageParmaters.getPage(), pageParmaters.getLimit()).doSelectPageInfo(() -> roleMapper.list(searchBody));
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public Role add(Role role){
+        roleMapper.insertSelective(role);
+        return role;
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public Role edit(Role role){
+        roleMapper.updateByIdSelective(role);
+        return role;
     }
 }
