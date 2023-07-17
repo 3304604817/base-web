@@ -27,7 +27,7 @@
         FROM db_scheduled ds
         <where>
             <if test="null != scheduledName and '' != scheduledName">
-                AND ds.scheduled_name LIKE concat(concat('%', #{scheduledName, jdbcType}), '%')
+                AND ds.scheduled_name LIKE concat(concat('%', #{scheduledName, jdbcType=VARCHAR}), '%')
             </if>
         </where>
     </select>

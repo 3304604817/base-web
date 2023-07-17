@@ -12,4 +12,25 @@
         <result column="last_updated_by" property="lastUpdatedBy" jdbcType="DECIMAL"/>
         <result column="last_update_date" property="lastUpdateDate" jdbcType="DATE"/>
     </resultMap>
+
+    <select id="list" parameterType="com.base.basic.domain.entity.v1.Role" resultMap="BaseResultMap">
+        SELECT dr.role_id,
+        dr.role_code,
+        dr.role_name,
+        dr.enabled_flag,
+        dr.object_version_number,
+        dr.creation_date,
+        dr.created_by,
+        dr.last_updated_by,
+        dr.last_update_date
+        FROM db_role dr
+        <where>
+            <if test="null != roleCode and '' != roleCode">
+                AND dr.role_code LIKE concat(concat('%', #{roleCode, jdbcType=VARCHAR}), '%')
+            </if>
+            <if test="null != roleName and '' != roleName">
+                AND dr.role_name LIKE concat(concat('%', #{roleName, jdbcType=VARCHAR}), '%')
+            </if>
+        </where>
+    </select>
 </mapper>
