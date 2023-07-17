@@ -38,6 +38,7 @@
             <!-- 已存在的行按钮 -->
             {{# if(null != d.roleId){ }}
             <a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="update">更新</a>
+            <a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="setUser">分配用户</a>
 
             <!-- 新建的行按钮 -->
             {{# } if(null == d.roleId){ }}
@@ -164,9 +165,9 @@
                 AjaxPut(basicPath + '/role/edit', data);
                 layer.msg("操作成功");
                 return false;
-            } else if(obj.event === 'reset'){
+            } else if(obj.event === 'setUser'){
                 layer.open({
-                    title: '密码重置',
+                    title: '分配用户',
                     type: 1,
                     shade: 0.2,
                     maxmin:true,
