@@ -59,7 +59,7 @@
 
         table.render({
             elem: '#currentTableId',
-            url: basicPath + '/user/page',
+            url: basicPath + '/role/page',
             toolbar: '#headerToolbar',
             defaultToolbar: ['filter', 'exports', 'print', {
                 title: '提示',
@@ -68,8 +68,8 @@
             }],
             cols: [[
                 {type: "checkbox", width: 50},
-                {field: 'roleCode', width: 150, title: '账号', sort: true, edit:"text"},
-                {field: 'roleName', width: 200, title: '姓名', edit:"text"},
+                {field: 'roleCode', width: 150, title: '权限编码', sort: true, edit:"text"},
+                {field: 'roleName', width: 200, title: '权限名称', edit:"text"},
                 {field: 'enabledFlag', width: 200, title: '是否启用', align: "center",
                     templet: function (data) {
                         if(null != data.roleId && data.enabledFlag){
