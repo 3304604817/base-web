@@ -13,4 +13,16 @@ public interface RoleService {
     Role add(Role role);
 
     Role edit(Role role);
+
+    /**
+     * 冻结
+     * @return
+     */
+    Boolean enable(Long roleId);
+
+    /**
+     * 解冻
+     * @return
+     */
+    Boolean disabled(Long roleId);
 }

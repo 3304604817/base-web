@@ -1,6 +1,7 @@
 package com.base.basic.app.service.impl;
 
 import com.base.basic.app.service.RoleService;
+import com.base.basic.domain.entity.v0.IamUser;
 import com.base.basic.domain.entity.v1.DbCache;
 import com.base.basic.domain.entity.v1.Role;
 import com.base.basic.domain.entity.v1.Scheduled;
@@ -37,5 +38,25 @@ public class RoleServiceImpl implements RoleService {
     public Role edit(Role role){
         roleMapper.updateByIdSelective(role);
         return role;
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public Boolean enable(Long roleId){
+        Role role = new Role();
+        role.setRoleId(roleId);
+        role.setEnabledFlag(Boolean.TRUE);
+        roleMapper.updateOptional(role,Role.FIELD_ENABLED_FLAG);
+        return Boolean.TRUE;
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public Boolean disabled(Long roleId){
+        Role role = new Role();
+        role.setRoleId(roleId);
+        role.setEnabledFlag(Boolean.FALSE);
+        roleMapper.updateOptional(role,Role.FIELD_ENABLED_FLAG);
+        return Boolean.TRUE;
     }
 }

@@ -74,7 +74,7 @@
                     templet: function (data) {
                         if(null != data.roleId && data.enabledFlag){
                             return '<input type="checkbox" roleId="' + data.roleId + '" checked lay-skin="switch" lay-filter="switchCheckbox" lay-text="ON|OFF">';
-                        }else if(null != data.id  && !data.enabledFlag){
+                        }else if(null != data.roleId  && !data.enabledFlag){
                             return '<input type="checkbox" roleId="' + data.roleId + '" lay-skin="switch" lay-filter="switchCheckbox" lay-text="ON|OFF">';
                         }else {
                             return '<input type="checkbox" disabled lay-skin="switch" checked lay-filter="switchCheckbox" lay-text="ON|OFF">';
@@ -107,7 +107,7 @@
 
         //监听指定开关
         form.on('switch(switchCheckbox)', function (data) {
-            const body = { id: data.elem.attributes['roleId'].nodeValue };
+            const body = { roleId: data.elem.attributes['roleId'].nodeValue };
             if(data.elem.checked){
                 /**
                  * 启用

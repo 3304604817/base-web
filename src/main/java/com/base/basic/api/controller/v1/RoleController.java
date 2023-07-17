@@ -1,6 +1,7 @@
 package com.base.basic.api.controller.v1;
 
 import com.base.basic.app.service.RoleService;
+import com.base.basic.domain.entity.v0.IamUser;
 import com.base.basic.domain.entity.v1.Role;
 import com.base.basic.domain.entity.v1.Scheduled;
 import com.base.common.util.layui.LayJson;
@@ -37,5 +38,17 @@ public class RoleController {
     @PutMapping("/edit")
     public ResponseEntity edit(@RequestBody Role role) {
         return new ResponseEntity(roleService.edit(role), HttpStatus.OK);
+    }
+
+    @ApiOperation(value = "启用")
+    @PostMapping("/enable")
+    public ResponseEntity<Boolean> enable(@RequestBody Role role) {
+        return new ResponseEntity(roleService.enable(role.getRoleId()), HttpStatus.OK);
+    }
+
+    @ApiOperation(value = "禁用")
+    @PostMapping("/disabled")
+    public ResponseEntity<Boolean> disabled(@RequestBody Role role) {
+        return new ResponseEntity(roleService.disabled(role.getRoleId()), HttpStatus.OK);
     }
 }
