@@ -36,11 +36,11 @@
 
         <script type="text/html" id="currentTableBar">
             <!-- 已存在的行按钮 -->
-            {{# if(null != d.id){ }}
+            {{# if(null != d.roleId){ }}
             <a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="update">更新</a>
 
             <!-- 新建的行按钮 -->
-            {{# } if(null == d.id){ }}
+            {{# } if(null == d.roleId){ }}
             <a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="save">保存</a>
             <a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="cancel">取消</a>
             {{# } }}
@@ -187,7 +187,7 @@
                     }
                 });
             }else if(obj.event === 'save'){
-                AjaxPost(basicPath + '/role/insert', obj.data);
+                AjaxPost(basicPath + '/role/add', obj.data);
                 layer.msg("操作成功");
                 table.reload('currentTableId', {url: basicPath + '/role/page'});
             } else if(obj.event === 'cancel'){
