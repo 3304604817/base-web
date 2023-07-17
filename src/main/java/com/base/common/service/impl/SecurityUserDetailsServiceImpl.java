@@ -10,6 +10,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
+
 @Service
 public class SecurityUserDetailsServiceImpl implements UserDetailsService {
     @Autowired
@@ -28,6 +30,6 @@ public class SecurityUserDetailsServiceImpl implements UserDetailsService {
         if(null == (currentUser = userMapper.selectOne(new IamUser(username, Boolean.TRUE, Boolean.FALSE)))){
             throw new BaseException("用户不存在或已冻结");
         }
-        return new CurrentUserVO(currentUser.getLoginName(), currentUser.getRealName(), currentUser.getHashPassword(), currentUser.getPhone(), currentUser.getEmail());
+        return new CurrentUserVO(currentUser.getLoginName(), currentUser.getRealName(), currentUser.getHashPassword(), currentUser.getPhone(), currentUser.getEmail(), Collections.emptySet());
     }
 }

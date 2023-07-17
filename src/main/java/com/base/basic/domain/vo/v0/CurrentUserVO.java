@@ -21,12 +21,13 @@ public class CurrentUserVO implements UserDetails {
 
     public CurrentUserVO(){}
 
-    public CurrentUserVO(String username, String realName, String password, String phone, String email){
+    public CurrentUserVO(String username, String realName, String password, String phone, String email, Set<GrantedAuthority> authorities){
         this.username = username;
         this.realName = realName;
         this.password = password;
         this.phone = phone;
         this.email = email;
+        this.authorities = authorities;
     }
 
     @Override

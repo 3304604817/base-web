@@ -18,6 +18,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Collections;
 import java.util.Map;
 import java.util.Objects;
 
@@ -70,7 +71,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 realName.asString(),
                 null,
                 Objects.nonNull(phone) ? phone.asString() : null,
-                Objects.nonNull(email) ? email.asString() : null);
+                Objects.nonNull(email) ? email.asString() : null,
+                Collections.emptySet());
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(currentUser, null, null);
         SecurityContextHolder.getContext().setAuthentication(authenticationToken);
 
