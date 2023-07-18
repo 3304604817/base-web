@@ -28,7 +28,7 @@ public class SecurityUserDetailsServiceImpl implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         IamUser currentUser = null;
         if(null == (currentUser = userMapper.selectOne(new IamUser(username, Boolean.TRUE, Boolean.FALSE)))){
-            throw new BaseException("用户不存在或已冻结");
+            throw new BaseException("用户不存在或已禁用");
         }
         return new CurrentUserVO(currentUser.getLoginName(), currentUser.getRealName(), currentUser.getHashPassword(), currentUser.getPhone(), currentUser.getEmail(), Collections.emptySet());
     }
