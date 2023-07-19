@@ -1,6 +1,9 @@
 <div class="layuimini-container layuimini-page-anim">
     <div class="layuimini-main">
-        <input type="text" name="" placeholder="请输入" autocomplete="off" class="layui-input" id="userSelectId" value="" ts-selected="">
+        <div class="layui-form layuimini-form" lay-filter="modelView">
+            <input type="text" name="tableSelectInput" placeholder="请输入" autocomplete="off"
+                   class="layui-input" id="userSelectId" ts-selected="">
+        </div>
     </div>
 </div>
 
@@ -12,6 +15,7 @@
 
     layui.use(['form', 'table','miniPage','element','tableSelect'], function () {
         var $ = layui.jquery,
+            form = layui.form,
             tableSelect = layui.tableSelect;
 
         tableSelect.render({
@@ -42,5 +46,10 @@
                 AjaxPost(basicPath + '/user-role/save', requestBody);
             }
         });
+
+        //表单初始赋值
+        form.val('modelView', {
+            "tableSelectInput": parentData.userRealNames,
+        })
     });
 </script>

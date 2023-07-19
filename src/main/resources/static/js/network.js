@@ -2,6 +2,7 @@
  * 网络请求
  */
 function AjaxGet(url) {
+    let result = null;
     $.ajax({
         type: 'get',
         url: url,
@@ -10,7 +11,7 @@ function AjaxGet(url) {
         cache: false,
         async: false,
         success: function (data) {
-            return data;
+            result = data;
         },
         error: function (errorData) {
             const { errorMsg = null } = errorData.responseJSON;
@@ -19,6 +20,7 @@ function AjaxGet(url) {
             }
         }
     });
+    return result;
 }
 
 function AjaxPost(url, body) {

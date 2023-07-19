@@ -166,12 +166,21 @@
                 layer.msg("操作成功");
                 return false;
             } else if(obj.event === 'setUser'){
-                const userRoleData = AjaxGet(basicPath + '/user-role/list', data.roleId);
-                console.log(userRoleData);
+                let userRoleData = AjaxGet(basicPath + '/user-role/list?roleId=' + data.roleId);
+                var tableSelectKeys = [];
+                var tableSelectValues = [];
+                layui.each(userRoleData, function (index, item) {
+                    tableSelectKeys.push(item.id)
+                    tableSelectValues.push(item.realName)
+                })
+                var userIds = tableSelectKeys.join(",");
+                var userRealNames = tableSelectValues.join(",");
+
+                const subData = { userIds, userRealNames, roleId:data.roleId };
 
                 // 数据传输-传输之前先清缓存
                 window.formData = null;
-                window.formData = data;
+                window.formData = subData;
                 var content = miniPage.getHrefContent('page/basic/role/user-table-select.html');
                 layer.open({
                     title: '分配用户',
