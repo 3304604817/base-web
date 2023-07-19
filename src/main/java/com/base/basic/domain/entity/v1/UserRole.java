@@ -32,6 +32,30 @@ public class UserRole extends BaseEntity {
     @Transient
     private List<Long> userIds;
 
+    @ApiModelProperty(value = "账号")
+    @Transient
+    private String loginName;
+
+    @ApiModelProperty(value = "用户邮箱")
+    @Transient
+    private String email;
+
+    @ApiModelProperty(value = "姓名")
+    @Transient
+    private String realName;
+
+    @ApiModelProperty(value = "手机号")
+    @Transient
+    private String phone;
+
+    @ApiModelProperty(value = "角色编码")
+    @Transient
+    private String roleCode;
+
+    @ApiModelProperty(value = "角色名称")
+    @Transient
+    private String roleName;
+
     public Long getId() {
         return id;
     }
@@ -62,5 +86,53 @@ public class UserRole extends BaseEntity {
 
     public void setUserIds(List<Long> userIds) {
         this.userIds = userIds;
+    }
+
+    public String getLoginName() {
+        return loginName;
+    }
+
+    public void setLoginName(String loginName) {
+        this.loginName = loginName;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getRealName() {
+        return realName;
+    }
+
+    public void setRealName(String realName) {
+        this.realName = realName;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getRoleCode() {
+        return roleCode;
+    }
+
+    public void setRoleCode(String roleCode) {
+        this.roleCode = roleCode;
+    }
+
+    public String getRoleName() {
+        return roleName;
+    }
+
+    public void setRoleName(String roleName) {
+        this.roleName = roleName;
     }
 }

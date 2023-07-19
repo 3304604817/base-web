@@ -7,12 +7,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 public class UserRoleServiceImpl implements UserRoleService {
 
     @Autowired
     @SuppressWarnings("all")
     private UserRoleMapper userRoleMapper;
+
+    @Override
+    public List<UserRole> list(UserRole userRole){
+        return userRoleMapper.list(userRole);
+    }
 
     @Override
     @Transactional(rollbackFor = Exception.class)

@@ -10,5 +10,35 @@
         <result column="created_by" property="createdBy" jdbcType="DECIMAL"/>
         <result column="last_updated_by" property="lastUpdatedBy" jdbcType="DECIMAL"/>
         <result column="last_update_date" property="lastUpdateDate" jdbcType="DATE"/>
+
+        <result column="login_name" property="loginName" jdbcType="VARCHAR"/>
+        <result column="email" property="email" jdbcType="VARCHAR"/>
+        <result column="real_name" property="realName" jdbcType="VARCHAR"/>
+        <result column="phone" property="phone" jdbcType="VARCHAR"/>
+        <result column="role_code" property="roleCode" jdbcType="VARCHAR"/>
+        <result column="role_name" property="roleName" jdbcType="VARCHAR"/>
     </resultMap>
+
+    <select id="list" parameterType="com.base.basic.domain.entity.v1.UserRole" resultMap="BaseResultMap">
+        SELECT dur.id,
+        dur.user_id,
+        du.login_name,
+        du.email,
+        du.real_name,
+        du.phone,
+        dur.role_id,
+        dr.role_code,
+        dr.role_name
+        FROM db_user_role dur
+        LEFT JOIN db_user du ON du.id = dur.user_id
+        LEFT JOIN db_role dr ON dr.role_id = dur.role_id
+        <where>
+            <if test="null != userId">
+                AND dur.user_id = #{userId}
+            </if>
+            <if test="null != roleId">
+                AND dur.role_id = #{roleId}
+            </if>
+        </where>
+    </select>
 </mapper>

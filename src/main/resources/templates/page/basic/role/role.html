@@ -166,6 +166,9 @@
                 layer.msg("操作成功");
                 return false;
             } else if(obj.event === 'setUser'){
+                const userRoleData = AjaxGet(basicPath + '/user-role/list', data.roleId);
+                console.log(userRoleData);
+
                 // 数据传输-传输之前先清缓存
                 window.formData = null;
                 window.formData = data;
