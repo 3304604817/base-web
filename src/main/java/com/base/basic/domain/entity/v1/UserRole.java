@@ -7,6 +7,8 @@ import io.swagger.annotations.ApiModelProperty;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+import java.util.List;
 
 @ApiModel("用户角色关系")
 @Table(name = "db_user_role")
@@ -21,10 +23,14 @@ public class UserRole extends BaseEntity {
     private Long id;
 
     @ApiModelProperty(value = "用户ID")
-    private String userId;
+    private Long userId;
 
     @ApiModelProperty(value = "角色ID")
-    private String roleId;
+    private Long roleId;
+
+    @ApiModelProperty(value = "用户ID")
+    @Transient
+    private List<Long> userIds;
 
     public Long getId() {
         return id;
@@ -34,19 +40,27 @@ public class UserRole extends BaseEntity {
         this.id = id;
     }
 
-    public String getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(String userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 
-    public String getRoleId() {
+    public Long getRoleId() {
         return roleId;
     }
 
-    public void setRoleId(String roleId) {
+    public void setRoleId(Long roleId) {
         this.roleId = roleId;
+    }
+
+    public List<Long> getUserIds() {
+        return userIds;
+    }
+
+    public void setUserIds(List<Long> userIds) {
+        this.userIds = userIds;
     }
 }

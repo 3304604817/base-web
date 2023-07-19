@@ -22,7 +22,7 @@ public class JwtUtils {
     private static final String SECRET = "secret";
 
     // 过期时间，单位为秒
-    private static final long EXPIRATION = 3600L;
+    private static final long EXPIRATION = 8*60*60L;
 
     /**
      * 生成用户token,设置token超时时间

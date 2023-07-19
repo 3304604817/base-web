@@ -166,26 +166,18 @@
                 layer.msg("操作成功");
                 return false;
             } else if(obj.event === 'setUser'){
+                // 数据传输-传输之前先清缓存
+                window.formData = null;
+                window.formData = data;
+                var content = miniPage.getHrefContent('page/basic/role/user-table-select.html');
                 layer.open({
                     title: '分配用户',
                     type: 1,
                     shade: 0.2,
                     maxmin:true,
                     shadeClose: true,
-                    content: '<div style="padding: 20px 100px;">' +
-                        '<input id="password" type="password" name="password" lay-verify="password" placeholder="新密码" autocomplete="off" class="layui-input" value="">' +
-                        '</div>',
-                    btn: '重置',
+                    content: content,
                     btnAlign: 'c', //按钮居中
-                    yes: function () {
-                        const user = {
-                            id: data.id,
-                            pwd: document.getElementById("password").value,
-                        }
-                        AjaxPost(basicPath + '/role/reset/password', user);
-                        layer.closeAll();
-                        layer.msg("操作成功");
-                    }
                 });
             }else if(obj.event === 'save'){
                 AjaxPost(basicPath + '/role/add', obj.data);

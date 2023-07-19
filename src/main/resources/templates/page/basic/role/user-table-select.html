@@ -1,0 +1,47 @@
+<div class="layuimini-container layuimini-page-anim">
+    <div class="layuimini-main">
+        <input type="text" name="" placeholder="请输入" autocomplete="off" class="layui-input" id="userSelectId" value="" ts-selected="">
+    </div>
+</div>
+
+<script src="js/config.js"></script>
+<script src="js/network.js"></script>
+<script>
+    // 获取父页面传的变量
+    var parentData = window.parent.formData;
+    const { roleId } = parentData;
+
+    layui.use(['form', 'table','miniPage','element','tableSelect'], function () {
+        var $ = layui.jquery,
+            tableSelect = layui.tableSelect;
+
+        tableSelect.render({
+            elem: '#userSelectId',
+            searchKey: 'my',
+            checkedKey: 'id',
+            searchPlaceholder: '自定义文字和name',
+            table: {
+                url: basicPath + '/user/page',
+                cols: [[
+                    { type: 'checkbox' },
+                    { field: 'id', title: 'ID', width: 100 },
+                    { field: 'loginName', title: '登录名', width: 300 },
+                    { field: 'realName', title: '姓名', width: 300 },
+                    { field: 'email', title: '邮箱', width: 300 },
+                    { field: 'phone', title: '手机', width: 300 }
+                ]]
+            },
+            done: function (elem, data) {
+                var SAVEJSON = []
+                var SHOWJSON = []
+                layui.each(data.data, function (index, item) {
+                    SAVEJSON.push(item.id)
+                    SHOWJSON.push(item.realName)
+                })
+                elem.val(SHOWJSON.join(","))
+                const requestBody = { roleId, userIds:SAVEJSON }
+                AjaxPost(basicPath + '/user-role/save', requestBody);
+            }
+        });
+    });
+</script>

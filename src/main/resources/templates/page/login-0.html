@@ -108,7 +108,7 @@
                 if(result && result.jwtToken){
                     // 保存token到cookie中，并设置cookie八小时后过期，在当前域名跟路径下一直生效
                     var cookietime = new Date();
-                    cookietime.setTime(cookietime.getTime() + (8 * 60 * 60 * 1000)); // coockie保存一小时
+                    cookietime.setTime(cookietime.getTime() + (8 * 60 * 60 * 1000)); // coockie保存八小时
                     $.cookie('token', result.jwtToken, {expires: cookietime, path: '/'});
 
                     window.location.replace("../index.html");
