@@ -2,7 +2,7 @@
     <div class="layuimini-main">
         <div class="layui-form layuimini-form" lay-filter="modelView">
             <input type="text" name="tableSelectInput" placeholder="请输入" autocomplete="off"
-                   class="layui-input" id="userSelectId" ts-selected="">
+                   class="layui-input" id="userSelectId" ts-selected="${parentData.userIds}">
         </div>
     </div>
 </div>
@@ -12,6 +12,7 @@
 <script>
     // 获取父页面传的变量
     var parentData = window.parent.formData;
+    console.log(parentData);
 
     layui.use(['form', 'table','miniPage','element','tableSelect'], function () {
         var $ = layui.jquery,
