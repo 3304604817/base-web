@@ -9,7 +9,6 @@
 <script>
     // 获取父页面传的变量
     var parentData = window.parent.formData;
-    let { roleId } = parentData;
 
     layui.use(['form', 'table','miniPage','element','tableSelect'], function () {
         var $ = layui.jquery,
@@ -39,7 +38,7 @@
                     SHOWJSON.push(item.realName)
                 })
                 elem.val(SHOWJSON.join(","))
-                const requestBody = { roleId, userIds:SAVEJSON }
+                const requestBody = { roleId:parentData.roleId, userIds:SAVEJSON }
                 AjaxPost(basicPath + '/user-role/save', requestBody);
             }
         });
