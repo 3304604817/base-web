@@ -1,5 +1,8 @@
 package com.base.common.service.impl;
 
+import com.base.common.util.jwt.JwtUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
@@ -14,16 +17,18 @@ import java.nio.charset.StandardCharsets;
 
 @Service
 public class SimpleAuthenticationEntryPoint implements AuthenticationEntryPoint {
+
+    private static final Logger logger = LoggerFactory.getLogger(SimpleAuthenticationEntryPoint.class);
+
     @Override
     public void commence(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AuthenticationException e) throws IOException, ServletException {
         httpServletResponse.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         httpServletResponse.setCharacterEncoding(StandardCharsets.UTF_8.toString());
         httpServletResponse.setContentType(MediaType.APPLICATION_JSON_VALUE);
         PrintWriter printWriter = httpServletResponse.getWriter();
-        printWriter.print("未登录");
+        printWriter.print("未登录重定向");
         printWriter.flush();
         printWriter.close();
-
         httpServletResponse.sendRedirect("/page/login-0.html");
     }
 }
