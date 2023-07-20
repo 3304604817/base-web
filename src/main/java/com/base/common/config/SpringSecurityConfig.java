@@ -1,6 +1,7 @@
 package com.base.common.config;
 
 import com.base.common.annotation.Access;
+import com.base.common.service.impl.SimpleAuthenticationEntryPoint;
 import com.base.common.util.jwt.JwtAuthenticationFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -15,6 +16,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.mvc.method.RequestMappingInfo;
@@ -36,6 +38,8 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private JwtAuthenticationFilter jwtAuthenticationFilter;
+    @Autowired
+    private SimpleAuthenticationEntryPoint simpleAuthenticationEntryPoint;
 
     /**
      * 使用自定义注解实现注解接口不走 Spring Security 过滤器链
@@ -84,6 +88,8 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         // 关闭csrf防护 >只有关闭了,来自表单的请求才能进来
         http.csrf().disable();
+        // 允许跨域
+        http.cors();
         // 防止iframe
         http.headers().frameOptions().disable();
         // 禁用session
@@ -100,6 +106,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .loginProcessingUrl("/security-login")
                 // 登录成功后请求地址 请求方法必须是post的
                 .successForwardUrl("/login/index");
+        http.exceptionHandling().authenticationEntryPoint(simpleAuthenticationEntryPoint);
         // url拦截认证  > 所有请求都必须被认证 必须登录后才可以访问
         http.authorizeRequests()
                 // 设置不需要拦截的页面-这里需要注意的是把登录的页面和一些静态资源设置为不需要拦截
