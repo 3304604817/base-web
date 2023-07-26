@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.base.basic.infra.mapper.MenuMapper">
+    <resultMap id="BaseResultMap" type="com.base.basic.domain.entity.v1.Menu">
+        <result column="id" property="id" jdbcType="DECIMAL"/>
+        <result column="parent_id" property="parentId" jdbcType="VARCHAR"/>
+        <result column="menu_type" property="menuType" jdbcType="VARCHAR"/>
+        <result column="title" property="title" jdbcType="DECIMAL"/>
+        <result column="href" property="href" jdbcType="VARCHAR"/>
+        <result column="image" property="image" jdbcType="VARCHAR"/>
+        <result column="icon" property="icon" jdbcType="VARCHAR"/>
+        <result column="target" property="target" jdbcType="DECIMAL"/>
+        <result column="enabled_flag" property="enabledFlag" jdbcType="DECIMAL"/>
+        <result column="object_version_number" property="objectVersionNumber" jdbcType="DECIMAL"/>
+        <result column="creation_date" property="creationDate" jdbcType="TIMESTAMP"/>
+        <result column="created_by" property="createdBy" jdbcType="DECIMAL"/>
+        <result column="last_updated_by" property="lastUpdatedBy" jdbcType="DECIMAL"/>
+        <result column="last_update_date" property="lastUpdateDate" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <select id="list" parameterType="com.base.basic.domain.entity.v1.Menu" resultMap="BaseResultMap">
+        SELECT dm.id,
+        dm.parent_id,
+        dm.menu_type,
+        dm.title,
+        dm.href,
+        dm.image,
+        dm.icon,
+        dm.target,
+        dm.enabled_flag,
+        dm.tenant_id,
+        dm.object_version_number
+        FROM db_menu dm
+        <where>
+            <if test="null != menuType and '' != menuType">
+                AND menu_type = #{menuType}
+            </if>
+        </where>
+    </select>
+</mapper>
