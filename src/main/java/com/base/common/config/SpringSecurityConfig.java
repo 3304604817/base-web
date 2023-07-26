@@ -106,13 +106,14 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .loginProcessingUrl("/security-login")
                 // 登录成功后请求地址 请求方法必须是post的
                 .successForwardUrl("/login/index");
+        // 登录异常处理
         http.exceptionHandling().authenticationEntryPoint(simpleAuthenticationEntryPoint);
         // url拦截认证  > 所有请求都必须被认证 必须登录后才可以访问
         http.authorizeRequests()
                 // 设置不需要拦截的页面-这里需要注意的是把登录的页面和一些静态资源设置为不需要拦截
                 .antMatchers(
                         "/**/login/**",
-                        "/**/roms/**", "/**/api/**", "/**/css/**", "/**/images/**", "/**/js/**", "/**/lib/**", "/**/page/**", "/**/**.html",
+                        "/**/api/**", "/**/css/**", "/**/images/**", "/**/js/**", "/**/lib/**", "/**/page/**", "/**/**.html",
                         "/**/error",
                         "/**/swagger-resources/**", "/**/swagger-ui/**", "/**/api-docs/**"
                 ).permitAll()

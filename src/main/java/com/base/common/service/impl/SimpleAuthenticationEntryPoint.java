@@ -22,13 +22,7 @@ public class SimpleAuthenticationEntryPoint implements AuthenticationEntryPoint 
 
     @Override
     public void commence(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AuthenticationException e) throws IOException, ServletException {
-        httpServletResponse.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-        httpServletResponse.setCharacterEncoding(StandardCharsets.UTF_8.toString());
-        httpServletResponse.setContentType(MediaType.APPLICATION_JSON_VALUE);
-        PrintWriter printWriter = httpServletResponse.getWriter();
-        printWriter.print("未登录重定向");
-        printWriter.flush();
-        printWriter.close();
+        logger.error("未登录重定向到登录页面");
         httpServletResponse.sendRedirect("/page/login-0.html");
     }
 }
