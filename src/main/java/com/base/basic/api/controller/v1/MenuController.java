@@ -35,6 +35,12 @@ public class MenuController {
         return new ResponseEntity(new LayJson<>(menuService.pageList(pageParmaters, searchBody)), HttpStatus.OK);
     }
 
+    @ApiOperation(value = "查所有菜单树状-针对treetable返回")
+    @GetMapping("/tree")
+    public ResponseEntity<LayJson<Menu>> treeList() {
+        return new ResponseEntity(new LayJson<>(menuService.treeList()), HttpStatus.OK);
+    }
+
     @ApiOperation(value = "新增角色")
     @PostMapping("/add")
     public ResponseEntity<Menu> add(@Validated @RequestBody Menu role) {

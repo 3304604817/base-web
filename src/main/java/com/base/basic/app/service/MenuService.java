@@ -6,6 +6,8 @@ import com.base.basic.domain.vo.v0.MenuVO;
 import com.base.common.util.page.PageParmaters;
 import com.github.pagehelper.PageInfo;
 
+import java.util.List;
+
 public interface MenuService {
 
     MenuVO initMenu();
@@ -17,6 +19,12 @@ public interface MenuService {
      * @return
      */
     PageInfo<Menu> pageList(PageParmaters pageParmaters, Menu searchBody);
+
+    /**
+     * 查所有菜单树状
+     * @return
+     */
+    List<Menu> treeList();
 
     /**
      * 新建菜单

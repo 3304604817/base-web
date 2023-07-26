@@ -83,6 +83,11 @@ public class MenuServiceImpl implements MenuService {
     }
 
     @Override
+    public List<Menu> treeList(){
+        return menuMapper.selectAll();
+    }
+
+    @Override
     @Transactional(rollbackFor = Exception.class)
     public Menu add(Menu menu){
         menuMapper.insertSelective(menu);
