@@ -32,6 +32,12 @@
               "href": "page/basic/role/role.html",
               "icon": "fa fa-user-md",
               "target": "_self"
+            },
+            {
+              "title": "菜单管理",
+              "href": "page/basic/menu/menu.html",
+              "icon": "fa fa-user-md",
+              "target": "_self"
             }
           ]
         },
