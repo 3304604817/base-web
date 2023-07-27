@@ -1,6 +1,7 @@
 package com.base.basic.api.controller.v1;
 
 import com.base.basic.app.service.MenuService;
+import com.base.basic.domain.entity.v0.IamUser;
 import com.base.basic.domain.entity.v1.Menu;
 import com.base.basic.domain.entity.v1.Role;
 import com.base.basic.domain.vo.v0.MenuVO;
@@ -41,15 +42,27 @@ public class MenuController {
         return new ResponseEntity(new LayJson<>(menuService.treeList()), HttpStatus.OK);
     }
 
-    @ApiOperation(value = "新增角色")
+    @ApiOperation(value = "新增菜单")
     @PostMapping("/add")
     public ResponseEntity<Menu> add(@Validated @RequestBody Menu role) {
         return new ResponseEntity(menuService.add(role), HttpStatus.OK);
     }
 
-    @ApiOperation(value = "修改角色")
+    @ApiOperation(value = "修改菜单")
     @PutMapping("/update")
     public ResponseEntity<Menu> update(@RequestBody Menu role) {
         return new ResponseEntity(menuService.update(role), HttpStatus.OK);
+    }
+
+    @ApiOperation(value = "启用员工")
+    @PostMapping("/enable")
+    public ResponseEntity enable(@RequestBody IamUser user) {
+        return new ResponseEntity(menuService.enable(user.getId()), HttpStatus.OK);
+    }
+
+    @ApiOperation(value = "禁用员工")
+    @PostMapping("/disabled")
+    public ResponseEntity disabled(@RequestBody IamUser user) {
+        return new ResponseEntity(menuService.disabled(user.getId()), HttpStatus.OK);
     }
 }

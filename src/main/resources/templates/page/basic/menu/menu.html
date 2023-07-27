@@ -23,6 +23,7 @@
 <script>
     layui.use(['table', 'treetable'], function () {
         var $ = layui.jquery;
+        var form = layui.form;
         var table = layui.table;
         var treetable = layui.treetable;
 
@@ -44,7 +45,7 @@
                 {field: 'href', title: '菜单url'},
                 {field: 'image', title: '首页Logo'},
                 {field: 'icon', title: '菜单图标'},
-                {field: 'enabledFlag', width: 200, title: '是否启用', align: "center",
+                {field: 'enabledFlag', width: 100, title: '是否启用', align: "center",
                     templet: function (data) {
                         if(null != data.id && data.enabledFlag){
                             return '<input type="checkbox" scheduledId="' + data.id + '" checked lay-skin="switch" lay-filter="switchCheckbox" lay-text="ON|OFF">';
@@ -81,14 +82,12 @@
                 /**
                  * 启用
                  */
-                // AjaxPost(basicPath + '/user/enable', body);
-                console.log(1);
+                AjaxPost(basicPath + '/menu/enable', body);
             }else {
                 /**
                  * 禁用
                  */
-                // AjaxPost(basicPath + '/user/disabled', body);
-                console.log(2);
+                AjaxPost(basicPath + '/menu/disabled', body);
             }
         });
 

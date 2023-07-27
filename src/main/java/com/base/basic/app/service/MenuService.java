@@ -39,4 +39,8 @@ public interface MenuService {
      * @return
      */
     Menu update(Menu menu);
+
+    Boolean enable(Long id);
+
+    Boolean disabled(Long id);
 }

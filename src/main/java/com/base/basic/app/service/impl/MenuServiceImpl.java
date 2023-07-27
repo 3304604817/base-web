@@ -107,6 +107,28 @@ public class MenuServiceImpl implements MenuService {
         return menu;
     }
 
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public Boolean enable(Long id){
+        Menu menu = new Menu();
+        menu.setId(id);
+        menu.setEnabledFlag(Boolean.TRUE);
+        menuMapper.updateOptional(menu,
+                Menu.FIELD_ENABLED_FLAG);
+        return Boolean.TRUE;
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public Boolean disabled(Long id){
+        Menu menu = new Menu();
+        menu.setId(id);
+        menu.setEnabledFlag(Boolean.FALSE);
+        menuMapper.updateOptional(menu,
+                Menu.FIELD_ENABLED_FLAG);
+        return Boolean.TRUE;
+    }
+
     private List<MenuInfoVO> initMenuInfo(MenuInfoVO parentMenuInfoVO){
         List<MenuInfoVO> menuInfoVOList = new ArrayList<>(8);
         List<Menu> childMenuList = menuMapper.select(new Menu(parentMenuInfoVO.getId(), BaseConstants.menuType.MENU_INFO, Boolean.TRUE));
