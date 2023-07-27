@@ -44,6 +44,17 @@
                 {field: 'href', title: '菜单url'},
                 {field: 'image', title: '首页Logo'},
                 {field: 'icon', title: '菜单图标'},
+                {field: 'enabledFlag', width: 200, title: '是否启用', align: "center",
+                    templet: function (data) {
+                        if(null != data.id && data.enabledFlag){
+                            return '<input type="checkbox" scheduledId="' + data.id + '" checked lay-skin="switch" lay-filter="switchCheckbox" lay-text="ON|OFF">';
+                        }else if(null != data.id  && !data.enabledFlag){
+                            return '<input type="checkbox" scheduledId="' + data.id + '" lay-skin="switch" lay-filter="switchCheckbox" lay-text="ON|OFF">';
+                        }else {
+                            return '<input type="checkbox" disabled lay-skin="switch" checked lay-filter="switchCheckbox" lay-text="ON|OFF">';
+                        }
+                    }
+                },
                 // {
                 //     field: 'isMenu', width: 80, align: 'center', templet: function (d) {
                 //         if (d.isMenu == 1) {
@@ -60,6 +71,24 @@
             ]],
             done: function () {
                 layer.closeAll('loading');
+            }
+        });
+
+        //监听指定开关
+        form.on('switch(switchCheckbox)', function (data) {
+            const body = { id: data.elem.attributes['id'].nodeValue };
+            if(data.elem.checked){
+                /**
+                 * 启用
+                 */
+                // AjaxPost(basicPath + '/user/enable', body);
+                console.log(1);
+            }else {
+                /**
+                 * 禁用
+                 */
+                // AjaxPost(basicPath + '/user/disabled', body);
+                console.log(2);
             }
         });
 
