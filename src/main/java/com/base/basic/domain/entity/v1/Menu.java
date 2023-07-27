@@ -7,6 +7,7 @@ import io.swagger.annotations.ApiModelProperty;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @ApiModel("菜单管理")
 @Table(name = "db_menu")
@@ -64,6 +65,7 @@ public class Menu extends BaseEntity {
     private Long tenantId;
 
     @ApiModelProperty(value = "菜单层级")
+    @Transient
     private Long pathLevel;
 
     public Menu(){}
