@@ -21,7 +21,7 @@
 <script src="js/config.js"></script>
 <script src="js/network.js"></script>
 <script>
-    layui.use(['table', 'treetable'], function () {
+    layui.use(['form', 'table', 'treetable'], function () {
         var $ = layui.jquery;
         var form = layui.form;
         var table = layui.table;
@@ -48,9 +48,9 @@
                 {field: 'enabledFlag', width: 100, title: '是否启用', align: "center",
                     templet: function (data) {
                         if(null != data.id && data.enabledFlag){
-                            return '<input type="checkbox" scheduledId="' + data.id + '" checked lay-skin="switch" lay-filter="switchCheckbox" lay-text="ON|OFF">';
+                            return '<input type="checkbox" menuId="' + data.id + '" checked lay-skin="switch" lay-filter="switchCheckbox" lay-text="ON|OFF">';
                         }else if(null != data.id  && !data.enabledFlag){
-                            return '<input type="checkbox" scheduledId="' + data.id + '" lay-skin="switch" lay-filter="switchCheckbox" lay-text="ON|OFF">';
+                            return '<input type="checkbox" menuId="' + data.id + '" lay-skin="switch" lay-filter="switchCheckbox" lay-text="ON|OFF">';
                         }else {
                             return '<input type="checkbox" disabled lay-skin="switch" checked lay-filter="switchCheckbox" lay-text="ON|OFF">';
                         }
@@ -77,7 +77,7 @@
 
         //监听指定开关
         form.on('switch(switchCheckbox)', function (data) {
-            const body = { id: data.elem.attributes['id'].nodeValue };
+            const body = { id: data.elem.attributes['menuId'].nodeValue };
             if(data.elem.checked){
                 /**
                  * 启用

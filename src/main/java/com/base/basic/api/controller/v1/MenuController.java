@@ -54,15 +54,15 @@ public class MenuController {
         return new ResponseEntity(menuService.update(role), HttpStatus.OK);
     }
 
-    @ApiOperation(value = "启用员工")
+    @ApiOperation(value = "启用菜单")
     @PostMapping("/enable")
-    public ResponseEntity enable(@RequestBody IamUser user) {
-        return new ResponseEntity(menuService.enable(user.getId()), HttpStatus.OK);
+    public ResponseEntity enable(@RequestBody Menu role) {
+        return new ResponseEntity(menuService.enable(role.getId()), HttpStatus.OK);
     }
 
-    @ApiOperation(value = "禁用员工")
+    @ApiOperation(value = "禁用菜单")
     @PostMapping("/disabled")
-    public ResponseEntity disabled(@RequestBody IamUser user) {
-        return new ResponseEntity(menuService.disabled(user.getId()), HttpStatus.OK);
+    public ResponseEntity disabled(@RequestBody Menu role) {
+        return new ResponseEntity(menuService.disabled(role.getId()), HttpStatus.OK);
     }
 }
