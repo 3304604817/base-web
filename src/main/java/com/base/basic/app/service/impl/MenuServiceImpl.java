@@ -87,10 +87,10 @@ public class MenuServiceImpl implements MenuService {
         List<Menu> allMenu = menuMapper.selectAll();
         for(Menu menu:allMenu){
             menu.setPathLevel(
-                    Long.valueOf(menu.getMenuPath().split("|").length)
+                    Long.valueOf(menu.getMenuPath().split("\\|").length)
             );
         }
-        return menuMapper.selectAll();
+        return allMenu;
     }
 
     @Override
