@@ -14,6 +14,8 @@ public class Menu extends BaseEntity {
 
     public static final String FIELD_ID = "id";
     public static final String FIELD_PARENT_ID = "parentId";
+    public static final String FIELD_MENU_CODE = "menuCode";
+    public static final String FIELD_MENU_PATH = "menuPath";
     public static final String FIELD_MENU_TYPE = "menuType";
     public static final String FIELD_TITLE = "title";
     public static final String FIELD_HREF = "href";
@@ -30,6 +32,12 @@ public class Menu extends BaseEntity {
 
     @ApiModelProperty(value = "父级菜单ID")
     private Long parentId;
+
+    @ApiModelProperty(value = "菜单编码")
+    private String menuCode;
+
+    @ApiModelProperty(value = "菜单路径")
+    private String menuPath;
 
     @ApiModelProperty(value = "菜单类型：homeInfo（首页）logoInfo（首页Logo）menuInfo（菜单）")
     private String menuType;
@@ -54,6 +62,9 @@ public class Menu extends BaseEntity {
 
     @ApiModelProperty(value = "租户id")
     private Long tenantId;
+
+    @ApiModelProperty(value = "菜单层级")
+    private Long pathLevel;
 
     public Menu(){}
     public Menu(String menuType, Boolean enabledFlag){
@@ -144,5 +155,29 @@ public class Menu extends BaseEntity {
 
     public void setTenantId(Long tenantId) {
         this.tenantId = tenantId;
+    }
+
+    public String getMenuCode() {
+        return menuCode;
+    }
+
+    public void setMenuCode(String menuCode) {
+        this.menuCode = menuCode;
+    }
+
+    public String getMenuPath() {
+        return menuPath;
+    }
+
+    public void setMenuPath(String menuPath) {
+        this.menuPath = menuPath;
+    }
+
+    public Long getPathLevel() {
+        return pathLevel;
+    }
+
+    public void setPathLevel(Long pathLevel) {
+        this.pathLevel = pathLevel;
     }
 }

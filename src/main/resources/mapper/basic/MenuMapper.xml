@@ -4,6 +4,8 @@
     <resultMap id="BaseResultMap" type="com.base.basic.domain.entity.v1.Menu">
         <result column="id" property="id" jdbcType="DECIMAL"/>
         <result column="parent_id" property="parentId" jdbcType="VARCHAR"/>
+        <result column="menu_code" property="menuCode" jdbcType="VARCHAR"/>
+        <result column="menu_path" property="menuPath" jdbcType="VARCHAR"/>
         <result column="menu_type" property="menuType" jdbcType="VARCHAR"/>
         <result column="title" property="title" jdbcType="DECIMAL"/>
         <result column="href" property="href" jdbcType="VARCHAR"/>
@@ -21,6 +23,8 @@
     <select id="list" parameterType="com.base.basic.domain.entity.v1.Menu" resultMap="BaseResultMap">
         SELECT dm.id,
         dm.parent_id,
+        menu_code,
+        menu_path,
         dm.menu_type,
         dm.title,
         dm.href,

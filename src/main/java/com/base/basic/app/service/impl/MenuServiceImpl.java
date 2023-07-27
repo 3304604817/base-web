@@ -84,6 +84,12 @@ public class MenuServiceImpl implements MenuService {
 
     @Override
     public List<Menu> treeList(){
+        List<Menu> allMenu = menuMapper.selectAll();
+        for(Menu menu:allMenu){
+            menu.setPathLevel(
+                    Long.valueOf(menu.getMenuPath().split("|").length)
+            );
+        }
         return menuMapper.selectAll();
     }
 
