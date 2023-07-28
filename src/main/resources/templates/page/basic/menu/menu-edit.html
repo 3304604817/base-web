@@ -103,7 +103,7 @@
             if(parentData && parentData.id){
                 AjaxPost(basicPath + '/menu/update', body);
             }else {
-                AjaxPost(basicPath + '/menu/add', body);
+                AjaxPut(basicPath + '/menu/add', body);
             }
 
             // 关闭弹出层
