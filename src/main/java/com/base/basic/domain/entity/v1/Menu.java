@@ -68,6 +68,14 @@ public class Menu extends BaseEntity {
     @Transient
     private Long pathLevel;
 
+    @ApiModelProperty(value = "父级菜单Code")
+    @Transient
+    private String parentMenuCode;
+
+    @ApiModelProperty(value = "父级菜单名")
+    @Transient
+    private String parentTitle;
+
     public Menu(){}
     public Menu(String menuType, Boolean enabledFlag){
         this.menuType = menuType;
@@ -181,5 +189,21 @@ public class Menu extends BaseEntity {
 
     public void setPathLevel(Long pathLevel) {
         this.pathLevel = pathLevel;
+    }
+
+    public String getParentMenuCode() {
+        return parentMenuCode;
+    }
+
+    public void setParentMenuCode(String parentMenuCode) {
+        this.parentMenuCode = parentMenuCode;
+    }
+
+    public String getParentTitle() {
+        return parentTitle;
+    }
+
+    public void setParentTitle(String parentTitle) {
+        this.parentTitle = parentTitle;
     }
 }

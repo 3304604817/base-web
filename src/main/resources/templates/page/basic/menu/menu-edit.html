@@ -1,5 +1,5 @@
 <div class="layuimini-main">
-    <div class="layui-form layuimini-form" lay-filter="detail">
+    <div class="layui-form layuimini-form" lay-filter="menuDetailFilter">
         <div class="layui-form-item">
             <div class="layui-inline">
                 <label class="layui-form-label">菜单编码</label>
@@ -52,27 +52,10 @@
 <script src="js/network.js"></script>
 <script src="js/config.js"></script>
 <script>
-    // 父级菜单选择
+    // tableSelect 的值
     var parentId = null;
-    var goodsData = {};
-    var goodsDetailData = {};
     // 获取父页面传的变量
     var parentData = window.parent.formData;
-    if(parentData && parentData.id){
-        $.ajax({
-            type: 'get',
-            url: basicPath + '/old-goods/detail/'+parentData.id,
-            dataType: 'json',
-            contentType: 'application/json',
-            cache: false,
-            async: false,
-            success: function (data) {
-                goodsData = data;
-                let { oldGoodsDetail } = data;
-                goodsDetailData = oldGoodsDetail;
-            }
-        });
-    }
 
     layui.use(['form', 'tableSelect'], function () {
         var form = layui.form,
@@ -125,18 +108,15 @@
         });
 
         //表单初始赋值
-        form.val('detail', {
-            "id": goodsData.id,
-            "sku": goodsData.sku,
-            "name": goodsData.name,
-            "categoryId": goodsData.categoryId,
-            "price": goodsData.price,
-            "pictureUrl": goodsData.pictureUrl,
-            "freeShipFlag": goodsData.freeShipFlag,
-            "sellerPhone": goodsDetailData.sellerPhone,
-            "sellerEmail": goodsDetailData.sellerEmail,
-            "sellerDescription": goodsDetailData.sellerDescription,
-            "buyerMessage": goodsDetailData.buyerMessage,
-        })
+        if(parentData){
+            form.val('menuDetailFilter', {
+                "id": parentData.id,
+                "menuCode": parentData.menuCode,
+                "title": parentData.title,
+                "href": parentData.href,
+                "icon": parentData.icon,
+                "menuSelectInput": parentData.parentTitle,
+            })
+        }
     });
 </script>

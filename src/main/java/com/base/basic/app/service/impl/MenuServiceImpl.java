@@ -20,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
@@ -85,9 +86,14 @@ public class MenuServiceImpl implements MenuService {
     @Override
     public List<Menu> treeList(){
         List<Menu> allMenu = menuMapper.selectAll();
+        Map<Long, List<Menu>> menuMapById = allMenu.stream().collect(Collectors.groupingBy(Menu::getId));
         for(Menu menu:allMenu){
             if(Objects.isNull(menu.getParentId())){
                 menu.setParentId(-1L);
+            }else {
+                Menu parentMenu = menuMapById.get(menu.getParentId()).get(0);
+                menu.setParentMenuCode(parentMenu.getMenuCode());
+                menu.setParentTitle(parentMenu.getTitle());
             }
         }
         return allMenu;
@@ -110,6 +116,10 @@ public class MenuServiceImpl implements MenuService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public Menu update(Menu menu){
+        Menu parentMenu = menuMapper.selectByPrimaryKey(menu.getParentId());
+
+        menu.setParentId(menu.getParentId());
+        menu.setMenuPath(parentMenu.getMenuPath() + '|' + menu.getMenuCode());
         menuMapper.updateByIdSelective(menu);
         return menu;
     }
