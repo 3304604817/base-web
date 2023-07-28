@@ -102,13 +102,15 @@ public class MenuServiceImpl implements MenuService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public Menu add(Menu menu){
-        Menu parentMenu = menuMapper.selectByPrimaryKey(menu.getParentId());
+        if(null != menu.getParentId()){
+            Menu parentMenu = menuMapper.selectByPrimaryKey(menu.getParentId());
 
-        menu.setEnabledFlag(Boolean.TRUE);
-        menu.setMenuType(BaseConstants.menuType.MENU_INFO);
-        menu.setTarget("_self");
-        menu.setParentId(menu.getParentId());
-        menu.setMenuPath(parentMenu.getMenuPath() + '|' + menu.getMenuCode());
+            menu.setEnabledFlag(Boolean.TRUE);
+            menu.setMenuType(BaseConstants.menuType.MENU_INFO);
+            menu.setTarget("_self");
+            menu.setParentId(menu.getParentId());
+            menu.setMenuPath(parentMenu.getMenuPath() + '|' + menu.getMenuCode());
+        }
         menuMapper.insertSelective(menu);
         return menu;
     }
