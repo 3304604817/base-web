@@ -99,11 +99,19 @@
         //监听提交
         form.on('submit(saveBtn)', function (data) {
             var { href, icon, menuCode, menuSelectInput, title } = data.field;
-            const body = { href, icon, menuCode, menuSelectInput, title, parentId };
+            const body = {
+                id: parentData && parentData.id ? parentData.id : null,
+                href,
+                icon,
+                menuCode,
+                menuSelectInput,
+                title,
+                parentId
+            };
             if(parentData && parentData.id){
-                AjaxPost(basicPath + '/menu/update', body);
+                AjaxPut(basicPath + '/menu/update', body);
             }else {
-                AjaxPut(basicPath + '/menu/add', body);
+                AjaxPost(basicPath + '/menu/add', body);
             }
 
             // 关闭弹出层
