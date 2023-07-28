@@ -96,6 +96,13 @@ public class MenuServiceImpl implements MenuService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public Menu add(Menu menu){
+        Menu parentMenu = menuMapper.selectOne(new Menu(menu.getParentId(), null, null));
+
+        menu.setEnabledFlag(Boolean.TRUE);
+        menu.setMenuType(BaseConstants.menuType.MENU_INFO);
+        menu.setTarget("_self");
+        menu.setParentId(menu.getParentId());
+        menu.setMenuPath(parentMenu.getMenuPath() + '|' + menu.getMenuCode());
         menuMapper.insertSelective(menu);
         return menu;
     }
@@ -129,6 +136,11 @@ public class MenuServiceImpl implements MenuService {
         return Boolean.TRUE;
     }
 
+    /**
+     * 递归查子级菜单
+     * @param parentMenuInfoVO
+     * @return
+     */
     private List<MenuInfoVO> initMenuInfo(MenuInfoVO parentMenuInfoVO){
         List<MenuInfoVO> menuInfoVOList = new ArrayList<>(8);
         List<Menu> childMenuList = menuMapper.select(new Menu(parentMenuInfoVO.getId(), BaseConstants.menuType.MENU_INFO, Boolean.TRUE));

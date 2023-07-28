@@ -1,0 +1,138 @@
+<div class="layuimini-main">
+    <div class="layui-form layuimini-form" lay-filter="detail">
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label">菜单编码</label>
+                <div class="layui-input-block">
+                    <input type="text" name="menuCode" placeholder="请输入菜单编码" value="" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">菜单名</label>
+                <div class="layui-input-block">
+                    <input type="text" name="title" placeholder="请输入菜单名" value="" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">菜单URL</label>
+                <div class="layui-input-block">
+                    <input type="text" name="href" placeholder="请输入菜单URL" value="" class="layui-input">
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label">菜单图标</label>
+                <div class="layui-input-block">
+                    <input type="text" name="icon" placeholder="请输入菜单图标" value="" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">父级菜单</label>
+                <div class="layui-input-block" lay-filter="modelView">
+                    <input type="text" name="menuSelectInput" placeholder="请输入父级菜单" autocomplete="off"
+                           class="layui-input" id="menuSelectId">
+                </div>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button class="layui-btn layui-btn-normal" lay-submit lay-filter="saveBtn">确认保存</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="js/network.js"></script>
+<script src="js/config.js"></script>
+<script>
+    // 父级菜单选择
+    var parentId = null;
+    var goodsData = {};
+    var goodsDetailData = {};
+    // 获取父页面传的变量
+    var parentData = window.parent.formData;
+    if(parentData && parentData.id){
+        $.ajax({
+            type: 'get',
+            url: basicPath + '/old-goods/detail/'+parentData.id,
+            dataType: 'json',
+            contentType: 'application/json',
+            cache: false,
+            async: false,
+            success: function (data) {
+                goodsData = data;
+                let { oldGoodsDetail } = data;
+                goodsDetailData = oldGoodsDetail;
+            }
+        });
+    }
+
+    layui.use(['form', 'tableSelect'], function () {
+        var form = layui.form,
+            layer = layui.layer,
+            tableSelect = layui.tableSelect,
+            $ = layui.$;
+
+        /**
+         * 初始化表单，要加上，不然刷新部分组件可能会不加载
+         */
+        form.render();
+
+        // 当前弹出层，防止ID被覆盖
+        var parentIndex = layer.index;
+
+        tableSelect.render({
+            elem: '#menuSelectId',
+            searchKey: 'title',
+            checkedKey: 'id',
+            searchPlaceholder: '菜单名',
+            table: {
+                url: basicPath + '/menu/page?menuType="menuInfo"',
+                cols: [[
+                    { type: 'radio' },
+                    { field: 'id', title: 'ID', width: 100 },
+                    { field: 'menuCode', title: '菜单编码', width: 300 },
+                    { field: 'title', title: '菜单名', width: 300 },
+                    { field: 'menuPath', title: '菜单路径', width: 300 }
+                ]]
+            },
+            done: function (elem, data) {
+                var SHOWJSON = []
+                layui.each(data.data, function (index, item) {
+                    parentId = item.id
+                    SHOWJSON.push(item.title)
+                })
+                elem.val(SHOWJSON.join(","))
+            }
+        });
+
+        //监听提交
+        form.on('submit(saveBtn)', function (data) {
+            var { href, icon, menuCode, menuSelectInput, title } = data.field;
+            const body = { href, icon, menuCode, menuSelectInput, title, parentId };
+            AjaxPost(basicPath + '/menu/add', body);
+
+            // 关闭弹出层
+            layer.close(parentIndex);
+            return false;
+        });
+
+        //表单初始赋值
+        form.val('detail', {
+            "id": goodsData.id,
+            "sku": goodsData.sku,
+            "name": goodsData.name,
+            "categoryId": goodsData.categoryId,
+            "price": goodsData.price,
+            "pictureUrl": goodsData.pictureUrl,
+            "freeShipFlag": goodsData.freeShipFlag,
+            "sellerPhone": goodsDetailData.sellerPhone,
+            "sellerEmail": goodsDetailData.sellerEmail,
+            "sellerDescription": goodsDetailData.sellerDescription,
+            "buyerMessage": goodsDetailData.buyerMessage,
+        })
+    });
+</script>
