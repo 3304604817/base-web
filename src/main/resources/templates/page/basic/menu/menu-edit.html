@@ -4,19 +4,22 @@
             <div class="layui-inline">
                 <label class="layui-form-label">菜单编码</label>
                 <div class="layui-input-block">
-                    <input type="text" name="menuCode" placeholder="请输入菜单编码" value="" class="layui-input">
+                    <input type="text" name="menuCode" placeholder="请输入菜单编码" value="" class="layui-input"
+                           lay-verify="required" lay-reqtext="菜单编码不能为空">
                 </div>
             </div>
             <div class="layui-inline">
                 <label class="layui-form-label">菜单名</label>
                 <div class="layui-input-block">
-                    <input type="text" name="title" placeholder="请输入菜单名" value="" class="layui-input">
+                    <input type="text" name="title" placeholder="请输入菜单名" value="" class="layui-input"
+                           lay-verify="required" lay-reqtext="菜单名不能为空">
                 </div>
             </div>
             <div class="layui-inline">
                 <label class="layui-form-label">菜单URL</label>
                 <div class="layui-input-block">
-                    <input type="text" name="href" placeholder="请输入菜单URL" value="" class="layui-input">
+                    <input type="text" name="href" placeholder="请输入菜单URL" value="" class="layui-input"
+                           lay-verify="required" lay-reqtext="菜单URL不能为空">
                 </div>
             </div>
         </div>
@@ -24,7 +27,8 @@
             <div class="layui-inline">
                 <label class="layui-form-label">菜单图标</label>
                 <div class="layui-input-block">
-                    <input type="text" name="icon" placeholder="请输入菜单图标" value="" class="layui-input">
+                    <input type="text" name="icon" placeholder="请输入菜单图标" value="" class="layui-input"
+                           lay-verify="required" lay-reqtext="图标不能为空">
                 </div>
             </div>
             <div class="layui-inline">
@@ -90,7 +94,7 @@
             checkedKey: 'id',
             searchPlaceholder: '菜单名',
             table: {
-                url: basicPath + '/menu/page?menuType="menuInfo"',
+                url: basicPath + '/menu/page?menuType=menuInfo',
                 cols: [[
                     { type: 'radio' },
                     { field: 'id', title: 'ID', width: 100 },
