@@ -96,7 +96,7 @@ public class MenuServiceImpl implements MenuService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public Menu add(Menu menu){
-        Menu parentMenu = menuMapper.selectOne(new Menu(menu.getParentId(), null, null));
+        Menu parentMenu = menuMapper.selectByPrimaryKey(menu.getParentId());
 
         menu.setEnabledFlag(Boolean.TRUE);
         menu.setMenuType(BaseConstants.menuType.MENU_INFO);
