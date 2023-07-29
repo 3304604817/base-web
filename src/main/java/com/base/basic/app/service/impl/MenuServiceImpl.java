@@ -85,7 +85,7 @@ public class MenuServiceImpl implements MenuService {
 
     @Override
     public List<Menu> treeList(){
-        List<Menu> allMenu = menuMapper.selectAll();
+        List<Menu> allMenu = menuMapper.select(new Menu(BaseConstants.menuType.MENU_INFO, null));
         Map<Long, List<Menu>> menuMapById = allMenu.stream().collect(Collectors.groupingBy(Menu::getId));
         for(Menu menu:allMenu){
             if(Objects.isNull(menu.getParentId())){

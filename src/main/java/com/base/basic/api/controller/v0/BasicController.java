@@ -1,6 +1,8 @@
 package com.base.basic.api.controller.v0;
 
+import com.base.basic.domain.vo.v0.CurrentUserVO;
 import com.base.common.annotation.Access;
+import com.base.common.current.CurrentUserHelper;
 import com.base.common.exception.BaseException;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -20,10 +22,7 @@ public class BasicController {
     @ApiOperation(value = "测试")
     @PostMapping("/test")
     public ResponseEntity loginOut() {
-        if(1 == 1){
-            throw new BaseException("测试报错");
-        }
-
+        CurrentUserVO user = CurrentUserHelper.userDetail();
         return new ResponseEntity(HttpStatus.OK);
     }
 }
