@@ -39,6 +39,7 @@
             {{# if(null != d.roleId){ }}
             <a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="update">更新</a>
             <a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="setUser">分配用户</a>
+            <a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="setUser">分配菜单</a>
 
             <!-- 新建的行按钮 -->
             {{# } if(null == d.roleId){ }}
@@ -69,8 +70,8 @@
             }],
             cols: [[
                 {type: "checkbox", width: 50},
-                {field: 'roleCode', width: 150, title: '权限编码', sort: true, edit:"text"},
-                {field: 'roleName', width: 200, title: '权限名称', edit:"text"},
+                {field: 'roleCode', width: 150, title: '角色编码', sort: true, edit:"text"},
+                {field: 'roleName', width: 200, title: '角色名称', edit:"text"},
                 {field: 'enabledFlag', width: 200, title: '是否启用', align: "center",
                     templet: function (data) {
                         if(null != data.roleId && data.enabledFlag){

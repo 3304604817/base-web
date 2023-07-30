@@ -9,6 +9,7 @@ import com.base.basic.domain.vo.v0.MenuLogoVO;
 import com.base.basic.domain.vo.v0.MenuVO;
 import com.base.basic.infra.constant.BaseConstants;
 import com.base.basic.infra.mapper.MenuMapper;
+import com.base.common.exception.BaseException;
 import com.base.common.util.page.PageParmaters;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -85,7 +86,7 @@ public class MenuServiceImpl implements MenuService {
 
     @Override
     public List<Menu> treeList(){
-        List<Menu> allMenu = menuMapper.select(new Menu(BaseConstants.menuType.MENU_INFO, null));
+        List<Menu> allMenu = menuMapper.selectAll();
         Map<Long, List<Menu>> menuMapById = allMenu.stream().collect(Collectors.groupingBy(Menu::getId));
         for(Menu menu:allMenu){
             if(Objects.isNull(menu.getParentId())){
@@ -120,9 +121,13 @@ public class MenuServiceImpl implements MenuService {
     @Transactional(rollbackFor = Exception.class)
     public Menu update(Menu menu){
         Menu parentMenu = menuMapper.selectByPrimaryKey(menu.getParentId());
-
+        if(null != parentMenu && StringUtils.isNotEmpty(parentMenu.getMenuPath())){
+            menu.setMenuPath(parentMenu.getMenuPath() + '|' + menu.getMenuCode());
+        }else {
+            menu.setParentId(null);
+            menu.setMenuPath(menu.getMenuCode());
+        }
         menu.setParentId(menu.getParentId());
-        menu.setMenuPath(parentMenu.getMenuPath() + '|' + menu.getMenuCode());
         menuMapper.updateByIdSelective(menu);
         return menu;
     }
@@ -141,8 +146,10 @@ public class MenuServiceImpl implements MenuService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public Boolean disabled(Long id){
-        Menu menu = new Menu();
-        menu.setId(id);
+        Menu menu = menuMapper.selectByPrimaryKey(id);
+        if(!StringUtils.equals(BaseConstants.menuType.MENU_INFO, menu.getMenuType())){
+            throw new BaseException("当前菜单不允许禁用!");
+        }
         menu.setEnabledFlag(Boolean.FALSE);
         menuMapper.updateOptional(menu,
                 Menu.FIELD_ENABLED_FLAG);
