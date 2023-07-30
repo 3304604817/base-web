@@ -12,7 +12,7 @@ echo ">>> git pull"
 git pull
 
 echo ">>> mvn clean package"
-mvn clean package -U -DskipTests=true
+mvn clean package -Dmaven.test.skip=true
 
 # 根据端口号查询对应的pid，并删除服务进程
 # netstat -nlp 列举所有进程
@@ -30,4 +30,4 @@ echo ">>> cd target"
 cd target
 
 echo ">>> start"
-nohup java -jar -Xms512m -Xmx1024m /home/app/baseapp/$dirName/target/base.jar > base.log &
+nohup java -jar -Xms512m -Xmx1024m /home/app/baseapp/$dirName/target/base-web-run.jar > base-web-run.log &
