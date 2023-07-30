@@ -39,7 +39,7 @@
             {{# if(null != d.roleId){ }}
             <a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="update">更新</a>
             <a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="setUser">分配用户</a>
-            <a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="setUser">分配菜单</a>
+            <a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="setMenu">分配菜单</a>
 
             <!-- 新建的行按钮 -->
             {{# } if(null == d.roleId){ }}
@@ -167,6 +167,32 @@
                 layer.msg("操作成功");
                 return false;
             } else if(obj.event === 'setUser'){
+                let userRoleData = AjaxGet(basicPath + '/user-role/list?roleId=' + data.roleId);
+                var tableSelectKeys = [];
+                var tableSelectValues = [];
+                layui.each(userRoleData, function (index, item) {
+                    tableSelectKeys.push(item.userId)
+                    tableSelectValues.push(item.realName)
+                })
+                var userIds = tableSelectKeys.join(",");
+                var userRealNames = tableSelectValues.join(",");
+
+                const subData = { userIds, userRealNames, roleId:data.roleId };
+
+                // 数据传输-传输之前先清缓存
+                window.formData = null;
+                window.formData = subData;
+                var content = miniPage.getHrefContent('page/basic/role/user-table-select.html');
+                layer.open({
+                    title: '分配用户',
+                    type: 1,
+                    shade: 0.2,
+                    maxmin:true,
+                    shadeClose: true,
+                    content: content,
+                    btnAlign: 'c', //按钮居中
+                });
+            } else if(obj.event === 'setMenu'){
                 let userRoleData = AjaxGet(basicPath + '/user-role/list?roleId=' + data.roleId);
                 var tableSelectKeys = [];
                 var tableSelectValues = [];
