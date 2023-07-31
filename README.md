@@ -1,3 +1,7 @@
+# 项目访问地址
+http://base.gshen.net.cn/guest-index.html
+
+
 # SpringBoot单体服务
 LayUI+SpringBoot
 默认80端口启动
