@@ -59,6 +59,8 @@ public class MenuServiceImpl implements MenuService {
         List<MenuInfoVO> oneLevelMenuVOList = new ArrayList<>();
         // 查所有菜单
         List<Menu> menuInfoList = menuMapper.select(new Menu(BaseConstants.menuType.MENU_INFO, Boolean.TRUE));
+        // 所有菜单先剔除 ParentId 不存在的，根据 ParentId 分组
+        Map<Long, List<Menu>> menuMapByParentId = menuInfoList.stream().filter(menuInfo-> Objects.nonNull(menuInfo.getParentId())).collect(Collectors.groupingBy(Menu::getParentId));
         // 过滤出一级菜单
         List<Menu> oneLevelMenuList = menuInfoList.stream().filter(menuInfo-> Objects.isNull(menuInfo.getParentId())).collect(Collectors.toList());
         for(Menu oneLevelMenu:oneLevelMenuList){
@@ -69,7 +71,7 @@ public class MenuServiceImpl implements MenuService {
              * 递归查子级菜单
              */
             oneLevelMenuVO.setChild(
-                    initMenuInfo(oneLevelMenuVO)
+                    initMenuInfo(10, 0, menuMapByParentId, oneLevelMenuVO)
             );
             oneLevelMenuVOList.add(oneLevelMenuVO);
         }
@@ -88,12 +90,19 @@ public class MenuServiceImpl implements MenuService {
         //　当前用户的权限
         List<UserRole> userRoleList = userRoleMapper.userRole(CurrentUserHelper.userDetail().getUsername());
 
-        // currentUserMenuIds 当前用户所拥有的菜单ID
-        Set<Long> currentUserMenuIds = new HashSet<>(8);
+        // 查所有菜单
+        List<Menu> menuInfoList = menuMapper.select(new Menu(BaseConstants.menuType.MENU_INFO, Boolean.TRUE));
+        Map<Long, List<Menu>> menuMapById = menuInfoList.stream().collect(Collectors.groupingBy(Menu::getId));
+        // 所有菜单先剔除 ParentId 不存在的，根据 ParentId 分组
+        Map<Long, List<Menu>> menuMapByParentId = menuInfoList.stream().filter(menuInfo-> Objects.nonNull(menuInfo.getParentId())).collect(Collectors.groupingBy(Menu::getParentId));
+
+        //
         List<String> menuIdList = userRoleList.stream().map(UserRole::getMenuIds).collect(Collectors.toList());
         for(String menuIds:menuIdList){
             for(String menuId:menuIds.split(",")){
-                currentUserMenuIds.add(Long.valueOf(menuId));
+
+
+                menuMapById.get(Long.valueOf(menuId)).get(0);
             }
         }
 
@@ -117,8 +126,7 @@ public class MenuServiceImpl implements MenuService {
          */
         // 存一级菜单最终返回用
         List<MenuInfoVO> oneLevelMenuVOList = new ArrayList<>();
-        // 查所有菜单
-        List<Menu> menuInfoList = menuMapper.select(new Menu(BaseConstants.menuType.MENU_INFO, Boolean.TRUE));
+
         // 过滤出一级菜单
         List<Menu> oneLevelMenuList = menuInfoList.stream().filter(menuInfo-> Objects.isNull(menuInfo.getParentId())).collect(Collectors.toList());
         for(Menu oneLevelMenu:oneLevelMenuList){
@@ -129,7 +137,7 @@ public class MenuServiceImpl implements MenuService {
              * 递归查子级菜单
              */
             oneLevelMenuVO.setChild(
-                    initMenuInfo(oneLevelMenuVO)
+                    initMenuInfo(10, 0, menuMapByParentId, oneLevelMenuVO)
             );
             oneLevelMenuVOList.add(oneLevelMenuVO);
         }
@@ -222,19 +230,22 @@ public class MenuServiceImpl implements MenuService {
 
     /**
      * 递归查子级菜单，返回的是树状结构
+     * @param maxCount 最大递归次数
+     * @param count 当前递归次数
+     * @param menuMapByParentId
      * @param parentMenuInfoVO
      * @return
      */
-    private List<MenuInfoVO> initMenuInfo(MenuInfoVO parentMenuInfoVO){
+    private List<MenuInfoVO> initMenuInfo(int maxCount, int count, Map<Long, List<Menu>> menuMapByParentId, MenuInfoVO parentMenuInfoVO){
         List<MenuInfoVO> menuInfoVOList = new ArrayList<>(8);
-        List<Menu> childMenuList = menuMapper.select(new Menu(parentMenuInfoVO.getId(), BaseConstants.menuType.MENU_INFO, Boolean.TRUE));
-        if(0 == childMenuList.size()){
+        List<Menu> childMenuList = menuMapByParentId.get(parentMenuInfoVO.getId());
+        if(Objects.isNull(childMenuList) || 0 == childMenuList.size() || count > maxCount){
             return null;
         }
         for(Menu childMenu:childMenuList){
             MenuInfoVO childMenuVO = new MenuInfoVO();
             BeanUtils.copyProperties(childMenu, childMenuVO);
-            childMenuVO.setChild(this.initMenuInfo(childMenuVO));
+            childMenuVO.setChild(this.initMenuInfo(maxCount, ++count, menuMapByParentId, childMenuVO));
 
             menuInfoVOList.add(childMenuVO);
         }
