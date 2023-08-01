@@ -37,7 +37,16 @@
         FROM db_menu dm
         <where>
             <if test="null != menuType and '' != menuType">
-                AND menu_type = #{menuType}
+                AND dm.menu_type = #{menuType}
+            </if>
+            <if test="null != enabledFlag">
+                AND dm.enabled_flag = #{enabledFlag}
+            </if>
+            <if test="null != menuIdSet and menuIdSet.size > 0">
+                AND dm.id IN
+                <foreach item="item" index="index" collection="menuIdSet" open="(" separator="," close=")">
+                    #{item, jdbcType = VARCHAR}
+                </foreach>
             </if>
         </where>
     </select>

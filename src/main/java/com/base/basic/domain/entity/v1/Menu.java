@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import java.util.Set;
 
 @ApiModel("菜单管理")
 @Table(name = "db_menu")
@@ -76,6 +77,10 @@ public class Menu extends BaseEntity {
     @Transient
     private String parentTitle;
 
+    @ApiModelProperty(value = "菜单ID查询条件")
+    @Transient
+    private Set<Long> menuIdSet;
+
     public Menu(){}
     public Menu(String menuType, Boolean enabledFlag){
         this.menuType = menuType;
@@ -83,6 +88,11 @@ public class Menu extends BaseEntity {
     }
     public Menu(Long parentId, String menuType, Boolean enabledFlag){
         this.parentId = parentId;
+        this.menuType = menuType;
+        this.enabledFlag = enabledFlag;
+    }
+    public Menu(Set<Long> menuIdSet, String menuType, Boolean enabledFlag){
+        this.menuIdSet = menuIdSet;
         this.menuType = menuType;
         this.enabledFlag = enabledFlag;
     }
@@ -205,5 +215,13 @@ public class Menu extends BaseEntity {
 
     public void setParentTitle(String parentTitle) {
         this.parentTitle = parentTitle;
+    }
+
+    public Set<Long> getMenuIdSet() {
+        return menuIdSet;
+    }
+
+    public void setMenuIdSet(Set<Long> menuIdSet) {
+        this.menuIdSet = menuIdSet;
     }
 }

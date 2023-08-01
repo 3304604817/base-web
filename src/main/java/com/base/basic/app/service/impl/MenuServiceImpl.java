@@ -92,18 +92,6 @@ public class MenuServiceImpl implements MenuService {
          */
         //　当前用户的权限
         List<UserRole> userRoleList = userRoleMapper.userRole(CurrentUserHelper.userDetail().getUsername());
-        // 查所有菜单
-        List<Menu> menuInfoList = menuMapper.select(new Menu(BaseConstants.menuType.MENU_INFO, Boolean.TRUE));
-        // 所有菜单根据 Id 分组
-        Map<Long, List<Menu>> menuMapById = menuInfoList.stream().collect(Collectors.groupingBy(Menu::getId));
-        // 所有菜单先剔除 ParentId 不存在的，根据 ParentId 分组
-        Map<Long, List<Menu>> menuMapByParentId = menuInfoList.stream().filter(menuInfo-> Objects.nonNull(menuInfo.getParentId())).collect(Collectors.groupingBy(Menu::getParentId));
-        // 过滤出一级菜单
-        List<Menu> oneLevelMenuList = menuInfoList.stream().filter(menuInfo-> Objects.isNull(menuInfo.getParentId())).collect(Collectors.toList());
-
-        // 存一级菜单Json最终返回用
-        List<MenuInfoVO> oneLevelMenuVOList = new ArrayList<>();
-
         // 取当前用户所有菜单ID Set
         Set<Long> menuIdSet = new HashSet<>(32);
         List<String> menuIdList = userRoleList.stream().map(UserRole::getMenuIds).collect(Collectors.toList());
@@ -112,7 +100,17 @@ public class MenuServiceImpl implements MenuService {
                 menuIdSet.add(Long.valueOf(menuId));
             }
         }
+        // 查当前用户可以访问的所有菜单
+        List<Menu> menuInfoList = menuMapper.list(new Menu(menuIdSet, BaseConstants.menuType.MENU_INFO, Boolean.TRUE));
+        // 所有菜单根据 Id 分组
+        Map<Long, List<Menu>> menuMapById = menuInfoList.stream().collect(Collectors.groupingBy(Menu::getId));
+        // 所有菜单先剔除 ParentId 不存在的，根据 ParentId 分组
+        Map<Long, List<Menu>> menuMapByParentId = menuInfoList.stream().filter(menuInfo-> Objects.nonNull(menuInfo.getParentId())).collect(Collectors.groupingBy(Menu::getParentId));
 
+        // 过滤出一级菜单
+        List<Menu> oneLevelMenuList = menuInfoList.stream().filter(menuInfo-> Objects.isNull(menuInfo.getParentId())).collect(Collectors.toList());
+        // 存一级菜单Json最终返回用
+        List<MenuInfoVO> oneLevelMenuVOList = new ArrayList<>();
         for(Long menuId:menuIdSet){
             Menu menu = menuMapById.get(Long.valueOf(menuId)).get(0);
             MenuInfoVO menuVO = new MenuInfoVO();
@@ -120,7 +118,6 @@ public class MenuServiceImpl implements MenuService {
             menuVO.setChild(
                     initMenuInfo(10, 0, menuMapByParentId, menuVO)
             );
-
             oneLevelMenuVOList.add(menuVO);
         }
 
