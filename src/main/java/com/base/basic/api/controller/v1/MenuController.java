@@ -28,7 +28,6 @@ public class MenuController {
     @GetMapping("/init")
     public ResponseEntity<MenuVO> initMenu(PageParmaters pageParmaters, Menu searchBody) {
         return new ResponseEntity(menuService.initCurrentMenu(), HttpStatus.OK);
-//        return new ResponseEntity(menuService.initAllMenu(), HttpStatus.OK);
     }
 
     @ApiOperation(value = "主页初始化加载所有菜单")
