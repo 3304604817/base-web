@@ -3,8 +3,11 @@ package com.base.basic.app.service.impl;
 import com.base.basic.app.service.RoleService;
 import com.base.basic.domain.entity.v0.IamUser;
 import com.base.basic.domain.entity.v1.DbCache;
+import com.base.basic.domain.entity.v1.Menu;
 import com.base.basic.domain.entity.v1.Role;
 import com.base.basic.domain.entity.v1.Scheduled;
+import com.base.basic.infra.constant.BaseConstants;
+import com.base.basic.infra.mapper.MenuMapper;
 import com.base.basic.infra.mapper.RoleMapper;
 import com.base.basic.infra.mapper.ScheduledMapper;
 import com.base.common.util.page.PageParmaters;
@@ -14,12 +17,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 @Service
 public class RoleServiceImpl implements RoleService {
 
     @Autowired
     @SuppressWarnings("all")
     private RoleMapper roleMapper;
+    @Autowired
+    @SuppressWarnings("all")
+    private MenuMapper menuMapper;
 
     @Override
     public PageInfo<Role> pageList(PageParmaters pageParmaters, Role searchBody){
@@ -58,5 +69,35 @@ public class RoleServiceImpl implements RoleService {
         role.setEnabledFlag(Boolean.FALSE);
         roleMapper.updateOptional(role,Role.FIELD_ENABLED_FLAG);
         return Boolean.TRUE;
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public Boolean roleMenuSave(Role role){
+        // menuIds 要保存的菜单ID
+        Set<Long> menuIds = new HashSet<>(8);
+        for(String menuId:role.getMenuIds().split(",")){
+            menuIds.add(Long.valueOf(menuId));
+        }
+
+        List<Menu> menuInfoList = menuMapper.select(new Menu(BaseConstants.menuType.MENU_INFO, null));
+
+
+
+        roleMapper.updateOptional(role,Role.FIELD_MENU_IDS);
+        return Boolean.TRUE;
+    }
+
+    /**
+     *
+     * @param count 当前递归次数
+     * @param maxCount 最大递归次数
+     * @param allMenuInfos
+     * @param menu
+     */
+    private void childMenuIds(int count, int maxCount , List<Menu> allMenuInfos, Menu menu){
+        if(count >= maxCount)return ;
+
+
     }
 }

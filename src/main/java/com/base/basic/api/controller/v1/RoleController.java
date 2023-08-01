@@ -2,6 +2,7 @@ package com.base.basic.api.controller.v1;
 
 import com.base.basic.app.service.RoleService;
 import com.base.basic.domain.entity.v0.IamUser;
+import com.base.basic.domain.entity.v1.Menu;
 import com.base.basic.domain.entity.v1.Role;
 import com.base.basic.domain.entity.v1.Scheduled;
 import com.base.common.util.layui.LayJson;
@@ -13,6 +14,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Api(tags="角色管理")
 @RestController
@@ -50,5 +53,11 @@ public class RoleController {
     @PostMapping("/disabled")
     public ResponseEntity<Boolean> disabled(@RequestBody Role role) {
         return new ResponseEntity(roleService.disabled(role.getRoleId()), HttpStatus.OK);
+    }
+
+    @ApiOperation(value = "保存角色菜单关系")
+    @PostMapping("/menu/save")
+    public ResponseEntity roleMenuSave(@RequestBody Role role) {
+        return new ResponseEntity(roleService.roleMenuSave(role), HttpStatus.OK);
     }
 }

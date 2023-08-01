@@ -17,6 +17,7 @@
         <result column="phone" property="phone" jdbcType="VARCHAR"/>
         <result column="role_code" property="roleCode" jdbcType="VARCHAR"/>
         <result column="role_name" property="roleName" jdbcType="VARCHAR"/>
+        <result column="menu_ids" property="menuIds" jdbcType="VARCHAR"/>
     </resultMap>
 
     <select id="list" parameterType="com.base.basic.domain.entity.v1.UserRole" resultMap="BaseResultMap">
@@ -40,5 +41,22 @@
                 AND dur.role_id = #{roleId}
             </if>
         </where>
+    </select>
+
+    <select id="userRole" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT dur.id,
+        dur.user_id,
+        du.login_name,
+        du.email,
+        du.real_name,
+        du.phone,
+        dur.role_id,
+        dr.role_code,
+        dr.role_name,
+        dr.menu_ids
+        FROM db_user_role dur
+        LEFT JOIN db_user du ON du.id = dur.user_id
+        LEFT JOIN db_role dr ON dr.role_id = dur.role_id
+        WHERE du.login_name = #{loginName}
     </select>
 </mapper>

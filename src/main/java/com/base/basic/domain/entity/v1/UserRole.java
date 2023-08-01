@@ -56,6 +56,10 @@ public class UserRole extends BaseEntity {
     @Transient
     private String roleName;
 
+    @ApiModelProperty(value = "角色菜单ID")
+    @Transient
+    private String menuIds;
+
     public Long getId() {
         return id;
     }
@@ -134,5 +138,13 @@ public class UserRole extends BaseEntity {
 
     public void setRoleName(String roleName) {
         this.roleName = roleName;
+    }
+
+    public String getMenuIds() {
+        return menuIds;
+    }
+
+    public void setMenuIds(String menuIds) {
+        this.menuIds = menuIds;
     }
 }

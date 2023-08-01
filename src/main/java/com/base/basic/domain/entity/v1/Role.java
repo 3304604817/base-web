@@ -7,6 +7,7 @@ import io.swagger.annotations.ApiModelProperty;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @ApiModel("角色管理")
 @Table(name = "db_role")
@@ -14,6 +15,7 @@ public class Role extends BaseEntity {
     public static final String FIELD_ROLE_ID = "roleId";
     public static final String FIELD_ROLE_CODE = "roleCode";
     public static final String FIELD_ROLE_NAME = "roleName";
+    public static final String FIELD_MENU_IDS = "menuIds";
     public static final String FIELD_ENABLED_FLAG = "enabledFlag";
 
     @ApiModelProperty("表ID，主键")
@@ -26,6 +28,9 @@ public class Role extends BaseEntity {
 
     @ApiModelProperty(value = "角色名称")
     private String roleName;
+
+    @ApiModelProperty(value = "角色对应菜单ID,逗号分割")
+    private String menuIds;
 
     @ApiModelProperty(value = "是否启用")
     private Boolean enabledFlag;
@@ -60,5 +65,13 @@ public class Role extends BaseEntity {
 
     public void setEnabledFlag(Boolean enabledFlag) {
         this.enabledFlag = enabledFlag;
+    }
+
+    public String getMenuIds() {
+        return menuIds;
+    }
+
+    public void setMenuIds(String menuIds) {
+        this.menuIds = menuIds;
     }
 }

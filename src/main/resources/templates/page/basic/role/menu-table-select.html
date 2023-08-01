@@ -14,7 +14,6 @@
 <script>
     // 获取父页面传的变量
     var parentData = window.parent.formData;
-    console.log(parentData);
 
     layui.use(['form', 'table','miniPage','element','tableSelect'], function () {
         var $ = layui.jquery,
@@ -23,18 +22,17 @@
 
         tableSelect.render({
             elem: '#menuSelectId',
-            searchKey: 'realName',
+            searchKey: 'title',
             checkedKey: 'id',
-            searchPlaceholder: '姓名',
+            searchPlaceholder: '菜单名',
             table: {
-                url: basicPath + '/user/page',
+                url: basicPath + '/menu/page?menuType=menuInfo',
                 cols: [[
                     { type: 'checkbox' },
                     { field: 'id', title: 'ID', width: 100 },
-                    { field: 'loginName', title: '登录名', width: 300 },
-                    { field: 'realName', title: '姓名', width: 300 },
-                    { field: 'email', title: '邮箱', width: 300 },
-                    { field: 'phone', title: '手机', width: 300 }
+                    { field: 'menuCode', title: '菜单编码', width: 300 },
+                    { field: 'title', title: '菜单名', width: 300 },
+                    { field: 'menuPath', title: '菜单路径', width: 300 }
                 ]]
             },
             done: function (elem, data) {
@@ -42,17 +40,17 @@
                 var SHOWJSON = []
                 layui.each(data.data, function (index, item) {
                     SAVEJSON.push(item.id)
-                    SHOWJSON.push(item.realName)
+                    SHOWJSON.push(item.title)
                 })
                 elem.val(SHOWJSON.join(","))
-                const requestBody = { roleId:parentData.roleId, userIds:SAVEJSON }
-                AjaxPost(basicPath + '/user-role/save', requestBody);
+                const requestBody = { roleId:parentData.roleId, menuIds:SAVEJSON.join(",") }
+                AjaxPost(basicPath + '/role/menu/save', requestBody);
             }
         });
 
         //表单初始赋值
-        form.val('modelView', {
-            "tableSelectInput": parentData.userRealNames,
-        })
+        // form.val('modelView', {
+        //     "tableSelectInput": parentData.userRealNames,
+        // })
     });
 </script>
