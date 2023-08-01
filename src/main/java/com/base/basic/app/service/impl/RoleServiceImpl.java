@@ -81,15 +81,19 @@ public class RoleServiceImpl implements RoleService {
         }
 
         List<Menu> parentMenus = new CopyOnWriteArrayList<>();
+        // 所有菜单
         List<Menu> menuInfoList = menuMapper.select(new Menu(BaseConstants.menuType.MENU_INFO, null));
-        for(Menu menu:menuInfoList){
+        // 前端请求要保存的菜单
+        List<Menu> saveInfoList = menuMapper.list(new Menu(menuIds, BaseConstants.menuType.MENU_INFO, null));
+        for(Menu menu:saveInfoList){
+            parentMenus.add(menu);
             this.parentMenuIds(10, 0, menuInfoList, menu, parentMenus);
         }
         StringBuilder menuIdBuilder = new StringBuilder();
         Set<Long> saveMenuIds = parentMenus.stream().map(Menu::getId).collect(Collectors.toSet());
         for(Long menuId:saveMenuIds){
             if(StringUtils.equals("", menuIdBuilder.toString())){
-                menuIdBuilder.append(String.valueOf(menuId));
+                menuIdBuilder.append(menuId);
             }else {
                 menuIdBuilder.append(",").append(menuId);
             }
