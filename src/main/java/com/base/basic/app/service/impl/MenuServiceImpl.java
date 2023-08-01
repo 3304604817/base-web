@@ -87,23 +87,41 @@ public class MenuServiceImpl implements MenuService {
 
     @Override
     public MenuVO initCurrentMenu(){
+        /**
+         * 查菜单
+         */
         //　当前用户的权限
         List<UserRole> userRoleList = userRoleMapper.userRole(CurrentUserHelper.userDetail().getUsername());
-
         // 查所有菜单
         List<Menu> menuInfoList = menuMapper.select(new Menu(BaseConstants.menuType.MENU_INFO, Boolean.TRUE));
+        // 所有菜单根据 Id 分组
         Map<Long, List<Menu>> menuMapById = menuInfoList.stream().collect(Collectors.groupingBy(Menu::getId));
         // 所有菜单先剔除 ParentId 不存在的，根据 ParentId 分组
         Map<Long, List<Menu>> menuMapByParentId = menuInfoList.stream().filter(menuInfo-> Objects.nonNull(menuInfo.getParentId())).collect(Collectors.groupingBy(Menu::getParentId));
+        // 过滤出一级菜单
+        List<Menu> oneLevelMenuList = menuInfoList.stream().filter(menuInfo-> Objects.isNull(menuInfo.getParentId())).collect(Collectors.toList());
 
-        //
+        // 存一级菜单Json最终返回用
+        List<MenuInfoVO> oneLevelMenuVOList = new ArrayList<>();
+
+        // 取当前用户所有菜单ID Set
+        Set<Long> menuIdSet = new HashSet<>(32);
         List<String> menuIdList = userRoleList.stream().map(UserRole::getMenuIds).collect(Collectors.toList());
         for(String menuIds:menuIdList){
             for(String menuId:menuIds.split(",")){
-
-
-                menuMapById.get(Long.valueOf(menuId)).get(0);
+                menuIdSet.add(Long.valueOf(menuId));
             }
+        }
+
+        for(Long menuId:menuIdSet){
+            Menu menu = menuMapById.get(Long.valueOf(menuId)).get(0);
+            MenuInfoVO menuVO = new MenuInfoVO();
+            BeanUtils.copyProperties(menu, menuVO);
+            menuVO.setChild(
+                    initMenuInfo(10, 0, menuMapByParentId, menuVO)
+            );
+
+            oneLevelMenuVOList.add(menuVO);
         }
 
 
@@ -121,26 +139,7 @@ public class MenuServiceImpl implements MenuService {
         MenuLogoVO menuLogoVO = new MenuLogoVO();
         BeanUtils.copyProperties(logoInfo, menuLogoVO);
 
-        /**
-         * 查菜单
-         */
-        // 存一级菜单最终返回用
-        List<MenuInfoVO> oneLevelMenuVOList = new ArrayList<>();
 
-        // 过滤出一级菜单
-        List<Menu> oneLevelMenuList = menuInfoList.stream().filter(menuInfo-> Objects.isNull(menuInfo.getParentId())).collect(Collectors.toList());
-        for(Menu oneLevelMenu:oneLevelMenuList){
-            MenuInfoVO oneLevelMenuVO = new MenuInfoVO();
-            BeanUtils.copyProperties(oneLevelMenu, oneLevelMenuVO);
-
-            /**
-             * 递归查子级菜单
-             */
-            oneLevelMenuVO.setChild(
-                    initMenuInfo(10, 0, menuMapByParentId, oneLevelMenuVO)
-            );
-            oneLevelMenuVOList.add(oneLevelMenuVO);
-        }
 
 
         // 最终返回的菜单
