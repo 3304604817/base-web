@@ -24,10 +24,16 @@ public class MenuController {
     @Autowired
     private MenuService menuService;
 
-    @ApiOperation(value = "主页初始化加载菜单")
+    @ApiOperation(value = "主页初始化加载当前用户菜单")
     @GetMapping("/init")
     public ResponseEntity<MenuVO> initMenu(PageParmaters pageParmaters, Menu searchBody) {
-        return new ResponseEntity(menuService.initMenu(), HttpStatus.OK);
+        return new ResponseEntity(menuService.initCurrentMenu(), HttpStatus.OK);
+    }
+
+    @ApiOperation(value = "主页初始化加载所有菜单")
+    @GetMapping("/init/all")
+    public ResponseEntity<MenuVO> initAllMenu(PageParmaters pageParmaters, Menu searchBody) {
+        return new ResponseEntity(menuService.initAllMenu(), HttpStatus.OK);
     }
 
     @ApiOperation(value = "查所有菜单")

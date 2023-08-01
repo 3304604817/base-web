@@ -93,9 +93,9 @@ public class RoleServiceImpl implements RoleService {
      * @param count 当前递归次数
      * @param maxCount 最大递归次数
      * @param allMenuInfos
-     * @param menu
+     * @param childMenus 子菜单
      */
-    private void childMenuIds(int count, int maxCount , List<Menu> allMenuInfos, Menu menu){
+    private void childMenuIds(int count, int maxCount , List<Menu> allMenuInfos, Menu childMenus){
         if(count >= maxCount)return ;
 
 

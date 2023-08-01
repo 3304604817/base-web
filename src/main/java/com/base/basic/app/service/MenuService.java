@@ -10,7 +10,17 @@ import java.util.List;
 
 public interface MenuService {
 
-    MenuVO initMenu();
+    /**
+     * 初始化所有菜单
+     * @return
+     */
+    MenuVO initAllMenu();
+
+    /**
+     * 初始化当前用户菜单
+     * @return
+     */
+    MenuVO initCurrentMenu();
 
     /**
      * 分页查询菜单信息

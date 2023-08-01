@@ -20,10 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -39,58 +36,67 @@ public class MenuServiceImpl implements MenuService {
     @SuppressWarnings("all")
     private UserRoleMapper userRoleMapper;
 
-//    @Override
-//    public MenuVO initMenu(){
-//        /**
-//         * 查首页
-//         */
-//        Menu homeInfo = menuMapper.selectOne(new Menu(BaseConstants.menuType.HOME_INFO, Boolean.TRUE));
-//        MenuHomeVO menuHomeVO = new MenuHomeVO();
-//        BeanUtils.copyProperties(homeInfo, menuHomeVO);
-//
-//        /**
-//         * 查首页 Logo
-//         */
-//        Menu logoInfo = menuMapper.selectOne(new Menu(BaseConstants.menuType.LOGO_INFO, Boolean.TRUE));
-//        MenuLogoVO menuLogoVO = new MenuLogoVO();
-//        BeanUtils.copyProperties(logoInfo, menuLogoVO);
-//
-//        /**
-//         * 查菜单
-//         */
-//        // 存一级菜单最终返回用
-//        List<MenuInfoVO> oneLevelMenuVOList = new ArrayList<>();
-//        // 查所有菜单
-//        List<Menu> menuInfoList = menuMapper.select(new Menu(BaseConstants.menuType.MENU_INFO, Boolean.TRUE));
-//        // 过滤出一级菜单
-//        List<Menu> oneLevelMenuList = menuInfoList.stream().filter(menuInfo-> Objects.isNull(menuInfo.getParentId())).collect(Collectors.toList());
-//        for(Menu oneLevelMenu:oneLevelMenuList){
-//            MenuInfoVO oneLevelMenuVO = new MenuInfoVO();
-//            BeanUtils.copyProperties(oneLevelMenu, oneLevelMenuVO);
-//
-//            /**
-//             * 递归查子级菜单
-//             */
-//            oneLevelMenuVO.setChild(
-//                    initMenuInfo(oneLevelMenuVO)
-//            );
-//            oneLevelMenuVOList.add(oneLevelMenuVO);
-//        }
-//
-//
-//        // 最终返回的菜单
-//        MenuVO menuVO = new MenuVO();
-//        menuVO.setHomeInfo(menuHomeVO);
-//        menuVO.setLogoInfo(menuLogoVO);
-//        menuVO.setMenuInfo(oneLevelMenuVOList);
-//        return menuVO;
-//    }
+    @Override
+    public MenuVO initAllMenu(){
+        /**
+         * 查首页
+         */
+        Menu homeInfo = menuMapper.selectOne(new Menu(BaseConstants.menuType.HOME_INFO, Boolean.TRUE));
+        MenuHomeVO menuHomeVO = new MenuHomeVO();
+        BeanUtils.copyProperties(homeInfo, menuHomeVO);
+
+        /**
+         * 查首页 Logo
+         */
+        Menu logoInfo = menuMapper.selectOne(new Menu(BaseConstants.menuType.LOGO_INFO, Boolean.TRUE));
+        MenuLogoVO menuLogoVO = new MenuLogoVO();
+        BeanUtils.copyProperties(logoInfo, menuLogoVO);
+
+        /**
+         * 查菜单
+         */
+        // 存一级菜单最终返回用
+        List<MenuInfoVO> oneLevelMenuVOList = new ArrayList<>();
+        // 查所有菜单
+        List<Menu> menuInfoList = menuMapper.select(new Menu(BaseConstants.menuType.MENU_INFO, Boolean.TRUE));
+        // 过滤出一级菜单
+        List<Menu> oneLevelMenuList = menuInfoList.stream().filter(menuInfo-> Objects.isNull(menuInfo.getParentId())).collect(Collectors.toList());
+        for(Menu oneLevelMenu:oneLevelMenuList){
+            MenuInfoVO oneLevelMenuVO = new MenuInfoVO();
+            BeanUtils.copyProperties(oneLevelMenu, oneLevelMenuVO);
+
+            /**
+             * 递归查子级菜单
+             */
+            oneLevelMenuVO.setChild(
+                    initMenuInfo(oneLevelMenuVO)
+            );
+            oneLevelMenuVOList.add(oneLevelMenuVO);
+        }
+
+
+        // 最终返回的菜单
+        MenuVO menuVO = new MenuVO();
+        menuVO.setHomeInfo(menuHomeVO);
+        menuVO.setLogoInfo(menuLogoVO);
+        menuVO.setMenuInfo(oneLevelMenuVOList);
+        return menuVO;
+    }
 
     @Override
-    public MenuVO initMenu(){
-        CurrentUserVO currentUser = CurrentUserHelper.userDetail();
-        List<UserRole> userRoleList = userRoleMapper.userRole(currentUser.getUsername());
+    public MenuVO initCurrentMenu(){
+        //　当前用户的权限
+        List<UserRole> userRoleList = userRoleMapper.userRole(CurrentUserHelper.userDetail().getUsername());
+
+        // currentUserMenuIds 当前用户所拥有的菜单ID
+        Set<Long> currentUserMenuIds = new HashSet<>(8);
         List<String> menuIdList = userRoleList.stream().map(UserRole::getMenuIds).collect(Collectors.toList());
+        for(String menuIds:menuIdList){
+            for(String menuId:menuIds.split(",")){
+                currentUserMenuIds.add(Long.valueOf(menuId));
+            }
+        }
+
 
         /**
          * 查首页
