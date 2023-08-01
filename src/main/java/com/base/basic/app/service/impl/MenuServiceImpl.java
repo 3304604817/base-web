@@ -111,16 +111,17 @@ public class MenuServiceImpl implements MenuService {
         List<Menu> oneLevelMenuList = menuInfoList.stream().filter(menuInfo-> Objects.isNull(menuInfo.getParentId())).collect(Collectors.toList());
         // 存一级菜单Json最终返回用
         List<MenuInfoVO> oneLevelMenuVOList = new ArrayList<>();
-        for(Long menuId:menuIdSet){
-            Menu menu = menuMapById.get(Long.valueOf(menuId)).get(0);
-            MenuInfoVO menuVO = new MenuInfoVO();
-            BeanUtils.copyProperties(menu, menuVO);
-            menuVO.setChild(
-                    initMenuInfo(10, 0, menuMapByParentId, menuVO)
+        for(Menu oneLevelMenu:oneLevelMenuList){
+            MenuInfoVO oneLevelMenuVO = new MenuInfoVO();
+            BeanUtils.copyProperties(oneLevelMenu, oneLevelMenuVO);
+            /**
+             * 递归查子级菜单
+             */
+            oneLevelMenuVO.setChild(
+                    initMenuInfo(10, 0, menuMapByParentId, oneLevelMenuVO)
             );
-            oneLevelMenuVOList.add(menuVO);
+            oneLevelMenuVOList.add(oneLevelMenuVO);
         }
-
 
         /**
          * 查首页
@@ -135,9 +136,6 @@ public class MenuServiceImpl implements MenuService {
         Menu logoInfo = menuMapper.selectOne(new Menu(BaseConstants.menuType.LOGO_INFO, Boolean.TRUE));
         MenuLogoVO menuLogoVO = new MenuLogoVO();
         BeanUtils.copyProperties(logoInfo, menuLogoVO);
-
-
-
 
         // 最终返回的菜单
         MenuVO menuVO = new MenuVO();
