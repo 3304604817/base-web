@@ -11,6 +11,7 @@ import com.base.basic.infra.mapper.MenuMapper;
 import com.base.basic.infra.mapper.RoleMapper;
 import com.base.basic.infra.mapper.ScheduledMapper;
 import com.base.common.util.page.PageParmaters;
+import com.github.pagehelper.ISelect;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.apache.commons.lang3.StringUtils;
@@ -34,7 +35,21 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public PageInfo<Role> pageList(PageParmaters pageParmaters, Role searchBody){
-        return PageHelper.startPage(pageParmaters.getPage(), pageParmaters.getLimit()).doSelectPageInfo(() -> roleMapper.list(searchBody));
+        List<Menu> menuList = menuMapper.selectAll();
+        Map<Long, String> menuMap = menuList.stream().collect(Collectors.toMap(Menu::getId, Menu::getTitle));
+        PageInfo<Role> page = PageHelper.startPage(pageParmaters.getPage(), pageParmaters.getLimit()).doSelectPageInfo(()->roleMapper.list(searchBody));
+        for(Role role:page.getList()){
+            StringBuilder menuTitles = new StringBuilder();
+            for(String menuId:role.getMenuIds().split(",")){
+                if(StringUtils.equals("", menuTitles.toString())){
+                    menuTitles.append(menuMap.get(Long.valueOf(menuId)));
+                }else {
+                    menuTitles.append(",").append(menuMap.get(Long.valueOf(menuId)));
+                }
+            }
+            role.setMenuTitles(menuTitles.toString());
+        }
+        return page;
     }
 
     @Override

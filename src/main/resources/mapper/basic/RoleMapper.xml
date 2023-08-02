@@ -5,6 +5,7 @@
         <result column="role_id" property="roleId" jdbcType="DECIMAL"/>
         <result column="role_code" property="roleCode" jdbcType="VARCHAR"/>
         <result column="role_name" property="roleName" jdbcType="VARCHAR"/>
+        <result column="menu_ids" property="menuIds" jdbcType="VARCHAR"/>
         <result column="enabled_flag" property="enabledFlag" jdbcType="DECIMAL"/>
         <result column="object_version_number" property="objectVersionNumber" jdbcType="DECIMAL"/>
         <result column="creation_date" property="creationDate" jdbcType="DATE"/>
@@ -17,6 +18,7 @@
         SELECT dr.role_id,
         dr.role_code,
         dr.role_name,
+        dr.menu_ids,
         dr.enabled_flag,
         dr.object_version_number,
         dr.creation_date,

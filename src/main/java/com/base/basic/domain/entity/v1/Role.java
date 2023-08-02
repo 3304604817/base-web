@@ -35,6 +35,10 @@ public class Role extends BaseEntity {
     @ApiModelProperty(value = "是否启用")
     private Boolean enabledFlag;
 
+    @ApiModelProperty(value = "角色对应菜单Title,逗号分割")
+    @Transient
+    private String menuTitles;
+
     public Long getRoleId() {
         return roleId;
     }
@@ -73,5 +77,13 @@ public class Role extends BaseEntity {
 
     public void setMenuIds(String menuIds) {
         this.menuIds = menuIds;
+    }
+
+    public String getMenuTitles() {
+        return menuTitles;
+    }
+
+    public void setMenuTitles(String menuTitles) {
+        this.menuTitles = menuTitles;
     }
 }
