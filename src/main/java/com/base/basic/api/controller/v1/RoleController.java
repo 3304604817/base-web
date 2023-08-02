@@ -9,6 +9,7 @@ import com.base.common.util.layui.LayJson;
 import com.base.common.util.page.PageParmaters;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -53,6 +54,12 @@ public class RoleController {
     @PostMapping("/disabled")
     public ResponseEntity<Boolean> disabled(@RequestBody Role role) {
         return new ResponseEntity(roleService.disabled(role.getRoleId()), HttpStatus.OK);
+    }
+
+    @ApiOperation(value = "查角色对应菜单关系")
+    @GetMapping("/menu/{roleId}")
+    public ResponseEntity<Role> roleMenuRelation(@ApiParam(value = "roleId", required = true) @PathVariable("roleId") Long roleId) {
+        return new ResponseEntity(roleService.roleMenuRelation(roleId), HttpStatus.OK);
     }
 
     @ApiOperation(value = "保存角色菜单关系")

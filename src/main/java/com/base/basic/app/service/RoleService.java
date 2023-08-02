@@ -27,6 +27,13 @@ public interface RoleService {
     Boolean disabled(Long roleId);
 
     /**
+     * 查角色对应菜单关系
+     * @param roleId
+     * @return
+     */
+    Role roleMenuRelation(Long roleId);
+
+    /**
      * 保存角色菜单关系
      * @param role
      * @return

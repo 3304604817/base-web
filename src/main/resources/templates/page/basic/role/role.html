@@ -193,7 +193,8 @@
                     btnAlign: 'c', //按钮居中
                 });
             } else if(obj.event === 'setMenu'){
-                const subData = { menuIds:data.menuIds, menuTitles:data.menuTitles, roleId:data.roleId };
+                let role = AjaxGet(basicPath + '/role/menu/' + data.roleId);
+                const subData = { menuIds:role.menuIds, menuTitles:role.menuTitles, roleId:data.roleId };
 
                 // 数据传输-传输之前先清缓存
                 window.formData = null;

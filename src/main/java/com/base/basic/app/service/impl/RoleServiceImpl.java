@@ -88,6 +88,24 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
+    public Role roleMenuRelation(Long roleId){
+        List<Menu> menuList = menuMapper.selectAll();
+        Map<Long, String> menuMap = menuList.stream().collect(Collectors.toMap(Menu::getId, Menu::getTitle));
+        Role role = roleMapper.selectByPrimaryKey(roleId);
+        StringBuilder menuTitles = new StringBuilder();
+        for(String menuId:role.getMenuIds().split(",")){
+            if(StringUtils.equals("", menuTitles.toString())){
+                menuTitles.append(menuMap.get(Long.valueOf(menuId)));
+            }else {
+                menuTitles.append(",").append(menuMap.get(Long.valueOf(menuId)));
+            }
+        }
+        role.setMenuTitles(menuTitles.toString());
+        return role;
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
     public Boolean roleMenuSave(Role role){
         // menuIds 要保存的菜单ID
         Set<Long> menuIds = new HashSet<>(8);
