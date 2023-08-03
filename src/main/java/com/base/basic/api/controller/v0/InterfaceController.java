@@ -2,6 +2,7 @@ package com.base.basic.api.controller.v0;
 
 import com.base.basic.app.service.InterfaceService;
 import com.base.basic.domain.entity.v1.Interface;
+import com.base.basic.domain.entity.v1.Menu;
 import com.base.basic.domain.entity.v1.Role;
 import com.base.common.util.layui.LayJson;
 import com.base.common.util.page.PageParmaters;
@@ -10,9 +11,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @Api(tags="接口管理")
 @RestController
@@ -26,5 +25,17 @@ public class InterfaceController {
     @GetMapping("/page")
     public ResponseEntity<LayJson<Interface>> pageList(PageParmaters pageParmaters, Interface searchBody) {
         return new ResponseEntity(new LayJson<>(interfaceService.pageList(pageParmaters, searchBody)), HttpStatus.OK);
+    }
+
+    @ApiOperation(value = "启用接口")
+    @PostMapping("/enable")
+    public ResponseEntity enable(@RequestBody Interface body) {
+        return new ResponseEntity(interfaceService.enable(body.getId()), HttpStatus.OK);
+    }
+
+    @ApiOperation(value = "禁用接口")
+    @PostMapping("/disabled")
+    public ResponseEntity disabled(@RequestBody Interface body) {
+        return new ResponseEntity(interfaceService.disabled(body.getId()), HttpStatus.OK);
     }
 }

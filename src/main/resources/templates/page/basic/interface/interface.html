@@ -1,0 +1,179 @@
+<div class="layuimini-container layuimini-page-anim">
+    <div class="layuimini-main">
+
+        <fieldset class="table-search-fieldset">
+            <legend>搜索信息</legend>
+            <div style="margin: 10px 10px 10px 10px">
+                <form class="layui-form layui-form-pane" action="">
+                    <div class="layui-form-item">
+                        <div class="layui-inline">
+                            <label class="layui-form-label">接口编码</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="interfaceCode" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">接口名称</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="interfaceName" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-inline">
+                            <button type="submit" class="layui-btn layui-btn-primary"  lay-submit lay-filter="data-search-btn"><i class="layui-icon"></i>搜 索</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </fieldset>
+
+        <script type="text/html" id="headerToolbar">
+            <div class="layui-btn-container">
+                <button class="layui-btn layui-btn-normal layui-btn-sm data-add-btn" lay-event="add"> 添加 </button>
+            </div>
+        </script>
+
+        <table class="layui-hide" id="currentTableId" lay-filter="currentTableFilter"></table>
+
+        <script type="text/html" id="currentTableBar">
+            <!-- 已存在的行按钮 -->
+            {{# if(null != d.id){ }}
+            <a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="update">更新</a>
+
+            <!-- 新建的行按钮 -->
+            {{# } if(null == d.id){ }}
+            <a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="save">保存</a>
+            <a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="cancel">取消</a>
+            {{# } }}
+        </script>
+    </div>
+</div>
+
+<script src="js/config.js"></script>
+<script src="js/network.js"></script>
+<script>
+    layui.use(['form', 'table','miniPage','element'], function () {
+        var $ = layui.jquery,
+            form = layui.form,
+            table = layui.table,
+            miniPage = layui.miniPage;
+
+        table.render({
+            elem: '#currentTableId',
+            url: basicPath + '/interface/page',
+            toolbar: '#headerToolbar',
+            defaultToolbar: ['filter', 'exports', 'print', {
+                title: '提示',
+                layEvent: 'LAYTABLE_TIPS',
+                icon: 'layui-icon-tips'
+            }],
+            cols: [[
+                {type: "checkbox", width: 50},
+                {field: 'interfaceCode', width: 200, title: '接口编码', sort: true, edit:"text"},
+                {field: 'interfaceName', width: 200, title: '接口名称', edit:"text"},
+                {field: 'url', width: 300, title: '请求地址', edit:"text"},
+                {field: 'enabled', width: 200, title: '是否启用', align: "center",
+                    templet: function (data) {
+                        if(null != data.id && data.enabledFlag){
+                            return '<input type="checkbox" interfaceId="' + data.id + '" checked lay-skin="switch" lay-filter="switchCheckbox" lay-text="ON|OFF">';
+                        }else if(null != data.id  && !data.enabledFlag){
+                            return '<input type="checkbox" interfaceId="' + data.id + '" lay-skin="switch" lay-filter="switchCheckbox" lay-text="ON|OFF">';
+                        }else {
+                            return '<input type="checkbox" disabled lay-skin="switch" checked lay-filter="switchCheckbox" lay-text="ON|OFF">';
+                        }
+                    }
+                },
+                {title: '操作', minWidth: 150, toolbar: '#currentTableBar', align: "center"}
+            ]],
+            limits: [10, 20, 50, 100],
+            limit: 10,
+            page: true,
+            skin: 'line'
+        });
+
+        // 监听搜索操作
+        form.on('submit(data-search-btn)', function (data) {
+            var result = data.field;
+
+            //执行搜索重载
+            table.reload('currentTableId', {
+                url: basicPath + '/interface/page',
+                page: {
+                    curr: 1
+                },
+                where: result
+            }, 'data');
+
+            return false;
+        });
+
+        //监听指定开关
+        form.on('switch(switchCheckbox)', function (data) {
+            const body = { id: data.elem.attributes['interfaceId'].nodeValue };
+            if(data.elem.checked){
+                /**
+                 * 启用
+                 */
+                AjaxPost(basicPath + '/interface/enable', body);
+            }else {
+                /**
+                 * 禁用
+                 */
+                AjaxPost(basicPath + '/interface/disabled', body);
+            }
+        });
+
+        /**
+         * toolbar事件监听，新增
+         */
+        table.on('toolbar(currentTableFilter)', function (obj) {
+            if (obj.event === 'add') {
+                /**
+                 * 监听添加操作
+                 * 实现的思路是：当点击新增一行时，把之前的数据保存下来，并在数据尾部增加一行空数据然后将新数据重新载入表格
+                 */
+                    //定义一个空数组,用来存储之前编辑过的数据已经存放新数据
+                var dataBak = [];
+                // 获取当前table, currentTableId 是当前Table的ID
+                var tableBak = table.cache.currentTableId;
+
+                // 在头部新增一行空数据，实现增行效果
+                dataBak.push({
+                    "scheduledName": "",
+                    "beanName": "",
+                    "param": null,
+                    "cron": null,
+                    "status": true
+                });
+                for (var i = 0; i < tableBak.length; i++) {
+                    // 将之前的数组备份
+                    dataBak.push(tableBak[i]);
+                }
+                // 将新数据重新载入表格
+                table.reload("currentTableId",{url: '', data:dataBak});
+            }
+        });
+
+        //监听表格复选框选择
+        table.on('checkbox(currentTableFilter)', function (obj) {
+            console.log(obj)
+        });
+
+        /**
+         * toolbar操作列事件监听
+         */
+        table.on('tool(currentTableFilter)', function (obj) {
+            var data = obj.data;
+            if (obj.event === 'update') {
+                AjaxPut(basicPath + '/user/update', data);
+                layer.msg("操作成功");
+                return false;
+            } else if(obj.event === 'save'){
+                AjaxPost(basicPath + '/user/insert', obj.data);
+                layer.msg("操作成功");
+                table.reload('currentTableId', {url: basicPath + '/user/page'});
+            } else if(obj.event === 'cancel'){
+                obj.del();
+            }
+        });
+    });
+</script>

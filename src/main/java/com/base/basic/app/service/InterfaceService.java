@@ -12,6 +12,10 @@ public interface InterfaceService {
 
     PageInfo<Interface> pageList(PageParmaters pageParmaters, Interface searchBody);
 
+    Boolean enable(Long id);
+
+    Boolean disabled(Long id);
+
     /**
      * 以账号密码的形式推送Soap接口
      * @param interfaceCode

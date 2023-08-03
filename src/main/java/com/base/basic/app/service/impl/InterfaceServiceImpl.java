@@ -1,14 +1,13 @@
 package com.base.basic.app.service.impl;
 
 import com.base.basic.app.service.InterfaceService;
-import com.base.basic.domain.entity.v1.Interface;
-import com.base.basic.domain.entity.v1.InterfaceLog;
-import com.base.basic.domain.entity.v1.InterfaceParams;
-import com.base.basic.domain.entity.v1.Role;
+import com.base.basic.domain.entity.v1.*;
+import com.base.basic.infra.constant.BaseConstants;
 import com.base.basic.infra.constant.InterfaceConstants;
 import com.base.basic.infra.mapper.InterfaceLogMapper;
 import com.base.basic.infra.mapper.InterfaceMapper;
 import com.base.basic.infra.mapper.InterfaceParamsMapper;
+import com.base.common.exception.BaseException;
 import com.base.common.util.http.RestfulResponse;
 import com.base.common.util.http.RestfulUtil;
 import com.base.common.util.http.SoapUtil;
@@ -21,6 +20,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Map;
@@ -44,6 +44,28 @@ public class InterfaceServiceImpl implements InterfaceService {
     @Override
     public PageInfo<Interface> pageList(PageParmaters pageParmaters, Interface searchBody){
         return PageHelper.startPage(pageParmaters.getPage(), pageParmaters.getLimit()).doSelectPageInfo(()->interfaceMapper.list(searchBody));
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public Boolean enable(Long id){
+        Interface dbInterface = new Interface();
+        dbInterface.setId(id);
+        dbInterface.setEnabledFlag(Boolean.TRUE);
+        interfaceMapper.updateOptional(dbInterface,
+                Menu.FIELD_ENABLED_FLAG);
+        return Boolean.TRUE;
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public Boolean disabled(Long id){
+        Interface dbInterface = new Interface();
+        dbInterface.setId(id);
+        dbInterface.setEnabledFlag(Boolean.FALSE);
+        interfaceMapper.updateOptional(dbInterface,
+                Menu.FIELD_ENABLED_FLAG);
+        return Boolean.TRUE;
     }
 
     @Override

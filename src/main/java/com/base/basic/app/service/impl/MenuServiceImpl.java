@@ -71,7 +71,7 @@ public class MenuServiceImpl implements MenuService {
              * 递归查子级菜单
              */
             oneLevelMenuVO.setChild(
-                    initMenuInfo(10, 0, menuMapByParentId, oneLevelMenuVO)
+                    initMenuInfo(100, 0, menuMapByParentId, oneLevelMenuVO)
             );
             oneLevelMenuVOList.add(oneLevelMenuVO);
         }
@@ -118,7 +118,7 @@ public class MenuServiceImpl implements MenuService {
              * 递归查子级菜单
              */
             oneLevelMenuVO.setChild(
-                    initMenuInfo(10, 0, menuMapByParentId, oneLevelMenuVO)
+                    initMenuInfo(100, 0, menuMapByParentId, oneLevelMenuVO)
             );
             oneLevelMenuVOList.add(oneLevelMenuVO);
         }
