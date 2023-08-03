@@ -8,6 +8,7 @@ import com.base.common.util.layui.LayJson;
 import com.base.common.util.page.PageParmaters;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,6 +26,12 @@ public class InterfaceController {
     @GetMapping("/page")
     public ResponseEntity<LayJson<Interface>> pageList(PageParmaters pageParmaters, Interface searchBody) {
         return new ResponseEntity(new LayJson<>(interfaceService.pageList(pageParmaters, searchBody)), HttpStatus.OK);
+    }
+
+    @ApiOperation(value = "根据接口ID查接口")
+    @GetMapping("/{interfaceId}")
+    public ResponseEntity<Interface> interfaceDetail(@ApiParam(required = true, value = "接口ID") @PathVariable("interfaceId") Long interfaceId) {
+        return new ResponseEntity(interfaceService.interfaceDetail(interfaceId), HttpStatus.OK);
     }
 
     @ApiOperation(value = "启用接口")

@@ -47,6 +47,15 @@ public class InterfaceServiceImpl implements InterfaceService {
     }
 
     @Override
+    public Interface interfaceDetail(Long interfaceId){
+        Interface interfaceData = interfaceMapper.selectByPrimaryKey(interfaceId);
+        interfaceData.setInterfaceParams(
+                interfaceParamsMapper.list(new InterfaceParams(interfaceData.getId()))
+        );
+        return interfaceData;
+    }
+
+    @Override
     @Transactional(rollbackFor = Exception.class)
     public Boolean enable(Long id){
         Interface dbInterface = new Interface();

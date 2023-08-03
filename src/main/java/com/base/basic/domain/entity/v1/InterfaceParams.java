@@ -35,6 +35,11 @@ public class InterfaceParams extends BaseEntity {
     @ApiModelProperty(value = "租户")
     private Long tenantId;
 
+    public InterfaceParams(){}
+    public InterfaceParams(Long interfaceId){
+        this.interfaceId = interfaceId;
+    }
+
     public Long getId() {
         return id;
     }

@@ -163,9 +163,26 @@
          */
         table.on('tool(currentTableFilter)', function (obj) {
             var data = obj.data;
+
+            // 数据传输-传输之前先清缓存
+            window.formData = null;
+            window.formData = data;
             if (obj.event === 'edit') {
-                AjaxPut(basicPath + '/user/update', data);
-                layer.msg("操作成功");
+                var content = miniPage.getHrefContent('page/basic/interface/interface-edit.html');
+                var openWH = miniPage.getOpenWidthHeight();
+                var index = layer.open({
+                    title: '编辑用户',
+                    type: 1,
+                    shade: 0.2,
+                    maxmin:true,
+                    shadeClose: true,
+                    area: [openWH[0] + 'px', openWH[1] + 'px'],
+                    offset: [openWH[2] + 'px', openWH[3] + 'px'],
+                    content: content,
+                });
+                $(window).on("resize", function () {
+                    layer.full(index);
+                });
                 return false;
             } else if(obj.event === 'save'){
                 AjaxPost(basicPath + '/user/insert', obj.data);

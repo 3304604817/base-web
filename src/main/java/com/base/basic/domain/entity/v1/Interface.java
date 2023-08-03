@@ -7,6 +7,8 @@ import io.swagger.annotations.ApiModelProperty;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+import java.util.List;
 
 /**
  *
@@ -40,6 +42,10 @@ public class Interface extends BaseEntity {
 
     @ApiModelProperty(value = "租户")
     private Long tenantId;
+
+    @ApiModelProperty(value = "接口参数")
+    @Transient
+    private List<InterfaceParams> interfaceParams;
 
     public Long getId() {
         return id;
@@ -87,5 +93,13 @@ public class Interface extends BaseEntity {
 
     public void setTenantId(Long tenantId) {
         this.tenantId = tenantId;
+    }
+
+    public List<InterfaceParams> getInterfaceParams() {
+        return interfaceParams;
+    }
+
+    public void setInterfaceParams(List<InterfaceParams> interfaceParams) {
+        this.interfaceParams = interfaceParams;
     }
 }

@@ -12,6 +12,8 @@ public interface InterfaceService {
 
     PageInfo<Interface> pageList(PageParmaters pageParmaters, Interface searchBody);
 
+    Interface interfaceDetail(Long interfaceId);
+
     Boolean enable(Long id);
 
     Boolean disabled(Long id);
