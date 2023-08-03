@@ -14,6 +14,13 @@ public interface InterfaceService {
 
     Interface interfaceDetail(Long interfaceId);
 
+    /**
+     * 保存接口
+     * @param body
+     * @return
+     */
+    Interface save(Interface body);
+
     Boolean enable(Long id);
 
     Boolean disabled(Long id);

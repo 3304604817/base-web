@@ -57,6 +57,17 @@ public class InterfaceServiceImpl implements InterfaceService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
+    public Interface save(Interface body){
+        if(Objects.nonNull(body.getId())){
+            interfaceMapper.updateByIdSelective(body);
+        }else {
+            interfaceMapper.insertSelective(body);
+        }
+        return body;
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
     public Boolean enable(Long id){
         Interface dbInterface = new Interface();
         dbInterface.setId(id);

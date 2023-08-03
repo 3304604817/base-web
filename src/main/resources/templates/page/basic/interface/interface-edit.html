@@ -13,19 +13,13 @@
                     <input type="text" name="interfaceName" placeholder="请输入接口名称" value="" class="layui-input">
                 </div>
             </div>
-            <div class="layui-inline">
-                <label class="layui-form-label">是否启用</label>
-                <div class="layui-input-block">
-                    <input type="checkbox" checked lay-skin="switch" lay-filter="switchCheckbox" lay-text="ON|OFF">
-                </div>
-            </div>
         </div>
 
         <div class="layui-form-item">
             <div class="layui-form-item layui-form-text">
                 <label class="layui-form-label">接口地址</label>
                 <div class="layui-input-block">
-                    <textarea name="sellerDescription" class="layui-textarea" placeholder="请输入卖家描述" rows="3"></textarea>
+                    <textarea name="url" class="layui-textarea" placeholder="请输入接口地址" rows="1"></textarea>
                 </div>
             </div>
         </div>
@@ -39,7 +33,7 @@
         </div>
     </div>
 </div>
-<script type="text/javascript" src="lib/jquery-3.4.1/jquery-3.4.1.min.js"></script>
+<script src="js/network.js"></script>
 <script src="js/config.js"></script>
 <script>
     var interfaceData = {};
@@ -47,19 +41,10 @@
     // 获取父页面传的变量
     var parentData = window.parent.formData;
     if(parentData && parentData.id){
-        $.ajax({
-            type: 'get',
-            url: basicPath + '/old-goods/detail/'+parentData.id,
-            dataType: 'json',
-            contentType: 'application/json',
-            cache: false,
-            async: false,
-            success: function (data) {
-                goodsData = data;
-                let { oldGoodsDetail } = data;
-                goodsDetailData = oldGoodsDetail;
-            }
-        });
+        const response = AjaxGet(basicPath + '/interface/detail/'+parentData.id);
+        console.log(response);
+        interfaceData = response;
+        interfaceParamData = response.interfaceParams;
     }
 
     layui.use(['form', 'table'], function () {
@@ -78,29 +63,13 @@
 
         //监听提交
         form.on('submit(saveBtn)', function (data) {
-            var { id } = goodsData;
-            // 解构出 id 并重命名为 detailId
-            var { id:detailId } = goodsDetailData;
-
-            var { name, categoryId, price, freeShipFlag, sellerPhone, sellerEmail, sellerDescription, buyerMessage } = data.field;
-            // 组装明细：传 detailId 的时候修改 key 值为 id
-            let oldGoodsDetail = { id:detailId, goodsId:id , sellerPhone, sellerEmail, sellerDescription, buyerMessage };
-            // 组装头
-            let oldGoods = { id, name, categoryId, price, freeShipFlag, oldGoodsDetail };
+            var { id } = interfaceData;
+            var { interfaceCode, interfaceName, url } = data.field;
+            let interfaceData = { id, interfaceCode, interfaceName, url };
             var index = layer.alert(("是否确认提交"), {
                 title: '提示'
             }, function () {
-                $.ajax({
-                    type: 'post',
-                    url: basicPath + '/old-goods/save',
-                    dataType: 'json',
-                    contentType: 'application/json',
-                    data: JSON.stringify(oldGoods),
-                    cache: false,
-                    async: false,
-                    success: function (data) {
-                    }
-                });
+                AjaxPost(basicPath + '/old-goods/save', interfaceData);
                 // 关闭弹出层
                 layer.close(index);
                 layer.close(parentIndex);
@@ -110,17 +79,10 @@
 
         //表单初始赋值
         form.val('detail', {
-            "id": goodsData.id,
-            "sku": goodsData.sku,
-            "name": goodsData.name,
-            "categoryId": goodsData.categoryId,
-            "price": goodsData.price,
-            "pictureUrl": goodsData.pictureUrl,
-            "freeShipFlag": goodsData.freeShipFlag,
-            "sellerPhone": goodsDetailData.sellerPhone,
-            "sellerEmail": goodsDetailData.sellerEmail,
-            "sellerDescription": goodsDetailData.sellerDescription,
-            "buyerMessage": goodsDetailData.buyerMessage,
+            "id": interfaceData.id,
+            "interfaceCode": interfaceData.interfaceCode,
+            "interfaceName": interfaceData.interfaceName,
+            "url": interfaceData.url,
         })
     });
 </script>

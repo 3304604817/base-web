@@ -29,9 +29,15 @@ public class InterfaceController {
     }
 
     @ApiOperation(value = "根据接口ID查接口")
-    @GetMapping("/{interfaceId}")
+    @GetMapping("/detail/{interfaceId}")
     public ResponseEntity<Interface> interfaceDetail(@ApiParam(required = true, value = "接口ID") @PathVariable("interfaceId") Long interfaceId) {
         return new ResponseEntity(interfaceService.interfaceDetail(interfaceId), HttpStatus.OK);
+    }
+
+    @ApiOperation(value = "保存接口信息")
+    @PostMapping("/save")
+    public ResponseEntity<Interface> save(@RequestBody Interface body) {
+        return new ResponseEntity(interfaceService.save(body), HttpStatus.OK);
     }
 
     @ApiOperation(value = "启用接口")
