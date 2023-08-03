@@ -1,4 +1,41 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.base.basic.infra.mapper.InterfaceMapper">
+    <resultMap id="BaseResultMap" type="com.base.basic.domain.entity.v1.Interface">
+        <result column="id" property="id" jdbcType="DECIMAL"/>
+        <result column="interface_code" property="interfaceCode" jdbcType="VARCHAR"/>
+        <result column="interface_name" property="interfaceName" jdbcType="VARCHAR"/>
+        <result column="url" property="url" jdbcType="VARCHAR"/>
+        <result column="enabled_flag" property="enabledFlag" jdbcType="DECIMAL"/>
+        <result column="object_version_number" property="objectVersionNumber" jdbcType="DECIMAL"/>
+        <result column="creation_date" property="creationDate" jdbcType="TIMESTAMP"/>
+        <result column="created_by" property="createdBy" jdbcType="DECIMAL"/>
+        <result column="last_updated_by" property="lastUpdatedBy" jdbcType="DECIMAL"/>
+        <result column="last_update_date" property="lastUpdateDate" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <select id="list" parameterType="com.base.basic.domain.entity.v1.Interface" resultMap="BaseResultMap">
+        SELECT di.id,
+        di.interface_code,
+        di.interface_name,
+        di.url,
+        di.enabled_flag,
+        di.object_version_number,
+        di.creation_date,
+        di.created_by,
+        di.last_updated_by,
+        di.last_update_date
+        FROM db_interface di
+        <where>
+            <if test="null != interfaceCode and '' != interfaceCode">
+                AND di.interface_code = #{interfaceCode}
+            </if>
+            <if test="null != interfaceName and '' != interfaceName">
+                AND di.interface_name LIKE concat('%', concat(#{interfaceName}, '%'))
+            </if>
+            <if test="null != enabledFlag">
+                AND di.enabled_flag = #{enabledFlag}
+            </if>
+        </where>
+    </select>
 </mapper>
