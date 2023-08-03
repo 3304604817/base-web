@@ -39,6 +39,9 @@
             <if test="null != menuType and '' != menuType">
                 AND dm.menu_type = #{menuType}
             </if>
+            <if test="null != title and '' != title">
+                AND dm.title LIKE concat('%', concat(#{title}, '%'))
+            </if>
             <if test="null != enabledFlag">
                 AND dm.enabled_flag = #{enabledFlag}
             </if>
