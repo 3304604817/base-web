@@ -4,6 +4,7 @@ import com.base.basic.app.service.InterfaceService;
 import com.base.basic.domain.entity.v1.Interface;
 import com.base.basic.domain.entity.v1.InterfaceLog;
 import com.base.basic.domain.entity.v1.InterfaceParams;
+import com.base.basic.domain.entity.v1.Role;
 import com.base.basic.infra.constant.InterfaceConstants;
 import com.base.basic.infra.mapper.InterfaceLogMapper;
 import com.base.basic.infra.mapper.InterfaceMapper;
@@ -11,6 +12,9 @@ import com.base.basic.infra.mapper.InterfaceParamsMapper;
 import com.base.common.util.http.RestfulResponse;
 import com.base.common.util.http.RestfulUtil;
 import com.base.common.util.http.SoapUtil;
+import com.base.common.util.page.PageParmaters;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import okhttp3.Response;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -36,6 +40,11 @@ public class InterfaceServiceImpl implements InterfaceService {
     @Autowired
     @SuppressWarnings("all")
     private InterfaceLogMapper interfaceLogMapper;
+
+    @Override
+    public PageInfo<Interface> pageList(PageParmaters pageParmaters, Interface searchBody){
+        return PageHelper.startPage(pageParmaters.getPage(), pageParmaters.getLimit()).doSelectPageInfo(()->interfaceMapper.list(searchBody));
+    }
 
     @Override
     public String sendSoap(String interfaceCode, String content){

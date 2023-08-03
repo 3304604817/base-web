@@ -1,4 +1,39 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.base.basic.infra.mapper.InterfaceParamsMapper">
+    <resultMap id="BaseResultMap" type="com.base.basic.domain.entity.v1.InterfaceParams">
+        <result column="id" property="id" jdbcType="DECIMAL"/>
+        <result column="interface_id" property="interfaceId" jdbcType="DECIMAL"/>
+        <result column="param_key" property="paramKey" jdbcType="VARCHAR"/>
+        <result column="param_value" property="paramValue" jdbcType="VARCHAR"/>
+        <result column="object_version_number" property="objectVersionNumber" jdbcType="DECIMAL"/>
+        <result column="creation_date" property="creationDate" jdbcType="TIMESTAMP"/>
+        <result column="created_by" property="createdBy" jdbcType="DECIMAL"/>
+        <result column="last_updated_by" property="lastUpdatedBy" jdbcType="DECIMAL"/>
+        <result column="last_update_date" property="lastUpdateDate" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <select id="list" parameterType="com.base.basic.domain.entity.v1.InterfaceParams" resultMap="BaseResultMap">
+        SELECT dip.id,
+        dip.interface_id,
+        dip.param_key,
+        dip.param_value,
+        dip.object_version_number,
+        dip.creation_date,
+        dip.created_by,
+        dip.last_updated_by,
+        dip.last_update_date
+        FROM db_interface_params dip
+        <where>
+            <if test="null != interfaceId">
+                AND dip.interface_id = #{interfaceId}
+            </if>
+            <if test="null != paramKey and '' != paramKey">
+                AND dip.param_key = #{paramKey}
+            </if>
+            <if test="null != paramValue and '' != paramValue">
+                AND dip.param_value = #{paramValue}
+            </if>
+        </where>
+    </select>
 </mapper>

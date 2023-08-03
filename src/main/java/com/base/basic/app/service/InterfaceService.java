@@ -1,10 +1,16 @@
 package com.base.basic.app.service;
 
+import com.base.basic.domain.entity.v1.Interface;
+import com.base.basic.domain.entity.v1.Role;
 import com.base.common.util.http.RestfulResponse;
+import com.base.common.util.page.PageParmaters;
+import com.github.pagehelper.PageInfo;
 
 import java.util.Map;
 
 public interface InterfaceService {
+
+    PageInfo<Interface> pageList(PageParmaters pageParmaters, Interface searchBody);
 
     /**
      * 以账号密码的形式推送Soap接口
