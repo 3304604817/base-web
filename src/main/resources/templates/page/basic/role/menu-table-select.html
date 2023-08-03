@@ -33,7 +33,9 @@
                     { field: 'menuCode', title: '菜单编码', width: 300 },
                     { field: 'title', title: '菜单名', width: 300 },
                     { field: 'menuPath', title: '菜单路径', width: 300 }
-                ]]
+                ]],
+                limits: [10, 50, 100, 1000],
+                limit: 10,
             },
             done: function (elem, data) {
                 var SAVEJSON = []
