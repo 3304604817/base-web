@@ -55,7 +55,9 @@
                 {field: 'icon', title: '菜单图标'},
                 {field: 'enabledFlag', width: 100, title: '是否启用', align: "center",
                     templet: function (data) {
-                        if(null != data.id && data.enabledFlag){
+                        if(null != data.id && data.enabledFlag && data.menuType !== 'menuInfo'){
+                            return '<input type="checkbox" menuId="' + data.id + '" checked lay-skin="switch" lay-filter="switchCheckbox" lay-text="ON|OFF" disabled>';
+                        }else if(null != data.id && data.enabledFlag  && data.menuType === 'menuInfo'){
                             return '<input type="checkbox" menuId="' + data.id + '" checked lay-skin="switch" lay-filter="switchCheckbox" lay-text="ON|OFF">';
                         }else if(null != data.id  && !data.enabledFlag){
                             return '<input type="checkbox" menuId="' + data.id + '" lay-skin="switch" lay-filter="switchCheckbox" lay-text="ON|OFF">';
