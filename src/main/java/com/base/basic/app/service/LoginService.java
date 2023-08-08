@@ -14,5 +14,7 @@ public interface LoginService {
 
     String login(String username, String password, String captcha);
 
+    String thirdLogin(String username);
+
     void loginOut();
 }

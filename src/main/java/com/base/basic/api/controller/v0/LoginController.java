@@ -66,4 +66,12 @@ public class LoginController {
         loginService.loginOut();
         return new ResponseEntity(HttpStatus.OK);
     }
+
+    @Access(accessNoToken = true)
+    @ApiOperation(value = "第三方登录")
+    @PostMapping("/third-login")
+    public ResponseEntity thirdLogin(@RequestParam(value = "username", required = true) String username) {
+        String jwtToken = loginService.thirdLogin(username);
+        return new ResponseEntity(JSONObject.parseObject("{\"jwtToken\":\""+ jwtToken +"\"}"), HttpStatus.OK);
+    }
 }

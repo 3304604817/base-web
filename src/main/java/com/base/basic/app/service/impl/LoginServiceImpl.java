@@ -59,6 +59,15 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
+    public String thirdLogin(String username){
+        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(username, null);
+        // 调用密码验证逻辑
+        Authentication authentication = authenticationManager.authenticate(authenticationToken);
+        JSONObject principal = (JSONObject)JSONObject.toJSON(authentication.getPrincipal());
+        return JwtUtils.createToken(principal.getString("username"), principal.getString("realName"), principal.getString("phone"), principal.getString("email"));
+    }
+
+    @Override
     public void loginOut(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
     }
