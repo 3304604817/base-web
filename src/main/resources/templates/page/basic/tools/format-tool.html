@@ -1,6 +1,33 @@
-<style>
-    .layui-form-item .layui-input-company {width: auto;padding-right: 10px;line-height: 38px;}
-</style>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>后台管理-登陆</title>
+    <!-- 会展示在谷歌搜索中 -->
+    <title>开源工具平台</title>
+    <link rel="shortcut icon" href="../../../images/logo.png" type="image/x-icon" />
+    <meta name="keywords" content="开发工具,Json格式化,Base64加密,Base64解密,MD5加密,生成随机UUID,URL编码解码,开放平台">
+    <meta name="description" content="开放式工具集成平台,集成Json格式化,Base64加密,Base64解密,MD5加密,生成随机UUID,URL编码解码,等常用开发工具">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta http-equiv="Access-Control-Allow-Origin" content="*">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="stylesheet" href="../../../lib/layui-v2.5.5/css/layui.css" media="all">
+    <!--[if lt IE 9]>
+    <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+    <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <style>
+        html,
+        .layui-form-item .layui-input-company {width: auto;padding-right: 10px;line-height: 38px;}
+    </style>
+</head>
+<body>
+<script src="../../../lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
+<script type="text/javascript" src="../../../lib/jquery-3.4.1/jquery-3.4.1.min.js"></script>
+<script src="../../../js/config.js"></script>
 <div class="layuimini-main">
     <div class="layui-form layuimini-form" lay-filter="formData">
         <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
@@ -41,8 +68,6 @@
         </div>
     </div>
 </div>
-<script type="text/javascript" src="lib/jquery-3.4.1/jquery-3.4.1.min.js"></script>
-<script src="js/config.js"></script>
 <script>
     layui.use(['form'], function () {
         var form = layui.form,
@@ -255,3 +280,4 @@
         });
     });
 </script>
+</body>
