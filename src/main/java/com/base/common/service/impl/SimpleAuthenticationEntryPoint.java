@@ -24,5 +24,6 @@ public class SimpleAuthenticationEntryPoint implements AuthenticationEntryPoint 
     public void commence(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AuthenticationException e) throws IOException, ServletException {
         logger.error("未登录重定向到登录页面");
         httpServletResponse.sendRedirect("/page/login-0.html");
+        return;
     }
 }
