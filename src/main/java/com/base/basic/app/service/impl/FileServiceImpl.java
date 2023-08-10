@@ -42,15 +42,15 @@ public class FileServiceImpl implements FileService {
     }
 
     @Override
-    public void downloadNetwork(HttpServletResponse response, String netAddress, String filename){
+    public void downloadNetwork(HttpServletResponse response, String netAddress){
         try {
             URL url = new URL(netAddress);
             URLConnection conn = url.openConnection();
             InputStream inputStream = conn.getInputStream();
-
+            String filename = new File(netAddress).getName();
             response.reset();
             response.setContentType("application/octet-stream");
-            response.addHeader("Content-Disposition", "attachment; filename=" + URLEncoder.encode(StringUtils.isEmpty(filename) ? "NewFile" : filename, "UTF-8"));
+            response.addHeader("Content-Disposition", "attachment; filename=" + URLEncoder.encode(filename, "UTF-8"));
             ServletOutputStream outputStream = response.getOutputStream();
 
             byte[] b = new byte[1024];

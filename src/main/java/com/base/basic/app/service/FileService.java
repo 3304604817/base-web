@@ -15,7 +15,6 @@ public interface FileService {
      * 基于网络地址下载文件
      * @param response
      * @param netAddress
-     * @param filename
      */
-    void downloadNetwork(HttpServletResponse response, String netAddress, String filename);
+    void downloadNetwork(HttpServletResponse response, String netAddress);
 }

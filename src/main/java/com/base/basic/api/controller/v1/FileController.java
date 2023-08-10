@@ -43,8 +43,7 @@ public class FileController {
     @GetMapping("/download/network")
     @Access(accessNoToken = true)
     public void downloadNetwork(HttpServletResponse response,
-                                @RequestParam(value = "netAddress", required = true) String netAddress,
-                                @RequestParam(value = "filename", required = false) String filename) {
-        fileService.downloadNetwork(response, netAddress, filename);
+                                @RequestParam(value = "netAddress", required = true) String netAddress) {
+        fileService.downloadNetwork(response, netAddress);
     }
 }
