@@ -37,7 +37,7 @@ public class FileServiceImpl implements FileService {
             }
             inputStream.close();
         }catch (IOException e){
-            logger.error("downloadDiskPath {}", e);
+            logger.error("downloadDiskPath ERROR {}", e);
         }
     }
 
@@ -61,7 +61,7 @@ public class FileServiceImpl implements FileService {
             }
             inputStream.close();
         }catch (IOException e){
-            logger.error("downloadNetwork {}", e);
+            logger.error("downloadNetwork ERROR {}", e);
         }
     }
 }
