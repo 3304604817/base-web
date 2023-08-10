@@ -39,7 +39,7 @@
               "title": "Json格式化",
               "href": "page/basic/tools/format-tool.html",
               "icon": "fa fa-refresh",
-              "target": "_self"
+              "target": "_blank"
             }
           ]
         }
