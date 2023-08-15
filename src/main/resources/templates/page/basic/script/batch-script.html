@@ -52,6 +52,8 @@
         </form>
     </div>
 </div>
+<script src="js/config.js"></script>
+<script src="js/network.js"></script>
 <script>
     layui.use(['form'], function () {
         var form = layui.form
@@ -77,9 +79,7 @@
 
         // 提交脚本执行
         form.on('submit(submitScript)', function (data) {
-            layer.alert(JSON.stringify(data.field), {
-                title: '最终的提交信息'
-            })
+            AjaxPost(basicPath + '/batch-script/execute', JSON.stringify(data.field));
             return false;
         });
     });
