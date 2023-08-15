@@ -21,42 +21,14 @@ import java.util.regex.Pattern;
 @RequestMapping("/batch-script")
 public class BatchScriptController {
 
-    String format = "\\$\\{([^}]+)\\}";
-    Pattern pattern = Pattern.compile(format);
-
-
     @Autowired
     private BatchScriptRedisService batchScriptRedisService;
 
-    /**
-     * ${}
-     */
-    @ApiOperation(value = "execute")
+    @ApiOperation(value = "执行脚本")
     @PostMapping("/execute")
     @Access(accessNoToken = true)
     public ResponseEntity execute(@RequestBody ScriptParamVO scriptParam) {
-//        scriptParam.setKey("${" + scriptParam.getKey() + "}");
-
-        Matcher matcher = pattern.matcher(scriptParam.getScriptText());
-
-        // 最终要执行的命令集合
-        List<String> scriptList = new ArrayList<>(16);
-        String script = null;
-        while (matcher.find()){
-            String key = matcher.group();
-            if(StringUtils.equals(key, "${" + scriptParam.getKey() + "}")){
-                if(scriptParam.getValueType().equals("fixed")){
-                    script = scriptParam.getScriptText().replaceAll("\\$\\{" + scriptParam.getKey() + "\\}", scriptParam.getValue());
-                    scriptList.add(script);
-                }else if(scriptParam.getValueType().equals("range")){
-                    for(int i = scriptParam.getRangeFm().intValue(); i <= scriptParam.getRangeTo().intValue(); i++){
-                        script = scriptParam.getScriptText().replaceAll("\\$\\{" + scriptParam.getKey() + "\\}", String.valueOf(i));
-                        scriptList.add(script);
-                    }
-                }else {}
-            }
-        }
-
-        return new ResponseEntity(scriptList, HttpStatus.OK);
+        batchScriptRedisService.execute(scriptParam);
+        return new ResponseEntity(HttpStatus.OK);
     }
 }

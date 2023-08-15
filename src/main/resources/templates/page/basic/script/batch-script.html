@@ -121,6 +121,12 @@
             }
         });
 
+        // 测试连接
+        form.on('submit(testConnection)', function (data) {
+            AjaxPost(basicPath + '/test-connect/redis', data.field);
+            return false;
+        });
+
         // 提交脚本执行
         form.on('submit(submitScript)', function (data) {
             AjaxPost(basicPath + '/batch-script/execute', data.field);
