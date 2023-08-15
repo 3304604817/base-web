@@ -9,11 +9,10 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -40,14 +39,25 @@ public class BatchScriptController {
 
         Matcher matcher = pattern.matcher(scriptParam.getScriptText());
 
-        StringBuffer sb = new StringBuffer();
+        // 最终要执行的命令集合
+        List<String> scriptList = new ArrayList<>(16);
         while (matcher.find()){
             String key = matcher.group();
             if(StringUtils.equals(key, scriptParam.getKey())){
-                matcher.appendReplacement(sb, scriptParam.getValue());
+                if(scriptParam.getValueType().equals("fixed")){
+                    StringBuffer scriptBuffer = new StringBuffer();
+                    matcher.appendReplacement(scriptBuffer, scriptParam.getValue());
+                    scriptList.add(scriptBuffer.toString());
+                }else if(scriptParam.getValueType().equals("range")){
+                    for(int i = scriptParam.getRangeFm().intValue(); i < scriptParam.getRangeTo().intValue(); i++){
+                        StringBuffer scriptBuffer = new StringBuffer();
+                        matcher.appendReplacement(scriptBuffer, String.valueOf(i));
+                        scriptList.add(scriptBuffer.toString());
+                    }
+                }else {}
             }
         }
 
-        return new ResponseEntity(HttpStatus.OK);
+        return new ResponseEntity(scriptList, HttpStatus.OK);
     }
 }

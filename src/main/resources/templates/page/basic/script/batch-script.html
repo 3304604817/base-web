@@ -29,8 +29,8 @@
             <div class="layui-form-item">
                 <label class="layui-form-label">参数类型</label>
                 <div class="layui-input-block">
-                    <input type="radio" name="valueType" value="固定值" title="固定值" lay-filter="valueTypeRadio" checked="">
-                    <input type="radio" name="valueType" value="范围值" title="范围值" lay-filter="valueTypeRadio">
+                    <input type="radio" name="valueType" value="fixed" title="固定值" lay-filter="valueTypeRadio" checked="">
+                    <input type="radio" name="valueType" value="range" title="范围值" lay-filter="valueTypeRadio">
                 </div>
             </div>
 
@@ -65,10 +65,10 @@
 
         //监听指定开关
         form.on('radio(valueTypeRadio)', function (data) {
-            if("固定值" === data.value){
+            if("fixed" === data.value){
                 $('#valueDiv').show();
                 $('#rangeDiv').hide();
-            }else if("范围值" === data.value){
+            }else if("range" === data.value){
                 $('#valueDiv').hide();
                 $('#rangeDiv').show();
             }else {
@@ -79,7 +79,7 @@
 
         // 提交脚本执行
         form.on('submit(submitScript)', function (data) {
-            AjaxPost(basicPath + '/batch-script/execute', JSON.stringify(data.field));
+            AjaxPost(basicPath + '/batch-script/execute', data.field);
             return false;
         });
     });

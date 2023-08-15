@@ -14,6 +14,13 @@ public class ScriptParamVO {
     private String key;
 
     /**
+     * 参数类型
+     * fixed 固定值
+     * range 范围值
+     */
+    private String valueType;
+
+    /**
      * 参数值
      */
     private String value;
@@ -66,5 +73,13 @@ public class ScriptParamVO {
 
     public void setScriptText(String scriptText) {
         this.scriptText = scriptText;
+    }
+
+    public String getValueType() {
+        return valueType;
+    }
+
+    public void setValueType(String valueType) {
+        this.valueType = valueType;
     }
 }
