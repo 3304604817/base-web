@@ -35,24 +35,23 @@ public class BatchScriptController {
     @PostMapping("/execute")
     @Access(accessNoToken = true)
     public ResponseEntity execute(@RequestBody ScriptParamVO scriptParam) {
-        scriptParam.setKey("${" + scriptParam.getKey() + "}");
+//        scriptParam.setKey("${" + scriptParam.getKey() + "}");
 
         Matcher matcher = pattern.matcher(scriptParam.getScriptText());
 
         // 最终要执行的命令集合
         List<String> scriptList = new ArrayList<>(16);
+        String script = null;
         while (matcher.find()){
             String key = matcher.group();
-            if(StringUtils.equals(key, scriptParam.getKey())){
+            if(StringUtils.equals(key, "${" + scriptParam.getKey() + "}")){
                 if(scriptParam.getValueType().equals("fixed")){
-                    StringBuffer scriptBuffer = new StringBuffer();
-                    matcher.appendReplacement(scriptBuffer, scriptParam.getValue());
-                    scriptList.add(scriptBuffer.toString());
+                    script = scriptParam.getScriptText().replaceAll("\\$\\{" + scriptParam.getKey() + "\\}", scriptParam.getValue());
+                    scriptList.add(script);
                 }else if(scriptParam.getValueType().equals("range")){
-                    for(int i = scriptParam.getRangeFm().intValue(); i < scriptParam.getRangeTo().intValue(); i++){
-                        StringBuffer scriptBuffer = new StringBuffer();
-                        matcher.appendReplacement(scriptBuffer, String.valueOf(i));
-                        scriptList.add(scriptBuffer.toString());
+                    for(int i = scriptParam.getRangeFm().intValue(); i <= scriptParam.getRangeTo().intValue(); i++){
+                        script = scriptParam.getScriptText().replaceAll("\\$\\{" + scriptParam.getKey() + "\\}", String.valueOf(i));
+                        scriptList.add(script);
                     }
                 }else {}
             }
