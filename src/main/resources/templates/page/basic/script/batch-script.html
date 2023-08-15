@@ -17,11 +17,11 @@
                 <div class="layui-inline" id="rangeDiv">
                     <label class="layui-form-label">参数范围</label>
                     <div class="layui-input-inline" style="width: 100px;">
-                        <input type="text" name="rangeFm" autocomplete="off" class="layui-input">
+                        <input type="number" name="rangeFm" autocomplete="off" class="layui-input">
                     </div>
                     <div class="layui-form-mid">-</div>
                     <div class="layui-input-inline" style="width: 100px;">
-                        <input type="text" name="rangeTo" autocomplete="off" class="layui-input">
+                        <input type="number" name="rangeTo" autocomplete="off" class="layui-input">
                     </div>
                 </div>
             </div>
@@ -40,6 +40,13 @@
                     <div class="layui-input-block">
                         <textarea placeholder="请输入执行脚本" class="layui-textarea" name="scriptText"></textarea>
                     </div>
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button class="layui-btn" lay-submit="" lay-filter="submitScript">立即提交</button>
+                    <button type="reset" class="layui-btn layui-btn-primary">重置</button>
                 </div>
             </div>
         </form>
@@ -66,6 +73,14 @@
                 $('#valueDiv').hide();
                 $('#rangeDiv').hide();
             }
+        });
+
+        // 提交脚本执行
+        form.on('submit(submitScript)', function (data) {
+            layer.alert(JSON.stringify(data.field), {
+                title: '最终的提交信息'
+            })
+            return false;
         });
     });
 </script>
