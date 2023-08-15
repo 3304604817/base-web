@@ -5,6 +5,10 @@ import java.util.List;
 public class ScriptParamVO {
 
     /**
+     * 要执行的脚本
+     */
+    private String scriptText;
+    /**
      * 参数key
      */
     private String key;
@@ -54,5 +58,13 @@ public class ScriptParamVO {
 
     public void setRangeTo(Long rangeTo) {
         this.rangeTo = rangeTo;
+    }
+
+    public String getScriptText() {
+        return scriptText;
+    }
+
+    public void setScriptText(String scriptText) {
+        this.scriptText = scriptText;
     }
 }
