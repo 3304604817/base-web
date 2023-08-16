@@ -17,6 +17,10 @@ public class TestConnectionVO {
      * 密码
      */
     private String password;
+    /**
+     * 是否成功连接
+     */
+    private Boolean isConnected;
 
     public String getAddress() {
         return address;
@@ -48,5 +52,13 @@ public class TestConnectionVO {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Boolean getConnected() {
+        return isConnected;
+    }
+
+    public void setConnected(Boolean connected) {
+        isConnected = connected;
     }
 }

@@ -124,6 +124,7 @@
         // 测试连接
         form.on('submit(testConnection)', function (data) {
             const result = AjaxPost(basicPath + '/test-connect/redis', data.field);
+            console.log(result);
             layer.msg(result);
             return false;
         });
