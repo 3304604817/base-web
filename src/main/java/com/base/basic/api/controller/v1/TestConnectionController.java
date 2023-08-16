@@ -29,9 +29,14 @@ public class TestConnectionController {
         if(StringUtils.isNotEmpty(testConnection.getPassword())){
             jedis.auth(testConnection.getPassword());
         }
-        String ping = jedis.ping();
-
-        testConnection.setConnected(StringUtils.equals(ping, "PONG") ? Boolean.TRUE : Boolean.FALSE);
+        try {
+            String ping = jedis.ping();
+            testConnection.setConnected(StringUtils.equals(ping, "PONG") ? Boolean.TRUE : Boolean.FALSE);
+        }catch (Exception e){
+            testConnection.setConnected(Boolean.FALSE);
+        }finally {
+            jedis.close();
+        }
         return new ResponseEntity(testConnection, HttpStatus.OK);
     }
 }
