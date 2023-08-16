@@ -18,6 +18,15 @@ public class BatchScriptRedisServiceImpl implements BatchScriptRedisService {
 
     @Override
     public void execute(ScriptParamVO scriptParam){
+        List<String> scriptList = this.analyzeScript(scriptParam);
+    }
+
+    /**
+     * 生成要执行的脚本
+     * @param scriptParam
+     * @return
+     */
+    private List<String> analyzeScript(ScriptParamVO scriptParam){
         Matcher matcher = pattern.matcher(scriptParam.getScriptText());
 
         // 最终要执行的命令集合
@@ -37,5 +46,14 @@ public class BatchScriptRedisServiceImpl implements BatchScriptRedisService {
                 }else {}
             }
         }
+        return scriptList;
+    }
+
+    /**
+     * 执行脚本
+     * @param scriptList
+     */
+    private void run(List<String> scriptList){
+
     }
 }

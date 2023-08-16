@@ -29,6 +29,7 @@ function AjaxPost(url, body) {
         type: 'post',
         url: url,
         dataType: 'json',
+        // 只支持json返回
         contentType: 'application/json',
         data: JSON.stringify(body),
         cache: false,
