@@ -143,11 +143,11 @@
         // 提交脚本执行
         form.on('submit(submitScript)', function (data) {
             let redisForm = form.val('redisForm');
-            const data1 = {
+            const body = {
                 ...redisForm,
                 script: data.field
             };
-            AjaxPost(basicPath + '/batch-script/execute/redis', data.field);
+            AjaxPost(basicPath + '/batch-script/execute/redis', body);
             return false;
         });
     });
