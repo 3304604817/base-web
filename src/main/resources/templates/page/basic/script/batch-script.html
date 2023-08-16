@@ -147,7 +147,7 @@
                 ...redisForm,
                 script: data.field
             };
-            AjaxPost(basicPath + '/execute/redis', data.field);
+            AjaxPost(basicPath + '/batch-script/execute/redis', data.field);
             return false;
         });
     });
