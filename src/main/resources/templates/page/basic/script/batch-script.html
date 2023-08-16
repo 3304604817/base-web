@@ -90,8 +90,8 @@
             <div class="layui-form-item">
                 <label class="layui-form-label">连接类型</label>
                 <div class="layui-input-block">
-                    <input type="radio" name="valueType" value="redis" title="redis" checked="">
-                    <input type="radio" name="valueType" value="mysql" title="mysql">
+                    <input type="radio" name="connectionType" value="redis" title="redis" checked="">
+                    <input type="radio" name="connectionType" value="mysql" title="mysql">
                 </div>
             </div>
 
@@ -147,8 +147,7 @@
                 ...redisForm,
                 script: data.field
             };
-            console.log(data1);
-            // AjaxPost(basicPath + '/batch-script/execute', data.field);
+            AjaxPost(basicPath + '/execute/redis', data.field);
             return false;
         });
     });
