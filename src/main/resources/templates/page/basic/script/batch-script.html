@@ -1,9 +1,9 @@
 <div class="layuimini-container layuimini-page-anim">
     <div class="layuimini-main">
         <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
-            <legend>连接</legend>
+            <legend>Redis连接</legend>
         </fieldset>
-        <form class="layui-form" action="">
+        <form class="layui-form" action="" lay-filter="redisForm">
             <div class="layui-form-item">
                 <label class="layui-form-label">连接地址</label>
                 <div class="layui-input-block">
@@ -42,9 +42,9 @@
 
 
         <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
-            <legend>脚本</legend>
+            <legend>执行脚本</legend>
         </fieldset>
-        <form class="layui-form" action="">
+        <form class="layui-form" action="" lay-filter="scriptForm">
             <div class="layui-form-item">
                 <div class="layui-inline">
                     <label class="layui-form-label">参数名</label>
@@ -84,6 +84,14 @@
                     <div class="layui-input-block">
                         <textarea placeholder="请输入执行脚本" class="layui-textarea" name="scriptText"></textarea>
                     </div>
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">连接类型</label>
+                <div class="layui-input-block">
+                    <input type="radio" name="valueType" value="redis" title="redis" checked="">
+                    <input type="radio" name="valueType" value="mysql" title="mysql">
                 </div>
             </div>
 
@@ -134,7 +142,13 @@
 
         // 提交脚本执行
         form.on('submit(submitScript)', function (data) {
-            AjaxPost(basicPath + '/batch-script/execute', data.field);
+            let redisForm = form.val('redisForm');
+            const data1 = {
+                ...redisForm,
+                script: data.field
+            };
+            console.log(data1);
+            // AjaxPost(basicPath + '/batch-script/execute', data.field);
             return false;
         });
     });

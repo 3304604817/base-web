@@ -26,10 +26,10 @@ public class TestConnectionController {
     @PostMapping("/redis")
     public ResponseEntity<TestConnectionVO> redis(@RequestBody TestConnectionVO testConnection) {
         Jedis jedis = new Jedis(testConnection.getAddress(), testConnection.getPort());
-        if(StringUtils.isNotEmpty(testConnection.getPassword())){
-            jedis.auth(testConnection.getPassword());
-        }
         try {
+            if(StringUtils.isNotEmpty(testConnection.getPassword())){
+                jedis.auth(testConnection.getPassword());
+            }
             String ping = jedis.ping();
             testConnection.setConnected(StringUtils.equals(ping, "PONG") ? Boolean.TRUE : Boolean.FALSE);
         }catch (Exception e){

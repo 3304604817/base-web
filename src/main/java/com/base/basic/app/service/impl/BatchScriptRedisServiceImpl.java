@@ -1,9 +1,13 @@
 package com.base.basic.app.service.impl;
 
 import com.base.basic.app.service.BatchScriptRedisService;
+import com.base.basic.domain.vo.v0.ScriptBodyVO;
 import com.base.basic.domain.vo.v0.ScriptParamVO;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import redis.clients.jedis.Jedis;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,13 +16,29 @@ import java.util.regex.Pattern;
 
 @Service
 public class BatchScriptRedisServiceImpl implements BatchScriptRedisService {
+    Logger logger = LoggerFactory.getLogger(BatchScriptRedisServiceImpl.class);
 
     String format = "\\$\\{([^}]+)\\}";
     Pattern pattern = Pattern.compile(format);
 
     @Override
-    public void execute(ScriptParamVO scriptParam){
-        List<String> scriptList = this.analyzeScript(scriptParam);
+    public void executeRedis(ScriptBodyVO scriptBody){
+        List<String> scriptList = this.analyzeScript(scriptBody.getScript());
+
+        Jedis jedis = new Jedis(scriptBody.getAddress(), scriptBody.getPort());
+        try {
+            if(StringUtils.isNotEmpty(scriptBody.getPassword())){
+                jedis.auth(scriptBody.getPassword());
+            }
+            for(String script:scriptList){
+                Object result = jedis.eval(script);
+                logger.info("{}", result);
+            }
+        }catch (Exception e){
+            logger.error("redis执行异常 {}", e);
+        }finally {
+            jedis.close();
+        }
     }
 
     /**

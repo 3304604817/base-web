@@ -1,6 +1,7 @@
 package com.base.basic.api.controller.v1;
 
 import com.base.basic.app.service.BatchScriptRedisService;
+import com.base.basic.domain.vo.v0.ScriptBodyVO;
 import com.base.basic.domain.vo.v0.ScriptParamVO;
 import com.base.common.annotation.Access;
 import io.swagger.annotations.Api;
@@ -24,11 +25,11 @@ public class BatchScriptController {
     @Autowired
     private BatchScriptRedisService batchScriptRedisService;
 
-    @ApiOperation(value = "执行脚本")
-    @PostMapping("/execute")
+    @ApiOperation(value = "执行Redis脚本")
+    @PostMapping("/execute/redis")
     @Access(accessNoToken = true)
-    public ResponseEntity execute(@RequestBody ScriptParamVO scriptParam) {
-        batchScriptRedisService.execute(scriptParam);
+    public ResponseEntity executeRedis(@RequestBody ScriptBodyVO scriptBody) {
+        batchScriptRedisService.executeRedis(scriptBody);
         return new ResponseEntity(HttpStatus.OK);
     }
 }
