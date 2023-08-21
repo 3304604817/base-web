@@ -14,4 +14,6 @@ public class RedisServiceImpl implements RedisService {
 
     @Autowired
     private RedisTemplate redisTemplate;
-}
+
+    public void test(){
+    }}

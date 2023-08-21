@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import redis.clients.jedis.Jedis;
 
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -31,8 +32,8 @@ public class BatchScriptRedisServiceImpl implements BatchScriptRedisService {
                 jedis.auth(scriptBody.getPassword());
             }
             for(String script:scriptList){
-                Object result = jedis.eval(script);
-                logger.info("{}", result);
+//                Object result = jedis.evalsha(script.getBytes(StandardCharsets.UTF_8));
+//                logger.info("{}", result);
             }
         }catch (Exception e){
             logger.error("redis执行异常 {}", e);
