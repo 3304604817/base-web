@@ -3,10 +3,10 @@ package com.base.basic.app.service.impl;
 import com.base.basic.app.service.DataDictionaryService;
 import com.base.basic.domain.entity.v1.DataDictionary;
 import com.base.basic.domain.entity.v1.DataDictionaryDetail;
-import com.base.basic.domain.repository.DataDictionaryRepository;
 import com.base.basic.infra.mapper.DataDictionaryDetailMapper;
 import com.base.basic.infra.mapper.DataDictionaryMapper;
 import com.base.common.util.page.PageParmaters;
+import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,16 +22,15 @@ import java.util.Objects;
 public class DataDictionaryServiceImpl implements DataDictionaryService {
 
     @Autowired
+    @SuppressWarnings("all")
     private DataDictionaryMapper dataDictionaryMapper;
     @Autowired
-    private DataDictionaryRepository dataDictionaryRepository;
-    @Autowired
+    @SuppressWarnings("all")
     private DataDictionaryDetailMapper dataDictionaryDetailMapper;
 
     @Override
     public PageInfo<DataDictionary> pageList(PageParmaters pageParmaters, DataDictionary dataDictionary){
-        PageInfo<DataDictionary> pages = dataDictionaryRepository.pageList(dataDictionary, pageParmaters);
-        return pages;
+        return PageHelper.startPage(pageParmaters.getPage(), pageParmaters.getLimit()).doSelectPageInfo(() -> dataDictionaryMapper.list(dataDictionary));
     }
 
     @Override

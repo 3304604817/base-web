@@ -1,6 +1,5 @@
 package com.base.basic.api.controller.v1;
 
-import com.base.basic.domain.repository.DataDictionaryDetailRepository;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +12,4 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/data-dictionary-detail")
 public class DataDictionaryDetailController {
 
-    @Autowired
-    private DataDictionaryDetailRepository dataDictionaryDetailRepository;
 }

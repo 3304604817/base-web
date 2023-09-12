@@ -1,9 +1,10 @@
 package com.base.basic.app.service.impl;
 
 import com.base.basic.app.service.EasyExcelService;
+import com.base.basic.app.service.UserService;
 import com.base.basic.domain.entity.v0.IamUser;
 import com.base.basic.domain.exc.UserExcelModel;
-import com.base.basic.domain.repository.UserRepository;
+import com.base.basic.infra.mapper.UserMapper;
 import com.base.common.util.excel.helper.EasyExcelHelper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,12 +19,15 @@ import java.util.List;
 public class EasyExcelServiceImpl implements EasyExcelService {
 
     @Autowired
-    private UserRepository userRepository;
+    @SuppressWarnings("all")
+    private UserMapper userMapper;
+    @Autowired
+    private UserService userService;
 
     @Override
     public String exportData(HttpServletResponse response){
         // 获取需要导出的数据
-        List<IamUser> userList = userRepository.list(new IamUser());
+        List<IamUser> userList = userMapper.list(new IamUser());
 
         List<UserExcelModel> userExcelModels = new ArrayList<>(32);
         userList.stream().forEach(user -> {
@@ -39,7 +43,7 @@ public class EasyExcelServiceImpl implements EasyExcelService {
 
     @Override
     public String importData(MultipartFile file){
-        EasyExcelHelper.getInstance().easyImport(0, UserExcelModel.class, userRepository, file);
+        EasyExcelHelper.getInstance().easyImport(0, UserExcelModel.class, userService, file);
         return "导入成功";
     }
 }

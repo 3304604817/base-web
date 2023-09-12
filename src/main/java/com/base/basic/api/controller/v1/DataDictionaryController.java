@@ -2,7 +2,6 @@ package com.base.basic.api.controller.v1;
 
 import com.base.basic.app.service.DataDictionaryService;
 import com.base.basic.domain.entity.v1.DataDictionary;
-import com.base.basic.domain.repository.DataDictionaryRepository;
 import com.base.common.util.layui.LayJson;
 import com.base.common.util.page.PageParmaters;
 import io.swagger.annotations.Api;
@@ -20,8 +19,6 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping("/data-dictionary")
 public class DataDictionaryController {
 
-    @Autowired
-    private DataDictionaryRepository dataDictionarysRepository;
     @Autowired
     private DataDictionaryService dataDictionaryService;
 

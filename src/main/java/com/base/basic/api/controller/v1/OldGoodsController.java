@@ -2,7 +2,6 @@ package com.base.basic.api.controller.v1;
 
 import com.base.basic.app.service.OldGoodsService;
 import com.base.basic.domain.entity.v1.OldGoods;
-import com.base.basic.domain.repository.OldGoodsRepository;
 import com.base.common.annotation.Access;
 import com.base.common.util.layui.LayJson;
 import com.base.common.util.page.PageParmaters;
@@ -26,8 +25,6 @@ import javax.servlet.http.HttpServletResponse;
 @RequestMapping("/old-goods")
 public class OldGoodsController {
 
-    @Autowired
-    private OldGoodsRepository oldGoodsRepository;
     @Autowired
     private OldGoodsService oldGoodsService;
 

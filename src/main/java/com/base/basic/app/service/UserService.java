@@ -1,13 +1,14 @@
 package com.base.basic.app.service;
 
 import com.base.basic.domain.vo.v0.CurrentUserVO;
+import com.base.common.util.excel.EasyOperaInterface;
 import com.base.common.util.page.PageParmaters;
 import com.github.pagehelper.PageInfo;
 import com.base.basic.domain.entity.v0.IamUser;
 
 import java.util.List;
 
-public interface UserService {
+public interface UserService extends EasyOperaInterface {
     CurrentUserVO currentUser();
 
     PageInfo<IamUser> pageList(PageParmaters pageParmaters, IamUser dto);

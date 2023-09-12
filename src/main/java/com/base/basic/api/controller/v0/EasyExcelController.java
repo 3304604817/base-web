@@ -1,7 +1,6 @@
 package com.base.basic.api.controller.v0;
 
 import com.base.basic.app.service.EasyExcelService;
-import com.base.basic.domain.repository.UserRepository;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -16,8 +15,6 @@ import javax.servlet.http.HttpServletResponse;
 @RequestMapping("/excel")
 public class EasyExcelController {
 
-    @Autowired
-    private UserRepository userRepository;
     @Autowired
     private EasyExcelService easyExcelService;
 

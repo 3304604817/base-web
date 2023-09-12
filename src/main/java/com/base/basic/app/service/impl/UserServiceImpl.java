@@ -7,7 +7,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.base.basic.app.service.UserService;
 import com.base.basic.domain.entity.v0.IamUser;
-import com.base.basic.domain.repository.UserRepository;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -23,8 +23,6 @@ public class UserServiceImpl implements UserService {
     @Autowired
     @SuppressWarnings("all")
     private UserMapper userMapper;
-    @Autowired
-    private UserRepository userRepository;
 
     @Override
     public CurrentUserVO currentUser(){
@@ -35,7 +33,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public PageInfo<IamUser> pageList(PageParmaters pageParmaters, IamUser dto){
-        return PageHelper.startPage(pageParmaters.getPage(), pageParmaters.getLimit()).doSelectPageInfo(() -> userRepository.list(dto));
+        return PageHelper.startPage(pageParmaters.getPage(), pageParmaters.getLimit()).doSelectPageInfo(() -> userMapper.list(dto));
     }
 
     @Override
@@ -47,13 +45,17 @@ public class UserServiceImpl implements UserService {
     @Transactional(rollbackFor = Exception.class)
     public IamUser insert(IamUser iamUser){
         iamUser.setOrganizationId(Objects.isNull(iamUser.getOrganizationId()) ? 1L : iamUser.getOrganizationId());
-        return userRepository.insert(iamUser);
+        userMapper.insertSelective(iamUser);
+        return iamUser;
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
     public List<IamUser> batchInsert(List<IamUser> iamUsers){
-        return userRepository.batchInsert(iamUsers);
+        for(IamUser user:iamUsers){
+            userMapper.insertSelective(user);
+        }
+        return iamUsers;
     }
 
     @Override
@@ -91,12 +93,29 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public IamUser update(IamUser iamUser){
-        return userRepository.update(iamUser);
+        int i = userMapper.updateOptionalOpl(iamUser, IamUser.FIELD_EMAIL);
+        return iamUser;
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void batchDelete(List<IamUser> iamUsers){
-        userRepository.batchDelete(iamUsers);
+        iamUsers.stream().forEach(p -> {
+            userMapper.deleteByPrimaryKey(p.getId());
+        });
+    }
+
+    /**
+     * 重写 easySave 方法
+     * @param list
+     */
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void easySave(List<Object> list) {
+        list.stream().forEach(data -> {
+            IamUser user = new IamUser();
+            BeanUtils.copyProperties(data, user);
+            userMapper.insertSelective(user);
+        });
     }
 }

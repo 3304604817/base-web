@@ -3,16 +3,14 @@ package com.base.basic.app.service.impl;
 import com.alibaba.excel.EasyExcel;
 import com.alibaba.excel.support.ExcelTypeEnum;
 import com.base.basic.app.service.OldGoodsService;
-import com.base.basic.domain.entity.v0.IamUser;
 import com.base.basic.domain.entity.v1.OldGoods;
 import com.base.basic.domain.entity.v1.OldGoodsDetail;
 import com.base.basic.domain.exc.OldGoodsExcelModel;
-import com.base.basic.domain.exc.UserExcelModel;
-import com.base.basic.domain.repository.OldGoodsRepository;
 import com.base.basic.infra.mapper.OldGoodsDetailMapper;
 import com.base.basic.infra.mapper.OldGoodsMapper;
 import com.base.common.util.excel.EasyExcelListener;
 import com.base.common.util.page.PageParmaters;
+import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,7 +39,7 @@ public class OldGoodsServiceImpl implements OldGoodsService {
     @SuppressWarnings("all")
     private OldGoodsDetailMapper oldGoodsDetailMapper;
     @Autowired
-    private OldGoodsRepository oldGoodsRepository;
+    private OldGoodsService oldGoodsService;
 
     /**
      * 数据字典分页查询
@@ -50,8 +48,7 @@ public class OldGoodsServiceImpl implements OldGoodsService {
      */
     @Override
     public PageInfo<OldGoods> pageList(PageParmaters pageParmaters, OldGoods searchBody){
-        PageInfo<OldGoods> pages = oldGoodsRepository.pageList(pageParmaters, searchBody);
-        return pages;
+        return PageHelper.startPage(pageParmaters.getPage(), pageParmaters.getLimit()).doSelectPageInfo(() -> oldGoodsMapper.list(searchBody));
     }
 
     @Override
@@ -136,12 +133,18 @@ public class OldGoodsServiceImpl implements OldGoodsService {
             }
 
             // 读取 Excel 第一个 sheet 页
-            EasyExcel.read(file.getInputStream(), OldGoodsExcelModel.class, new EasyExcelListener<>(oldGoodsRepository))
+            EasyExcel.read(file.getInputStream(), OldGoodsExcelModel.class, new EasyExcelListener<>(oldGoodsService))
                     .excelType(suffixName.equals(".xls") ? ExcelTypeEnum.XLS : ExcelTypeEnum.XLSX)
                     .sheet(0).doRead();
         } catch (IOException e) {
             e.printStackTrace();
         }
         return "导入成功";
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void easySave(List<Object> list) {
+        System.out.println("开始保存");
     }
 }
