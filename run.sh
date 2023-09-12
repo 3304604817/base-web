@@ -9,7 +9,8 @@ echo ">>> 定位服务位置"
 cd /home/app/baseapp/$dirName
 
 echo ">>> 保留历史日志到项目根目录"
-mv /home/app/baseapp/$dirName/target/base-web.log /home/app/baseapp/$dirName/base-web-`date "+%Y-%m-%d-%H:%M:%S"`.log
+#mv /home/app/baseapp/$dirName/target/base-web.log /home/app/baseapp/$dirName/base-web-`date "+%Y-%m-%d-%H:%M:%S"`.log
+mv ./target/base-web.log base-web-`date "+%Y-%m-%d-%H:%M:%S"`.log
 
 echo ">>> git pull"
 git pull
