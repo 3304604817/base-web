@@ -29,7 +29,7 @@ fi
 echo ">>> cd target"
 cd target
 
-echo ">>> 移动历史日志到上级目录"
+echo ">>> 移动历史日志到项目根目录"
 mv /home/app/baseapp/$dirName/target/base-web.log /home/app/baseapp/$dirName/base-web-`date "+%Y-%m-%d-%H:%M:%S"`.log
 
 echo ">>> start"
