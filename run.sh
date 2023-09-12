@@ -30,7 +30,7 @@ echo ">>> cd target"
 cd target
 
 echo ">>> 移动历史日志到上级目录"
-mv base-web.log ./../base-web-`date "+%Y-%m-%d-%H:%M:%S"`.log
+mv /home/app/baseapp/$dirName/target/base-web.log /home/app/baseapp/$dirName/base-web-`date "+%Y-%m-%d-%H:%M:%S"`.log
 
 echo ">>> start"
 nohup java -jar -Xms512m -Xmx1024m /home/app/baseapp/$dirName/target/base-web-run.jar > base-web.log &
