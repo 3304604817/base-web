@@ -12,6 +12,7 @@
     <groupId>com.base</groupId>
     <artifactId>base-web</artifactId>
     <version>1.0.0-SNAPSHOT</version>
+<!--    <version>1.0.0-RELEASE</version>-->
     <packaging>jar</packaging>
     <name>base</name>
 
