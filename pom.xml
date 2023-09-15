@@ -186,12 +186,12 @@
         <!-- releases仓库 -->
         <repository>
             <id>base-releases-repo</id>
-            <url>http://39.101.202.67:18081/repository/maven-releases/</url>
+            <url>http://10.202.32.206:18081/repository/maven-releases/</url>
         </repository>
         <!-- snapshots快照仓 -->
         <snapshotRepository>
             <id>base-snapshots-repo</id>
-            <url>http://39.101.202.67:18081/repository/maven-snapshots/</url>
+            <url>http://10.202.32.206:18081/repository/maven-snapshots/</url>
         </snapshotRepository>
     </distributionManagement>
 </project>
