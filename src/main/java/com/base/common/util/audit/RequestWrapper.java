@@ -1,7 +1,10 @@
 package com.base.common.util.audit;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.MediaType;
+import org.springframework.util.CollectionUtils;
 import org.springframework.util.StreamUtils;
 
 import javax.servlet.ReadListener;
@@ -9,6 +12,9 @@ import javax.servlet.ServletInputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
 import java.io.*;
+import java.util.Arrays;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * @author gaoyang
@@ -28,9 +34,24 @@ public class RequestWrapper extends HttpServletRequestWrapper {
     public RequestWrapper(HttpServletRequest request) {
         super(request);
         try {
-            ServletInputStream is = request.getInputStream();
-            byte[] bodyBytes = StreamUtils.copyToByteArray(is);
-            this.body = new String(bodyBytes, request.getCharacterEncoding());
+            String contentType = request.getContentType();
+            // 判断当前请求数据类型是否为表单提交
+            if (!StringUtils.isEmpty(contentType) && (contentType.contains(MediaType.MULTIPART_FORM_DATA_VALUE) || contentType.contains(MediaType.APPLICATION_FORM_URLENCODED_VALUE))) {
+                String bodyString = "";
+                Map<String, String[]> parameterMap = request.getParameterMap();
+                if (!CollectionUtils.isEmpty(parameterMap)) {
+                    bodyString = parameterMap.entrySet().stream().map(x -> {
+                        String[] values = x.getValue();
+                        return x.getKey() + "=" + (values != null ? (values.length == 1 ? values[0] : Arrays.toString(values)) : null);
+                    }).collect(Collectors.joining("&"));
+                }
+                this.body = new String(bodyString.getBytes(), request.getCharacterEncoding());
+            }else {
+                ServletInputStream is = request.getInputStream();
+                byte[] bodyBytes = StreamUtils.copyToByteArray(is);
+                this.body = new String(bodyBytes, request.getCharacterEncoding());
+            }
+
         }catch (IOException ex){
             logger.error("ex {}", ex);
         }

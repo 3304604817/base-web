@@ -38,7 +38,7 @@ public class EasyExcelHelper<T> {
     }
 
     /**
-     * 导入
+     * 导入固定列数
      * @param sheetNo 导入的Sheet页 1、2、3...
      * @param file
      * @param easyOperInterface 导入逻辑具体实现
@@ -55,6 +55,29 @@ public class EasyExcelHelper<T> {
             EasyExcel.read(file.getInputStream(), excelModel, new EasyExcelListener<>(easyOperInterface))
                     .excelType(suffixName.equals(".xls") ? ExcelTypeEnum.XLS : ExcelTypeEnum.XLSX)
                     .sheet(sheetNo).doRead();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 导入不固定的列数
+     * @param sheetNo
+     * @param easyOperInterface
+     * @param file
+     */
+    public void easyDynamicImport(Integer sheetNo, EasyOperaInterface easyOperInterface, MultipartFile file){
+        try {
+            // 获取后缀名
+            String suffixName = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));
+            if(!suffixName.equals(".xls") && !suffixName.equals(".xlsx")){
+                logger.error("文件格式异常");
+            }
+
+            // 读取 Excel 第一个 sheet 页
+            EasyExcel.read(file.getInputStream(), new EasyExcelListener<>(easyOperInterface))
+                    .excelType(suffixName.equals(".xls") ? ExcelTypeEnum.XLS : ExcelTypeEnum.XLSX)
+                    .sheet(sheetNo).doReadSync();
         } catch (IOException e) {
             e.printStackTrace();
         }
