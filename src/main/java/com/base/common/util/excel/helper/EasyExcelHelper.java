@@ -88,12 +88,36 @@ public class EasyExcelHelper<T> {
 
     /**
      * 导入不固定的列数
-     * 一次性执行所有数据导入（详见 EasyExcelListener 和 EasyExcelBatchListener）
+     * 数据每次执行100条（详见 EasyExcelListener 和 EasyExcelBatchListener）
      * @param sheetNo
      * @param easyOperInterface
      * @param file
      */
     public void easyDynamicImport(Integer sheetNo, EasyOperaInterface easyOperInterface, MultipartFile file){
+        try {
+            // 获取后缀名
+            String suffixName = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));
+            if(!suffixName.equals(".xls") && !suffixName.equals(".xlsx")){
+                logger.error("文件格式异常");
+            }
+
+            // 读取 Excel 第一个 sheet 页
+            EasyExcel.read(file.getInputStream(), new EasyExcelListener<>(easyOperInterface))
+                    .excelType(suffixName.equals(".xls") ? ExcelTypeEnum.XLS : ExcelTypeEnum.XLSX)
+                    .sheet(sheetNo).doReadSync();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 导入不固定的列数
+     * 一次性执行所有数据导入（详见 EasyExcelListener 和 EasyExcelBatchListener）
+     * @param sheetNo
+     * @param easyOperInterface
+     * @param file
+     */
+    public void easyDynamicBatchImport(Integer sheetNo, EasyOperaInterface easyOperInterface, MultipartFile file){
         try {
             // 获取后缀名
             String suffixName = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));
