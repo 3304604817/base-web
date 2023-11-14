@@ -102,7 +102,7 @@ public class EasyExcelHelper<T> {
             }
 
             // 读取 Excel 第一个 sheet 页
-            EasyExcel.read(file.getInputStream(), new EasyExcelListener<>(easyOperInterface))
+            EasyExcel.read(file.getInputStream(), new EasyExcelListener<>(easyOperInterface)).headRowNumber(0)
                     .excelType(suffixName.equals(".xls") ? ExcelTypeEnum.XLS : ExcelTypeEnum.XLSX)
                     .sheet(sheetNo).doReadSync();
         } catch (IOException e) {
@@ -126,7 +126,7 @@ public class EasyExcelHelper<T> {
             }
 
             // 读取 Excel 第一个 sheet 页
-            EasyExcel.read(file.getInputStream(), new EasyExcelBatchListener<>(easyOperInterface))
+            EasyExcel.read(file.getInputStream(), new EasyExcelBatchListener<>(easyOperInterface)).headRowNumber(0)
                     .excelType(suffixName.equals(".xls") ? ExcelTypeEnum.XLS : ExcelTypeEnum.XLSX)
                     .sheet(sheetNo).doReadSync();
         } catch (IOException e) {

@@ -1,7 +1,7 @@
 package com.base.basic.api.controller.v0;
 
 import com.base.basic.app.service.EchartsRecordsService;
-import com.base.basic.domain.vo.v0.EchartsXAxisVO;
+import com.base.basic.domain.vo.v0.EchartsRecordsVO;
 import com.base.common.annotation.Access;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -32,7 +32,7 @@ public class EchartsRecordsController {
 
     @ApiOperation(value = "生成预览数据")
     @PostMapping("/export")
-    public ResponseEntity<List<EchartsXAxisVO>> reviewChart(){
+    public ResponseEntity<List<EchartsRecordsVO>> reviewChart(){
         echartsRecordsService.reviewChart();
         return new ResponseEntity(new ArrayList<>(), HttpStatus.OK);
     }
