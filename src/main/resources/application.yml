@@ -23,8 +23,9 @@ spring:
       password: Admin@123
   redis:
     database: 0
-    host: ${SPRING_REDIS_HOST:redis.base.org}
+    host: ${SPRING_REDIS_HOST:10.202.32.206}
     port: 6379
+    password: '%^#&@%#*$(62748tegb'
     timeout: 20000        # 连接超时时间（毫秒）
     jedis:
       pool:

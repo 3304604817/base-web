@@ -31,9 +31,9 @@ public class EchartsRecordsController {
     }
 
     @ApiOperation(value = "生成预览数据")
-    @PostMapping("/export")
-    public ResponseEntity<List<EchartsRecordsVO>> reviewChart(){
-        echartsRecordsService.reviewChart();
-        return new ResponseEntity(new ArrayList<>(), HttpStatus.OK);
+    @PostMapping("/reviewChart")
+    @Access(accessNoToken = true)
+    public ResponseEntity<EchartsRecordsVO> reviewChart(){
+        return new ResponseEntity(echartsRecordsService.reviewChart(), HttpStatus.OK);
     }
 }

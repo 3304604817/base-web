@@ -1,10 +1,12 @@
 package com.base.basic.app.service.impl;
 
+import com.alibaba.fastjson.JSONObject;
 import com.base.basic.app.service.EchartsRecordsService;
 import com.base.basic.domain.vo.v0.EchartsLegendVO;
 import com.base.basic.domain.vo.v0.EchartsRecordsVO;
 import com.base.common.util.excel.helper.EasyExcelHelper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -12,16 +14,20 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class EchartsRecordsServiceImpl implements EchartsRecordsService {
 
     @Autowired
+    private RedisTemplate redisTemplate;
+    @Autowired
     private EchartsRecordsService echartsRecordsService;
 
     @Override
-    public void reviewChart(){
-
+    public EchartsRecordsVO reviewChart(){
+        String value = (String) redisTemplate.opsForValue().get("line");
+        return JSONObject.parseObject(value, EchartsRecordsVO.class);
     }
 
     @Override
@@ -61,5 +67,13 @@ public class EchartsRecordsServiceImpl implements EchartsRecordsService {
         }
 
         echartsRecordsVO.setLegendVOList(echartsLegendVOList);
+
+        /**
+         * 数据推到Redis
+         */
+//        String key = "line-" + UUID.randomUUID().toString();
+        String key = "line";
+        String value = JSONObject.toJSONString(echartsRecordsVO);
+        redisTemplate.opsForValue().set(key, value);
     }
 }
