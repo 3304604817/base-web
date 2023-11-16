@@ -2,8 +2,10 @@ package com.base.basic.app.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
 import com.base.basic.app.service.EchartsRecordsService;
+import com.base.basic.domain.entity.v1.DataEcharts;
 import com.base.basic.domain.vo.v0.EchartsLegendVO;
 import com.base.basic.domain.vo.v0.EchartsRecordsVO;
+import com.base.basic.infra.mapper.DataEchartsMapper;
 import com.base.common.util.excel.helper.EasyExcelHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -21,6 +23,9 @@ public class EchartsRecordsServiceImpl implements EchartsRecordsService {
 
     @Autowired
     private RedisTemplate redisTemplate;
+    @Autowired
+    @SuppressWarnings("all")
+    private DataEchartsMapper dataEchartsMapper;
     @Autowired
     private EchartsRecordsService echartsRecordsService;
 
@@ -69,11 +74,12 @@ public class EchartsRecordsServiceImpl implements EchartsRecordsService {
         echartsRecordsVO.setLegendVOList(echartsLegendVOList);
 
         /**
-         * 数据推到Redis
+         * 存数据
          */
-//        String key = "line-" + UUID.randomUUID().toString();
-        String key = "line";
-        String value = JSONObject.toJSONString(echartsRecordsVO);
-        redisTemplate.opsForValue().set(key, value);
+        DataEcharts dataEcharts = new DataEcharts();
+        dataEcharts.setEchartType("LINE");
+        dataEcharts.setEchartKey(UUID.randomUUID().toString());
+        dataEcharts.setEchartData(JSONObject.toJSONString(echartsRecordsVO));
+        dataEchartsMapper.insertSelective(dataEcharts);
     }
 }
