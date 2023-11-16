@@ -122,14 +122,18 @@
             skin: 'line'
         });
 
+        table.on('toolbar(currentTableFilter)', function (obj) {
+            if(obj.event === 'import'){
+                layer.msg("操作成功");
+            }
+        });
+
         /**
          * toolbar操作列事件监听
          */
         table.on('tool(currentTableFilter)', function (obj) {
             var data = obj.data;
-            if(obj.event === 'import'){
-                layer.msg("操作成功");
-            }else if (obj.event === 'review') {
+            if (obj.event === 'review') {
                 let echartDataObj = JSON.parse(data.echartData);
 
                 xAxisData = echartDataObj.xAxis;
