@@ -12,4 +12,17 @@
         <result column="last_updated_by" property="lastUpdatedBy" jdbcType="DECIMAL"/>
         <result column="last_update_date" property="lastUpdateDate" jdbcType="DATE"/>
     </resultMap>
+
+    <select id="list" parameterType="com.base.basic.domain.entity.v1.DataEcharts" resultMap="BaseResultMap">
+        SELECT dde.id,
+        dde.echart_type,
+        dde.echart_key,
+        dde.echart_data
+        FROM db_data_echarts dde
+        <where>
+            <if test="null != echartType and '' != echartType">
+                dde.echart_type = #{echartType, jdbcType = VARCHAR}
+            </if>
+        </where>
+    </select>
 </mapper>

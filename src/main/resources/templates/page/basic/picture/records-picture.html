@@ -24,7 +24,7 @@
 <div class="layuimini-container layuimini-page-anim">
     <div class="layuimini-main welcome">
         <div class="layui-row layui-col-space15">
-            <div class="layui-col-md8">
+            <div class="layui-col-md12">
                 <div class="layui-row layui-col-space15">
                     <div class="layui-col-md12">
                         <div class="layui-card">
@@ -43,12 +43,12 @@
         <script type="text/html" id="headerToolbar">
             <div class="layui-btn-container">
                 <button class="layui-btn layui-btn-normal layui-btn-sm data-add-btn" lay-event="add"> 删除 </button>
-                <button class="layui-btn layui-btn-normal layui-btn-sm data-add-btn" lay-event="add"> 导入Excel数据 </button>
+                <button class="layui-btn layui-btn-normal layui-btn-sm data-add-btn" lay-event="import"> 导入Excel数据 </button>
             </div>
         </script>
         <table class="layui-hide" id="currentTableId" lay-filter="currentTableFilter"></table>
         <script type="text/html" id="currentTableBar">
-            <a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="save">运行</a>
+            <a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="review">预览</a>
         </script>
     </div>
 </div>
@@ -63,12 +63,15 @@
          * 报表功能
          */
         var echartsRecords = echarts.init(document.getElementById('echarts-records'), 'walden');
+        let legendData = [];
+        let xAxisData = [];
+        let seriesData = [];
         var optionRecords = {
             tooltip: {
                 trigger: 'axis'
             },
             legend: {
-                data: ['邮件营销', '联盟广告', '视频广告', '直接访问', '搜索引擎', '测试']
+                data: legendData
             },
             grid: {
                 left: '3%',
@@ -84,43 +87,12 @@
             xAxis: {
                 type: 'category',
                 boundaryGap: false,
-                data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
+                data: xAxisData
             },
             yAxis: {
                 type: 'value'
             },
-            series: [
-                {
-                    name: '邮件营销',
-                    type: 'line',
-                    data: [120, 132, 101, 134, 90, 230, 210]
-                },
-                {
-                    name: '联盟广告',
-                    type: 'line',
-                    data: [220, 182, 191, 234, 290, 330, 310]
-                },
-                {
-                    name: '视频广告',
-                    type: 'line',
-                    data: [150, 232, 201, 154, 190, 330, 410]
-                },
-                {
-                    name: '直接访问',
-                    type: 'line',
-                    data: [320, 332, 301, 334, 390, 330, 320]
-                },
-                {
-                    name: '搜索引擎',
-                    type: 'line',
-                    data: [820, 932, 901, 934, 1290, 1330, 1320]
-                },
-                {
-                    name: '测试',
-                    type: 'line',
-                    data: [1, 2, 3, 4, 454, 6565, 23]
-                }
-            ]
+            series: seriesData
         };
         echartsRecords.setOption(optionRecords);
 
@@ -131,7 +103,7 @@
 
         table.render({
             elem: '#currentTableId',
-            url: basicPath + '/user/page',
+            url: basicPath + '/data-echarts/page',
             toolbar: '#headerToolbar',
             defaultToolbar: ['filter', 'exports', 'print', {
                 title: '提示',
@@ -140,16 +112,38 @@
             }],
             cols: [[
                 {type: "checkbox", width: 50},
-                {field: 'loginName', width: 150, title: '账号', sort: true, edit:"text"},
-                {field: 'realName', width: 200, title: '姓名', edit:"text"},
-                {field: 'email', width: 200, title: '邮箱', edit:"text"},
-                {field: 'phone', width: 200, title: '手机', edit:"text"},
+                {field: 'echartKey', width: 200, title: 'key', edit:"text"},
+                {field: 'echartData', width: 600, title: '数据', edit:"text"},
                 {title: '操作', minWidth: 150, toolbar: '#currentTableBar', align: "center"}
             ]],
             limits: [10, 20, 50, 100],
             limit: 10,
             page: true,
             skin: 'line'
+        });
+
+        /**
+         * toolbar操作列事件监听
+         */
+        table.on('tool(currentTableFilter)', function (obj) {
+            var data = obj.data;
+            if(obj.event === 'import'){
+                layer.msg("操作成功");
+            }else if (obj.event === 'review') {
+                let echartDataObj = JSON.parse(data.echartData);
+
+                xAxisData = echartDataObj.xAxis;
+                for (let element of echartDataObj.legendVOList) {
+                    const { legend, values } = element;
+                    const seriesElement = { name: legend, type: 'line', data: values};
+
+                    legendData.push(legend);
+                    seriesData.push(seriesElement);
+                }
+                echartsRecords.setOption(optionRecords, true);
+                layer.msg("操作成功");
+                return false;
+            }
         });
     });
 </script>
