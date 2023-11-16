@@ -17,7 +17,7 @@ public class DataEchartsServiceImpl implements DataEchartsService {
     private DataEchartsMapper dataEchartsMapper;
 
     @Override
-    public PageInfo<DataEcharts> pageList(PageParmaters pageParmaters, DataEcharts searchBody) {
+    public PageInfo<DataEcharts>    pageList(PageParmaters pageParmaters, DataEcharts searchBody) {
         return PageHelper.startPage(pageParmaters.getPage(), pageParmaters.getLimit()).doSelectPageInfo(() -> dataEchartsMapper.list(searchBody));
     }
 }

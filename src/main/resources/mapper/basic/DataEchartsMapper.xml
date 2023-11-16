@@ -24,5 +24,6 @@
                 dde.echart_type = #{echartType, jdbcType = VARCHAR}
             </if>
         </where>
+        ORDER BY dde.id DESC
     </select>
 </mapper>
