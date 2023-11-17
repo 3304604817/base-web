@@ -26,7 +26,8 @@ public class EchartsRecordsController {
     @ApiOperation(value = "导入")
     @PostMapping("/import")
     @Access(accessNoToken = true)
-    public ResponseEntity<String> importData(@ApiParam(value="选择文件", required = true) @RequestPart("fileName") MultipartFile file){
+    public ResponseEntity<String> importData(@ApiParam(value="文件名", required = false) @RequestPart("name") String name,
+                                             @ApiParam(value="选择文件", required = true) @RequestPart("file") MultipartFile file){
         return new ResponseEntity(echartsRecordsService.importData(file), HttpStatus.OK);
     }
 

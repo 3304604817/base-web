@@ -3,9 +3,9 @@
     <div class="layuimini-main">
         <div class="layui-form layuimini-form" lay-filter="modelView">
 
-            <div id="uploader" class="wu-example">
+            <div id="uploader">
                 <!--用来存放文件信息-->
-                <div id="fileList" class="uploader-list"></div>
+                <div id="fileList"></div>
                 <div class="btns">
                     <div id="filePicker">选择文件</div>
                     <button id="uploadBtn" class="btn btn-default">开始上传</button>
@@ -26,7 +26,7 @@
             swf: '/js/Uploader.swf',
 
             // 文件接收服务端。
-            server: 'http://webuploader.duapp.com/server/fileupload.php',
+            server: 'http://localhost:80/echarts-records/import',
 
             // 选择文件的按钮。可选。
             // 内部根据当前运行是创建，可能是input元素，也可能是flash.
