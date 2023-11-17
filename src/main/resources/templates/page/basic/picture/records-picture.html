@@ -53,10 +53,11 @@
     </div>
 </div>
 <script>
-    layui.use(['layer','echarts', 'table'], function () {
+    layui.use(['layer','echarts', 'miniPage', 'table'], function () {
         var $ = layui.jquery,
             layer = layui.layer,
             echarts = layui.echarts,
+            miniPage = layui.miniPage,
             table = layui.table;
 
         /**
@@ -124,7 +125,16 @@
 
         table.on('toolbar(currentTableFilter)', function (obj) {
             if(obj.event === 'import'){
-                layer.msg("操作成功");
+                var content = miniPage.getHrefContent('page/basic/picture/file-select.html');
+                layer.open({
+                    title: '分配用户',
+                    type: 1,
+                    shade: 0.2,
+                    maxmin:true,
+                    shadeClose: true,
+                    content: content,
+                    btnAlign: 'c', //按钮居中
+                });
             }
         });
 
