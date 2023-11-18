@@ -7,7 +7,7 @@ spring:
   application:
     name: base
   datasource:
-    url: ${SPRING_DATASOURCE_URL:jdbc:mysql://10.202.32.206:3306/db_base?useUnicode=true&characterEncoding=utf-8&useSSL=false}
+    url: ${SPRING_DATASOURCE_URL:jdbc:mysql://db.base.org:3306/db_base?useUnicode=true&characterEncoding=utf-8&useSSL=false}
     username: ${SPRING_DATASOURCE_USERNAME:root}
     password: ${SPRING_DATASOURCE_PASSWORD:root@123456}
     hikari:
@@ -23,7 +23,7 @@ spring:
       password: Admin@123
   redis:
     database: 0
-    host: ${SPRING_REDIS_HOST:10.202.32.206}
+    host: ${SPRING_REDIS_HOST:redis.base.org}
     port: 6379
     password: '%^#&@%#*$(62748tegb'
     timeout: 20000        # 连接超时时间（毫秒）
