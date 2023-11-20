@@ -66,38 +66,6 @@
          * 报表功能
          */
         var echartsRecords = echarts.init(document.getElementById('echarts-records'), 'walden');
-        let legendData = [];
-        let xAxisData = [];
-        let seriesData = [];
-        var optionRecords = {
-            tooltip: {
-                trigger: 'axis'
-            },
-            legend: {
-                data: legendData
-            },
-            grid: {
-                left: '3%',
-                right: '4%',
-                bottom: '3%',
-                containLabel: true
-            },
-            toolbox: {
-                feature: {
-                    saveAsImage: {}
-                }
-            },
-            xAxis: {
-                type: 'category',
-                boundaryGap: false,
-                data: xAxisData
-            },
-            yAxis: {
-                type: 'value'
-            },
-            series: seriesData
-        };
-        echartsRecords.setOption(optionRecords);
 
         // echarts 窗口缩放自适应
         window.onresize = function () {
@@ -162,7 +130,9 @@
             if (obj.event === 'review') {
                 let echartDataObj = JSON.parse(data.echartData);
 
-                xAxisData = echartDataObj.xAxis;
+                let xAxisData = echartDataObj.xAxis;
+                let legendData = [];
+                let seriesData = [];
                 for (let element of echartDataObj.legendVOList) {
                     const { legend, values } = element;
                     const seriesElement = { name: legend, type: 'line', data: values};
@@ -170,6 +140,35 @@
                     legendData.push(legend);
                     seriesData.push(seriesElement);
                 }
+
+                var optionRecords = {
+                    tooltip: {
+                        trigger: 'axis'
+                    },
+                    legend: {
+                        data: legendData
+                    },
+                    grid: {
+                        left: '3%',
+                        right: '4%',
+                        bottom: '3%',
+                        containLabel: true
+                    },
+                    toolbox: {
+                        feature: {
+                            saveAsImage: {}
+                        }
+                    },
+                    xAxis: {
+                        type: 'category',
+                        boundaryGap: false,
+                        data: xAxisData
+                    },
+                    yAxis: {
+                        type: 'value'
+                    },
+                    series: seriesData
+                };
                 echartsRecords.setOption(optionRecords, true);
                 layer.msg("操作成功");
                 return false;
