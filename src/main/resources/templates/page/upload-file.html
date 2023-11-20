@@ -1,9 +1,9 @@
 <link rel="stylesheet" type="text/css" href="lib/webuploader/webuploader.css">
 <div class="layuimini-container layuimini-page-anim">
     <div class="layuimini-main">
-        <div class="layui-form layuimini-form" lay-filter="modelView">
+<!--        <div class="layui-form layuimini-form" lay-filter="modelView">-->
 
-            <div id="uploader">
+            <div id="uploader" class="webuploader-container">
                 <!--用来存放文件信息-->
                 <div id="fileList"></div>
                 <div class="btns">
@@ -12,13 +12,15 @@
                 </div>
             </div>
 
-        </div>
+<!--        </div>-->
     </div>
 </div>
 
 <script type="text/javascript" src="lib/jquery-3.4.1/jquery-3.4.1.min.js"></script>
 <script type="text/javascript" src="lib/webuploader/webuploader.min.js"></script>
 <script type="text/javascript">
+    // 获取父页面传的变量
+    var server = window.parent.server;
     $(function () {
         var uploader = WebUploader.create({
 
@@ -26,14 +28,17 @@
             swf: '/js/Uploader.swf',
 
             // 文件接收服务端。
-            server: 'http://localhost:80/echarts-records/import',
+            server: server,
 
             // 选择文件的按钮。可选。
             // 内部根据当前运行是创建，可能是input元素，也可能是flash.
             pick: '#filePicker',
 
             // 不压缩image, 默认如果是jpeg，文件上传前会压缩一把再上传！
-            resize: false
+            resize: false,
+
+            // 开起分片上传。
+            chunked: true
         });
         // 当有文件被添加进队列的时候
         uploader.on('fileQueued', function (file) {

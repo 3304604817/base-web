@@ -3,7 +3,9 @@ package com.base.common.util.convert;
 import com.alibaba.fastjson.JSONArray;
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.List;
 
 public class DateConvertUtil {
@@ -23,12 +25,52 @@ public class DateConvertUtil {
     public static String FORMAT12 = "yyyy";
 
     /**
+     * 获取当前日期：自定义格式
+     * @return
+     */
+    public static String nowDateString(String FORMAT){
+        LocalDateTime now = LocalDateTime.now();
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(FORMAT);
+        return now.format(dateTimeFormatter);
+    }
+
+    /**
      * 获取当前日期：默认yyyy-MM-dd HH:mm:ss
      * @return
      */
-    public static String nowDateString(String formatter){
+    public static String nowDateTimeString(){
         LocalDateTime now = LocalDateTime.now();
-        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(formatter);
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(FORMAT1);
         return now.format(dateTimeFormatter);
+    }
+
+    /**
+     * 获取当前日期：默认yyyy-MM-dd
+     * @return
+     */
+    public static String nowDateString(){
+        LocalDateTime now = LocalDateTime.now();
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(FORMAT4);
+        return now.format(dateTimeFormatter);
+    }
+
+    /**
+     * Date 转 yyyy-MM-dd HH:mm:ss
+     * @return
+     */
+    public static String dateTimeString(Date date){
+        LocalDateTime localDateTime = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(FORMAT1);
+        return localDateTime.format(dateTimeFormatter);
+    }
+
+    /**
+     * Date 转 yyyy-MM-dd
+     * @return
+     */
+    public static String dateString(Date date){
+        LocalDateTime localDateTime = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(FORMAT4);
+        return localDateTime.format(dateTimeFormatter);
     }
 }

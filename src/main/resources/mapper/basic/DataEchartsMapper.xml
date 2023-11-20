@@ -7,17 +7,18 @@
         <result column="echart_key" property="echartKey" jdbcType="VARCHAR"/>
         <result column="echart_data" property="echartData" jdbcType="VARCHAR"/>
         <result column="object_version_number" property="objectVersionNumber" jdbcType="DECIMAL"/>
-        <result column="creation_date" property="creationDate" jdbcType="DATE"/>
+        <result column="creation_date" property="creationDate" jdbcType="TIMESTAMP"/>
         <result column="created_by" property="createdBy" jdbcType="DECIMAL"/>
         <result column="last_updated_by" property="lastUpdatedBy" jdbcType="DECIMAL"/>
-        <result column="last_update_date" property="lastUpdateDate" jdbcType="DATE"/>
+        <result column="last_update_date" property="lastUpdateDate" jdbcType="TIMESTAMP"/>
     </resultMap>
 
     <select id="list" parameterType="com.base.basic.domain.entity.v1.DataEcharts" resultMap="BaseResultMap">
         SELECT dde.id,
         dde.echart_type,
         dde.echart_key,
-        dde.echart_data
+        dde.echart_data,
+        dde.creation_date
         FROM db_data_echarts dde
         <where>
             <if test="null != echartType and '' != echartType">

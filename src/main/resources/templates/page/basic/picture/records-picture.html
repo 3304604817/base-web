@@ -52,6 +52,7 @@
         </script>
     </div>
 </div>
+<script src="js/config.js"></script>
 <script>
     layui.use(['layer','echarts', 'miniPage', 'table'], function () {
         var $ = layui.jquery,
@@ -114,7 +115,8 @@
             cols: [[
                 {type: "checkbox", width: 50},
                 {field: 'echartKey', width: 200, title: 'key', edit:"text"},
-                {field: 'echartData', width: 600, title: '数据', edit:"text"},
+                {field: 'echartData', width: 500, title: '数据', edit:"text"},
+                {field: 'creationDateTime', width: 200, title: '上传时间', edit:"text"},
                 {title: '操作', minWidth: 150, toolbar: '#currentTableBar', align: "center"}
             ]],
             limits: [10, 20, 50, 100],
@@ -132,8 +134,15 @@
                     shade: 0.2,
                     maxmin:true,
                     shadeClose: true,
+                    area:["500px","400px"],
                     content: content,
                     btnAlign: 'c', //按钮居中
+                    // 打开弹窗后回触发succes回调，有俩个参数分别是当前层DOM当前层索引
+                    success: function(dom, index) {
+                        // 数据传输-传输之前先清旧缓存
+                        window.server = null;
+                        window.server = basicPath + '/echarts-records/import';
+                    },
                 });
             }
         });

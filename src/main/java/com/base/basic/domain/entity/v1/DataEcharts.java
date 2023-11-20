@@ -7,6 +7,7 @@ import io.swagger.annotations.ApiModelProperty;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @ApiModel("数据可视化")
 @Table(name = "db_data_echarts")
@@ -29,6 +30,10 @@ public class DataEcharts extends BaseEntity {
 
     @ApiModelProperty(value = "数据")
     private String echartData;
+
+    @ApiModelProperty(value = "数据")
+    @Transient
+    private String creationDateTime;
 
     public Long getId() {
         return id;
@@ -60,5 +65,13 @@ public class DataEcharts extends BaseEntity {
 
     public void setEchartData(String echartData) {
         this.echartData = echartData;
+    }
+
+    public String getCreationDateTime() {
+        return creationDateTime;
+    }
+
+    public void setCreationDateTime(String creationDateTime) {
+        this.creationDateTime = creationDateTime;
     }
 }
