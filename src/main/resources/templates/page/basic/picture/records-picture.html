@@ -42,7 +42,7 @@
     <div class="layuimini-main">
         <script type="text/html" id="headerToolbar">
             <div class="layui-btn-container">
-                <button class="layui-btn layui-btn-normal layui-btn-sm data-add-btn" lay-event="add"> 删除 </button>
+                <button class="layui-btn layui-btn-danger layui-btn-sm data-add-btn" lay-event="batchDelete"> 删除 </button>
                 <button class="layui-btn layui-btn-normal layui-btn-sm data-add-btn" lay-event="import"> 导入Excel数据 </button>
             </div>
         </script>
@@ -53,6 +53,7 @@
     </div>
 </div>
 <script src="js/config.js"></script>
+<script src="js/network.js"></script>
 <script>
     layui.use(['layer','echarts', 'miniPage', 'table'], function () {
         var $ = layui.jquery,
@@ -126,7 +127,13 @@
         });
 
         table.on('toolbar(currentTableFilter)', function (obj) {
-            if(obj.event === 'import'){
+            if (obj.event === 'batchDelete') {  // 监听删除操作
+                var checkStatus = table.checkStatus('currentTableId')
+                    , data = checkStatus.data;
+                AjaxDelete(basicPath + '/data-echarts/batch-delete', data);
+                // 将新数据重新载入表格
+                table.reload('currentTableId', {url: basicPath + '/data-echarts/page'});
+            }else if(obj.event === 'import'){
                 var content = miniPage.getHrefContent('page/upload-file.html');
                 layer.open({
                     title: '分配用户',

@@ -10,6 +10,9 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 public class DataEchartsServiceImpl implements DataEchartsService {
@@ -27,5 +30,14 @@ public class DataEchartsServiceImpl implements DataEchartsService {
             );
         }
         return pageInfo;
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public int batchDelete(List<DataEcharts> dataEchartsList){
+        for(DataEcharts dataEcharts:dataEchartsList){
+            dataEchartsMapper.deleteByPrimaryKey(dataEcharts);
+        }
+        return dataEchartsList.size();
     }
 }
