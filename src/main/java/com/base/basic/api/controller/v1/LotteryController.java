@@ -27,6 +27,7 @@ public class LotteryController {
 
     @ApiOperation(value = "大乐透历史中奖信息抓取")
     @PostMapping("/dlt/getHistory")
+    @Access(accessNoToken = true)
     public ResponseEntity getDltHistory() {
         lotteryDltHistoryService.getDltHistory();
         return new ResponseEntity(HttpStatus.OK);
