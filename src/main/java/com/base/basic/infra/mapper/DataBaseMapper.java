@@ -2,9 +2,11 @@ package com.base.basic.infra.mapper;
 
 import com.base.basic.domain.vo.v0.ColumnVO;
 import com.base.basic.domain.vo.v0.TableVO;
+import org.apache.ibatis.annotations.MapKey;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
 
 public interface DataBaseMapper {
 
@@ -21,4 +23,7 @@ public interface DataBaseMapper {
      * @return
      */
     List<ColumnVO> columnList(@Param("tableName") String tableName);
+
+    @MapKey("row_sequence")
+    List<Map<String,Object>> executeSelect(@Param("sql") String sql);
 }

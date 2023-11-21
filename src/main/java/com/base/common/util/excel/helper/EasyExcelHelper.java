@@ -54,10 +54,10 @@ public class EasyExcelHelper<T> {
      * @param response
      * @param fileName
      * @param sheetName
-     * @param columnNameList 要导出的 Excel 列名合集
+     * @param columnNameHeads 要导出的 Excel 列名合集
      * @param list
      */
-    public void easyDynamicExport(HttpServletResponse response, String fileName, String sheetName, List<List<String>> columnNameList, List<T> list){
+    public void easyDynamicExport(HttpServletResponse response, String fileName, String sheetName, List<List<String>> columnNameHeads, List<T> list){
         try {
             // 设置响应体内容
             response.setContentType("application/vnd.ms-excel");
@@ -66,7 +66,7 @@ public class EasyExcelHelper<T> {
             // 这里URLEncoder.encode可以防止中文乱码 当然和easyexcel没有关系
             fileName = URLEncoder.encode(fileName, "UTF-8").replaceAll("\\+", "%20");
             response.setHeader("Content-disposition", "attachment;filename*=utf-8''" + fileName + ".xlsx");
-            EasyExcel.write(response.getOutputStream()).head(columnNameList).sheet(sheetName).doWrite(list);
+            EasyExcel.write(response.getOutputStream()).head(columnNameHeads).sheet(sheetName).doWrite(list);
         } catch (Exception e) {
             logger.info("导出成功");
             e.printStackTrace();
