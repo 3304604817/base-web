@@ -8,6 +8,7 @@ import com.base.basic.domain.exc.UserExcelModel;
 import com.base.basic.domain.vo.v0.ColumnVO;
 import com.base.basic.infra.mapper.DataBaseMapper;
 import com.base.basic.infra.mapper.UserMapper;
+import com.base.common.util.convert.DateConvertUtil;
 import com.base.common.util.excel.helper.EasyExcelHelper;
 import com.google.common.collect.Lists;
 import org.apache.commons.lang3.StringUtils;
@@ -17,10 +18,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.time.LocalDateTime;
+import java.util.*;
 
 @Service
 public class EasyExcelServiceImpl implements EasyExcelService {
@@ -38,7 +37,7 @@ public class EasyExcelServiceImpl implements EasyExcelService {
 
     @Override
     public String exportTable(HttpServletResponse response, String tableName){
-        // 获取需要导出的数据
+        // 查询需要导出的数据
         List<Map<String,Object>> tableData = dataBaseService.tableData(tableName, "1 = 1");
 
         /**
@@ -56,11 +55,18 @@ public class EasyExcelServiceImpl implements EasyExcelService {
                     .forEach(columnName -> columnNameHeads.add(Lists.newArrayList(columnName)));
         }
 
+        /**
+         * 转换要导出的数据
+         */
         List<List<Object>> tableDataObj = new ArrayList<>(32);
         for(Map<String,Object> data:tableData){
             List<Object> dataList = new ArrayList<>(32);
             for (Map.Entry<String, Object> entry : data.entrySet()) {
-                dataList.add(entry.getValue());
+                if(entry.getValue() instanceof Date || entry.getValue() instanceof LocalDateTime){
+                    dataList.add(String.valueOf(entry.getValue()));
+                }else {
+                    dataList.add(entry.getValue());
+                }
             }
             tableDataObj.add(dataList);
         }
