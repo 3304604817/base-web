@@ -56,9 +56,13 @@ public class EasyExcelServiceImpl implements EasyExcelService {
                     .forEach(columnName -> columnNameHeads.add(Lists.newArrayList(columnName)));
         }
 
-        List<Object> tableDataObj = new ArrayList<>(32);
+        List<List<Object>> tableDataObj = new ArrayList<>(32);
         for(Map<String,Object> data:tableData){
-            tableDataObj.add(data);
+            List<Object> dataList = new ArrayList<>(32);
+            for (Map.Entry<String, Object> entry : data.entrySet()) {
+                dataList.add(entry.getValue());
+            }
+            tableDataObj.add(dataList);
         }
         // 导出
         EasyExcelHelper.getInstance().easyDynamicExport(response, "数据库表", "表"+tableName, columnNameHeads, tableDataObj);

@@ -57,7 +57,7 @@ public class EasyExcelHelper<T> {
      * @param columnNameHeads 要导出的 Excel 列名合集
      * @param list
      */
-    public void easyDynamicExport(HttpServletResponse response, String fileName, String sheetName, List<List<String>> columnNameHeads, List<T> list){
+    public void easyDynamicExport(HttpServletResponse response, String fileName, String sheetName, List<List<String>> columnNameHeads, List<List<T>> list){
         try {
             // 设置响应体内容
             response.setContentType("application/vnd.ms-excel");
