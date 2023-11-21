@@ -7,11 +7,11 @@ import javax.servlet.http.HttpServletResponse;
 public interface EasyExcelService {
 
     /**
-     * 导出
+     * 导出数据表
      * @param response
      * @return
      */
-    String exportData(HttpServletResponse response);
+    String exportTable(HttpServletResponse response, String tableName);
 
     /**
      * 导入

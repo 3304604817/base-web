@@ -3,7 +3,7 @@ package com.base.basic.app.service.impl;
 import com.base.basic.app.service.CodeGeneratorService;
 import com.base.basic.domain.vo.v0.ColumnVO;
 import com.base.basic.domain.vo.v0.TableVO;
-import com.base.basic.infra.mapper.CodeGeneratorMapper;
+import com.base.basic.infra.mapper.DataBaseMapper;
 import com.base.common.util.convert.StringConvertUtil;
 import com.base.common.util.page.PageParmaters;
 import com.github.pagehelper.PageHelper;
@@ -31,7 +31,7 @@ public class CodeGeneratorServiceImpl implements CodeGeneratorService {
 
     @Autowired
     @SuppressWarnings("all")
-    private CodeGeneratorMapper codeGeneratorMapper;
+    private DataBaseMapper codeGeneratorMapper;
 
     @Override
     public PageInfo<TableVO> pageList(PageParmaters pageParmaters, TableVO tableVO){

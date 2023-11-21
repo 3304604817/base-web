@@ -2,9 +2,11 @@ package com.base.common.util.excel.helper;
 
 import com.alibaba.excel.EasyExcel;
 import com.alibaba.excel.support.ExcelTypeEnum;
+import com.alibaba.excel.write.builder.ExcelWriterBuilder;
 import com.base.common.util.excel.EasyExcelBatchListener;
 import com.base.common.util.excel.EasyExcelListener;
 import com.base.common.util.excel.EasyOperaInterface;
+import org.apache.commons.compress.utils.Lists;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.multipart.MultipartFile;
@@ -12,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.List;
 
 public class EasyExcelHelper<T> {
@@ -22,6 +25,14 @@ public class EasyExcelHelper<T> {
         return new EasyExcelHelper();
     }
 
+    /**
+     * 导出固定列数数据
+     * @param response
+     * @param fileName
+     * @param sheetName
+     * @param excelModel 要导出的 Excel 模板
+     * @param list
+     */
     public void easyExport(HttpServletResponse response, String fileName, String sheetName, Class excelModel, List<T> list){
         try {
             // 设置响应体内容
@@ -32,6 +43,30 @@ public class EasyExcelHelper<T> {
             fileName = URLEncoder.encode(fileName, "UTF-8").replaceAll("\\+", "%20");
             response.setHeader("Content-disposition", "attachment;filename*=utf-8''" + fileName + ".xlsx");
             EasyExcel.write(response.getOutputStream(), excelModel).sheet(sheetName).doWrite(list);
+        } catch (Exception e) {
+            logger.info("导出成功");
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 导出：列动态
+     * @param response
+     * @param fileName
+     * @param sheetName
+     * @param columnNameList 要导出的 Excel 列名合集
+     * @param list
+     */
+    public void easyDynamicExport(HttpServletResponse response, String fileName, String sheetName, List<List<String>> columnNameList, List<T> list){
+        try {
+            // 设置响应体内容
+            response.setContentType("application/vnd.ms-excel");
+            response.setCharacterEncoding("utf-8");
+
+            // 这里URLEncoder.encode可以防止中文乱码 当然和easyexcel没有关系
+            fileName = URLEncoder.encode(fileName, "UTF-8").replaceAll("\\+", "%20");
+            response.setHeader("Content-disposition", "attachment;filename*=utf-8''" + fileName + ".xlsx");
+            EasyExcel.write(response.getOutputStream()).head(columnNameList).sheet(sheetName).doWrite(list);
         } catch (Exception e) {
             logger.info("导出成功");
             e.printStackTrace();

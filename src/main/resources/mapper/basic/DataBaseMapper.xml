@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.base.basic.infra.mapper.CodeGeneratorMapper">
+<mapper namespace="com.base.basic.infra.mapper.DataBaseMapper">
 
     <resultMap id="TableResultMap" type="com.base.basic.domain.vo.v0.TableVO">
         <result column="table_schema" property="tableSchema" jdbcType="VARCHAR"/>

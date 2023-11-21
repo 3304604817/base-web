@@ -6,7 +6,7 @@ import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
-public interface CodeGeneratorMapper {
+public interface DataBaseMapper {
 
     /**
      * 获取表信息
