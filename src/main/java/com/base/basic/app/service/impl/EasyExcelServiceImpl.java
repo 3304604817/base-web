@@ -32,24 +32,26 @@ public class EasyExcelServiceImpl implements EasyExcelService {
     private UserService userService;
     @Autowired
     private DataBaseService dataBaseService;
+    @Autowired
+    @SuppressWarnings("all")
+    private DataBaseMapper dataBaseMapper;
 
     @Override
     public String exportTable(HttpServletResponse response, String tableName){
+        // 获取需要导出的数据
+        List<Map<String,Object>> tableData = dataBaseService.tableData(tableName, "1 = 1");
+        for(Map<String,Object> entry:tableData){
+
+        }
+
         // 要导出的 Excle 头行
         List<List<String>> columnNameHeads = new ArrayList<>(32);
-        // 获取需要导出的数据
-        List<Map<String,Object>> data = dataBaseService.tableData(tableName, "1 = 1");
-
-
-//        List<UserExcelModel> userExcelModels = new ArrayList<>(32);
-//        columnVOList.stream().forEach(user -> {
-//            UserExcelModel userExcelModel = new UserExcelModel();
-//            BeanUtils.copyProperties(user, userExcelModel);
-//            userExcelModels.add(userExcelModel);
-//        });
-//
-//        // 导出
-//        EasyExcelHelper.getInstance().easyDynamicExport(response, "数据库表", "表"+tableName, null, userExcelModels);
+        dataBaseMapper.columnList(tableName)
+                .stream()
+                .map(ColumnVO::getColumnName)
+                .forEach(columnName -> columnNameHeads.add(Lists.newArrayList(columnName)));
+//      // 导出
+//        EasyExcelHelper.getInstance().easyDynamicExport(response, "数据库表", "表"+tableName, columnNameHeads, userExcelModels);
         return "导出成功";
     }
 

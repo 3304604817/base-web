@@ -32,6 +32,9 @@ public class DataBaseServiceImpl implements DataBaseService {
         }
 
         List<Map<String,Object>> resultData = dataBaseMapper.executeSelect(sql.toString());
+        for(Map<String,Object> data:resultData){
+            data.remove("row_sequence");
+        }
         return resultData;
     }
 }

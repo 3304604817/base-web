@@ -44,7 +44,7 @@
         WHERE table_name = #{tableName, jdbcType = VARCHAR}
     </select>
 
-    <select id="executeSelect" resultType="java.util.HashMap">
+    <select id="executeSelect" resultType="java.util.LinkedHashMap">
         SELECT @rownum:=@rownum+1 AS row_sequence,
                tableData.*
         FROM (${sql}) tableData, (SELECT @rownum:=0) AS init
