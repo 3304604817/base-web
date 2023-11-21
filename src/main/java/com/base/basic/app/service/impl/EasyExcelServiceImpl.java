@@ -40,18 +40,28 @@ public class EasyExcelServiceImpl implements EasyExcelService {
     public String exportTable(HttpServletResponse response, String tableName){
         // 获取需要导出的数据
         List<Map<String,Object>> tableData = dataBaseService.tableData(tableName, "1 = 1");
-        for(Map<String,Object> entry:tableData){
 
+        /**
+         * 要导出的 Excle 头行
+         */
+        List<List<String>> columnNameHeads = new ArrayList<>(32);
+        if(tableData.size() > 0){
+            for(String key:tableData.get(0).keySet()){
+                columnNameHeads.add(Lists.newArrayList(key));
+            }
+        }else {
+            dataBaseMapper.columnList(tableName)
+                    .stream()
+                    .map(ColumnVO::getColumnName)
+                    .forEach(columnName -> columnNameHeads.add(Lists.newArrayList(columnName)));
         }
 
-        // 要导出的 Excle 头行
-        List<List<String>> columnNameHeads = new ArrayList<>(32);
-        dataBaseMapper.columnList(tableName)
-                .stream()
-                .map(ColumnVO::getColumnName)
-                .forEach(columnName -> columnNameHeads.add(Lists.newArrayList(columnName)));
-//      // 导出
-//        EasyExcelHelper.getInstance().easyDynamicExport(response, "数据库表", "表"+tableName, columnNameHeads, userExcelModels);
+        List<Object> tableDataObj = new ArrayList<>(32);
+        for(Map<String,Object> data:tableData){
+            tableDataObj.add(data);
+        }
+        // 导出
+        EasyExcelHelper.getInstance().easyDynamicExport(response, "数据库表", "表"+tableName, columnNameHeads, tableDataObj);
         return "导出成功";
     }
 
