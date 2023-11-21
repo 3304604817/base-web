@@ -38,6 +38,7 @@ public class LotteryDltHistoryServiceImpl implements LotteryDltHistoryService {
 
     @Override
     public void getDltHistory(){
+        // 每页抓取多少数据
         int pageSize = 30;
         for(int pageNo = 1;; pageNo++){
             ResponseEntity<String> getResult = restTemplate.getForEntity(
