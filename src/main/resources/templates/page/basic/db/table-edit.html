@@ -51,7 +51,6 @@
 
         table.render({
             elem: '#currentTableId',
-            elem: '#munu-table',
             url: basicPath + '/db/table/page',
             toolbar: '#toolbarHead',
             defaultToolbar: ['filter', 'exports', 'print', {
@@ -130,7 +129,7 @@
                 window.formData = null;
                 window.formData = data;
 
-                var content = miniPage.getHrefContent('page/basic/db/table-edit.html');
+                var content = miniPage.getHrefContent('page/basic/menu/menu-edit.html');
                 var openWH = miniPage.getOpenWidthHeight();
                 var index = layer.open({
                     title: '编辑',
