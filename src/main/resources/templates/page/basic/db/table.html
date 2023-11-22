@@ -33,12 +33,13 @@
         </script>
 
         <table class="layui-hide" id="currentTableId" lay-filter="currentTableFilter"></table>
+
+        <!-- 操作列 -->
+        <script type="text/html" id="currentTableBar">
+            <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="edit">查看</a>
+        </script>
     </div>
 </div>
-<!-- 操作列 -->
-<script type="text/html" id="action-bar">
-    <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="edit">查看</a>
-</script>
 <script src="js/config.js"></script>
 <script>
     layui.use(['form', 'table','miniPage','element'], function () {
@@ -51,7 +52,6 @@
 
         table.render({
             elem: '#currentTableId',
-            elem: '#munu-table',
             url: basicPath + '/db/table/page',
             toolbar: '#toolbarHead',
             defaultToolbar: ['filter', 'exports', 'print', {
@@ -61,7 +61,7 @@
             }],
             cols: [[
                 {type: "checkbox", width: 50},
-                {templet: '#action-bar', width: 100, align: 'center', title: '操作'},
+                {toolbar: '#currentTableBar', width: 100, align: 'center', title: '操作'},
                 {field: 'tableSchema', width: 100, title: '库名', sort: true},
                 {field: 'tableName', width: 200, title: '表名'},
                 {field: 'tableComment', width: 300, title: '表注释'},
@@ -121,7 +121,7 @@
         });
 
         //监听工具条
-        table.on('tool(munu-table)', function (obj) {
+        table.on('tool(currentTableFilter)', function (obj) {
             var data = obj.data;
             var layEvent = obj.event;
 
