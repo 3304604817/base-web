@@ -4,6 +4,7 @@ import com.base.basic.app.service.DataBaseService;
 import com.base.basic.domain.vo.v0.ColumnVO;
 import com.base.basic.domain.vo.v0.TableVO;
 import com.base.basic.infra.mapper.DataBaseMapper;
+import com.base.common.util.convert.DateConvertUtil;
 import com.base.common.util.page.PageParmaters;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -25,7 +26,13 @@ public class DataBaseServiceImpl implements DataBaseService {
 
     @Override
     public PageInfo<TableVO> pageList(PageParmaters pageParmaters, TableVO tableVO){
-        return PageHelper.startPage(pageParmaters.getPage(), pageParmaters.getLimit()).doSelectPageInfo(() -> dataBaseMapper.tableList(tableVO));
+        PageInfo<TableVO> pageInfo = PageHelper.startPage(pageParmaters.getPage(), pageParmaters.getLimit()).doSelectPageInfo(() -> dataBaseMapper.tableList(tableVO));
+        for(TableVO table:pageInfo.getList()){
+            table.setCreateTimeString(
+                    DateConvertUtil.dateTimeString(table.getCreateTime())
+            );
+        }
+        return pageInfo;
     }
 
     @Override

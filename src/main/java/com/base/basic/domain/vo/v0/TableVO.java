@@ -17,6 +17,9 @@ public class TableVO {
     // 创建时间
     private Date createTime;
 
+    // 创建时间-字符串
+    private String createTimeString;
+
     // 作者
     private String author;
 
@@ -69,5 +72,13 @@ public class TableVO {
 
     public void setPkgPath(String pkgPath) {
         this.pkgPath = pkgPath;
+    }
+
+    public String getCreateTimeString() {
+        return createTimeString;
+    }
+
+    public void setCreateTimeString(String createTimeString) {
+        this.createTimeString = createTimeString;
     }
 }

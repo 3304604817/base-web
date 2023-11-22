@@ -21,8 +21,8 @@ public class DataBaseController {
     @Autowired
     private DataBaseService dataBaseService;
 
-    @ApiOperation(value = "/table/page")
-    @GetMapping("/查询表名")
+    @ApiOperation(value = "查询表名")
+    @GetMapping("/table/page")
     public ResponseEntity<LayJson<TableVO>> list(PageParmaters pageParmaters, TableVO tableVO) {
         return new ResponseEntity(new LayJson<>(dataBaseService.pageList(pageParmaters, tableVO)), HttpStatus.OK);
     }
