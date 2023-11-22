@@ -24,6 +24,11 @@ public interface DataBaseMapper {
      */
     List<ColumnVO> columnList(@Param("tableName") String tableName);
 
+    /**
+     * 执行动态查询 SQL
+     * @param sql
+     * @return
+     */
     @MapKey("row_sequence")
     List<Map<String,Object>> executeSelect(@Param("sql") String sql);
 }
