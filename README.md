@@ -1,13 +1,17 @@
-# 项目访问地址
-http://base.gshen.net.cn/guest-index.html
-
-
-# SpringBoot单体服务
-LayUI+SpringBoot
+### SpringBoot单体服务
+前端：LayUI
+后端：SpringBoot
 默认80端口启动
-登录密码：admin/Admin@123!
+默认登录密码：admin/Admin@123!
 
-依赖使用须知：
+### 打包/依赖
+# mvn clean package
+# 可依赖jar
+target/base-web.jar
+# 可运行jar
+target/base-web-run.jar
+
+### 依赖使用须知：
 1、添加组件坐标
 <repositories>
 <repository>
@@ -22,7 +26,7 @@ LayUI+SpringBoot
 <artifactId>base-web</artifactId>
 <version>1.0.0-20230612.021929-11</version>
 </dependency>
-3、在POM中引用当前项目坐标的SpringBoot或Maven项目，需要在的Main添加@EnableBaseWeb
+3、在POM中引用当前项目，需要在的Main添加@EnableBaseWeb
 
 菜单:
     研发工具:
@@ -32,17 +36,9 @@ LayUI+SpringBoot
 nohup java -jar xxx.jar --spring.profiles.active=prod  
 --spring.profiles.active=prod  指定读取指定前缀的配置文件
 
-# sharding-jdbc 读写分离
-src/main/resources/application.yml
-
 # Jwt认证+拦截
 src/main/java/com/base/basic/config/JwtInterceptorConfig.java
 src/main/java/com/base/basic/util/jwt
-
-# MinIO
-
-# Swagger3
-http://localhost:10010/swagger-ui/index.html#/
 
 # 目录结构
 v0：服务架构的基座逻辑代码
