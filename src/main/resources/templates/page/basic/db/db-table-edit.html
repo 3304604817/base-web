@@ -32,13 +32,14 @@
             </div>
         </script>
 
-        <table class="layui-hide" id="currentTableId" lay-filter="currentTableFilter"></table>
+        <table class="layui-hide" id="currentSubTableId" lay-filter="currentTableFilter"></table>
+
+        <!-- 操作列 -->
+        <script type="text/html" id="action-bar">
+            <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="edit">查看</a>
+        </script>
     </div>
 </div>
-<!-- 操作列 -->
-<script type="text/html" id="action-bar">
-    <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="edit">查看</a>
-</script>
 <script src="js/config.js"></script>
 <script>
     layui.use(['form', 'table','miniPage','element'], function () {
@@ -50,7 +51,7 @@
         let checkedList = new Array();
 
         table.render({
-            elem: '#currentTableId',
+            elem: '#currentSubTableId',
             url: basicPath + '/db/table/page',
             toolbar: '#toolbarHead',
             defaultToolbar: ['filter', 'exports', 'print', {
@@ -77,7 +78,7 @@
             var result = data.field;
 
             //执行搜索重载
-            table.reload('currentTableId', {
+            table.reload('currentSubTableId', {
                 page: {
                     curr: 1
                 },
@@ -99,7 +100,7 @@
             /**
              * 获取 checkbox 控件选中的数据
              */
-            var checkStatus = table.checkStatus('currentTableId')
+            var checkStatus = table.checkStatus('currentSubTableId')
             var data = checkStatus.data;
 
             if (obj.event === 'mvc') {   // 监听mvc操作
@@ -125,25 +126,6 @@
             var layEvent = obj.event;
 
             if (layEvent === 'edit') {
-                // 数据传输-传输之前先清旧缓存
-                window.formData = null;
-                window.formData = data;
-
-                var content = miniPage.getHrefContent('page/basic/menu/menu-edit.html');
-                var openWH = miniPage.getOpenWidthHeight();
-                var index = layer.open({
-                    title: '编辑',
-                    type: 1,
-                    shade: 0.2,
-                    maxmin:true,
-                    shadeClose: true,
-                    area: [openWH[0] + 'px', openWH[1] + 'px'],
-                    offset: [openWH[2] + 'px', openWH[3] + 'px'],
-                    content: content,
-                });
-                $(window).on("resize", function () {
-                    layer.full(index);
-                });
             }
         });
     });
