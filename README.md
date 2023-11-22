@@ -1,17 +1,17 @@
-### SpringBoot单体服务
+# SpringBoot单体服务
 前端：LayUI
 后端：SpringBoot
 默认80端口启动
 默认登录密码：admin/Admin@123!
 
-### 打包/依赖
-# mvn clean package
-# 可依赖jar
+# 打包/依赖
+## mvn clean package
+## 可依赖jar
 target/base-web.jar
-# 可运行jar
+## 可运行jar
 target/base-web-run.jar
 
-### 依赖使用须知：
+# 依赖使用须知：
 1、添加组件坐标
 <repositories>
 <repository>
@@ -42,3 +42,7 @@ vn：业务逻辑代码
 
 # 数据库初始化脚本路径
 resources/static/db/
+
+# 运行演示
+![img_1.png](img_1.png)
+![img.png](img.png)
