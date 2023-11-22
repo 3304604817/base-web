@@ -129,8 +129,12 @@
                 // 数据传输-传输之前先清旧缓存
                 window.formData = null;
                 window.formData = data;
+                console.log(data);
 
-                var content = miniPage.getHrefContent('page/basic/db/table-edit.html');
+                var content = miniPage.getHrefContent(
+                    'page/basic/db/db-table-edit.html?tableSchema=' + data.tableSchema
+                    + '&tableName=' + data.tableName
+                );
                 var openWH = miniPage.getOpenWidthHeight();
                 var index = layer.open({
                     title: '编辑',
