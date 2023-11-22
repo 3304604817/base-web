@@ -28,10 +28,6 @@ target/base-web-run.jar
 </dependency>
 3、在POM中引用当前项目，需要在的Main添加@EnableBaseWeb
 
-菜单:
-    研发工具:
-        Json格式化:格式化Json,Base64加密/解密,MD5加密,UUID生成
-
 # 启动项目
 nohup java -jar xxx.jar --spring.profiles.active=prod  
 --spring.profiles.active=prod  指定读取指定前缀的配置文件
@@ -43,3 +39,6 @@ src/main/java/com/base/basic/util/jwt
 # 目录结构
 v0：服务架构的基座逻辑代码
 vn：业务逻辑代码
+
+# 数据库初始化脚本路径
+resources/static/db/
