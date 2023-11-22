@@ -22,7 +22,7 @@ public interface DataBaseMapper {
      * @param tableName
      * @return
      */
-    List<ColumnVO> columnList(@Param("tableName") String tableName);
+    List<ColumnVO> columnList(@Param("tableSchema") String tableSchema, @Param("tableName") String tableName);
 
     /**
      * 执行动态查询 SQL

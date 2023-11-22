@@ -11,7 +11,7 @@ public interface EasyExcelService {
      * @param response
      * @return
      */
-    String exportTable(HttpServletResponse response, String tableName);
+    String exportTable(HttpServletResponse response, String tableSchema, String tableName);
 
     /**
      * 导入

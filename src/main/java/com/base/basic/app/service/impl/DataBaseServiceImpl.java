@@ -36,8 +36,13 @@ public class DataBaseServiceImpl implements DataBaseService {
     }
 
     @Override
-    public List<Map<String, Object>> tableData(String tableName, String whereSql) {
-        List<ColumnVO> columnVOS = dataBaseMapper.columnList(tableName);
+    public List<ColumnVO> columnList(String tableSchema, String tableName){
+        return dataBaseMapper.columnList(tableSchema, tableName);
+    }
+
+    @Override
+    public List<Map<String, Object>> tableData(String tableSchema, String tableName, String whereSql) {
+        List<ColumnVO> columnVOS = dataBaseMapper.columnList(tableSchema, tableName);
 
         StringBuilder sql = new StringBuilder("SELECT ");
         for(ColumnVO columnVO:columnVOS){

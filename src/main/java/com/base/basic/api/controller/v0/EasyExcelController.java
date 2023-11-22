@@ -22,8 +22,10 @@ public class EasyExcelController {
     @ApiOperation(value = "导出指定表数据")
     @GetMapping("/export-table")
     @Access(accessNoToken = true)
-    public String exportData(HttpServletResponse response, @ApiParam(value="表名", required = true) @RequestParam("tableName") String tableName){
-        return easyExcelService.exportTable(response, tableName);
+    public String exportData(HttpServletResponse response,
+                             @ApiParam(value="库名", required = true) @RequestParam("tableSchema") String tableSchema,
+                             @ApiParam(value="表名", required = true) @RequestParam("tableName") String tableName){
+        return easyExcelService.exportTable(response, tableSchema, tableName);
     }
 
     @ApiOperation(value = "导入")

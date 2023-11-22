@@ -36,9 +36,9 @@ public class EasyExcelServiceImpl implements EasyExcelService {
     private DataBaseMapper dataBaseMapper;
 
     @Override
-    public String exportTable(HttpServletResponse response, String tableName){
+    public String exportTable(HttpServletResponse response, String tableSchema, String tableName){
         // 查询需要导出的数据
-        List<Map<String,Object>> tableData = dataBaseService.tableData(tableName, "1 = 1");
+        List<Map<String,Object>> tableData = dataBaseService.tableData(tableSchema, tableName, "1 = 1");
 
         /**
          * 要导出的 Excle 头行
@@ -49,7 +49,7 @@ public class EasyExcelServiceImpl implements EasyExcelService {
                 columnNameHeads.add(Lists.newArrayList(key));
             }
         }else {
-            dataBaseMapper.columnList(tableName)
+            dataBaseMapper.columnList(tableSchema, tableName)
                     .stream()
                     .map(ColumnVO::getColumnName)
                     .forEach(columnName -> columnNameHeads.add(Lists.newArrayList(columnName)));
