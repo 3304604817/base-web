@@ -107,7 +107,7 @@
             if (obj.event === 'copyTable') {
             }else if (obj.event === 'downloadTable') {
                 for (var i = 0; i < data.length; i++) {
-                    AjaxGet(basicPath + '/excel/export-table?tableSchema=' + data[i].tableSchema + '&tableName=' + data[i].tableName);
+                    window.open(basicPath + '/excel/export-table?tableSchema=' + data[i].tableSchema + '&tableName=' + data[i].tableName);
                 }
             }
         });
