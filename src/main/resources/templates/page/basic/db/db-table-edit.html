@@ -4,12 +4,12 @@
             <div style="margin: 10px 10px 10px 10px">
                 <form class="layui-form layui-form-pane" action="">
                     <div class="layui-form-item">
-                        <div class="layui-inline">
-                            <label class="layui-form-label">库名</label>
-                            <div class="layui-input-inline">
-                                <textarea placeholder="入款备注" value="" class="layui-textarea"></textarea>
-                            </div>
+                        <label class="layui-form-label">查询条件</label>
+                        <div class="layui-input-block">
+                            <textarea name="whereSql" placeholder="name = '' and sex = ''" class="layui-textarea"></textarea>
                         </div>
+                    </div>
+                    <div class="layui-form-item">
                         <div class="layui-inline">
                             <button type="submit" class="layui-btn layui-btn-primary"  lay-submit lay-filter="data-search-btn"><i class="layui-icon"></i>搜 索</button>
                         </div>
