@@ -6,7 +6,5 @@ import org.springframework.web.multipart.MultipartFile;
 
 public interface EchartsRecordsService extends EasyOperaInterface {
 
-    EchartsRecordsVO reviewChart();
-
     String importData(MultipartFile file);
 }

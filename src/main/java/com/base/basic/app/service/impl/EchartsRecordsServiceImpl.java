@@ -30,12 +30,6 @@ public class EchartsRecordsServiceImpl implements EchartsRecordsService {
     private EchartsRecordsService echartsRecordsService;
 
     @Override
-    public EchartsRecordsVO reviewChart(){
-        String value = (String) redisTemplate.opsForValue().get("line");
-        return JSONObject.parseObject(value, EchartsRecordsVO.class);
-    }
-
-    @Override
     public String importData(MultipartFile file){
         EasyExcelHelper.getInstance().easyDynamicBatchImport(0, echartsRecordsService, file);
         return "导入成功";

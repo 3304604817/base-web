@@ -30,11 +30,4 @@ public class EchartsRecordsController {
                                              @ApiParam(value="选择文件", required = true) @RequestPart("file") MultipartFile file){
         return new ResponseEntity(echartsRecordsService.importData(file), HttpStatus.OK);
     }
-
-    @ApiOperation(value = "生成预览数据")
-    @PostMapping("/reviewChart")
-    @Access(accessNoToken = true)
-    public ResponseEntity<EchartsRecordsVO> reviewChart(){
-        return new ResponseEntity(echartsRecordsService.reviewChart(), HttpStatus.OK);
-    }
 }
