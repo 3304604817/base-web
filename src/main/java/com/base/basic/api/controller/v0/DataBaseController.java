@@ -52,7 +52,15 @@ public class DataBaseController {
             PageParmaters pageParmaters,
             @ApiParam(value="库名", required = true) @RequestParam(name = "tableSchema") String tableSchema,
             @ApiParam(value="表名", required = true) @RequestParam(name = "tableName") String tableName,
-            @ApiParam(value="表名", required = false) @RequestParam(name = "whereSql", required = false) String whereSql) {
+            @ApiParam(value="查询条件", required = false) @RequestParam(name = "whereSql", required = false) String whereSql) {
         return new ResponseEntity(new LayJson<>(dataBaseService.tableDataPage(pageParmaters, tableSchema, tableName, whereSql), dataBaseService.count(tableName, whereSql)), HttpStatus.OK);
+    }
+
+    @ApiOperation(value = "删除数据")
+    @GetMapping("/table/data/delete")
+    public ResponseEntity<Boolean> tableDataDelete(@ApiParam(value="库名", required = true) @RequestParam(name = "tableSchema") String tableSchema,
+                                                                    @ApiParam(value="表名", required = true) @RequestParam(name = "tableName") String tableName,
+                                                                    @RequestBody List<Object> data) {
+        return new ResponseEntity(Boolean.TRUE, HttpStatus.OK);
     }
 }

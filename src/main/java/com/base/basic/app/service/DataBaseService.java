@@ -14,11 +14,13 @@ public interface DataBaseService {
 
     /**
      * 根据库名表名查列信息
-     * @param tableSchema
-     * @param tableName
-     * @return
      */
     List<ColumnVO> columnList(String tableSchema, String tableName);
+
+    /**
+     * 指定表名和查询条件查询表数据分页
+     */
+    List<Map<String,Object>> tableDataPage(PageParmaters pageParmaters, String tableSchema, String tableName, String whereSql);
 
     /**
      * 指定表名和查询条件查询表数据条数
@@ -31,6 +33,4 @@ public interface DataBaseService {
     List<Map<String,Object>> tableData(String tableSchema, String tableName);
     List<Map<String,Object>> tableData(String tableSchema, String tableName, String whereSql);
     List<Map<String,Object>> tableData(String tableSchema, String tableName, String whereSql, String limitSql);
-
-    List<Map<String,Object>> tableDataPage(PageParmaters pageParmaters, String tableSchema, String tableName, String whereSql);
 }

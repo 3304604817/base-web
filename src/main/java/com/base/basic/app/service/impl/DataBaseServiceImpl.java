@@ -44,6 +44,16 @@ public class DataBaseServiceImpl implements DataBaseService {
     }
 
     @Override
+    public List<Map<String, Object>> tableDataPage(PageParmaters pageParmaters, String tableSchema, String tableName, String whereSql) {
+        String limitSql = new StringBuilder("LIMIT ")
+                .append((pageParmaters.getPage()-1) * pageParmaters.getLimit())
+                .append(",")
+                .append(pageParmaters.getLimit()).toString();
+        List<Map<String, Object>> tableData = this.tableData(tableSchema, tableName, whereSql, limitSql);
+        return tableData;
+    }
+
+    @Override
     public Long count(String tableName, String whereSql){
         return dataBaseMapper.count(tableName, whereSql);
     }
@@ -100,15 +110,5 @@ public class DataBaseServiceImpl implements DataBaseService {
             sql.append(" ").append(limitSql);
         }
         return sql.toString();
-    }
-
-    @Override
-    public List<Map<String, Object>> tableDataPage(PageParmaters pageParmaters, String tableSchema, String tableName, String whereSql) {
-        String limitSql = new StringBuilder("LIMIT ")
-                .append((pageParmaters.getPage()-1) * pageParmaters.getLimit())
-                .append(",")
-                .append(pageParmaters.getLimit()).toString();
-        List<Map<String, Object>> tableData = this.tableData(tableSchema, tableName, whereSql, limitSql);
-        return tableData;
     }
 }

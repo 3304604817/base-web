@@ -25,14 +25,14 @@
             </div>
         </fieldset>
 
-        <script type="text/html" id="toolbarHead">
+        <script type="text/html" id="subToolbarHead">
             <div class="layui-btn-container">
-                <button class="layui-btn layui-btn-normal layui-btn-sm data-add-btn" lay-event="search"> 查询 </button>
-                <button class="layui-btn layui-btn-danger layui-btn-sm data-add-btn" lay-event="delete"> 删除 </button>
+                <button class="layui-btn layui-btn-normal layui-btn-sm" lay-event="search"> 查询 </button>
+                <button class="layui-btn layui-btn-danger layui-btn-sm" lay-event="delete"> 删除 </button>
             </div>
         </script>
 
-        <table class="layui-hide" id="currentSubTableId" lay-filter="currentTableFilter"></table>
+        <table class="layui-hide" id="subCurrentTableId" lay-filter="currentTableFilter"></table>
 
         <!-- 操作列 -->
         <script type="text/html" id="action-bar">
@@ -47,12 +47,16 @@
     var parentData = window.parent.tableData;
     var result = AjaxGet(basicPath + '/db/table/columns?tableSchema='+parentData.tableSchema+'&tableName='+parentData.tableName);
     var col = [];
+    col.push({
+        type: 'checkbox',
+        width: 50,
+    });
     for (var i = 0; i < result.length; i++) {
         if('PRI' === result[i].columnKey){
             col.push({
                 field: result[i].columnName,
                 title: result[i].columnName,
-                align: 'center',
+                align: 'left',
                 width: 100,
                 sort: true,
             });
@@ -60,7 +64,7 @@
             col.push({
                 field: result[i].columnName,
                 title: result[i].columnName,
-                align: 'center',
+                align: 'left',
                 width: 100,
                 sort: true,
                 edit: 'text',
@@ -76,9 +80,9 @@
         let checkedList = new Array();
 
         table.render({
-            elem: '#currentSubTableId',
+            elem: '#subCurrentTableId',
             url: basicPath + '/db/table/data/page?tableSchema='+parentData.tableSchema+'&tableName='+parentData.tableName,
-            toolbar: '#toolbarHead',
+            toolbar: '#subToolbarHead',
             defaultToolbar: ['filter', 'exports', 'print', {
                 title: '提示',
                 layEvent: 'LAYTABLE_TIPS',
@@ -96,7 +100,7 @@
             var result = data.field;
 
             //执行搜索重载
-            table.reload('currentSubTableId', {
+            table.reload('subCurrentTableId', {
                 page: {
                     curr: 1
                 },
@@ -118,23 +122,17 @@
             /**
              * 获取 checkbox 控件选中的数据
              */
-            var checkStatus = table.checkStatus('currentSubTableId')
+            var checkStatus = table.checkStatus('subCurrentTableId')
             var data = checkStatus.data;
+            console.log(data);
 
-            if (obj.event === 'search') {   // 监听mvc操作
-                $.ajax({
-                    type: 'post',
-                    url: basicPath + '/code-generator/mvc',
-                    dataType: 'json',
-                    contentType: 'application/json',
-                    data: JSON.stringify(data),
-                    cache: false,
-                    async: false,
-                    success: function (data) {
-                    }
+            if (obj.event === 'search') {
+            } else if (obj.event === 'delete') {
+                layer.confirm('确认删除行', function (index) {
+                    AjaxDelete(basicPath + '/db/table/data/delete?tableSchema='+parentData.tableSchema+'&tableName='+parentData.tableName, data);;
+                    layer.msg("操作成功");
+                    obj.del();
                 });
-            } else if (obj.event === 'delete') {  // 监听ddd操作
-                alert("敬请期待");
             }
         });
 
