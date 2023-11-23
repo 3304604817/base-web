@@ -27,8 +27,8 @@
 
         <script type="text/html" id="toolbarHead">
             <div class="layui-btn-container">
-                <button class="layui-btn layui-btn-normal layui-btn-sm data-add-btn" lay-event="mvc"> 生成MVC模型 </button>
-                <button class="layui-btn layui-btn-normal layui-btn-sm data-add-btn" lay-event="ddd"> 生成DDD模型 </button>
+                <button class="layui-btn layui-btn-normal layui-btn-sm data-add-btn" lay-event="search"> 查询 </button>
+                <button class="layui-btn layui-btn-danger layui-btn-sm data-add-btn" lay-event="delete"> 删除 </button>
             </div>
         </script>
 
@@ -121,7 +121,7 @@
             var checkStatus = table.checkStatus('currentSubTableId')
             var data = checkStatus.data;
 
-            if (obj.event === 'mvc') {   // 监听mvc操作
+            if (obj.event === 'search') {   // 监听mvc操作
                 $.ajax({
                     type: 'post',
                     url: basicPath + '/code-generator/mvc',
@@ -133,7 +133,7 @@
                     success: function (data) {
                     }
                 });
-            } else if (obj.event === 'ddd') {  // 监听ddd操作
+            } else if (obj.event === 'delete') {  // 监听ddd操作
                 alert("敬请期待");
             }
         });
