@@ -27,8 +27,8 @@
 
         <script type="text/html" id="toolbarHead">
             <div class="layui-btn-container">
-                <button class="layui-btn layui-btn-normal layui-btn-sm data-add-btn" lay-event="mvc"> 生成MVC模型 </button>
-                <button class="layui-btn layui-btn-normal layui-btn-sm data-add-btn" lay-event="ddd"> 生成DDD模型 </button>
+                <button class="layui-btn layui-btn-primary layui-btn-sm data-add-btn" lay-event="copyTable"> 复制表 </button>
+                <button class="layui-btn layui-btn-sm data-add-btn" lay-event="copyTable"> 下载表数据 </button>
             </div>
         </script>
 
@@ -103,20 +103,7 @@
             var checkStatus = table.checkStatus('currentTableId')
             var data = checkStatus.data;
 
-            if (obj.event === 'mvc') {   // 监听mvc操作
-                $.ajax({
-                    type: 'post',
-                    url: basicPath + '/code-generator/mvc',
-                    dataType: 'json',
-                    contentType: 'application/json',
-                    data: JSON.stringify(data),
-                    cache: false,
-                    async: false,
-                    success: function (data) {
-                    }
-                });
-            } else if (obj.event === 'ddd') {  // 监听ddd操作
-                alert("敬请期待");
+            if (obj.event === 'copyTable') {
             }
         });
 
