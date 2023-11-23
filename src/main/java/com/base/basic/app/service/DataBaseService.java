@@ -22,6 +22,9 @@ public interface DataBaseService {
      */
     List<Map<String,Object>> tableDataPage(PageParmaters pageParmaters, String tableSchema, String tableName, String whereSql);
 
+    /**
+     * 删除数据
+     */
     Boolean tableDataDelete(String tableSchema, String tableName, List<Object> data);
 
     /**
