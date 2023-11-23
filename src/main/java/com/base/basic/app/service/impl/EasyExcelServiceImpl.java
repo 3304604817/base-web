@@ -71,7 +71,7 @@ public class EasyExcelServiceImpl implements EasyExcelService {
             tableDataObj.add(dataList);
         }
         // 导出
-        EasyExcelHelper.getInstance().easyDynamicExport(response, "数据库表", "表"+tableName, columnNameHeads, tableDataObj);
+        EasyExcelHelper.getInstance().easyDynamicExport(response, "数据库表"+tableName, "表"+tableName, columnNameHeads, tableDataObj);
         return "导出成功";
     }
 

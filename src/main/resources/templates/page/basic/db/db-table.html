@@ -105,6 +105,7 @@
 
             if (obj.event === 'copyTable') {
             }else if (obj.event === 'downloadTable') {
+                AjaxGet(basicPath + '/db/table/data/page?tableSchema='+parentData.tableSchema+'&tableName='+parentData.tableName)
             }
         });
 
