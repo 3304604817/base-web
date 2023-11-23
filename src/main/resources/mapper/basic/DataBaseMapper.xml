@@ -21,7 +21,7 @@
         <if test="null != tableName and '' != tableName">
             AND table_schema LIKE CONCAT('%', CONCAT(#{tableName, jdbcType = VARCHAR}, '%'))
         </if>
-        ORDER BY table_name ASC
+        ORDER BY table_schema, table_name ASC
     </select>
 
     <resultMap id="ColumnResultMap" type="com.base.basic.domain.vo.v0.ColumnVO">
