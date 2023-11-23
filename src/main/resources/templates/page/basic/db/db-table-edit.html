@@ -48,15 +48,24 @@
     var result = AjaxGet(basicPath + '/db/table/columns?tableSchema='+parentData.tableSchema+'&tableName='+parentData.tableName);
     var col = [];
     for (var i = 0; i < result.length; i++) {
-        const entity = {
-            field: result[i].columnName,
-            title: result[i].columnName,
-            align: 'center',
-            width: 100,
-            sort: true,
-            edit: 'text',
-        };
-        col.push(entity);
+        if('PRI' === result[i].columnKey){
+            col.push({
+                field: result[i].columnName,
+                title: result[i].columnName,
+                align: 'center',
+                width: 100,
+                sort: true,
+            });
+        }else {
+            col.push({
+                field: result[i].columnName,
+                title: result[i].columnName,
+                align: 'center',
+                width: 100,
+                sort: true,
+                edit: 'text',
+            });
+        }
     }
 
     layui.use(['form', 'table','miniPage','element'], function () {
