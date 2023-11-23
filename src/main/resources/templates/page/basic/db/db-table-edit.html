@@ -19,7 +19,7 @@
 
         <script type="text/html" id="subToolbarHead">
             <div class="layui-btn-container">
-                <button class="layui-btn layui-btn-normal layui-btn-sm" lay-event="search"> 查询 </button>
+                <button class="layui-btn layui-btn-warm layui-btn-sm" lay-event="save"> 保存 </button>
                 <button class="layui-btn layui-btn-danger layui-btn-sm" lay-event="delete"> 删除 </button>
             </div>
         </script>
@@ -50,7 +50,6 @@
                 title: result[i].columnName,
                 align: 'left',
                 width: 100,
-                sort: true,
             });
         }else {
             col.push({
@@ -58,7 +57,6 @@
                 title: result[i].columnName,
                 align: 'left',
                 width: 100,
-                sort: true,
                 edit: 'text',
             });
         }
@@ -117,7 +115,7 @@
             var checkStatus = table.checkStatus('subCurrentTableId')
             var data = checkStatus.data;
 
-            if (obj.event === 'search') {
+            if (obj.event === 'save') {
             } else if (obj.event === 'delete') {
                 layer.confirm('确认删除行', function (index) {
                     AjaxDelete(basicPath + '/db/table/data/delete?tableSchema='+parentData.tableSchema+'&tableName='+parentData.tableName, data);;
