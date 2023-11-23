@@ -18,7 +18,7 @@
                             </div>
                         </div>
                         <div class="layui-inline">
-                            <button type="submit" class="layui-btn layui-btn-primary"  lay-submit lay-filter="data-search-btn"><i class="layui-icon"></i>搜 索</button>
+                            <button type="submit" class="layui-btn layui-btn-primary"  lay-submit lay-filter="table-search-btn"><i class="layui-icon"></i>搜 索</button>
                         </div>
                     </div>
                 </form>
@@ -74,7 +74,7 @@
         });
 
         // 监听搜索操作
-        form.on('submit(data-search-btn)', function (data) {
+        form.on('submit(table-search-btn)', function (data) {
             var result = data.field;
 
             //执行搜索重载
