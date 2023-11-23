@@ -62,8 +62,11 @@ public class EasyExcelServiceImpl implements EasyExcelService {
         for(Map<String,Object> data:tableData){
             List<Object> dataList = new ArrayList<>(32);
             for (Map.Entry<String, Object> entry : data.entrySet()) {
+                // Excel 最大长度为 32767
+                String value = String.valueOf(entry.getValue()).length() > 32767 ? StringUtils.substring(String.valueOf(entry.getValue()), 0, 32767) : String.valueOf(entry.getValue());
                 if(entry.getValue() instanceof Date || entry.getValue() instanceof LocalDateTime){
-                    dataList.add(String.valueOf(entry.getValue()));
+                    // 日期格式的数据转换成字符导出
+                    dataList.add(value);
                 }else {
                     dataList.add(entry.getValue());
                 }

@@ -41,6 +41,7 @@
     </div>
 </div>
 <script src="js/config.js"></script>
+<script src="js/network.js"></script>
 <script>
     layui.use(['form', 'table','miniPage','element'], function () {
         var $ = layui.jquery,
@@ -105,7 +106,9 @@
 
             if (obj.event === 'copyTable') {
             }else if (obj.event === 'downloadTable') {
-                AjaxGet(basicPath + '/excel/export-table?tableSchema='+parentData.tableSchema+'&tableName='+parentData.tableName)
+                for (var i = 0; i < data.length; i++) {
+                    AjaxGet(basicPath + '/excel/export-table?tableSchema=' + data[i].tableSchema + '&tableName=' + data[i].tableName);
+                }
             }
         });
 
