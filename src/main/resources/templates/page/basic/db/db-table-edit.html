@@ -117,7 +117,7 @@
 
             if (obj.event === 'save') {
             } else if (obj.event === 'delete') {
-                layer.confirm('确认删除行', function (index) {
+                layer.confirm('确认删除所选行', function (index) {
                     AjaxDelete(basicPath + '/db/table/data/delete?tableSchema='+parentData.tableSchema+'&tableName='+parentData.tableName, data);;
                     layer.msg("操作成功");
                     table.reload('subCurrentTableId', {url: basicPath + '/db/table/data/page?tableSchema='+parentData.tableSchema+'&tableName='+parentData.tableName});
