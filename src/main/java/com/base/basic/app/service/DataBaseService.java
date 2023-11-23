@@ -21,6 +21,11 @@ public interface DataBaseService {
     List<ColumnVO> columnList(String tableSchema, String tableName);
 
     /**
+     * 指定表名和查询条件查询表数据条数
+     */
+    Long count(String tableName, String whereSql);
+
+    /**
      * 指定表名和查询条件查询表数据
      */
     List<Map<String,Object>> tableData(String tableSchema, String tableName);

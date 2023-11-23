@@ -46,15 +46,15 @@
     // 获取父页面传的变量
     var parentData = window.parent.tableData;
     var result = AjaxGet(basicPath + '/db/table/columns?tableSchema='+parentData.tableSchema+'&tableName='+parentData.tableName);
-    let col = [];
+    var col = [];
     for (var i = 0; i < result.length; i++) {
-        console.log(result[i].columnName);
         const entity = {
             field: result[i].columnName,
             title: result[i].columnName,
             align: 'center',
             width: 100,
             sort: true,
+            edit: 'text',
         };
         col.push(entity);
     }
@@ -62,8 +62,7 @@
     layui.use(['form', 'table','miniPage','element'], function () {
         var $ = layui.jquery,
             form = layui.form,
-            table = layui.table,
-            miniPage = layui.miniPage;
+            table = layui.table;
         // 存储已勾选的数据
         let checkedList = new Array();
 
@@ -76,14 +75,6 @@
                 layEvent: 'LAYTABLE_TIPS',
                 icon: 'layui-icon-tips'
             }],
-            // cols: [[
-            //     {type: "checkbox", width: 50},
-            //     {templet: '#action-bar', width: 100, align: 'center', title: '操作'},
-            //     {field: 'tableSchema', width: 100, title: '库名', sort: true},
-            //     {field: 'tableName', width: 200, title: '表名'},
-            //     {field: 'tableComment', width: 300, title: '表注释'},
-            //     {field: 'createTimeString', width: 350, title: '创建时间', sort: true},
-            // ]],
             cols: [ col ],
             limits: [10, 20, 50, 100],
             limit: 10,

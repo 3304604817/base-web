@@ -52,6 +52,15 @@
         </where>
     </select>
 
+    <select id="count" resultType="java.lang.Long">
+        SELECT COUNT(1) FROM ${tableName}
+        <where>
+            <if test="null!= whereSql and ''!= whereSql">
+                AND ${whereSql}
+            </if>
+        </where>
+    </select>
+
     <select id="executeSelect" resultType="java.util.LinkedHashMap">
         SELECT @rownum:=@rownum+1 AS row_sequence,
                tableData.*

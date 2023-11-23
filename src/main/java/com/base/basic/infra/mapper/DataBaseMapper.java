@@ -24,6 +24,8 @@ public interface DataBaseMapper {
      */
     List<ColumnVO> columnList(@Param("tableSchema") String tableSchema, @Param("tableName") String tableName);
 
+    Long count(@Param("tableName") String tableName, @Param("whereSql") String whereSql);
+
     /**
      * 执行动态查询 SQL
      * @param sql

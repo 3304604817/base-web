@@ -3,6 +3,7 @@ package com.base.basic.api.controller.v0;
 import com.base.basic.app.service.DataBaseService;
 import com.base.basic.domain.vo.v0.ColumnVO;
 import com.base.basic.domain.vo.v0.TableVO;
+import com.base.basic.infra.mapper.DataBaseMapper;
 import com.base.common.util.layui.LayJson;
 import com.base.common.util.page.PageParmaters;
 import io.swagger.annotations.Api;
@@ -52,6 +53,6 @@ public class DataBaseController {
             @ApiParam(value="库名", required = true) @RequestParam(name = "tableSchema") String tableSchema,
             @ApiParam(value="表名", required = true) @RequestParam(name = "tableName") String tableName,
             @ApiParam(value="表名", required = false) @RequestParam(name = "whereSql", required = false) String whereSql) {
-        return new ResponseEntity(new LayJson<>(dataBaseService.tableDataPage(pageParmaters, tableSchema, tableName, whereSql)), HttpStatus.OK);
+        return new ResponseEntity(new LayJson<>(dataBaseService.tableDataPage(pageParmaters, tableSchema, tableName, whereSql), dataBaseService.count(tableName, whereSql)), HttpStatus.OK);
     }
 }

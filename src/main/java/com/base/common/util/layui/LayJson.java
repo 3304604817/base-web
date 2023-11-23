@@ -23,6 +23,13 @@ public class LayJson<T> {
         this.data = list;
     }
 
+    public LayJson(List<T> list, long count){
+        this.code = 0;
+        this.msg = "";
+        this.count = count;
+        this.data = list;
+    }
+
     public Integer getCode() {
         return code;
     }

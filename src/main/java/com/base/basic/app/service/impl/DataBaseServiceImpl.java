@@ -44,6 +44,11 @@ public class DataBaseServiceImpl implements DataBaseService {
     }
 
     @Override
+    public Long count(String tableName, String whereSql){
+        return dataBaseMapper.count(tableName, whereSql);
+    }
+
+    @Override
     public List<Map<String, Object>> tableData(String tableSchema, String tableName) {
         List<Map<String,Object>> resultData = dataBaseMapper.executeSelect(this.dynamicSelect(tableSchema, tableName, null, null));
         for(Map<String,Object> data:resultData){
