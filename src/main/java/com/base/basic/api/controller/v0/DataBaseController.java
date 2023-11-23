@@ -57,10 +57,10 @@ public class DataBaseController {
     }
 
     @ApiOperation(value = "删除数据")
-    @GetMapping("/table/data/delete")
+    @DeleteMapping("/table/data/delete")
     public ResponseEntity<Boolean> tableDataDelete(@ApiParam(value="库名", required = true) @RequestParam(name = "tableSchema") String tableSchema,
-                                                                    @ApiParam(value="表名", required = true) @RequestParam(name = "tableName") String tableName,
-                                                                    @RequestBody List<Object> data) {
-        return new ResponseEntity(Boolean.TRUE, HttpStatus.OK);
+                                                   @ApiParam(value="表名", required = true) @RequestParam(name = "tableName") String tableName,
+                                                   @RequestBody List<Object> data) {
+        return new ResponseEntity(dataBaseService.tableDataDelete(tableSchema, tableName, data), HttpStatus.OK);
     }
 }

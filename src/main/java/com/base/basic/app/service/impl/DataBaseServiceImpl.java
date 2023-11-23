@@ -13,6 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -51,6 +52,12 @@ public class DataBaseServiceImpl implements DataBaseService {
                 .append(pageParmaters.getLimit()).toString();
         List<Map<String, Object>> tableData = this.tableData(tableSchema, tableName, whereSql, limitSql);
         return tableData;
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public Boolean tableDataDelete(String tableSchema, String tableName, List<Object> data){
+        return Boolean.FALSE;
     }
 
     @Override

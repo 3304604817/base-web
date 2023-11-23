@@ -22,6 +22,8 @@ public interface DataBaseService {
      */
     List<Map<String,Object>> tableDataPage(PageParmaters pageParmaters, String tableSchema, String tableName, String whereSql);
 
+    Boolean tableDataDelete(String tableSchema, String tableName, List<Object> data);
+
     /**
      * 指定表名和查询条件查询表数据条数
      */
