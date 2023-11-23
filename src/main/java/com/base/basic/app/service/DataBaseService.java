@@ -22,9 +22,10 @@ public interface DataBaseService {
 
     /**
      * 指定表名和查询条件查询表数据
-     * @param tableName
-     * @param whereSql
-     * @return
      */
+    List<Map<String,Object>> tableData(String tableSchema, String tableName);
     List<Map<String,Object>> tableData(String tableSchema, String tableName, String whereSql);
+    List<Map<String,Object>> tableData(String tableSchema, String tableName, String whereSql, String limitSql);
+
+    List<Map<String,Object>> tableDataPage(PageParmaters pageParmaters, String tableSchema, String tableName, String whereSql);
 }

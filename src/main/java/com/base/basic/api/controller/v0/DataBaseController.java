@@ -39,9 +39,19 @@ public class DataBaseController {
 
     @ApiOperation(value = "指定表名和查询条件查询表数据")
     @GetMapping("/table/data")
-    public ResponseEntity<List<Map<String,Object>>> tableData(@ApiParam(value="库名", required = true) @RequestParam("tableSchema") String tableSchema,
-                                                              @ApiParam(value="表名", required = true) @RequestParam("tableName") String tableName,
-                                                              @ApiParam(value="表名", required = false) @RequestParam("whereSql") String whereSql) {
+    public ResponseEntity<List<Map<String,Object>>> tableData(@ApiParam(value="库名", required = true) @RequestParam(name = "tableSchema") String tableSchema,
+                                                              @ApiParam(value="表名", required = true) @RequestParam(name = "tableName") String tableName,
+                                                              @ApiParam(value="表名", required = false) @RequestParam(name = "whereSql", required = false) String whereSql) {
         return new ResponseEntity(dataBaseService.tableData(tableSchema, tableName, whereSql), HttpStatus.OK);
+    }
+
+    @ApiOperation(value = "指定表名和查询条件查询表数据分页")
+    @GetMapping("/table/data/page")
+    public ResponseEntity<LayJson<Map<String,Object>>> tableDataPage(
+            PageParmaters pageParmaters,
+            @ApiParam(value="库名", required = true) @RequestParam(name = "tableSchema") String tableSchema,
+            @ApiParam(value="表名", required = true) @RequestParam(name = "tableName") String tableName,
+            @ApiParam(value="表名", required = false) @RequestParam(name = "whereSql", required = false) String whereSql) {
+        return new ResponseEntity(new LayJson<>(dataBaseService.tableDataPage(pageParmaters, tableSchema, tableName, whereSql)), HttpStatus.OK);
     }
 }

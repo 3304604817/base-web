@@ -127,8 +127,8 @@
 
             if (layEvent === 'edit') {
                 // 数据传输-传输之前先清旧缓存
-                window.formData = null;
-                window.formData = data;
+                window.tableData = null;
+                window.tableData = data;
 
                 var content = miniPage.getHrefContent(
                     'page/basic/db/db-table-edit.html?tableSchema=' + data.tableSchema

@@ -14,6 +14,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -41,7 +44,41 @@ public class DataBaseServiceImpl implements DataBaseService {
     }
 
     @Override
+    public List<Map<String, Object>> tableData(String tableSchema, String tableName) {
+        List<Map<String,Object>> resultData = dataBaseMapper.executeSelect(this.dynamicSelect(tableSchema, tableName, null, null));
+        for(Map<String,Object> data:resultData){
+            data.remove("row_sequence");
+        }
+        return resultData;
+    }
+
+    @Override
     public List<Map<String, Object>> tableData(String tableSchema, String tableName, String whereSql) {
+        List<Map<String,Object>> resultData = dataBaseMapper.executeSelect(this.dynamicSelect(tableSchema, tableName, whereSql, null));
+        for(Map<String,Object> data:resultData){
+            data.remove("row_sequence");
+        }
+        return resultData;
+    }
+
+    @Override
+    public List<Map<String, Object>> tableData(String tableSchema, String tableName, String whereSql, String limitSql) {
+        List<Map<String,Object>> resultData = dataBaseMapper.executeSelect(this.dynamicSelect(tableSchema, tableName, whereSql, limitSql));
+        for(Map<String,Object> data:resultData){
+            data.remove("row_sequence");
+        }
+        return resultData;
+    }
+
+    /**
+     * 动态生成查询sql
+     * @param tableSchema
+     * @param tableName
+     * @param whereSql
+     * @param limitSql
+     * @return
+     */
+    private String dynamicSelect(String tableSchema, String tableName, String whereSql, String limitSql){
         List<ColumnVO> columnVOS = dataBaseMapper.columnList(tableSchema, tableName);
 
         StringBuilder sql = new StringBuilder("SELECT ");
@@ -54,11 +91,19 @@ public class DataBaseServiceImpl implements DataBaseService {
         if(StringUtils.isNotEmpty(whereSql)){
             sql.append(" WHERE 1 = 1 AND ").append(whereSql);
         }
-
-        List<Map<String,Object>> resultData = dataBaseMapper.executeSelect(sql.toString());
-        for(Map<String,Object> data:resultData){
-            data.remove("row_sequence");
+        if(StringUtils.isNotEmpty(limitSql)){
+            sql.append(" ").append(limitSql);
         }
-        return resultData;
+        return sql.toString();
+    }
+
+    @Override
+    public List<Map<String, Object>> tableDataPage(PageParmaters pageParmaters, String tableSchema, String tableName, String whereSql) {
+        String limitSql = new StringBuilder("LIMIT ")
+                .append((pageParmaters.getPage()-1) * pageParmaters.getLimit())
+                .append(",")
+                .append(pageParmaters.getLimit()).toString();
+        List<Map<String, Object>> tableData = this.tableData(tableSchema, tableName, whereSql, limitSql);
+        return tableData;
     }
 }
