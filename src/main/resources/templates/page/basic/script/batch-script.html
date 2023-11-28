@@ -131,7 +131,7 @@
 
         // 测试连接
         form.on('submit(testConnection)', function (data) {
-            const result = AjaxPost(basicPath + '/test-connect/redis', data.field);
+            const result = AjaxPost(basicPath + '/batch-script/redis/connect', data.field);
             if(result.connected){
                 layer.msg("测试连接成功");
             }else {
