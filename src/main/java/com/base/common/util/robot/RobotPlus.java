@@ -30,6 +30,10 @@ public class RobotPlus extends Robot {
         super.mouseRelease(InputEvent.BUTTON3_MASK);
     }
 
+    /**
+     * 鼠标滚轮滚动
+     * @param wheelAmt 滚轮滚动的量 正数向下滑,负数向上滑
+     */
     public void slipWheel(int wheelAmt){
         try {
             Thread.sleep(500);

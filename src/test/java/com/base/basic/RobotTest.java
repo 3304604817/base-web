@@ -37,7 +37,7 @@ public class RobotTest {
 
         robotPlus.leftClick();
 
-        robotPlus.slipWheel(100);
+        robotPlus.slipWheel(-100);
         System.out.println(1);
     }
 }
