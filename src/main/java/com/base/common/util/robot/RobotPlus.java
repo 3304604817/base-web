@@ -4,7 +4,7 @@ import java.awt.*;
 import java.awt.event.InputEvent;
 
 /**
- * 
+ * Robot 类增强
  */
 public class RobotPlus extends Robot {
     public RobotPlus() throws AWTException {
