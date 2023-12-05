@@ -1,5 +1,6 @@
 package com.base.basic;
 
+import com.base.common.util.robot.RobotPlus;
 import com.base.common.util.robot.ScreenUtil;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -24,11 +25,11 @@ public class RobotTest {
     public void test() throws AWTException, InterruptedException, IOException {
         // 创建Robot类的实例，用于模拟键盘输入
         Robot robot = new Robot();
+        RobotPlus robotPlus = new RobotPlus();
 
         //鼠标右键
         System.out.println("右击");
-        robot.mousePress(InputEvent.BUTTON3_MASK);
-        robot.mouseRelease(InputEvent.BUTTON3_MASK);
+        robotPlus.rightClick();
 
         System.out.println("当前光标坐标");
         int x = MouseInfo.getPointerInfo().getLocation().x;
@@ -36,7 +37,7 @@ public class RobotTest {
         System.out.println("X:" + x + "," + "Y:" + y);
 
         System.out.println("移动光标");
-        robot.mouseMove(1270,710);
+        robot.mouseMove(1270,1070);
 
         System.out.println(1);
     }
