@@ -15,7 +15,23 @@ public class RobotPlus extends Robot {
     }
 
     /**
-     * 鼠标右键
+     * 鼠标左键单击
+     */
+    public void leftClick(){
+        super.mousePress(InputEvent.BUTTON1_MASK);
+        super.mouseRelease(InputEvent.BUTTON1_MASK);
+    }
+
+    /**
+     * 鼠标中间键单击
+     */
+    public void midClick(){
+        super.mousePress(InputEvent.BUTTON2_MASK);
+        super.mouseRelease(InputEvent.BUTTON2_MASK);
+    }
+
+    /**
+     * 鼠标右键单击
      */
     public void rightClick(){
         super.mousePress(InputEvent.BUTTON3_MASK);

@@ -31,9 +31,10 @@ public class RobotTest {
         int y = MouseInfo.getPointerInfo().getLocation().y;
         System.out.println("X:" + x + "," + "Y:" + y);
 
-        System.out.println("移动光标");
+        robotPlus.mouseMovePercent(0.9,0.025);
+        robotPlus.leftClick();
         robotPlus.mouseMovePercent(0.5,0.5);
-
+        robotPlus.midClick();
         System.out.println(1);
     }
 }
