@@ -1,19 +1,27 @@
 package com.base.basic;
 
+import com.base.common.util.robot.ScreenUtil;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.junit4.SpringRunner;
-import sun.awt.image.MultiResolutionImage;
 
+import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.event.InputEvent;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.List;
+
+import static java.util.stream.Collectors.toList;
 
 @RunWith(SpringRunner.class)
 public class RobotTest {
 
     @Test
-    public void test() throws AWTException, InterruptedException {
+    public void test() throws AWTException, InterruptedException, IOException {
         // 创建Robot类的实例，用于模拟键盘输入
         Robot robot = new Robot();
 
@@ -33,5 +41,16 @@ public class RobotTest {
         int width = screenSize.width;
         int height = screenSize.height;
         System.out.println("width:" + width + "," + "height:" + height);
+
+        System.out.println("屏幕长宽");
+        List<Rectangle> rectangles = ScreenUtil.getDisplays();
+
+
+        BufferedImage screenCapture = robot.createScreenCapture(rectangles.get(0));
+
+        ImageIO.write(screenCapture,"png", new File("C:\\Users\\yang.gao11\\Downloads\\888888.png"));
+
+
+        System.out.println(1);
     }
 }
