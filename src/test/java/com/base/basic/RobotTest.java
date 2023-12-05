@@ -39,10 +39,7 @@ public class RobotTest {
         robot.mouseMove(1910,1070);
 
         System.out.println("屏幕长宽");
-        Toolkit toolkit = Toolkit.getDefaultToolkit();
-        Dimension screenSize = toolkit.getScreenSize();
-        int width = screenSize.width;
-        int height = screenSize.height;
+        System.out.println("width:" + ScreenUtil.getInstance().getCurrentWidth() + "," + "height:" + ScreenUtil.getInstance().getCurrentHeight());
 
 
         System.out.println("屏幕长宽");

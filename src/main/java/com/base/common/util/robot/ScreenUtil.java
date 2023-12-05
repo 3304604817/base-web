@@ -14,6 +14,8 @@ public class ScreenUtil {
      */
     private List<Rectangle> rectangles = getDisplays();
 
+    Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+
     public static ScreenUtil getInstance(){
         return new ScreenUtil();
     }
@@ -35,14 +37,35 @@ public class ScreenUtil {
                 .collect(toList());
     }
 
+    /**
+     * 获取屏幕原始宽度
+     * @return
+     */
     public double getWidth() {
         return rectangles.get(0).getWidth();
     }
 
+    /**
+     * 获取屏幕原始高度
+     * @return
+     */
     public double getHeight() {
         return rectangles.get(0).getHeight();
     }
 
+    /**
+     * 获取当前屏幕缩放后宽度
+     */
+    public double getCurrentWidth() {
+        return screenSize.getHeight();
+    }
+
+    /**
+     * 获取当前屏幕缩放后高度
+     */
+    public double getCurrentHeight() {
+        return screenSize.getWidth();
+    }
 
 
     /**
@@ -55,5 +78,13 @@ public class ScreenUtil {
 
     public void setRectangles(List<Rectangle> rectangles) {
         this.rectangles = rectangles;
+    }
+
+    public Dimension getScreenSize() {
+        return screenSize;
+    }
+
+    public void setScreenSize(Dimension screenSize) {
+        this.screenSize = screenSize;
     }
 }
