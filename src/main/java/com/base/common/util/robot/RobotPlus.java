@@ -23,19 +23,20 @@ public class RobotPlus extends Robot {
     }
 
     /**
-     * 鼠标中间键单击
-     */
-    public void midClick(){
-        super.mousePress(InputEvent.BUTTON2_MASK);
-        super.mouseRelease(InputEvent.BUTTON2_MASK);
-    }
-
-    /**
      * 鼠标右键单击
      */
     public void rightClick(){
         super.mousePress(InputEvent.BUTTON3_MASK);
         super.mouseRelease(InputEvent.BUTTON3_MASK);
+    }
+
+    public void slipWheel(int wheelAmt){
+        try {
+            Thread.sleep(500);
+            super.mouseWheel(wheelAmt);
+        } catch (InterruptedException e) {
+            System.out.println(e);
+        }
     }
 
     /**

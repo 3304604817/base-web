@@ -34,7 +34,10 @@ public class RobotTest {
         robotPlus.mouseMovePercent(0.9,0.025);
         robotPlus.leftClick();
         robotPlus.mouseMovePercent(0.5,0.5);
-        robotPlus.midClick();
+
+        robotPlus.leftClick();
+
+        robotPlus.slipWheel(100);
         System.out.println(1);
     }
 }
