@@ -36,20 +36,7 @@ public class RobotTest {
         System.out.println("X:" + x + "," + "Y:" + y);
 
         System.out.println("移动光标");
-        robot.mouseMove(1910,1070);
-
-        System.out.println("屏幕长宽");
-        System.out.println("width:" + ScreenUtil.getInstance().getCurrentWidth() + "," + "height:" + ScreenUtil.getInstance().getCurrentHeight());
-
-
-        System.out.println("屏幕长宽");
-        System.out.println("width:" + ScreenUtil.getInstance().getWidth() + "," + "height:" + ScreenUtil.getInstance().getHeight());
-
-
-        BufferedImage screenCapture = robot.createScreenCapture(ScreenUtil.getInstance().getRectangles().get(0));
-
-        ImageIO.write(screenCapture,"png", new File("C:\\Users\\yang.gao11\\Downloads\\888888.png"));
-
+        robot.mouseMove(1270,710);
 
         System.out.println(1);
     }

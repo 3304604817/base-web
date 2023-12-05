@@ -7,6 +7,10 @@ import java.util.List;
 
 import static java.util.stream.Collectors.toList;
 
+/**
+ * 屏幕工具类
+ * @author yang.gao
+ */
 public class ScreenUtil {
 
     /**
@@ -57,14 +61,14 @@ public class ScreenUtil {
      * 获取当前屏幕缩放后宽度
      */
     public double getCurrentWidth() {
-        return screenSize.getHeight();
+        return screenSize.getWidth();
     }
 
     /**
      * 获取当前屏幕缩放后高度
      */
     public double getCurrentHeight() {
-        return screenSize.getWidth();
+        return screenSize.getHeight();
     }
 
 
