@@ -9,7 +9,20 @@ import static java.util.stream.Collectors.toList;
 
 public class ScreenUtil {
 
-    public static List<Rectangle> getDisplays() {
+    /**
+     * 所有显示器信息
+     */
+    private List<Rectangle> rectangles = getDisplays();
+
+    public static ScreenUtil getInstance(){
+        return new ScreenUtil();
+    }
+
+    /**
+     * 获取所有显示器
+     * @return
+     */
+    public List<Rectangle> getDisplays() {
         return Arrays.stream(GraphicsEnvironment.getLocalGraphicsEnvironment().getScreenDevices())
                 .map(GraphicsDevice::getDefaultConfiguration)
                 // For scaled sizes use .map(GraphicsConfiguration::getBounds) instead of:
@@ -20,5 +33,27 @@ public class ScreenUtil {
                 })
                 .sorted(Comparator.comparing(Rectangle::getX))
                 .collect(toList());
+    }
+
+    public double getWidth() {
+        return rectangles.get(0).getWidth();
+    }
+
+    public double getHeight() {
+        return rectangles.get(0).getHeight();
+    }
+
+
+
+    /**
+     * getters/setters
+     */
+
+    public List<Rectangle> getRectangles() {
+        return rectangles;
+    }
+
+    public void setRectangles(List<Rectangle> rectangles) {
+        this.rectangles = rectangles;
     }
 }

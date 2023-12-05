@@ -35,18 +35,21 @@ public class RobotTest {
         int y = MouseInfo.getPointerInfo().getLocation().y;
         System.out.println("X:" + x + "," + "Y:" + y);
 
+        System.out.println("移动光标");
+        robot.mouseMove(1910,1070);
+
         System.out.println("屏幕长宽");
         Toolkit toolkit = Toolkit.getDefaultToolkit();
         Dimension screenSize = toolkit.getScreenSize();
         int width = screenSize.width;
         int height = screenSize.height;
-        System.out.println("width:" + width + "," + "height:" + height);
+
 
         System.out.println("屏幕长宽");
-        List<Rectangle> rectangles = ScreenUtil.getDisplays();
+        System.out.println("width:" + ScreenUtil.getInstance().getWidth() + "," + "height:" + ScreenUtil.getInstance().getHeight());
 
 
-        BufferedImage screenCapture = robot.createScreenCapture(rectangles.get(0));
+        BufferedImage screenCapture = robot.createScreenCapture(ScreenUtil.getInstance().getRectangles().get(0));
 
         ImageIO.write(screenCapture,"png", new File("C:\\Users\\yang.gao11\\Downloads\\888888.png"));
 
