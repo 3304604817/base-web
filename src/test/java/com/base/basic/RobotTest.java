@@ -38,6 +38,10 @@ public class RobotTest {
         robotPlus.leftClick();
 
         robotPlus.slipWheel(-100);
+
+        BufferedImage image = robotPlus.screenshot();
+        File outputfile = new File("C:\\Users\\yang.gao11\\Downloads\\image.png");
+        ImageIO.write(image, "png", outputfile);
         System.out.println(1);
     }
 }

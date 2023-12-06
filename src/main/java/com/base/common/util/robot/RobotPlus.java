@@ -2,6 +2,7 @@ package com.base.common.util.robot;
 
 import java.awt.*;
 import java.awt.event.InputEvent;
+import java.awt.image.BufferedImage;
 
 /**
  * Robot 类增强
@@ -35,12 +36,8 @@ public class RobotPlus extends Robot {
      * @param wheelAmt 滚轮滚动的量 正数向下滑,负数向上滑
      */
     public void slipWheel(int wheelAmt){
-        try {
-            Thread.sleep(500);
-            super.mouseWheel(wheelAmt);
-        } catch (InterruptedException e) {
-            System.out.println(e);
-        }
+        super.delay(1000);
+        super.mouseWheel(wheelAmt);
     }
 
     /**
@@ -56,5 +53,16 @@ public class RobotPlus extends Robot {
         double x = screenSize.getWidth() * xPercent;
         double y = screenSize.getHeight() * yPercent;
         super.mouseMove((int)x,(int)y);
+    }
+
+    /**
+     * 获取当前屏幕截图
+     * @return BufferedImage
+     */
+    public BufferedImage screenshot(){
+        // 获取屏幕参数信息
+        ScreenUtil screenUtil = ScreenUtil.getInstance();
+        Rectangle screenRect = new Rectangle((int)screenUtil.getWidth(), (int)screenUtil.getHeight());
+        return super.createScreenCapture(screenRect);
     }
 }
