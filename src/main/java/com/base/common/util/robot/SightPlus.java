@@ -19,8 +19,13 @@ public class SightPlus {
         for (int i = 0; i < image.getWidth(); i++) {
             for (int j = 0; j < image.getHeight(); j++) {
                 Color color = new Color(binaryImage.getRGB(i, j));
+
+                // 转灰
                 double gray = color.getRGB() * 0.299 + color.getGreen() * 0.587 + color.getBlue() * 0.114;
+                color.getAlpha();
                 binaryImage.setRGB(i, j, (int)gray);
+
+                // 转为黑白
 //                if (color.getRed() < 120) {
 //                    binaryImage.setRGB(i, j, Color.BLACK.getRGB());
 //                } else {
