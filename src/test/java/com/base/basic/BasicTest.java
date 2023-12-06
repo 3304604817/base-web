@@ -11,5 +11,12 @@ public class BasicTest {
 
     @Test
     public void test(){
+        System.out.println("--------------------------------------------------");
+
+
+        System.out.println(5 & 3);
+
+
+        System.out.println("--------------------------------------------------");
     }
 }

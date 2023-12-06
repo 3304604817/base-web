@@ -42,13 +42,13 @@ public class RobotTest {
         robotPlus.slipWheel(-100);
 
         BufferedImage image = robotPlus.screenshot();
-        File outputfile = new File("C:\\Users\\yang.gao11\\Downloads\\image.png");
-        ImageIO.write(image, "png", outputfile);
+        File outputfile = new File("C:\\Users\\yang.gao11\\Downloads\\image.jpg");
+        ImageIO.write(image, "jpg", outputfile);
 
 
         BufferedImage binaryImage = sightPlus.binaryImage(image);
-        File binaryoutputfile = new File("C:\\Users\\yang.gao11\\Downloads\\binaryImage.png");
-        ImageIO.write(binaryImage, "png", binaryoutputfile);
+        File binaryoutputfile = new File("C:\\Users\\yang.gao11\\Downloads\\binaryImage.jpg");
+        ImageIO.write(binaryImage, "jpg", binaryoutputfile);
         System.out.println(1);
     }
 }

@@ -3,6 +3,8 @@ package com.base.common.util.robot;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
+import static com.jhlabs.image.ImageUtils.getRGB;
+
 public class SightPlus {
 
     /**
@@ -17,11 +19,13 @@ public class SightPlus {
         for (int i = 0; i < image.getWidth(); i++) {
             for (int j = 0; j < image.getHeight(); j++) {
                 Color color = new Color(binaryImage.getRGB(i, j));
-                if (color.getRed() < 120) {
-                    binaryImage.setRGB(i, j, Color.BLACK.getRGB());
-                } else {
-                    binaryImage.setRGB(i, j, Color.WHITE.getRGB());
-                }
+                double gray = color.getRGB() * 0.299 + color.getGreen() * 0.587 + color.getBlue() * 0.114;
+                binaryImage.setRGB(i, j, (int)gray);
+//                if (color.getRed() < 120) {
+//                    binaryImage.setRGB(i, j, Color.BLACK.getRGB());
+//                } else {
+//                    binaryImage.setRGB(i, j, Color.WHITE.getRGB());
+//                }
             }
         }
         return binaryImage;
