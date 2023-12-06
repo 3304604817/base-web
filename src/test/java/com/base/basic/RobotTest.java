@@ -2,6 +2,7 @@ package com.base.basic;
 
 import com.base.common.util.robot.RobotPlus;
 import com.base.common.util.robot.ScreenUtil;
+import com.base.common.util.robot.SightPlus;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -25,6 +26,7 @@ public class RobotTest {
     public void test() throws AWTException, InterruptedException, IOException {
         // 创建Robot类的实例，用于模拟键盘输入
         RobotPlus robotPlus = new RobotPlus();
+        SightPlus sightPlus = new SightPlus();
 
         System.out.println("当前光标坐标");
         int x = MouseInfo.getPointerInfo().getLocation().x;
@@ -42,6 +44,11 @@ public class RobotTest {
         BufferedImage image = robotPlus.screenshot();
         File outputfile = new File("C:\\Users\\yang.gao11\\Downloads\\image.png");
         ImageIO.write(image, "png", outputfile);
+
+
+        BufferedImage binaryImage = sightPlus.binaryImage(image);
+        File binaryoutputfile = new File("C:\\Users\\yang.gao11\\Downloads\\binaryImage.png");
+        ImageIO.write(binaryImage, "png", binaryoutputfile);
         System.out.println(1);
     }
 }
