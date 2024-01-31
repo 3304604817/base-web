@@ -14,7 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-@Api(tags="接口管理")
+@Api(tags="外部系统接口管理")
 @RestController
 @RequestMapping("/interface")
 public class InterfaceController {
