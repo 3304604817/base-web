@@ -76,3 +76,9 @@ minio:
   access-key: gaoyang
   secret-key: gaoyang@123
   bucket-name: private
+translate:
+  # 百度翻译API认证
+  baidu:
+    url: ${SPRING_TRANSLATE_BAIDU_URL:https://fanyi-api.baidu.com/api/trans/vip/translate}
+    app-id: ${SPRING_TRANSLATE_BAIDU_APP_ID:20221120001462114}
+    secret-key: ${SPRING_TRANSLATE_BAIDU_SECRET_KEY:87ghy8VKMd0cOOVUQto4}
