@@ -24,6 +24,10 @@ public class TranslationController {
     @Autowired
     private TranslationService translationService;
 
+    /**
+     * 翻译一句话
+     * 翻译源/目标语言: zh/en
+     */
     @ApiOperation(value = "翻译一句话")
     @PostMapping("/language")
     public ResponseEntity<String> language(
