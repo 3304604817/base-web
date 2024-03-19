@@ -1,5 +1,6 @@
 package com.base.basic.app.service.impl;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.base.basic.app.service.TranslationService;
 import com.base.common.util.http.RestfulResponse;
@@ -54,6 +55,6 @@ public class TranslationServiceImpl implements TranslationService {
             throw new Exception(response.getResponseBody());
         }
         JSONObject jsonObject = JSONObject.parseObject(response.getResponseBody());
-        return jsonObject.getString("dst");
+        return jsonObject.getJSONArray("trans_result").getJSONObject(0).getString("dst");
     }
 }
