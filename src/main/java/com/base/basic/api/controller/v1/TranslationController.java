@@ -1,16 +1,14 @@
 package com.base.basic.api.controller.v1;
 
 import com.base.basic.app.service.TranslationService;
-import com.base.basic.domain.entity.v1.Role;
+import com.base.common.annotation.Access;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 /**
  * 基于百度翻译API
@@ -30,6 +28,7 @@ public class TranslationController {
      */
     @ApiOperation(value = "翻译一句话")
     @PostMapping("/language")
+    @Access(accessNoToken = true)
     public ResponseEntity<String> language(
             @ApiParam(value="翻译源语言") @RequestParam(required = false, defaultValue = "auto", value = "from") String from,
             @ApiParam(value="翻译目标语言", required = true) @RequestParam("to") String to,

@@ -50,7 +50,7 @@ public class TranslationServiceImpl implements TranslationService {
 
         Map<String, String> headerVariables = new HashMap<>();
         headerVariables.put("Content-Type", "application/x-www-form-urlencoded");
-        RestfulResponse response = RestfulUtil.httpPost(url, requestParams, null, q, RestfulUtil.UTF8_CHARSET);
+        RestfulResponse response = RestfulUtil.httpPost(url, requestParams, headerVariables, q, RestfulUtil.UTF8_CHARSET);
         if (response.getCode() != 200) {
             throw new Exception(response.getResponseBody());
         }
