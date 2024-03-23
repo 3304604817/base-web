@@ -57,7 +57,7 @@ public class WordServiceImpl implements WordService {
                 List<XWPFTableCell> twoCells = twoRow.getTableCells();
                 for(int k = 0; k < oneCells.size(); k++){
                     // 获取单元格里面的段落
-                    XWPFParagraph paragraph = oneCells.get(k).getParagraphs().get(0);
+                    XWPFParagraph paragraph = oneCells.get(k).getParagraphs().get(oneCells.get(k).getParagraphs().size()-1);
                     paragraph.createRun().addBreak();
                     paragraph.createRun().setText(twoCells.get(k).getText());
                 }
