@@ -46,7 +46,7 @@ public class TranslationServiceImpl implements TranslationService {
 
         ResponseEntity<String> postResult = restTemplate.postForEntity(uri, null, String.class);
         logger.info("postResult {}", JSON.toJSONString(postResult));
-        if (HttpStatus.OK.equals(postResult.getStatusCode())) {
+        if (!HttpStatus.OK.equals(postResult.getStatusCode())) {
             throw new Exception(postResult.getBody());
         }
         JSONObject jsonObject = JSONObject.parseObject(postResult.getBody());
