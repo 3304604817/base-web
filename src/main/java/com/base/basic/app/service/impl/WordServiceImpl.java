@@ -36,33 +36,30 @@ public class WordServiceImpl implements WordService {
         for(int i = 0; i < notNullOneParagraphs.size(); i++){
             // 添加换行
             notNullOneParagraphs.get(i).createRun().addBreak();
-
-            for (int j = 0; j < notNullTwoParagraphs.get(i).getRuns().size(); j++) {
-                notNullOneParagraphs.get(i).createRun().setText(notNullTwoParagraphs.get(i).getText());
-            }
+            // 把文档2的段落追加到文档1中
+            notNullOneParagraphs.get(i).createRun().setText(notNullTwoParagraphs.get(i).getText());
         }
-//        for (XWPFParagraph para : oneParagraphs) {
-//            String text = para.getText();
-//            logger.info(text);
-//            if (text != null && text.contains("oldText")) {
-//                text = text.replace("oldText", "newText");
-//                para.removeRun(0); // 移除原有的Run内容
-//                para.createRun().setText(text); // 创建新的Run并设置修改后的文本
-//            }
-//        }
 
         /**
          * 遍历文档中的所有表格进行操作
          */
-        List<XWPFTable> tables = oneDocument.getTables();
         // 一个 XWPFTable 就是 Word 中的一个表格
-        for (XWPFTable table : tables) {
-            int count = table.getNumberOfRows();
-            for (int i = 0; i < count; i++) {
-                XWPFTableRow row = table.getRow(i);
-                List<XWPFTableCell> cells = row.getTableCells();
-                for (XWPFTableCell cell : cells) {
-                    logger.info(cell.getText());
+        List<XWPFTable> oneTables = oneDocument.getTables();
+        List<XWPFTable> twoTables = twoDocument.getTables();
+        for(int i = 0; i < oneTables.size(); i++){
+            // 获取第 i 个表格
+            XWPFTable oneTable = oneTables.get(i);
+            XWPFTable twoTable = twoTables.get(i);
+            for(int j = 0; j < oneTable.getNumberOfRows(); j++){
+                XWPFTableRow oneRow = oneTable.getRow(j);
+                XWPFTableRow twoRow = twoTable.getRow(j);
+                List<XWPFTableCell> oneCells = oneRow.getTableCells();
+                List<XWPFTableCell> twoCells = twoRow.getTableCells();
+                for(int k = 0; k < oneCells.size(); k++){
+                    // 获取单元格里面的段落
+                    XWPFParagraph paragraph = oneCells.get(k).getParagraphs().get(0);
+                    paragraph.createRun().addBreak();
+                    paragraph.createRun().setText(twoCells.get(k).getText());
                 }
             }
         }
