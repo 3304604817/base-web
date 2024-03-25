@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -30,10 +31,10 @@ public class WordServiceImpl implements WordService {
         List<XWPFParagraph> oneParagraphs = oneDocument.getParagraphs();
         List<XWPFParagraph> twoParagraphs = twoDocument.getParagraphs();
         // 提取两个文本的非空段落
-        List<XWPFParagraph> notNullOneParagraphs = oneParagraphs.stream().filter(para -> para.getText() != null && !para.getText().isEmpty()).collect(Collectors.toList());
-        List<XWPFParagraph> notNullTwoParagraphs = twoParagraphs.stream().filter(para -> para.getText() != null && !para.getText().isEmpty()).collect(Collectors.toList());
+        List<XWPFParagraph> notNullOneParagraphs = oneParagraphs.stream().filter(para -> para.getText() != null && !para.getText().isEmpty() && !para.getText().equals("\n")).collect(Collectors.toList());
+        List<XWPFParagraph> notNullTwoParagraphs = twoParagraphs.stream().filter(para -> para.getText() != null && !para.getText().isEmpty() && !para.getText().equals("\n")).collect(Collectors.toList());
         // 循环第一个文档，把第二个文档合并到第一个文档中
-        for(int i = 0; i < notNullOneParagraphs.size(); i++){
+        for(int i = 0; i < notNullOneParagraphs.size() && i < notNullTwoParagraphs.size(); i++){
             // 添加换行
             notNullOneParagraphs.get(i).createRun().addBreak();
             // 把文档2的段落追加到文档1中
