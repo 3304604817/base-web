@@ -27,8 +27,8 @@ public class WordController {
     @Access(accessNoToken = true)
     public ResponseEntity mergeTwoLanguage(
             HttpServletResponse response,
-            @ApiParam(value="英文文件", required = true) @RequestPart("langeOneFile") MultipartFile langeOneFile,
-            @ApiParam(value="中文文件", required = true) @RequestPart("langeTwoFile") MultipartFile langeTwoFile) throws IOException {
+            @ApiParam(value="文件一", required = true) @RequestPart("langeOneFile") MultipartFile langeOneFile,
+            @ApiParam(value="文件二", required = true) @RequestPart("langeTwoFile") MultipartFile langeTwoFile) throws IOException {
         wordService.mergeTwoLanguage(response, langeOneFile, langeTwoFile);
         return new ResponseEntity(HttpStatus.OK);
     }
