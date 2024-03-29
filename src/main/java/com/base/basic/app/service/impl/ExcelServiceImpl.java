@@ -2,10 +2,7 @@ package com.base.basic.app.service.impl;
 
 import com.base.basic.app.service.ExcelService;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -37,8 +34,12 @@ public class ExcelServiceImpl implements ExcelService {
                     Cell cell1 = row1.getCell(j);
                     Cell cell2 = row2.getCell(j);
 
-                    if(StringUtils.isNotEmpty(cell1.getStringCellValue())){
-                        cell1.setCellValue(cell1.getStringCellValue() + "\n" + cell2.getStringCellValue());
+                    if(null != cell1){
+                        if(cell1.getCellType() == CellType.NUMERIC){
+                            cell1.setCellValue(cell1.getNumericCellValue() + "\n" + cell2.getNumericCellValue());
+                        }else if(cell1.getCellType() == CellType.STRING && StringUtils.isNotEmpty(cell1.getStringCellValue())){
+                            cell1.setCellValue(cell1.getStringCellValue() + "\n" + cell2.getStringCellValue());
+                        }
                     }
                 }
             }
