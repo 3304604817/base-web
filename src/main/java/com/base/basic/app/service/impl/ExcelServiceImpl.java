@@ -36,6 +36,7 @@ public class ExcelServiceImpl implements ExcelService {
 
                     if(null != cell1){
                         if(cell1.getCellType() == CellType.NUMERIC){
+                            // 数字不合并
 //                            cell1.setCellValue(cell1.getNumericCellValue() + "\n" + cell2.getNumericCellValue());
                         }else if(cell1.getCellType() == CellType.STRING && StringUtils.isNotEmpty(cell1.getStringCellValue())){
                             cell1.setCellValue(cell1.getStringCellValue() + "\n" + cell2.getStringCellValue());
