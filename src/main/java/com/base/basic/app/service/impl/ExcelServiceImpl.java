@@ -1,6 +1,7 @@
 package com.base.basic.app.service.impl;
 
 import com.base.basic.app.service.ExcelService;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -29,14 +30,16 @@ public class ExcelServiceImpl implements ExcelService {
 
             // 遍历 sheet 页行
             for(int i = 0; i < oneSheet.getPhysicalNumberOfRows(); i++){
-                Row row = oneSheet.getRow(i);
+                Row row1 = oneSheet.getRow(i);
+                Row row2 = twoSheet.getRow(i);
                 // 遍历行的每个单元格
-                for(int j = 0; j < row.getPhysicalNumberOfCells(); j++){
-                    Cell cell1 = row.getCell(j);
-                    Cell cell2 = twoSheet.getRow(i).getCell(j);
+                for(int j = 0; j < row1.getPhysicalNumberOfCells(); j++){
+                    Cell cell1 = row1.getCell(j);
+                    Cell cell2 = row2.getCell(j);
 
-
-                    cell1.setCellValue(cell1.getStringCellValue() + "\n" + cell2.getStringCellValue());
+                    if(StringUtils.isNotEmpty(cell1.getStringCellValue())){
+                        cell1.setCellValue(cell1.getStringCellValue() + "\n" + cell2.getStringCellValue());
+                    }
                 }
             }
         }
