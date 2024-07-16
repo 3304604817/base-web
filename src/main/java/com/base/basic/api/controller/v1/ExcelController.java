@@ -8,10 +8,7 @@ import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestPart;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
@@ -33,6 +30,17 @@ public class ExcelController {
             @ApiParam(value="文件一", required = true) @RequestPart("langeOneFile") MultipartFile langeOneFile,
             @ApiParam(value="文件二", required = true) @RequestPart("langeTwoFile") MultipartFile langeTwoFile) throws IOException {
         excelService.mergeTwoLanguage(response, langeOneFile, langeTwoFile);
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
+    @ApiOperation(value = "数据转化")
+    @PostMapping("/merge/conver")
+    @Access(accessNoToken = true)
+    public ResponseEntity dataConver(
+            HttpServletResponse response,
+            @ApiParam(value="文件", required = true) @RequestPart("file") MultipartFile file,
+            @ApiParam(value="要处理的Sheet页") @RequestParam(value = "path", required = false) Integer sheetIndex) throws IOException {
+        excelService.dataConver(response, file, sheetIndex);
         return new ResponseEntity(HttpStatus.OK);
     }
 }
