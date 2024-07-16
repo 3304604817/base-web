@@ -17,10 +17,12 @@ public interface ExcelService {
     void mergeTwoLanguage(HttpServletResponse response, MultipartFile langeOneFile, MultipartFile langeTwoFile) throws IOException;
 
     /**
-     * 数据转化
+     * 数据转换
      * @param response
      * @param file
+     * @param sheetIndex
+     * @param regex 去除的正则表达式
      * @throws IOException
      */
-    void dataConver(HttpServletResponse response, MultipartFile file, Integer sheetIndex) throws IOException;
+    void dataConver(HttpServletResponse response, MultipartFile file, Integer sheetIndex, String regex, Integer startX, Integer startY, Integer endX, Integer endY) throws IOException;
 }

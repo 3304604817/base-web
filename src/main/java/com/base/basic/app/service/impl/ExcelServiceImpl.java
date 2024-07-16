@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.Objects;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 @Service
@@ -67,7 +69,9 @@ public class ExcelServiceImpl implements ExcelService {
     }
 
     @Override
-    public void dataConver(HttpServletResponse response, MultipartFile file, Integer sheetIndex) throws IOException {
+    public void dataConver(HttpServletResponse response, MultipartFile file, Integer sheetIndex, String regex, Integer startX, Integer startY, Integer endX, Integer endY) throws IOException {
+        Pattern pattern = Pattern.compile(regex);
+
         String fileName = file.getOriginalFilename();
         String suffix = fileName.substring(fileName.lastIndexOf('.')).toLowerCase();
         Workbook workbook = ".xls".equals(suffix) ? new HSSFWorkbook(file.getInputStream()) : new HSSFWorkbook(file.getInputStream());
@@ -83,21 +87,31 @@ public class ExcelServiceImpl implements ExcelService {
             // 遍历 sheet 页行
             for(int i = 0; i < sheet.getPhysicalNumberOfRows(); i++){
                 Row row = sheet.getRow(i);
-                // 遍历行的每个单元格\
+                // 遍历行的每个单元格
                 if(null == row) continue;
                 for(int j = 0; j < row.getPhysicalNumberOfCells(); j++){
                     Cell cell = row.getCell(j);
 
-                    if(null != cell){
+                    if(null != cell && i >= startY && i <= endY && j >= startX && j <= endX){
                         if(cell.getCellType() == CellType.NUMERIC){
-                            // 数字不合并
-//                            cell1.setCellValue(cell1.getNumericCellValue() + "\n" + cell2.getNumericCellValue());
+                            // 数字不处理
                         }else if(cell.getCellType() == CellType.STRING && StringUtils.isNotEmpty(cell.getStringCellValue())){
-//                            cell.setCellValue(cell.getStringCellValue() + "\n" + cell.getStringCellValue());
+                            cell.setCellValue(pattern.matcher(cell.getStringCellValue()).replaceAll(""));
                         }
                     }
                 }
             }
+        }
+
+        response.setContentType("application/octet-stream");
+        response.setHeader("Content-Disposition", "attachment; filename=Excel.xlsx");
+        try (OutputStream outputStream = response.getOutputStream()) {
+            workbook.write(outputStream);
+            outputStream.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }finally {
+            workbook.close();
         }
     }
 }

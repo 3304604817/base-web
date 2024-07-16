@@ -39,8 +39,13 @@ public class ExcelController {
     public ResponseEntity dataConver(
             HttpServletResponse response,
             @ApiParam(value="文件", required = true) @RequestPart("file") MultipartFile file,
-            @ApiParam(value="要处理的Sheet页") @RequestParam(value = "path", required = false) Integer sheetIndex) throws IOException {
-        excelService.dataConver(response, file, sheetIndex);
+            @ApiParam(value="要处理的Sheet页") @RequestParam(value = "path", required = false) Integer sheetIndex,
+            @ApiParam(value="正则表达式") @RequestParam(value = "regex") String regex,
+            @ApiParam(value="起始坐标轴X") @RequestParam(value = "regex", required = false) Integer startX,
+            @ApiParam(value="起始坐标轴Y") @RequestParam(value = "regex", required = false) Integer startY,
+            @ApiParam(value="终止坐标轴X") @RequestParam(value = "regex", required = false) Integer endX,
+            @ApiParam(value="终止坐标轴Y") @RequestParam(value = "regex", required = false) Integer endY) throws IOException {
+        excelService.dataConver(response, file, sheetIndex, regex, startX, startY, endX, endY);
         return new ResponseEntity(HttpStatus.OK);
     }
 }
