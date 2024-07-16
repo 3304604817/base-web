@@ -40,12 +40,12 @@ public class ExcelController {
             HttpServletResponse response,
             @ApiParam(value="文件", required = true) @RequestPart("file") MultipartFile file,
             @ApiParam(value="要处理的Sheet页") @RequestParam(value = "path", required = false) Integer sheetIndex,
-            @ApiParam(value="正则表达式") @RequestParam(value = "regex") String regex,
-            @ApiParam(value="起始坐标轴X") @RequestParam(value = "regex", required = false) Integer startX,
-            @ApiParam(value="起始坐标轴Y") @RequestParam(value = "regex", required = false) Integer startY,
-            @ApiParam(value="终止坐标轴X") @RequestParam(value = "regex", required = false) Integer endX,
-            @ApiParam(value="终止坐标轴Y") @RequestParam(value = "regex", required = false) Integer endY) throws IOException {
-        excelService.dataConver(response, file, sheetIndex, regex, startX, startY, endX, endY);
+            @ApiParam(value="正则表达式", required = true) @RequestParam(value = "regex") String regex,
+            @ApiParam(value="起始坐标轴X") @RequestParam(value = "startX", required = false) Integer startX,
+            @ApiParam(value="起始坐标轴Y") @RequestParam(value = "startY", required = false) Integer startY,
+            @ApiParam(value="终止坐标轴X") @RequestParam(value = "endX", required = false) Integer endX,
+            @ApiParam(value="终止坐标轴Y") @RequestParam(value = "endY", required = false) Integer endY) throws IOException {
+        excelService.dataConver(response, file, sheetIndex, regex, startX-1, startY-1, endX-1, endY-1);
         return new ResponseEntity(HttpStatus.OK);
     }
 }

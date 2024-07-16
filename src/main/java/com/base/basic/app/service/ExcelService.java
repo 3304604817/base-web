@@ -21,7 +21,7 @@ public interface ExcelService {
      * @param response
      * @param file
      * @param sheetIndex
-     * @param regex 去除的正则表达式
+     * @param regex 去除的正则表达式  字母匹配：[a-zA-Z]  空格匹配：\s
      * @throws IOException
      */
     void dataConver(HttpServletResponse response, MultipartFile file, Integer sheetIndex, String regex, Integer startX, Integer startY, Integer endX, Integer endY) throws IOException;

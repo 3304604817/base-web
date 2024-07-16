@@ -56,7 +56,7 @@ public class ExcelServiceImpl implements ExcelService {
         }
 
         response.setContentType("application/octet-stream");
-        response.setHeader("Content-Disposition", "attachment; filename=Excel.xlsx");
+        response.setHeader("Content-Disposition", "attachment; filename=Excel" + oneSuffix);
         try (OutputStream outputStream = response.getOutputStream()) {
             oneWorkbook.write(outputStream);
             outputStream.flush();
@@ -104,7 +104,7 @@ public class ExcelServiceImpl implements ExcelService {
         }
 
         response.setContentType("application/octet-stream");
-        response.setHeader("Content-Disposition", "attachment; filename=Excel.xlsx");
+        response.setHeader("Content-Disposition", "attachment; filename=Excel" + suffix);
         try (OutputStream outputStream = response.getOutputStream()) {
             workbook.write(outputStream);
             outputStream.flush();
