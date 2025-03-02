@@ -2,11 +2,11 @@ echo ">>> 刷新环境变量"
 source /etc/profile
 
 # 指定后端目录/jar包名为app/端口号
-dirName='base'
+dirName='base-web'
 port=80
 
 echo ">>> 定位服务位置"
-cd /home/app/baseapp/$dirName
+cd /data/webapp/$dirName
 
 echo ">>> 保留历史日志到项目根目录"
 mv ./target/base-web.log base-web-`date "+%Y-%m-%d-%H:%M:%S"`.log
@@ -33,4 +33,4 @@ echo ">>> cd target"
 cd target
 
 echo ">>> start"
-nohup java -jar -Xms512m -Xmx1024m /home/app/baseapp/$dirName/target/base-web-run.jar > base-web.log &
+nohup java -jar -Xms512m -Xmx1024m /data/webapp/$dirName/target/base-web-run.jar > base-web.log &
