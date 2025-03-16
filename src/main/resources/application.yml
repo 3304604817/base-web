@@ -7,7 +7,7 @@ spring:
   application:
     name: base
   datasource:
-    url: ${SPRING_DATASOURCE_URL:jdbc:mysql://localhost:3306/db_base?useUnicode=true&characterEncoding=utf-8&useSSL=false}
+    url: ${SPRING_DATASOURCE_URL:jdbc:mysql://192.168.8.104:3306/db_base?useUnicode=true&characterEncoding=utf-8&useSSL=false}
     username: ${SPRING_DATASOURCE_USERNAME:root}
     password: ${SPRING_DATASOURCE_PASSWORD:root@123456}
     hikari:
@@ -46,8 +46,8 @@ spring:
     prefix: classpath:/templates/
     suffix: .html
   mail:
-    username: ${SPRING_MAIL_URL:xxx@qq.com}
-    password: zyzxisbfoyrbdajg
+    username: ${SPRING_MAIL_URL:3304604817@qq.com}
+    password: pcmbyzjmbeznchhg
     host: smtp.qq.com
     properties:
       mail:
